@@ -141,7 +141,7 @@ public class AddFournisseur extends JFrame {
 		
 		tfcodepostal = new JTextField();
 		tfcodepostal.addKeyListener(new KeyAdapter() {
-			@Override
+			
 			public void keyTyped(KeyEvent evt) {
 				char c=evt.getKeyChar();
 				if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
@@ -203,7 +203,7 @@ public class AddFournisseur extends JFrame {
 		
 		tftelportabl = new JTextField();
 		tftelportabl.addKeyListener(new KeyAdapter() {
-			@Override
+		
 			public void keyTyped(KeyEvent evt) {
 				char c=evt.getKeyChar();
 				if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
@@ -222,7 +222,7 @@ public class AddFournisseur extends JFrame {
 		
 		tftelfix = new JTextField();
 		tftelfix.addKeyListener(new KeyAdapter() {
-			@Override
+			
 			public void keyTyped(KeyEvent e) {
 				char c=e.getKeyChar();
 				if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
@@ -241,7 +241,7 @@ public class AddFournisseur extends JFrame {
 		
 		tffax = new JTextField();
 		tffax.addKeyListener(new KeyAdapter() {
-			@Override
+			
 			public void keyTyped(KeyEvent e) {
 				char c=e.getKeyChar();
 				if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||

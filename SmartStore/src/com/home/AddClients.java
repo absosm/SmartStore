@@ -164,7 +164,7 @@ public class AddClients extends JFrame {
 			
 			tfcodepostal = new JTextField();
 			tfcodepostal.addKeyListener(new KeyAdapter() {
-				@Override
+			
 				public void keyTyped(KeyEvent evt) {
 					char c=evt.getKeyChar();
 					if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
@@ -226,7 +226,7 @@ public class AddClients extends JFrame {
 			
 			tftelportabl = new JTextField();
 			tftelportabl.addKeyListener(new KeyAdapter() {
-				@Override
+				
 				public void keyTyped(KeyEvent evt) {
 					char c=evt.getKeyChar();
 					if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
@@ -245,7 +245,7 @@ public class AddClients extends JFrame {
 			
 			tftelfix = new JTextField();
 			tftelfix.addKeyListener(new KeyAdapter() {
-				@Override
+				
 				public void keyTyped(KeyEvent e) {
 					char c=e.getKeyChar();
 					if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
@@ -264,7 +264,7 @@ public class AddClients extends JFrame {
 			
 			tffax = new JTextField();
 			tffax.addKeyListener(new KeyAdapter() {
-				@Override
+				
 				public void keyTyped(KeyEvent e) {
 					char c=e.getKeyChar();
 					if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
@@ -424,7 +424,7 @@ public class AddClients extends JFrame {
 			
 			tflimitation = new JTextField();
 			tflimitation.addKeyListener(new KeyAdapter() {
-				@Override
+				
 				public void keyTyped(KeyEvent e) {
 					char c=e.getKeyChar();
 					if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE)
@@ -609,6 +609,7 @@ public class AddClients extends JFrame {
 					 tfsiteweb.setText(result.getString("Siteweb"));
 					 tflimitation.setText(result.getString("LimitationCredit"));
 					 tfsolde_initial.setText(result.getString("Solde_Initial"));
+					 
 					 cbmodetarif.setSelectedIndex((Integer.valueOf(result.getString("ModeTarif"))));
 					 tfwilaya.setSelectedItem(result.getString("wilaya"));
 					 tfcommune.setSelectedItem(result.getString("Commune"));					 
