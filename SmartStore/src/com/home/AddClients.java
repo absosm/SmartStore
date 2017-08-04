@@ -588,7 +588,7 @@ public class AddClients extends JFrame {
 	{                                                   // et remplir le formulaire 
 		try {    
 						result.next();
-						btnOk.setVisible(false);   // cacher le bouton ok et remplacer par la bouton modifier
+						btnOk .setVisible(false);   // cacher le bouton ok et remplacer par la bouton modifier
 						btnModifier.setVisible(true);
 					id_label.setText(result.getString("id"));
 					 tfnom.setText(result.getString("Nom"));
