@@ -55,7 +55,7 @@ public class MainWindow extends JFrame {
 		JButton btnNewButton = new JButton("Clients");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			//	new Liste_des_Clients();
+				new Liste_des_Clients();
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
