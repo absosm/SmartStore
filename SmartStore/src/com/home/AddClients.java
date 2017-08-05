@@ -53,7 +53,6 @@ public class AddClients extends JFrame {
 	private static JComboBox  tfcommune;
 	private static JComboBox  cbmodetarif;
 	private static JButton    btnOk;
-	private static JButton 	  btnModifier;
 	private static JLabel 	  id_label;
 	private static Connection connecet=null;
 	
@@ -511,13 +510,13 @@ public class AddClients extends JFrame {
 						{
 							JOptionPane.showMessageDialog(new JFrame(), "Adresse e-mail incorrecte \t\t \n E-Mail format:   xxxxxx@yyyy.zzz", "ERREUR d'inscription",
 							        JOptionPane.ERROR_MESSAGE);
-							System.out.println("Adresse e-mail incorrecte");
+							
 						}
 										
 					} catch (Exception ex) {
 						JOptionPane.showMessageDialog(new JFrame(), ex, "ERREUR de connection",
 						        JOptionPane.ERROR_MESSAGE);
-						System.out.println(ex);
+						
 							//ex.printStackTrace();
 					}
 				}
@@ -545,119 +544,6 @@ public class AddClients extends JFrame {
 			btnAnnuler.setIcon(new ImageIcon(this.getClass().getResource("/images_Resource/Misc-Delete-Database-icon.png")));
 			btnAnnuler.setBounds(507, 350, 113, 44);
 			contentPane.add(btnAnnuler);
-			
-			btnModifier = new JButton("Modifier");
-			btnModifier.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					Modifier_Client_Sql();
-				}
-			});
-			btnModifier.setIcon(new ImageIcon(AddClients.class.getResource("/images_Resource/if_user_profile_edit_103781.png")));
-			btnModifier.setForeground(Color.GREEN);
-			btnModifier.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnModifier.setBounds(157, 353, 123, 41);
-			contentPane.add(btnModifier);
-			btnModifier.setVisible(false);
-	}
-	public static void recherche_client_avec_num(Integer Num) // cette méthode prend les informations depuis le tableau 
-	{													// et faire une recherche sur la base de données
-		Statement stm=null;
-		ResultSet result=null;
-		String SqlQury=null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");     
-			connecet=DriverManager.getConnection("jdbc:mysql://localhost/gestcom?useUnicode=yes&characterEncoding=UTF-8","root","");			
-			stm=connecet.createStatement();
-			                                       
-				SqlQury="select * from client where id='"+Num+"';";
-			
-			result=stm.executeQuery(SqlQury); // execution de requete 
-			Modifier_clien(result);      // la méthode utilise une autre methode pour afficher et utiliser les information 
-										//  et modifier ces information sur la base de donnees
-		} catch (Exception e) {			 
-			JOptionPane.showMessageDialog(new JFrame(),e.getMessage(),"ERREUR",JOptionPane.ERROR_MESSAGE);
-			
-		}		
-		
-		 // la methode returner le resultate pour l'affichge
-	}
-	public static void Modifier_clien(ResultSet result) // la methode charger tous les information du client selectionner  
-	{                                                   // et remplir le formulaire 
-		try {    
-						result.next();
-						btnOk.setVisible(false);   // cacher le bouton ok et remplacer par la bouton modifier
-						btnModifier.setVisible(true);
-					id_label.setText(result.getString("id"));
-					 tfnom.setText(result.getString("Nom"));
-					 tfprenom.setText(result.getString("prenom"));
-					 tfadresse.setText(result.getString("Adresse"));
-					 tffamille.setText(result.getString("Famille"));
-					 tfcodepostal.setText(result.getString("CodePostal"));
-					 tftelportabl.setText(result.getString("TelPortable"));
-					 tftelfix.setText(result.getString("TeleFix"));
-					 tffax.setText(result.getString("Fax"));
-					 tfnrc.setText(result.getString("NRC"));
-					 tfnif.setText(result.getString("NIF"));
-					 tfcomptebancaire.setText(result.getString("ComptBancaire"));
-					 tfemail.setText(result.getString("Email"));
-					 tfnart.setText(result.getString("NART"));
-					 tfnis.setText(result.getString("NIS"));
-					 tfrib.setText(result.getString("RIB"));
-					 tfsiteweb.setText(result.getString("Siteweb"));
-					 tflimitation.setText(result.getString("LimitationCredit"));
-					 tfsolde_initial.setText(result.getString("Solde_Initial"));
-					 
-					 cbmodetarif.setSelectedIndex((Integer.valueOf(result.getString("ModeTarif"))));
-					 tfwilaya.setSelectedItem(result.getString("wilaya"));
-					 tfcommune.setSelectedItem(result.getString("Commune"));					 
-					
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
 	}
 	
-	public static void Modifier_Client_Sql()
-	{
-		Statement statement=null;
-		//PreparedStatement preparedStatement=null;
-		ResultSet resultSet=null;
-		try {
-			Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
-			Matcher matcher1 = pattern.matcher(tfemail.getText());// passage de parametre
-			if(matcher1.find() || tfemail.getText().equals("") ){
-				
-			Class.forName("com.mysql.jdbc.Driver");
-			connecet=DriverManager.getConnection("jdbc:mysql://localhost/gestcom?useUnicode=yes&characterEncoding=UTF-8","root","");
-			statement=connecet.createStatement();
-		
-				
-				
-				String Query="UPDATE client SET Nom='"+tfnom.getText()+"',Prenom='"+tfprenom.getText()+"',Adresse='"+tfadresse.getText()+
-						"',Famille='"+tffamille.getText()+"',CodePostal='"+tfcodepostal.getText()+"',wilaya='"+tfwilaya.getSelectedItem().toString()+
-						"',Commune='"+tfcommune.getSelectedItem().toString()+"',TelPortable='"+tftelportabl.getText()+"',TeleFix='"+tftelfix.getText()+"',Fax='"+tffax.getText()
-						+"',NRC='"+tfnrc.getText()+"',NART='"+tfnart.getText()+"',NIF='"+tfnif.getText()+"',NIS='"+tfnis.getText()+"',RIB='"+tfrib.getText()
-						+"',ComptBancaire='"+tfcomptebancaire.getText()+"',Email='"+tfemail.getText()+"',SiteWeb='"+tfsiteweb.getText()+"',ModeTarif='"+
-						cbmodetarif.getSelectedIndex()+"',LimitationCredit='"+tflimitation.getText()+"',Solde_Initial='"+tfsolde_initial.getText()+"' WHERE id='"+id_label.getText()+"';";	
-				System.out.println(Query);
-				connecet.prepareStatement(Query).executeUpdate();
-				JOptionPane.showMessageDialog(new JFrame(), "Modification Success", "Information d'inscription",
-				        JOptionPane.INFORMATION_MESSAGE);
-			
-		}
-			else
-			{
-				JOptionPane.showMessageDialog(new JFrame(), "Adresse e-mail incorrecte \t\t \n E-Mail format:   xxxxxx@yyyy.zzz", "ERREUR d'inscription",
-				        JOptionPane.ERROR_MESSAGE);
-				System.out.println("Adresse e-mail incorrecte");
-			}
-							
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(new JFrame(), ex, "ERREUR de connection",
-			        JOptionPane.ERROR_MESSAGE);
-			System.out.println(ex);
-				//ex.printStackTrace();
-		}
-		
-	}
 }

@@ -85,9 +85,8 @@ public class Liste_des_Clients extends JFrame {
 				{
 					DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 					int a=table.getSelectedRow();
-					AddClients F1 = new AddClients();
-					F1.setTitle("Modification");
-					F1.recherche_client_avec_num(Integer.valueOf(tableModel.getValueAt(a, 0).toString()));
+					Modifier_Clients F1 = new Modifier_Clients(Integer.valueOf(tableModel.getValueAt(a, 0).toString()));
+					
 				}
 			}
 		});

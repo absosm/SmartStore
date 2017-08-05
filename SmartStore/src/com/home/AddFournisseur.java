@@ -377,6 +377,7 @@ public class AddFournisseur extends JFrame {
 		panel_1.add(lblSoldeInitiale);
 		
 		tfsolde = new JTextField();
+		tfsolde.setText("0");
 		tfsolde.setForeground(new Color(0, 102, 204));
 		tfsolde.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfsolde.setColumns(10);
