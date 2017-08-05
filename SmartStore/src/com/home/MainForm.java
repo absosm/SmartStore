@@ -26,6 +26,9 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
 
 public class MainForm extends JFrame {
 
@@ -75,6 +78,18 @@ public class MainForm extends JFrame {
 		
 		JMenu mnfichier = new JMenu("Fichier");
 		menuBar.add(mnfichier);
+		
+		JMenuItem mntmTerminer = new JMenuItem("Terminer");
+		mntmTerminer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		
+		JMenuItem mntmProfile = new JMenuItem("Profile utilisateur");
+		mnfichier.add(mntmProfile);
+		mntmTerminer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_MASK));
+		mnfichier.add(mntmTerminer);
 		
 		JMenu mnEdi = new JMenu("Edition");
 		menuBar.add(mnEdi);
