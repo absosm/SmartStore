@@ -200,6 +200,22 @@ public class ProfileForm extends JFrame {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				if (!User.exist(tf_user2.getText(), Encode.sha256(tf_oldpassword.getText()))) {
+					JOptionPane.showMessageDialog(null, "ancien mot de passe est incorrect");
+					return;
+				}
+				
+				if (!tf_newpassword.getText().equals(tf_confirmpassword.getText())) {
+					JOptionPane.showMessageDialog(null, "les deux mots passes pas identique.");
+					return;
+				}
+				
+				Session.getUser().setPassword(Encode.sha256(tf_newpassword.getText()));
+				if (Session.getUser().update()) {
+					JOptionPane.showMessageDialog(null, "changement de mot passe est succès.");
+				}else {
+					JOptionPane.showMessageDialog(null, "pardon, changement de mot passe pas en cours.");
+				}
 			}
 		});
 		

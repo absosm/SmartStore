@@ -97,11 +97,12 @@ public class User {
 				
 		try {
 			PreparedStatement prepared = (PreparedStatement) database.getConnection()
-				.prepareStatement("UPDATE users SET firstname=?, lastname=?, telephone=? WHERE id=?");
+				.prepareStatement("UPDATE users SET firstname=?, lastname=?, telephone=?, password=? WHERE id=?");
 			prepared.setString(1, firstname);
 			prepared.setString(2, lastname);
 			prepared.setString(3, telephone);
-			prepared.setInt(4, id);
+			prepared.setString(4, password);
+			prepared.setInt(5, id);
 			
 			if (prepared.executeUpdate() > 0) {
 				b=true;

@@ -43,7 +43,6 @@ public class MainForm extends JFrame {
 				try {
 					//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					MainForm frame = new MainForm();
-					
 					//frame.setUndecorated(true);                    // annuller le rectangle
 					frame.setVisible(true);
 					

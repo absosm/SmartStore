@@ -68,6 +68,7 @@ public class Authentification {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frmAuthentification = new JFrame();
 		frmAuthentification.setType(Type.UTILITY);
 		frmAuthentification.setResizable(false);
@@ -167,9 +168,12 @@ public class Authentification {
 				
 				if (database.Connect()) {
 					Session.setDatabase(database);
+				}else {
+					JOptionPane.showMessageDialog(null, "Connexion du base de donnée est impossible!");
+					return;
 				}
 				
-				if (User.exist(tf_login.getText(), tf_loginpassword.getText())) {
+				if (User.exist(tf_login.getText(), Encode.sha256(tf_loginpassword.getText()))) {
 					Session.setUser(User.get(tf_login.getText()));
 					Session.setMainForm(new MainForm());
 					Session.showMainForm();
