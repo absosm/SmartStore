@@ -13,6 +13,14 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class MainForm extends JFrame {
 
@@ -42,27 +50,62 @@ public class MainForm extends JFrame {
 	 * Create the frame.
 	 */
 	public MainForm() {
+		setAlwaysOnTop(true);
 		
 		setTitle("SmartStore V 0.1");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainForm.class.getResource("/images_Resource/logo2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 600);
-		/**
-		 * agrandir fenètre
-		 */
-		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		
 		/**
 		 * centraliser fenètre
 		 */
 		setLocationRelativeTo(null);
 		
+		setExtendedState( getExtendedState() | JFrame.MAXIMIZED_BOTH );
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnfichier = new JMenu("Fichier");
+		menuBar.add(mnfichier);
+		
+		JMenu mnEdi = new JMenu("Edition");
+		menuBar.add(mnEdi);
+		
+		JMenu mnAffichage = new JMenu("Affichage");
+		menuBar.add(mnAffichage);
+		
+		JMenu mnOutils = new JMenu("Outils");
+		menuBar.add(mnOutils);
+		
+		JMenu mnAide = new JMenu("?");
+		menuBar.add(mnAide);
+		
+		JMenuItem mntmAPropos = new JMenuItem("\u00C2 propos SmartStore");
+		mnAide.add(mntmAPropos);
+		
 		//this.pack();
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		
+		JToolBar toolBar = new JToolBar();
+		toolBar.setRollover(true);
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addComponent(toolBar, GroupLayout.DEFAULT_SIZE, 1204, Short.MAX_VALUE)
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(650, Short.MAX_VALUE))
+		);
 		
 		JButton btnNewButton = new JButton("Clients");
+		btnNewButton.setSize(getMaximumSize());
+		toolBar.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			//	new Liste_des_Clients();
@@ -70,31 +113,26 @@ public class MainForm extends JFrame {
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnNewButton.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/Client.png")));
-		btnNewButton.setBounds(10, 66, 171, 63);
-		contentPane.add(btnNewButton);
 		
 		JButton btnFournisseur = new JButton("Fournisseurs");
+		toolBar.add(btnFournisseur);
 		btnFournisseur.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/fournisseur.png")));
 		btnFournisseur.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnFournisseur.setBounds(191, 66, 175, 63);
-		contentPane.add(btnFournisseur);
 		
 		JButton btnProduis = new JButton("Produits");
+		toolBar.add(btnProduis);
 		btnProduis.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/produit.png")));
 		btnProduis.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnProduis.setBounds(376, 66, 175, 63);
-		contentPane.add(btnProduis);
 		
 		JButton btnBonDachat = new JButton("Achats");
+		toolBar.add(btnBonDachat);
 		btnBonDachat.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/achat.png")));
 		btnBonDachat.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnBonDachat.setBounds(561, 66, 175, 63);
-		contentPane.add(btnBonDachat);
 		
 		JButton btnVents = new JButton("Vents");
+		toolBar.add(btnVents);
 		btnVents.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/vents.png")));
 		btnVents.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnVents.setBounds(746, 66, 182, 63);
-		contentPane.add(btnVents);
+		contentPane.setLayout(gl_contentPane);
 	}
 }

@@ -6,7 +6,6 @@ import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -26,7 +25,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Window.Type;
 
 public class Authentification {
