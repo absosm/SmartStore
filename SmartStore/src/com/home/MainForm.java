@@ -14,7 +14,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class MainWindow extends JFrame {
+public class MainForm extends JFrame {
 
 	private JPanel contentPane;
 
@@ -25,9 +25,9 @@ public class MainWindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					MainWindow frame = new MainWindow();
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); //full screen
+					//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					MainForm frame = new MainForm();
+					
 					//frame.setUndecorated(true);                    // annuller le rectangle
 					frame.setVisible(true);
 					
@@ -41,11 +41,21 @@ public class MainWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainWindow() {
-		setTitle("LIGHT WORK");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/images_Resource/logo2.png")));
+	public MainForm() {
+		
+		setTitle("SmartStore V 0.1");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainForm.class.getResource("/images_Resource/logo2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 600);
+		/**
+		 * agrandir fenètre
+		 */
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		/**
+		 * centraliser fenètre
+		 */
+		setLocationRelativeTo(null);
+		
 		//this.pack();
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -59,30 +69,30 @@ public class MainWindow extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setIcon(new ImageIcon(MainWindow.class.getResource("/images_Resource/Client.png")));
+		btnNewButton.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/Client.png")));
 		btnNewButton.setBounds(10, 66, 171, 63);
 		contentPane.add(btnNewButton);
 		
 		JButton btnFournisseur = new JButton("Fournisseurs");
-		btnFournisseur.setIcon(new ImageIcon(MainWindow.class.getResource("/images_Resource/fournisseur.png")));
+		btnFournisseur.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/fournisseur.png")));
 		btnFournisseur.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnFournisseur.setBounds(191, 66, 175, 63);
 		contentPane.add(btnFournisseur);
 		
 		JButton btnProduis = new JButton("Produits");
-		btnProduis.setIcon(new ImageIcon(MainWindow.class.getResource("/images_Resource/produit.png")));
+		btnProduis.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/produit.png")));
 		btnProduis.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnProduis.setBounds(376, 66, 175, 63);
 		contentPane.add(btnProduis);
 		
 		JButton btnBonDachat = new JButton("Achats");
-		btnBonDachat.setIcon(new ImageIcon(MainWindow.class.getResource("/images_Resource/achat.png")));
+		btnBonDachat.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/achat.png")));
 		btnBonDachat.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnBonDachat.setBounds(561, 66, 175, 63);
 		contentPane.add(btnBonDachat);
 		
 		JButton btnVents = new JButton("Vents");
-		btnVents.setIcon(new ImageIcon(MainWindow.class.getResource("/images_Resource/vents.png")));
+		btnVents.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/vents.png")));
 		btnVents.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnVents.setBounds(746, 66, 182, 63);
 		contentPane.add(btnVents);

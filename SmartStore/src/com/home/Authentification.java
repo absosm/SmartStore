@@ -1,6 +1,8 @@
 package com.home;
 
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -14,6 +16,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,17 +26,18 @@ import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Window.Type;
 
 public class Authentification {
 
 	private JFrame frmAuthentification;
-	private JTextField textField;
-	private JPasswordField passwordField;
-	private JTextField txtLocalhost;
-	private JTextField txtSmartstore;
-	private JTextField txtRoot;
-	private JPasswordField passwordField_1;
+	private JTextField tf_login;
+	private JPasswordField tf_loginpassword;
+	private JTextField tf_host;
+	private JTextField tf_dbname;
+	private JTextField tf_username;
+	private JPasswordField tf_password;
 
 	/**
 	 * Launch the application.
@@ -42,9 +46,12 @@ public class Authentification {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					/**
+					 * permet de sauvgarde thème de système.
+					 */
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					Authentification window = new Authentification();
 					window.frmAuthentification.setVisible(true);
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,15 +63,6 @@ public class Authentification {
 	 * Create the application.
 	 */
 	public Authentification() {
-		/**
-		 * permet de sauvgarde thème de système.
-		 */
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		initialize();
 	}
 
@@ -76,7 +74,7 @@ public class Authentification {
 		frmAuthentification.setType(Type.UTILITY);
 		frmAuthentification.setResizable(false);
 		frmAuthentification.setTitle("Authentification");
-		frmAuthentification.setBounds(100, 100, 450, 337);
+		frmAuthentification.setBounds(100, 100, 442, 337);
 		frmAuthentification.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		/**
@@ -93,7 +91,8 @@ public class Authentification {
 		ImageIcon icon = new ImageIcon(iconURL);
 		frmAuthentification.setIconImage(icon.getImage());
 		
-		JPanel panel = new JPanel();
+		
+		ImagePanel panel = new ImagePanel(new ImageIcon("images/banner.png").getImage());
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
 		JPanel panel_2 = new JPanel();
@@ -101,13 +100,13 @@ public class Authentification {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(frmAuthentification.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
-						.addComponent(tabbedPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
-						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))
+						.addComponent(panel_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(tabbedPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -119,7 +118,7 @@ public class Authentification {
 					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(22, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		JButton btnTerminer = new JButton("Terminer");
@@ -146,18 +145,43 @@ public class Authentification {
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Connexion", null, panel_1, null);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		tf_login = new JTextField();
+		tf_login.setText("admin");
+		tf_login.setColumns(10);
 		
 		JLabel lblUtilisateur = new JLabel("Utilisateur:");
 		
 		JLabel lblMotDePasse = new JLabel("Mot de passe:");
 		
-		passwordField = new JPasswordField();
+		tf_loginpassword = new JPasswordField();
 		
 		JCheckBox chckbxSouvenirLeMot = new JCheckBox("Souvenir le mot passe");
 		
 		JButton btnConnexion = new JButton("Connexion");
+		btnConnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				DataBase database = new DataBase();
+				
+				database.setHost(tf_host.getText());
+				database.setName(tf_dbname.getText());
+				database.setUsername(tf_username.getText());
+				database.setPassword(tf_password.getText());
+				
+				if (database.Connect()) {
+					Session.setDatabase(database);
+				}
+				
+				if (User.exist(tf_login.getText(), tf_loginpassword.getText())) {
+					Session.setUser(User.get(tf_login.getText()));
+					Session.setMainForm(new MainForm());
+					Session.showMainForm();
+					frmAuthentification.setVisible(false);
+				}else {
+					JOptionPane.showMessageDialog(null, "le nom d'utilisateur ou le mot de passe et incorrect!");
+				}
+			}
+		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.TRAILING)
@@ -170,8 +194,8 @@ public class Authentification {
 								.addComponent(lblMotDePasse))
 							.addGap(4)
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(textField)
-								.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+								.addComponent(tf_login)
+								.addComponent(tf_loginpassword, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
 								.addComponent(chckbxSouvenirLeMot)))
 						.addComponent(btnConnexion, Alignment.TRAILING))
 					.addContainerGap())
@@ -181,14 +205,14 @@ public class Authentification {
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGap(32)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tf_login, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblUtilisateur))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGap(3)
 							.addComponent(lblMotDePasse))
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tf_loginpassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(chckbxSouvenirLeMot)
 					.addGap(12)
@@ -200,34 +224,38 @@ public class Authentification {
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Option", null, panel_3, null);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"MySQL"}));
+		JComboBox cb_driver = new JComboBox();
+		cb_driver.setModel(new DefaultComboBoxModel(new String[] {"MySQL"}));
 		
 		JLabel lblNewLabel = new JLabel("Moteur de base:");
 		
-		txtLocalhost = new JTextField();
-		txtLocalhost.setText("localhost");
-		txtLocalhost.setColumns(10);
+		tf_host = new JTextField();
+		tf_host.setText("localhost");
+		tf_host.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Serveur:");
 		
-		txtSmartstore = new JTextField();
-		txtSmartstore.setText("smart_store");
-		txtSmartstore.setColumns(10);
+		tf_dbname = new JTextField();
+		tf_dbname.setText("smart_store");
+		tf_dbname.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Nom de base:");
 		
-		txtRoot = new JTextField();
-		txtRoot.setText("root");
-		txtRoot.setColumns(10);
+		tf_username = new JTextField();
+		tf_username.setText("root");
+		tf_username.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Utilisateur:");
 		
 		JLabel lblNewLabel_4 = new JLabel("Mot de passe");
 		
-		passwordField_1 = new JPasswordField();
+		tf_password = new JPasswordField();
 		
 		JButton btnNewButton = new JButton("Enregistrer");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
@@ -243,14 +271,14 @@ public class Authentification {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel_3.createSequentialGroup()
-									.addComponent(txtRoot, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(tf_username, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(lblNewLabel_4)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(passwordField_1, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
-								.addComponent(txtLocalhost, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
-								.addComponent(comboBox, 0, 313, Short.MAX_VALUE)
-								.addComponent(txtSmartstore, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)))
+									.addComponent(tf_password, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+								.addComponent(tf_host, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+								.addComponent(cb_driver, 0, 313, Short.MAX_VALUE)
+								.addComponent(tf_dbname, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)))
 						.addGroup(Alignment.TRAILING, gl_panel_3.createSequentialGroup()
 							.addContainerGap(310, Short.MAX_VALUE)
 							.addComponent(btnNewButton)))
@@ -261,22 +289,22 @@ public class Authentification {
 				.addGroup(gl_panel_3.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(cb_driver, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtLocalhost, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tf_host, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_1))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtSmartstore, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tf_dbname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_2))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtRoot, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tf_username, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_3)
 						.addComponent(lblNewLabel_4)
-						.addComponent(passwordField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tf_password, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnNewButton)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -284,4 +312,23 @@ public class Authentification {
 		panel_3.setLayout(gl_panel_3);
 		frmAuthentification.getContentPane().setLayout(groupLayout);
 	}
+}
+
+class ImagePanel extends JPanel {
+
+	  private Image img;
+
+	  public ImagePanel(String img) {
+	    this(new ImageIcon(img).getImage());
+	  }
+
+	  public ImagePanel(Image img) {
+	    this.img = img;
+	    setLayout(null);
+	  }
+
+	  public void paintComponent(Graphics g) {
+	    g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+	  }
+
 }
