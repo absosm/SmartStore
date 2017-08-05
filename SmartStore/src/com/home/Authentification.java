@@ -62,6 +62,8 @@ public class Authentification {
 	 */
 	public Authentification() {
 		initialize();
+		
+		Session.setAuthentification(frmAuthentification);
 	}
 
 	/**
@@ -122,7 +124,7 @@ public class Authentification {
 		JButton btnTerminer = new JButton("Terminer");
 		btnTerminer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frmAuthentification.dispose();
+				Runtime.getRuntime().exit(0);
 			}
 		});
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);

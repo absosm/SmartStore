@@ -213,6 +213,7 @@ public class ProfileForm extends JFrame {
 				Session.getUser().setPassword(Encode.sha256(tf_newpassword.getText()));
 				if (Session.getUser().update()) {
 					JOptionPane.showMessageDialog(null, "changement de mot passe est succès.");
+					Session.Disconnect();
 				}else {
 					JOptionPane.showMessageDialog(null, "pardon, changement de mot passe pas en cours.");
 				}

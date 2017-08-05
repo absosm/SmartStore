@@ -23,12 +23,17 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
+
+import javafx.application.Application;
+
 import java.awt.Color;
 import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MainForm extends JFrame {
 
@@ -45,7 +50,6 @@ public class MainForm extends JFrame {
 					MainForm frame = new MainForm();
 					//frame.setUndecorated(true);                    // annuller le rectangle
 					frame.setVisible(true);
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,10 +61,16 @@ public class MainForm extends JFrame {
 	 * Create the frame.
 	 */
 	public MainForm() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				Session.Disconnect();
+			}
+		});
 		
 		setTitle("SmartStore V 0.1");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainForm.class.getResource("/images_Resource/logo2.png")));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1024, 768);
 		setExtendedState( getExtendedState() | JFrame.MAXIMIZED_BOTH );
 		/**
@@ -77,7 +87,7 @@ public class MainForm extends JFrame {
 		JMenuItem mntmTerminer = new JMenuItem("Terminer");
 		mntmTerminer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dispose();
+				Session.Disconnect();
 			}
 		});
 		
@@ -89,6 +99,14 @@ public class MainForm extends JFrame {
 			}
 		});
 		mnfichier.add(mntmProfile);
+		
+		JMenuItem mntmDconnexion = new JMenuItem("D\u00E9connexion");
+		mntmDconnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Session.Disconnect();
+			}
+		});
+		mnfichier.add(mntmDconnexion);
 		mntmTerminer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_MASK));
 		mnfichier.add(mntmTerminer);
 		
