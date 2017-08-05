@@ -59,8 +59,6 @@ public class MainForm extends JFrame {
 	 */
 	public MainForm() {
 		
-		setAlwaysOnTop(true);
-		
 		setTitle("SmartStore V 0.1");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainForm.class.getResource("/images_Resource/logo2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,8 +68,6 @@ public class MainForm extends JFrame {
 		 * centraliser fenètre
 		 */
 		setLocationRelativeTo(null);
-		
-		
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -87,6 +83,12 @@ public class MainForm extends JFrame {
 		});
 		
 		JMenuItem mntmProfile = new JMenuItem("Profile utilisateur");
+		mntmProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Session.setProfileForm(new ProfileForm(Session.getUser()));
+				Session.showProfileForm();
+			}
+		});
 		mnfichier.add(mntmProfile);
 		mntmTerminer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_MASK));
 		mnfichier.add(mntmTerminer);

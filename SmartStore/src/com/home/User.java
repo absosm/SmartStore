@@ -89,8 +89,29 @@ public class User {
 		
 	}
 	
-	public void update() {
+	public boolean update() {
 		
+		boolean b = false;
+		
+		DataBase database = Session.getDatabase();
+				
+		try {
+			PreparedStatement prepared = (PreparedStatement) database.getConnection()
+				.prepareStatement("UPDATE users SET firstname=?, lastname=?, telephone=? WHERE id=?");
+			prepared.setString(1, firstname);
+			prepared.setString(2, lastname);
+			prepared.setString(3, telephone);
+			prepared.setInt(4, id);
+			
+			if (prepared.executeUpdate() > 0) {
+				b=true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return b;
 	}
 	
 	public void block(boolean b) {

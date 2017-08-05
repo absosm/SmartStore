@@ -83,7 +83,6 @@ public class Authentification {
 		/**
 		 * icon de programme
 		 */
-		
 		URL iconURL = getClass().getResource("/images/favicon.png");
 		// iconURL is null when not found
 		ImageIcon icon = new ImageIcon(iconURL);
