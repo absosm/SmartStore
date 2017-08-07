@@ -135,7 +135,7 @@ public class DataBase {
     }
     
     /**
-     * retourn le resultat selon le requête qui vous avez saisie dans paramètre sql
+     * retourn le resultat selon le requête "Select/" qui vous avez saisie dans paramètre sql
      * @param sql
      * @return
      */
@@ -143,8 +143,25 @@ public class DataBase {
         try {
             return statement.executeQuery(sql);
         }catch (Exception e) {
+        	
             JOptionPane.showMessageDialog(null, e);
+           
             return null;
+        }
+    }
+    /**
+     * retourn le resultat selon le requête (Update/insert/delete) qui vous avez saisie dans paramètre sql
+     * @param sql
+     * @return
+     */
+    public int getResult_Update(String sql) {
+        try {
+            return statement.executeUpdate(sql);
+        }catch (Exception e) {
+        	
+            JOptionPane.showMessageDialog(null, e);
+           
+            return -1;
         }
     }
 

@@ -7,6 +7,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
+import com.mysql.jdbc.DatabaseMetaData;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -122,11 +125,9 @@ public class sup_Client extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Class.forName("com.mysql.jdbc.Driver");
-					Connection connecet=DriverManager.getConnection("jdbc:mysql://localhost/gestcom?useUnicode=yes&characterEncoding=UTF-8","root","");
-					Statement stm=connecet.createStatement();
+					DataBase database=Session.getDatabase();
 					String SQLquery="DELETE FROM client WHERE id ="+list.get(0)+";";
-					stm.executeUpdate(SQLquery);
+					database.getResult_Update(SQLquery);
 					JOptionPane.showMessageDialog(new JFrame(),"Suppression réussie","Succès",JOptionPane.INFORMATION_MESSAGE);
 					dispose();
 				} catch (Exception e) {

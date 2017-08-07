@@ -4,6 +4,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+
+import org.omg.CORBA.PRIVATE_MEMBER;
+
+import com.mysql.jdbc.PreparedStatement;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -20,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -423,8 +429,8 @@ public class AddClients extends JFrame {
 				
 				public void keyTyped(KeyEvent e) {
 					char c=e.getKeyChar();
-					if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE)
-					{
+					if(!(Character.isDigit(c)||c=='.')||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE)
+					{								//Accepte uniquement des nombres décimaux
 						getToolkit().beep();
 						e.consume();
 						
@@ -449,6 +455,18 @@ public class AddClients extends JFrame {
 			panel_2.add(lblsoldeinitial);
 			
 			tfsolde_initial = new JTextField();
+			tfsolde_initial.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					char c=e.getKeyChar();
+					if(!(Character.isDigit(c)||c=='.')||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE)
+					{								//Accepte uniquement des nombres décimaux
+						getToolkit().beep();
+						e.consume();
+						
+					}
+				}
+			});
 			tfsolde_initial.setText("0");
 			tfsolde_initial.setHorizontalAlignment(SwingConstants.LEFT);
 			tfsolde_initial.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -460,19 +478,29 @@ public class AddClients extends JFrame {
 			btnOk.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-					Statement statement=null;
+					
 					//PreparedStatement preparedStatement=null;
 					ResultSet resultSet=null;
 					try {
 						Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
 						Matcher matcher1 = pattern.matcher(tfemail.getText());// passage de parametre
 						if(matcher1.find() || tfemail.getText().equals("") ){
-							
-						Class.forName("com.mysql.jdbc.Driver");
-						connecet=DriverManager.getConnection("jdbc:mysql://localhost/gestcom?useUnicode=yes&characterEncoding=UTF-8","root","");
-						statement=connecet.createStatement();
-						resultSet=statement.executeQuery("select * from client where Nom='"+tfnom.getText()+"' AND Prenom ='"+tfprenom.getText()+"';");
-						resultSet.last();
+							DataBase database = Session.getDatabase();
+							String selectSQL=null;
+							PreparedStatement prepared=null;
+							try {
+								selectSQL="select * from client where Nom=? AND Prenom =?";
+								prepared = (PreparedStatement) database.getConnection()
+									.prepareStatement(selectSQL);
+								prepared.setString(1, tfnom.getText());
+								prepared.setString(2, tfprenom.getText());
+								resultSet=prepared.executeQuery();
+								resultSet.last();
+								
+							} catch (SQLException g) {
+								// TODO Auto-generated catch block
+								g.printStackTrace();
+							} 
 						if(resultSet.getRow() !=0)
 						{
 							JOptionPane.showMessageDialog(new JFrame(), "le client déjà existe", "ERREUR de connection",
@@ -481,30 +509,46 @@ public class AddClients extends JFrame {
 						}
 						else
 						{
-							//System.out.println("hello");
-							String values="'"+tfnom.getText()+"',"+"'"+tfprenom.getText()+"',"+"'"+tfadresse.getText()+"',"+
-							"'"+tffamille.getText()+"',"+"'"+tfcodepostal.getText()+"',"+"'"+
-									tfwilaya.getSelectedItem().toString()+"',"+"'"+tfcommune.getSelectedItem().toString()+"',"
-									+"'"+tftelportabl.getText()+"',"+"'"+tftelfix.getText()+"',"+"'"+tffax.getText()+"',"
-									+"'"+tfnrc.getText()+"',"+"'"+tfnart.getText()+"',"+"'"+tfnif.getText()+"',"
-									+"'"+tfnis.getText()+"',"+"'"+tfrib.getText()+"',"+"'"+tfcomptebancaire.getText()+"',"+"'"+tfemail.getText()+"',"
-									+"'"+tfsiteweb.getText()+"',"+"'"+cbmodetarif.getSelectedIndex()+"',"+"'"+tflimitation.getText()+"',"+"'"+tflimitation.getText()+"'";
-							
-							//System.out.println(values);
-							
-							
-							String Query="insert into client(Nom,Prenom,Adresse,Famille,CodePostal,wilaya," +
-									"Commune,TelPortable,TeleFix,Fax,NRC,NART,NIF,NIS,RIB,ComptBancaire,Email,SiteWeb,ModeTarif,"+
-									"LimitationCredit,Solde_Initial)Values("+values+");";	
-							//System.out.println(Query);
-							connecet.prepareStatement(Query).executeUpdate();
-							JOptionPane.showMessageDialog(new JFrame(), "Inscription Success", "Information d'inscription",
-							        JOptionPane.INFORMATION_MESSAGE);
-							tfadresse.setText(null);tfcodepostal.setText("0");tfcomptebancaire.setText(null);
-							tfemail.setText(null);tffamille.setText(null);tffax.setText(null);tfnart.setText(null);tflimitation.setText("0");
-							tfnif.setText(null);tfnis.setText(null);tfnom.setText(null);tfnrc.setText(null);tfprenom.setText(null);
-							tfrib.setText(null);tfsiteweb.setText(null);tftelfix.setText(null);tftelportabl.setText(null);tfsolde_initial.setText("0");
-						}
+							try {
+								selectSQL="insert into client(Nom,Prenom,Adresse,Famille,CodePostal,wilaya,Commune,TelPortable,TeleFix,"+
+										"Fax,NRC,NART,NIF,NIS,RIB,ComptBancaire,Email,SiteWeb,ModeTarif,"+
+												"LimitationCredit,Solde_Initial)Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+										prepared=(PreparedStatement) database.getConnection().prepareStatement(selectSQL);
+										prepared.setString(1,  tfnom.getText());
+										prepared.setString(2,  tfprenom.getText());
+										prepared.setString(3,  tfadresse.getText());
+										prepared.setString(4,  tffamille.getText());
+										prepared.setInt(5,     Integer.parseInt(tfcodepostal.getText()));
+										prepared.setString(6,  tfwilaya.getSelectedItem().toString());
+										prepared.setString(7,  tfcommune.getSelectedItem().toString());
+										prepared.setString(8,  tftelportabl.getText());
+										prepared.setString(9,  tftelfix.getText());
+										prepared.setString(10, tffax.getText());
+										prepared.setString(11, tfnrc.getText());
+										prepared.setString(12, tfnart.getText());
+										prepared.setString(13, tfnif.getText());
+										prepared.setString(14, tfnis.getText());
+										prepared.setString(15, tfrib.getText());
+										prepared.setString(16, tfcomptebancaire.getText());
+										prepared.setString(17, tfemail.getText());
+										prepared.setString(18, tfsiteweb.getText());
+										prepared.setInt(19,    cbmodetarif.getSelectedIndex());
+										prepared.setDouble(20, Double.parseDouble(tflimitation.getText()));
+										prepared.setDouble(21, Double.parseDouble(tfsolde_initial.getText()));
+										prepared.executeUpdate();
+									
+										JOptionPane.showMessageDialog(new JFrame(), "Inscription Success", "Information d'inscription",
+										        JOptionPane.INFORMATION_MESSAGE);
+										tfadresse.setText(null);tfcodepostal.setText("0");tfcomptebancaire.setText(null);
+										tfemail.setText(null);tffamille.setText(null);tffax.setText(null);tfnart.setText(null);tflimitation.setText("0");
+										tfnif.setText(null);tfnis.setText(null);tfnom.setText(null);tfnrc.setText(null);tfprenom.setText(null);
+										tfrib.setText(null);tfsiteweb.setText(null);tftelfix.setText(null);tftelportabl.setText(null);tfsolde_initial.setText("0");
+									
+							} catch (Exception e2) {
+								JOptionPane.showMessageDialog(new JFrame(), "erreur de type donnees", "ERREUR d'inscription",
+								        JOptionPane.ERROR_MESSAGE);
+							}
+							}
 					}
 						else
 						{
@@ -532,7 +576,7 @@ public class AddClients extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
 						dispose();
-						connecet.close();
+						
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(new JFrame(),e.getMessage(),"ERREUR",JOptionPane.ERROR_MESSAGE);
 					}
@@ -545,5 +589,23 @@ public class AddClients extends JFrame {
 			btnAnnuler.setBounds(507, 350, 113, 44);
 			contentPane.add(btnAnnuler);
 	}
+////////////////////////////////////////////////les méthodes/////////////////////////////////////////////////////////////
+	public static ResultSet ID_search_Client(int ID)//cette methode faire une recherche d'une client
+															// a base de identificateur 
+	{
+		DataBase database= Session.getDatabase();
+		String SqlQury="select * from Client where id="+ID+";";		
+		return database.getResult(SqlQury); // la methode returner le resultate pour l'affichge
+	}
+	
+	/********************************************************************************************/
+	public static ResultSet info_search_Client(String nom, String prenom)//cette methode faire une recherche d'une client
+	{
+		                												// a base de numero ou nom/prenom avec les reactions du clavier
+		DataBase database=Session.getDatabase();
+		String SqlQury="select * from Client where Nom LIKE '"+nom+"%' AND Prenom LIKE '"+prenom+"%';";		
+		return database.getResult(SqlQury); // la methode returner le resultate pour l'affichge
+	}
+	/************************************************************************************************/
 	
 }

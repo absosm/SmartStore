@@ -85,8 +85,10 @@ public class Liste_des_Clients extends JFrame {
 				{
 					DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 					int a=table.getSelectedRow();
-					Modifier_Clients F1 = new Modifier_Clients(Integer.valueOf(tableModel.getValueAt(a, 0).toString()));
-					
+					Object num = tableModel.getValueAt(a, 0);
+					if(num!=null){
+					new Modifier_Clients(Integer.valueOf(num.toString()));
+					}
 				}
 			}
 		});
@@ -134,7 +136,13 @@ public class Liste_des_Clients extends JFrame {
 		Nom_client.addKeyListener(new KeyAdapter() {
 			
 			public void keyTyped(KeyEvent arg0) {
-				affichage_table(Sql_search_Client_Optimal()); // recherche intelligent
+				try {
+					affichage_table(AddClients.info_search_Client(Nom_client.getText(),Prenom_client.getText())); // recherche intelligent
+					
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(new JFrame(),e.getMessage()+"\n erreur de recherche à partir le Nom","ERREUR",JOptionPane.ERROR_MESSAGE);
+					
+				}
 			}
 		});
 		Nom_client.setBounds(61, 70, 151, 47);
@@ -149,7 +157,12 @@ public class Liste_des_Clients extends JFrame {
 		Prenom_client.addKeyListener(new KeyAdapter() {
 			
 			public void keyTyped(KeyEvent arg0) {
-				affichage_table(Sql_search_Client_Optimal());	// recherche intelligent
+				try {
+					affichage_table(AddClients.info_search_Client(Nom_client.getText(),Prenom_client.getText()));// #hhhh recherche intelligent
+
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(new JFrame(),e.getMessage()+"\n erreur de recherche à partir le PréNom","ERREUR",JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		Prenom_client.setBounds(281, 70, 157, 47);
@@ -176,7 +189,14 @@ public class Liste_des_Clients extends JFrame {
 		btnNewButton.setIcon(new ImageIcon(Liste_des_Clients.class.getResource("/images_Resource/Search-icon.png")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				affichage_table(Sql_search_Client());       // recherche normal
+				try {
+					if(!Num_Client.getText().equals("")){
+					affichage_table(AddClients.ID_search_Client(Integer.parseInt(Num_Client.getText())));   // recherche avec ID et 
+					}   																						// et afficher le résultat dans une table
+					}
+				catch (Exception e) {
+					JOptionPane.showMessageDialog(new JFrame(),e.getMessage()+"\n erreur de recherche à partir le Numéro ID,","ERREUR",JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnNewButton.setBounds(634, 70, 157, 47);
@@ -205,11 +225,10 @@ public class Liste_des_Clients extends JFrame {
 					list.add(tableModel.getValueAt(a, 1).toString());
 					list.add(tableModel.getValueAt(a, 2).toString());
 					list.add(tableModel.getValueAt(a, 7).toString());
-					
 					new sup_Client(list);
 					
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(new JFrame(),e1.getMessage(),"ERREUR",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(new JFrame(),e1.getMessage()+"\n Sélectionnez l'élément pour supprimer ","ERREUR",JOptionPane.ERROR_MESSAGE);
 					
 				}
 			}
@@ -220,63 +239,7 @@ public class Liste_des_Clients extends JFrame {
 		contentPane.add(btnSupprimer);
 	}
 	/************************************************************************************************/
-	private static ResultSet Sql_search_Client()//cette methode faire une recherche d'une client
-	{
-		                // a base de numero ou nom/prenom
-		Statement stm=null;
-		ResultSet result=null;
-		String SqlQury=null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");     
-			connecet=DriverManager.getConnection("jdbc:mysql://localhost/gestcom?useUnicode=yes&characterEncoding=UTF-8","root","");			
-			stm=connecet.createStatement();
-			if(!Num_Client.getText().equals("")) // dans le case de recherche avec numero Client
-			{                                       
-				SqlQury="select * from Client where id='"+Num_Client.getText()+"';";
-			}
-			else                            // dans le case de recherche avec le nom et prenom
-			{
-				SqlQury="select * from Client where Nom LIKE '"+Nom_client.getText()+"%' AND Prenom LIKE '"+Prenom_client.getText()+"%';";
-				
-			}
-			result=stm.executeQuery(SqlQury); // execution de requete 
-	        
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(),e.getMessage(),"ERREUR",JOptionPane.ERROR_MESSAGE);
-			
-		}		
-		
-		return result; // la methode returner le resultate pour l'affichge
-	}
 	
-	/********************************************************************************************/
-	private static ResultSet Sql_search_Client_Optimal()//cette methode faire une recherche d'une client
-	{
-		                // a base de numero ou nom/prenom avec les reactions du clavier
-		Statement stm=null;
-		ResultSet result=null;
-		String SqlQury=null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");     
-			connecet=DriverManager.getConnection("jdbc:mysql://localhost/gestcom?useUnicode=yes&characterEncoding=UTF-8","root","");			
-			stm=connecet.createStatement();
-			if(!Num_Client.getText().equals("")) // dans le case de recherche avec numero Client
-			{                                       
-				SqlQury="select * from Client where id='"+Num_Client.getText()+"';";
-			}
-			else                            // dans le case de recherche avec le nom et prenom
-			{
-				SqlQury="select * from Client where Nom LIKE '"+Nom_client.getText()+"%' AND Prenom LIKE '"+Prenom_client.getText()+"%';";
-				
-			}
-			result=stm.executeQuery(SqlQury); // execution de requete 
-	        
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(),e.getMessage(),"ERREUR",JOptionPane.ERROR_MESSAGE);
-		}		
-		return result; // la methode returner le resultate pour l'affichge
-	}
-	/************************************************************************************************/
 	
 	private static void affichage_table(ResultSet result) //methode pour l'affichage des resultates
 	{            										  // des recherche client 
@@ -293,11 +256,11 @@ public class Liste_des_Clients extends JFrame {
 					result.getString("Commune"),result.getString("Solde_Initial")
 					});
 			}
-			connecet.close();
+		
 			
 		} catch (Exception e) {    // dans le cas d'erreur lancer une fenetre d'alert
 			JOptionPane.showMessageDialog(new JFrame(),e.getMessage(),"ERREUR",JOptionPane.ERROR_MESSAGE);
-			System.out.println(e.getMessage());
+			
 		}
 		
 		

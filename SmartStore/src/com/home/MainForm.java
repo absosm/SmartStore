@@ -149,7 +149,7 @@ public class MainForm extends JFrame {
 		toolBar.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			//	new Liste_des_Clients();
+			new Liste_des_Clients();
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
