@@ -330,7 +330,8 @@ class ImagePanel extends JPanel {
 	    setLayout(null);
 	  }
 
-	  public void paintComponent(Graphics g) {
+	  public void paintComponent(Graphics g) 
+	  {
 	    g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 	  }
 
