@@ -5,8 +5,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
-
 import com.mysql.jdbc.PreparedStatement;
 
 import javax.swing.JTabbedPane;
@@ -22,11 +20,13 @@ import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.KeyAdapter;
@@ -34,7 +34,7 @@ import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
 
 
-public class AddClients extends JFrame {
+public class Modifier_Clients_Form extends JFrame {
 
 	private JPanel contentPane;
 	private static JTextField tfnom;
@@ -58,9 +58,10 @@ public class AddClients extends JFrame {
 	private static JComboBox  tfwilaya;
 	private static JComboBox  tfcommune;
 	private static JComboBox  cbmodetarif;
-	private static JButton    btnOk;
+	private static JButton 	  btnModifier;
 	private static JLabel 	  id_label;
 	private static Connection connecet=null;
+	static private JTextField tfId;
 	
 
 	/**
@@ -71,8 +72,8 @@ public class AddClients extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					AddClients frame = new AddClients();
-					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					//Modifier_Clients frame = new Modifier_Clients();
+					//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -83,12 +84,14 @@ public class AddClients extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddClients() {
+	// constructeur avec un paramètre pour la recherche et la modification 
+	
+	public Modifier_Clients_Form(Integer Num) {
 		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(AddClients.class.getResource("/images_Resource/employeeIcon.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Modifier_Clients_Form.class.getResource("/images_Resource/employeeIcon.png")));
 
 		
-		setTitle("Ajouter Client");
+		setTitle("Modifier Client");
 		
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 700, 450);
@@ -283,11 +286,20 @@ public class AddClients extends JFrame {
 			tffax.setBounds(69, 227, 326, 30);
 			panel.add(tffax);
 			
-			id_label = new JLabel("");
+			id_label = new JLabel("N\u00B0Client");
 			id_label.setHorizontalAlignment(SwingConstants.CENTER);
 			id_label.setFont(new Font("Tahoma", Font.BOLD, 14));
-			id_label.setBounds(480, 186, 151, 29);
+			id_label.setBounds(526, 149, 86, 29);
 			panel.add(id_label);
+			
+			tfId = new JTextField();
+			tfId.setEditable(false);
+			tfId.setHorizontalAlignment(SwingConstants.CENTER);
+			tfId.setFont(new Font("Tahoma", Font.BOLD, 14));
+			tfId.setForeground(new Color(51, 102, 204));
+			tfId.setBounds(526, 186, 86, 30);
+			panel.add(tfId);
+			tfId.setColumns(10);
 			
 			JPanel panel_1 = new JPanel();
 			panel_1.setBackground(new Color(240, 240, 240));
@@ -474,103 +486,6 @@ public class AddClients extends JFrame {
 			tfsolde_initial.setBounds(119, 131, 256, 30);
 			panel_2.add(tfsolde_initial);
 			
-			btnOk = new JButton("ok");
-			btnOk.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					
-					//PreparedStatement preparedStatement=null;
-					ResultSet resultSet=null;
-					try {
-						Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
-						Matcher matcher1 = pattern.matcher(tfemail.getText());// passage de parametre
-						if(matcher1.find() || tfemail.getText().equals("") ){
-							DataBase database = Session.getDatabase();
-							String selectSQL=null;
-							PreparedStatement prepared=null;
-							try {
-								selectSQL="select * from client where Nom=? AND Prenom =?";
-								prepared = (PreparedStatement) database.getConnection()
-									.prepareStatement(selectSQL);
-								prepared.setString(1, tfnom.getText());
-								prepared.setString(2, tfprenom.getText());
-								resultSet=prepared.executeQuery();
-								resultSet.last();
-								
-							} catch (SQLException g) {
-								// TODO Auto-generated catch block
-								g.printStackTrace();
-							} 
-						if(resultSet.getRow() !=0)
-						{
-							JOptionPane.showMessageDialog(new JFrame(), "le client déjà existe", "ERREUR de connection",
-							        JOptionPane.ERROR_MESSAGE);
-							
-						}
-						else
-						{
-							try {
-								selectSQL="insert into client(Nom,Prenom,Adresse,Famille,CodePostal,wilaya,Commune,TelPortable,TeleFix,"+
-										"Fax,NRC,NART,NIF,NIS,RIB,ComptBancaire,Email,SiteWeb,ModeTarif,"+
-												"LimitationCredit,Solde_Initial)Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-										prepared=(PreparedStatement) database.getConnection().prepareStatement(selectSQL);
-										prepared.setString(1,  tfnom.getText());
-										prepared.setString(2,  tfprenom.getText());
-										prepared.setString(3,  tfadresse.getText());
-										prepared.setString(4,  tffamille.getText());
-										prepared.setInt(5,     Integer.parseInt(tfcodepostal.getText()));
-										prepared.setString(6,  tfwilaya.getSelectedItem().toString());
-										prepared.setString(7,  tfcommune.getSelectedItem().toString());
-										prepared.setString(8,  tftelportabl.getText());
-										prepared.setString(9,  tftelfix.getText());
-										prepared.setString(10, tffax.getText());
-										prepared.setString(11, tfnrc.getText());
-										prepared.setString(12, tfnart.getText());
-										prepared.setString(13, tfnif.getText());
-										prepared.setString(14, tfnis.getText());
-										prepared.setString(15, tfrib.getText());
-										prepared.setString(16, tfcomptebancaire.getText());
-										prepared.setString(17, tfemail.getText());
-										prepared.setString(18, tfsiteweb.getText());
-										prepared.setInt(19,    cbmodetarif.getSelectedIndex());
-										prepared.setDouble(20, Double.parseDouble(tflimitation.getText()));
-										prepared.setDouble(21, Double.parseDouble(tfsolde_initial.getText()));
-										prepared.executeUpdate();
-									
-										JOptionPane.showMessageDialog(new JFrame(), "Inscription Success", "Information d'inscription",
-										        JOptionPane.INFORMATION_MESSAGE);
-										tfadresse.setText(null);tfcodepostal.setText("0");tfcomptebancaire.setText(null);
-										tfemail.setText(null);tffamille.setText(null);tffax.setText(null);tfnart.setText(null);tflimitation.setText("0");
-										tfnif.setText(null);tfnis.setText(null);tfnom.setText(null);tfnrc.setText(null);tfprenom.setText(null);
-										tfrib.setText(null);tfsiteweb.setText(null);tftelfix.setText(null);tftelportabl.setText(null);tfsolde_initial.setText("0");
-									
-							} catch (Exception e2) {
-								JOptionPane.showMessageDialog(new JFrame(), "erreur de type donnees", "ERREUR d'inscription",
-								        JOptionPane.ERROR_MESSAGE);
-							}
-							}
-					}
-						else
-						{
-							JOptionPane.showMessageDialog(new JFrame(), "Adresse e-mail incorrecte \t\t \n E-Mail format:   xxxxxx@yyyy.zzz", "ERREUR d'inscription",
-							        JOptionPane.ERROR_MESSAGE);
-							
-						}
-										
-					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(new JFrame(), ex, "ERREUR de connection",
-						        JOptionPane.ERROR_MESSAGE);
-						
-							//ex.printStackTrace();
-					}
-				}
-			});
-			btnOk.setForeground(new Color(0, 255, 102));
-			btnOk.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnOk.setIcon(new ImageIcon(this.getClass().getResource("/images_Resource/database-accept-icon.png")));
-			btnOk.setBounds(72, 353, 77, 41);
-			contentPane.add(btnOk);
-			
 			JButton btnAnnuler = new JButton("annuler");
 			btnAnnuler.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -588,24 +503,132 @@ public class AddClients extends JFrame {
 			btnAnnuler.setIcon(new ImageIcon(this.getClass().getResource("/images_Resource/Misc-Delete-Database-icon.png")));
 			btnAnnuler.setBounds(507, 350, 113, 44);
 			contentPane.add(btnAnnuler);
+			
+			btnModifier = new JButton("Modifier");
+			btnModifier.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					Modifier_Client_Sql();
+				}
+			});
+			btnModifier.setIcon(new ImageIcon(Modifier_Clients_Form.class.getResource("/images_Resource/if_user_profile_edit_103781.png")));
+			btnModifier.setForeground(Color.GREEN);
+			btnModifier.setFont(new Font("Tahoma", Font.BOLD, 14));
+			btnModifier.setBounds(50, 353, 123, 41);
+			contentPane.add(btnModifier);
+			btnModifier.setVisible(true);
+			Modifier_clien(recherche_client_avec_num(Num));
 	}
-////////////////////////////////////////////////les méthodes/////////////////////////////////////////////////////////////
-	public static ResultSet ID_search_Client(int ID)//cette methode faire une recherche d'une client
-															// a base de identificateur 
-	{
-		DataBase database= Session.getDatabase();
-		String SqlQury="select * from Client where id="+ID+";";		
-		return database.getResult(SqlQury); // la methode returner le resultate pour l'affichge
+	public static ResultSet recherche_client_avec_num(Integer Num) // cette méthode prend les informations depuis le tableau 
+	{															  // et faire une recherche sur la base de données
+		DataBase database = Session.getDatabase();
+		String SqlQury="select * from client where id='"+Num+"';";
+		try {
+			return database.getResult(SqlQury);  
+			                  
+		} catch (Exception e) {			 
+			JOptionPane.showMessageDialog(new JFrame(),e.getMessage(),"ERREUR",JOptionPane.ERROR_MESSAGE);
+			
+		}		
+		return null;
+		
+		 // la methode returner le resultate pour l'affichge
+	}
+	public static void Modifier_clien(ResultSet result) // la methode charger tous les information du client selectionner  
+	{                                                   // et remplir le formulaire 
+		try {    if (result!=null){
+						result.next();
+						
+						
+					 tfId.setText(result.getString("id"));
+					 tfnom.setText(result.getString("Nom"));
+					 tfprenom.setText(result.getString("prenom"));
+					 tfadresse.setText(result.getString("Adresse"));
+					 tffamille.setText(result.getString("Famille"));
+					 tfcodepostal.setText(result.getString("CodePostal"));
+					 tftelportabl.setText(result.getString("TelPortable"));
+					 tftelfix.setText(result.getString("TeleFix"));
+					 tffax.setText(result.getString("Fax"));
+					 tfnrc.setText(result.getString("NRC"));
+					 tfnif.setText(result.getString("NIF"));
+					 tfcomptebancaire.setText(result.getString("ComptBancaire"));
+					 tfemail.setText(result.getString("Email"));
+					 tfnart.setText(result.getString("NART"));
+					 tfnis.setText(result.getString("NIS"));
+					 tfrib.setText(result.getString("RIB"));
+					 tfsiteweb.setText(result.getString("Siteweb"));
+					 tflimitation.setText(result.getString("LimitationCredit"));
+					 tfsolde_initial.setText(result.getString("Solde_Initial"));
+					 
+					 cbmodetarif.setSelectedIndex((Integer.valueOf(result.getString("ModeTarif"))));
+					 tfwilaya.setSelectedItem(result.getString("wilaya"));
+					 tfcommune.setSelectedItem(result.getString("Commune"));					 
+					}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	
-	/********************************************************************************************/
-	public static ResultSet info_search_Client(String nom, String prenom)//cette methode faire une recherche d'une client
+	public static void Modifier_Client_Sql()
 	{
-		                												// a base de numero ou nom/prenom avec les reactions du clavier
-		DataBase database=Session.getDatabase();
-		String SqlQury="select * from Client where Nom LIKE '"+nom+"%' AND Prenom LIKE '"+prenom+"%';";		
-		return database.getResult(SqlQury); // la methode returner le resultate pour l'affichge
+		PreparedStatement prepared=null;
+		try {
+			Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
+			Matcher matcher1 = pattern.matcher(tfemail.getText());// passage de parametre
+			if(matcher1.find() || tfemail.getText().equals("") ){
+			DataBase database=Session.getDatabase();
+			/*String Query="UPDATE client SET Nom='"+tfnom.getText()+"',Prenom='"+tfprenom.getText()+"',Adresse='"+tfadresse.getText()+
+						"',Famille='"+tffamille.getText()+"',CodePostal='"+tfcodepostal.getText()+"',wilaya='"+tfwilaya.getSelectedItem().toString()+
+						"',Commune='"+tfcommune.getSelectedItem().toString()+"',TelPortable='"+tftelportabl.getText()+"',TeleFix='"+tftelfix.getText()+"',Fax='"+tffax.getText()
+						+"',NRC='"+tfnrc.getText()+"',NART='"+tfnart.getText()+"',NIF='"+tfnif.getText()+"',NIS='"+tfnis.getText()+"',RIB='"+tfrib.getText()
+						+"',ComptBancaire='"+tfcomptebancaire.getText()+"',Email='"+tfemail.getText()+"',SiteWeb='"+tfsiteweb.getText()+"',ModeTarif='"+
+						cbmodetarif.getSelectedIndex()+"',LimitationCredit='"+tflimitation.getText()+"',Solde_Initial='"+tfsolde_initial.getText()+"' WHERE id='"+id_label.getText()+"';";	
+				
+				connecet.prepareStatement(Query).executeUpdate();*/
+			String selectSQL="UPDATE client SET Nom=? ,Prenom=? ,Adresse=? ,Famille=? ,CodePostal=? ,wilaya=?"
+					+ ",Commune=? ,TelPortable=? ,TeleFix=? ,Fax=? ,NRC=? ,NART=? ,NIF=? ,NIS=? ,RIB=? ,ComptBancaire=?"
+					+ ",Email=? ,SiteWeb=? ,ModeTarif=? ,LimitationCredit=? ,Solde_Initial=? WHERE id=?;";	
+			prepared=(PreparedStatement) database.getConnection().prepareStatement(selectSQL);
+			prepared.setString(1,  tfnom.getText());
+			prepared.setString(2,  tfprenom.getText());
+			prepared.setString(3,  tfadresse.getText());
+			prepared.setString(4,  tffamille.getText());
+			prepared.setInt(5,     Integer.parseInt("0"+tfcodepostal.getText()));
+			prepared.setString(6,  tfwilaya.getSelectedItem().toString());
+			prepared.setString(7,  tfcommune.getSelectedItem().toString());
+			prepared.setString(8,  tftelportabl.getText());
+			prepared.setString(9,  tftelfix.getText());
+			prepared.setString(10, tffax.getText());
+			prepared.setString(11, tfnrc.getText());
+			prepared.setString(12, tfnart.getText());
+			prepared.setString(13, tfnif.getText());
+			prepared.setString(14, tfnis.getText());
+			prepared.setString(15, tfrib.getText());
+			prepared.setString(16, tfcomptebancaire.getText());
+			prepared.setString(17, tfemail.getText());
+			prepared.setString(18, tfsiteweb.getText());
+			prepared.setInt(19,    cbmodetarif.getSelectedIndex());
+			prepared.setDouble(20, Double.parseDouble(tflimitation.getText()));
+			prepared.setDouble(21, Double.parseDouble(tfsolde_initial.getText()));
+			prepared.setDouble(22, Double.parseDouble(tfId.getText()));
+			prepared.executeUpdate();
+				JOptionPane.showMessageDialog(new JFrame(), "Modification Success", "Information d'inscription",
+				        JOptionPane.INFORMATION_MESSAGE);
+			
+		}
+			else
+			{
+				JOptionPane.showMessageDialog(new JFrame(), "Adresse e-mail incorrecte \t\t \n E-Mail format:   xxxxxx@yyyy.zzz", "ERREUR d'inscription",
+				        JOptionPane.ERROR_MESSAGE);
+				
+			}
+							
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(new JFrame(), ex, "ERREUR de connection",
+			        JOptionPane.ERROR_MESSAGE);
+			
+				//ex.printStackTrace();
+		}
+		
 	}
-	/************************************************************************************************/
-	
 }

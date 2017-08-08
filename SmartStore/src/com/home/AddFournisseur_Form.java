@@ -19,11 +19,14 @@ import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.EmptyBorder;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,25 +35,27 @@ import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
 
 
-public class AddFournisseur extends JFrame {
+public class AddFournisseur_Form extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField tfnom;
-	private JTextField tfprenom;
-	private JTextField tfadresse;
-	private JTextField tfcodepostal;
-	private JTextField tftelportabl;
-	private JTextField tftelfix;
-	private JTextField tffax;
-	private JTextField tfnrc;
-	private JTextField tfnif;
-	private JTextField tfcomptebancaire;
-	private JTextField tfemail;
-	private JTextField tfnart;
-	private JTextField tfnis;
-	private JTextField tfrib;
-	private JTextField tfsiteweb;
-	private JTextField tfsolde;
+	private static JPanel contentPane;
+	private static JTextField tfnom;
+	private static JTextField tfprenom;
+	private static JTextField tfadresse;
+	private static JTextField tfcodepostal;
+	private static JTextField tftelportabl;
+	private static JTextField tftelfix;
+	private static JTextField tffax;
+	private static JTextField tfnrc;
+	private static JTextField tfnif;
+	private static JTextField tfcomptebancaire;
+	private static JTextField tfemail;
+	private static JTextField tfnart;
+	private static JTextField tfnis;
+	private static JTextField tfrib;
+	private static JTextField tfsiteweb;
+	private static JTextField tfsolde;
+	private static JComboBox tfwilaya;
+	private static JComboBox tfcommune;
 
 	/**
 	 * Launch the application.
@@ -60,7 +65,7 @@ public class AddFournisseur extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					AddFournisseur frame = new AddFournisseur();
+					AddFournisseur_Form frame = new AddFournisseur_Form();
 					frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -72,8 +77,8 @@ public class AddFournisseur extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddFournisseur() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(AddFournisseur.class.getResource("/images_Resource/fournisseur - Copie.png")));
+	public AddFournisseur_Form() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AddFournisseur_Form.class.getResource("/images_Resource/fournisseur - Copie.png")));
 		setFont(new Font("Tahoma", Font.BOLD, 14));
 		setTitle("Ajouter Fournisseur");
 		setVisible(true);
@@ -164,7 +169,7 @@ public class AddFournisseur extends JFrame {
 		lblWilaya.setBounds(142, 93, 46, 22);
 		panel.add(lblWilaya);
 		
-		final JComboBox tfwilaya = new JComboBox();
+		tfwilaya = new JComboBox();
 		tfwilaya.setFont(new Font("Tahoma", Font.BOLD, 12));
 		tfwilaya.setModel(new DefaultComboBoxModel(new String[] {"", "ADRAR\t", "AIN DEFLA\t", "AIN TEMOUCHENT\t", "AL TARF\t", "ALGER\t", "ANNABA\t", "B.B.ARRERIDJ\t", "BATNA\t", "BECHAR\t", "BEJAIA\t", "BISKRA\t", "BLIDA\t", "BOUIRA\t", "BOUMERDES\t", "CHLEF\t", "CONSTANTINE\t", "DJELFA\t", "EL BAYADH\t", "EL OUED\t", "GHARDAIA\t", "GUELMA\t", "ILLIZI\t", "JIJEL\t", "KHENCHELA\t", "LAGHOUAT\t", "MASCARA\t", "MEDEA\t", "MILA\t", "MOSTAGANEM\t", "M’SILA\t", "NAAMA\t", "ORAN\t", "OUARGLA\t", "OUM ELBOUAGHI\t", "RELIZANE\t", "SAIDA\t", "SETIF\t", "SIDI BEL ABBES\t", "SKIKDA\t", "SOUKAHRAS\t", "TAMANGHASSET\t", "TEBESSA\t", "TIARET\t", "TINDOUF\t", "TIPAZA\t", "TISSEMSILT\t", "TIZI.OUZOU\t", "TLEMCEN"}));
 		tfwilaya.setSelectedIndex(0);
@@ -176,7 +181,7 @@ public class AddFournisseur extends JFrame {
 		lblCommune.setBounds(383, 98, 71, 21);
 		panel.add(lblCommune);
 		
-		final JComboBox tfcommune = new JComboBox();
+		tfcommune = new JComboBox();
 		tfcommune.setModel(new DefaultComboBoxModel(new String[] {""}));
 		tfcommune.setSelectedIndex(0);
 		tfcommune.setEditable(true);
@@ -387,68 +392,12 @@ public class AddFournisseur extends JFrame {
 		JButton btnOk = new JButton("ok");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Connection connecet=null;
-				Statement statement=null;
-				//PreparedStatement preparedStatement=null;
-				ResultSet resultSet=null;
-				try {
-					Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
-					Matcher matcher1 = pattern.matcher(tfemail.getText());// passage de parametre
-					if(matcher1.find() || tfemail.getText().equals("") ){
-						
-					Class.forName("com.mysql.jdbc.Driver");
-					connecet=DriverManager.getConnection("jdbc:mysql://localhost/gestcom?useUnicode=yes&characterEncoding=UTF-8","root","");
-					statement=connecet.createStatement();
-					resultSet=statement.executeQuery("select * from fournisseurs where Nom='"+tfnom.getText()+"' AND Prenom ='"+tfprenom.getText()+"';");
-					resultSet.last();
-					if(resultSet.getRow() !=0)
-					{
-						JOptionPane.showMessageDialog(new JFrame(), "le fournisseur déjà existe", "ERREUR de connection",
-						        JOptionPane.ERROR_MESSAGE);
-						
-					}
-					else
-					{
-						System.out.println("hello");
-						String values="'"+tfnom.getText()+"',"+"'"+tfprenom.getText()+"',"+"'"+tfadresse.getText()+"',"+"'"+tfcodepostal.getText()+"',"+"'"+
-								tfwilaya.getSelectedItem().toString()+"',"+"'"+tfcommune.getSelectedItem().toString()+"',"
-								+"'"+tftelportabl.getText()+"',"+"'"+tftelfix.getText()+"',"+"'"+tffax.getText()+"',"
-								+"'"+tfnrc.getText()+"',"+"'"+tfnart.getText()+"',"+"'"+tfnif.getText()+"',"
-								+"'"+tfnis.getText()+"',"+"'"+tfrib.getText()+"',"+"'"+tfcomptebancaire.getText()+"',"+"'"+tfemail.getText()+"',"
-								+"'"+tfsiteweb.getText()+"',"+"'"+tfsolde.getText()+"'";
-						
-						System.out.println(values);
-						
-						
-						String Query="insert into fournisseurs(Nom,Prenom,Adresse,CodePostal,wilaya," +
-								"Commune,TelPortable,TeleFix,Fax,NRC,NART,NIF,NIS,RIB,ComptBancaire,Email,SiteWeb,Solde)Values("+values+");";	
-						System.out.println(Query);
-						connecet.prepareStatement(Query).executeUpdate();
-						JOptionPane.showMessageDialog(new JFrame(), "Inscription Success", "Information d'inscription",
-						        JOptionPane.INFORMATION_MESSAGE);
-						//NomIN.setText(null);PrenomIN.setText(null);EmailIN.setText(null);MotdePassIN.setText(null);RetapePassWord.setText(null);PseudoIN.setText(null);
-						
-					
-					}
-				}
-					else
-					{
-						JOptionPane.showMessageDialog(new JFrame(), "Adresse e-mail incorrecte \t\t \n E-Mail format:   xxxxxx@yyyy.zzz", "ERREUR d'inscription",
-						        JOptionPane.ERROR_MESSAGE);
-						System.out.println("Adresse e-mail incorrecte");
-					}
-									
-				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(new JFrame(), ex, "ERREUR de connection",
-					        JOptionPane.ERROR_MESSAGE);
-					System.out.println(ex);
-						//ex.printStackTrace();
-				}
+				Ajouter_fournisseur();
 			}
 		});
 		btnOk.setForeground(new Color(0, 255, 102));
 		btnOk.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnOk.setIcon(new ImageIcon(AddFournisseur.class.getResource("/images_Resource/database-accept-icon.png")));
+		btnOk.setIcon(new ImageIcon(AddFournisseur_Form.class.getResource("/images_Resource/database-accept-icon.png")));
 		btnOk.setBounds(128, 350, 77, 33);
 		contentPane.add(btnOk);
 		
@@ -460,8 +409,121 @@ public class AddFournisseur extends JFrame {
 		});
 		btnAnnuler.setForeground(new Color(255, 51, 51));
 		btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnAnnuler.setIcon(new ImageIcon(AddFournisseur.class.getResource("/images_Resource/Misc-Delete-Database-icon.png")));
+		btnAnnuler.setIcon(new ImageIcon(AddFournisseur_Form.class.getResource("/images_Resource/Misc-Delete-Database-icon.png")));
 		btnAnnuler.setBounds(507, 350, 113, 33);
 		contentPane.add(btnAnnuler);
 	}
+////////////////////////////////////////////////les méthodes/////////////////////////////////////////////////////////////
+/**
+* @param ID
+* @return 
+* cette methode faire une recherche d'un Fournisseur a base de identificateur 
+* la methode returner le resultate pour l'affichge
+*/
+public static ResultSet ID_search_fourniseur(int ID)//
+				
+{
+DataBase database= Session.getDatabase();
+String SqlQury="select * from fournisseurs where id="+ID+";";		
+return database.getResult(SqlQury); 
+}
+
+/********************************************************************************************/
+/**
+* @param nom
+* @param prenom
+* @return
+* cette methode faire une recherche d'un fourniseur a base de numero ou nom/prenom 
+* la methode returner le resultate pour l'affichge
+*/
+public static ResultSet info_search_fourniseur(String nom, String prenom)
+{
+							
+DataBase database=Session.getDatabase();
+String SqlQury="select * from fournisseurs where Nom LIKE '"+nom+"%' AND Prenom LIKE '"+prenom+"%';";		
+return database.getResult(SqlQury); 
+}
+/************************************************************************************************/
+private static void Ajouter_fournisseur() {
+
+	ResultSet resultSet=null;								
+	try {
+		Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
+		Matcher matcher1 = pattern.matcher(tfemail.getText());// passage de parametre
+		if(matcher1.find() || tfemail.getText().equals("") ){
+			DataBase database = Session.getDatabase();
+			String selectSQL=null;
+			PreparedStatement prepared=null;
+		try {
+			selectSQL="select * from fournisseurs where Nom=? AND Prenom =?";
+			prepared = (PreparedStatement) database.getConnection()
+				.prepareStatement(selectSQL);
+			prepared.setString(1, tfnom.getText());
+			prepared.setString(2, tfprenom.getText());
+			resultSet=prepared.executeQuery();
+			resultSet.last();
+			
+		} catch (SQLException g) {
+			// TODO Auto-generated catch block
+			g.printStackTrace();
+		}
+		if(resultSet.getRow() !=0)
+		{
+			JOptionPane.showMessageDialog(new JFrame(), "le fournisseur déjà existe", "ERREUR de connection",
+			        JOptionPane.ERROR_MESSAGE);
+			
+		}
+		else
+		{
+			try {
+				selectSQL="insert into fournisseurs(Nom,Prenom,Adresse,CodePostal,wilaya,Commune,TelPortable,TeleFix,"+
+						"Fax,NRC,NART,NIF,NIS,RIB,ComptBancaire,Email,SiteWeb,Solde_Initial)Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+						prepared=(PreparedStatement) database.getConnection().prepareStatement(selectSQL);
+						prepared.setString(1,  tfnom.getText());
+						prepared.setString(2,  tfprenom.getText());
+						prepared.setString(3,  tfadresse.getText());
+						prepared.setInt(4,     Integer.parseInt(tfcodepostal.getText()));
+						prepared.setString(5,  tfwilaya.getSelectedItem().toString());
+						prepared.setString(6,  tfcommune.getSelectedItem().toString());
+						prepared.setString(7,  tftelportabl.getText());
+						prepared.setString(8,  tftelfix.getText());
+						prepared.setString(9, tffax.getText());
+						prepared.setString(10, tfnrc.getText());
+						prepared.setString(11, tfnart.getText());
+						prepared.setString(12, tfnif.getText());
+						prepared.setString(13, tfnis.getText());
+						prepared.setString(14, tfrib.getText());
+						prepared.setString(15, tfcomptebancaire.getText());
+						prepared.setString(16, tfemail.getText());
+						prepared.setString(17, tfsiteweb.getText());
+						prepared.setDouble(18, Double.parseDouble(tfsolde.getText()));
+						prepared.executeUpdate();
+					
+						JOptionPane.showMessageDialog(new JFrame(), "Inscription Success", "Information d'inscription",
+						        JOptionPane.INFORMATION_MESSAGE);
+						tfadresse.setText(null);tfcodepostal.setText("0");tfcomptebancaire.setText(null);
+						tfemail.setText(null);tffax.setText(null);tfnart.setText(null);
+						tfnif.setText(null);tfnis.setText(null);tfnom.setText(null);tfnrc.setText(null);tfprenom.setText(null);
+						tfrib.setText(null);tfsiteweb.setText(null);tftelfix.setText(null);tftelportabl.setText(null);tfsolde.setText("0");
+					
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(new JFrame(), "erreur de type donnees", "ERREUR d'inscription",
+				        JOptionPane.ERROR_MESSAGE);
+			}
+		
+		}
+	}
+		else
+		{
+			JOptionPane.showMessageDialog(new JFrame(), "Adresse e-mail incorrecte \t\t \n E-Mail format:   xxxxxx@yyyy.zzz", "ERREUR d'inscription",
+			        JOptionPane.ERROR_MESSAGE);
+			
+		}
+						
+	} catch (Exception ex) {
+		JOptionPane.showMessageDialog(new JFrame(), ex, "ERREUR de connection",
+		        JOptionPane.ERROR_MESSAGE);					
+	}
+	
+}
 }

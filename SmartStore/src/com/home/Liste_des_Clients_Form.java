@@ -1,7 +1,7 @@
 package com.home;
 
 
-import com.home.AddClients.*;
+import com.home.AddClients_Form.*;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -31,7 +31,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Liste_des_Clients extends JFrame {
+public class Liste_des_Clients_Form extends JFrame {
 
 	private JPanel contentPane;
 	private static JTextField Nom_client;
@@ -48,7 +48,7 @@ public class Liste_des_Clients extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					Liste_des_Clients frame = new Liste_des_Clients();
+					Liste_des_Clients_Form frame = new Liste_des_Clients_Form();
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,9 +60,9 @@ public class Liste_des_Clients extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Liste_des_Clients() {
+	public Liste_des_Clients_Form() {
 		setTitle("Recherche");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Liste_des_Clients.class.getResource("/images_Resource/Search-People-icon.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Liste_des_Clients_Form.class.getResource("/images_Resource/Search-People-icon.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1000, 599);
 		setVisible(true);
@@ -87,7 +87,7 @@ public class Liste_des_Clients extends JFrame {
 					int a=table.getSelectedRow();
 					Object num = tableModel.getValueAt(a, 0);
 					if(num!=null){
-					new Modifier_Clients(Integer.valueOf(num.toString()));
+					new Modifier_Clients_Form(Integer.valueOf(num.toString()));
 					}
 				}
 			}
@@ -137,7 +137,7 @@ public class Liste_des_Clients extends JFrame {
 			
 			public void keyTyped(KeyEvent arg0) {
 				try {
-					affichage_table(AddClients.info_search_Client(Nom_client.getText(),Prenom_client.getText())); // recherche intelligent
+					affichage_table(AddClients_Form.info_search_Client(Nom_client.getText(),Prenom_client.getText())); // recherche intelligent
 					
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(new JFrame(),e.getMessage()+"\n erreur de recherche à partir le Nom","ERREUR",JOptionPane.ERROR_MESSAGE);
@@ -158,7 +158,7 @@ public class Liste_des_Clients extends JFrame {
 			
 			public void keyTyped(KeyEvent arg0) {
 				try {
-					affichage_table(AddClients.info_search_Client(Nom_client.getText(),Prenom_client.getText()));// #hhhh recherche intelligent
+					affichage_table(AddClients_Form.info_search_Client(Nom_client.getText(),Prenom_client.getText()));// #hhhh recherche intelligent
 
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(new JFrame(),e.getMessage()+"\n erreur de recherche à partir le PréNom","ERREUR",JOptionPane.ERROR_MESSAGE);
@@ -186,12 +186,12 @@ public class Liste_des_Clients extends JFrame {
 		
 		JButton btnNewButton = new JButton("Recherche");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setIcon(new ImageIcon(Liste_des_Clients.class.getResource("/images_Resource/Search-icon.png")));
+		btnNewButton.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images_Resource/Search-icon.png")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(!Num_Client.getText().equals("")){
-					affichage_table(AddClients.ID_search_Client(Integer.parseInt(Num_Client.getText())));   // recherche avec ID et 
+					affichage_table(AddClients_Form.ID_search_Client(Integer.parseInt(Num_Client.getText())));   // recherche avec ID et 
 					}   																						// et afficher le résultat dans une table
 					}
 				catch (Exception e) {
@@ -205,10 +205,10 @@ public class Liste_des_Clients extends JFrame {
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new AddClients();                // creer un instance du class "addClient"   
+				new AddClients_Form();                // creer un instance du class "addClient"   
 			}                                    // pour ajouter un client 
 		});
-		btnAjouter.setIcon(new ImageIcon(Liste_des_Clients.class.getResource("/images_Resource/employeeIcon.png")));
+		btnAjouter.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images_Resource/employeeIcon.png")));
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnAjouter.setBounds(61, 2, 153, 57);
 		contentPane.add(btnAjouter);
@@ -221,11 +221,11 @@ public class Liste_des_Clients extends JFrame {
 					List<String> list = new ArrayList<String>();
 					DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 					int a=table.getSelectedRow();
-					list.add(tableModel.getValueAt(a, 0).toString());
+					list.add(tableModel.getValueAt(a, 0).toString()); // passer les informations de Client
 					list.add(tableModel.getValueAt(a, 1).toString());
 					list.add(tableModel.getValueAt(a, 2).toString());
 					list.add(tableModel.getValueAt(a, 7).toString());
-					new sup_Client(list);
+					new Sup_Client_Form(list);                             // lancer une fenêtre pour valider la suppression
 					
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(new JFrame(),e1.getMessage()+"\n Sélectionnez l'élément pour supprimer ","ERREUR",JOptionPane.ERROR_MESSAGE);
@@ -233,7 +233,7 @@ public class Liste_des_Clients extends JFrame {
 				}
 			}
 		});
-		btnSupprimer.setIcon(new ImageIcon(Liste_des_Clients.class.getResource("/images_Resource/Delete_48.png")));
+		btnSupprimer.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images_Resource/Delete_48.png")));
 		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnSupprimer.setBounds(281, 2, 157, 57);
 		contentPane.add(btnSupprimer);

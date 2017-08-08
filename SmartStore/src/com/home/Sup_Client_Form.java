@@ -29,7 +29,7 @@ import java.awt.Toolkit;
 
 
 
-public class sup_Client extends JFrame {
+public class Sup_Client_Form extends JFrame {
 
 	private JPanel contentPane;
 
@@ -41,7 +41,7 @@ public class sup_Client extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					sup_Client frame = new sup_Client(new ArrayList<String>());
+					Sup_Client_Form frame = new Sup_Client_Form(new ArrayList<String>());
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					
 				} catch (Exception e) {
@@ -54,9 +54,9 @@ public class sup_Client extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public sup_Client(final List<String> list) {
+	public Sup_Client_Form(final List<String> list) {
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(sup_Client.class.getResource("/images_Resource/Delete_48.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Sup_Client_Form.class.getResource("/images_Resource/Delete_48.png")));
 		setTitle("Supprimer_Client");
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -67,7 +67,7 @@ public class sup_Client extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("<html>Si vous êtes sûr de supprimer le client sélectionnez<font color=\"#00ff00\"> Oui </font>\r\n<br>\r\nmais si vous ne voulez pas supprimer sélectionnez <font color=\"#ff0000\">Annuler</font></html>");
-		lblNewLabel.setIcon(new ImageIcon(sup_Client.class.getResource("/images_Resource/stamp.png")));
+		lblNewLabel.setIcon(new ImageIcon(Sup_Client_Form.class.getResource("/images_Resource/stamp.png")));
 		lblNewLabel.setFont(new Font("Simplified Arabic", Font.BOLD, 16));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel.setBounds(10, 11, 472, 63);
@@ -135,7 +135,7 @@ public class sup_Client extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setIcon(new ImageIcon(sup_Client.class.getResource("/images_Resource/user-red-delete.png")));
+		btnNewButton.setIcon(new ImageIcon(Sup_Client_Form.class.getResource("/images_Resource/user-red-delete.png")));
 		btnNewButton.setFont(new Font("Simplified Arabic", Font.BOLD, 16));
 		btnNewButton.setBounds(349, 238, 97, 41);
 		contentPane.add(btnNewButton);
@@ -146,7 +146,7 @@ public class sup_Client extends JFrame {
 				dispose();
 			}
 		});
-		btnOui.setIcon(new ImageIcon(sup_Client.class.getResource("/images_Resource/1490388962_DeleteRed.png")));
+		btnOui.setIcon(new ImageIcon(Sup_Client_Form.class.getResource("/images_Resource/1490388962_DeleteRed.png")));
 		btnOui.setFont(new Font("Simplified Arabic", Font.BOLD, 16));
 		btnOui.setBounds(39, 238, 123, 41);
 		contentPane.add(btnOui);

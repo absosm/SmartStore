@@ -149,13 +149,18 @@ public class MainForm extends JFrame {
 		toolBar.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			new Liste_des_Clients();
+			new Liste_des_Clients_Form();
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnNewButton.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/Client.png")));
 		
 		JButton btnFournisseur = new JButton("Fournisseurs");
+		btnFournisseur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new Liste_des_Fournisseur_Form();
+			}
+		});
 		toolBar.add(btnFournisseur);
 		btnFournisseur.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/fournisseur.png")));
 		btnFournisseur.setFont(new Font("Tahoma", Font.BOLD, 14));
