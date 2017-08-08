@@ -20,10 +20,20 @@ import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URL;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
+
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
+
 import java.awt.Color;
 import java.awt.Window.Type;
 
@@ -36,6 +46,7 @@ public class Authentification {
 	private JTextField tf_dbname;
 	private JTextField tf_username;
 	private JPasswordField tf_password;
+	private JComboBox cb_driver;
 
 	/**
 	 * Launch the application.
@@ -62,8 +73,8 @@ public class Authentification {
 	 */
 	public Authentification() {
 		initialize();
-		
 		Session.setAuthentification(frmAuthentification);
+		LoadConfiguration();
 	}
 
 	/**
@@ -227,7 +238,7 @@ public class Authentification {
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Option", null, panel_3, null);
 		
-		JComboBox cb_driver = new JComboBox();
+		cb_driver = new JComboBox();
 		cb_driver.setModel(new DefaultComboBoxModel(new String[] {"MySQL"}));
 		
 		JLabel lblNewLabel = new JLabel("Moteur de base:");
@@ -257,6 +268,30 @@ public class Authentification {
 		JButton btnNewButton = new JButton("Enregistrer");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Element root = new Element("root");
+				Element element = new Element("driver");
+				element.addContent(cb_driver.getSelectedIndex()+"");
+				root.addContent(element);
+				element = new Element("host");
+				element.addContent(tf_host.getText());
+				root.addContent(element);
+				element = new Element("name");
+				element.addContent(tf_dbname.getText());
+				root.addContent(element);
+				element = new Element("username");
+				element.addContent(tf_username.getText());
+				root.addContent(element);
+				element = new Element("password");
+				element.addContent(tf_password.getText());
+				root.addContent(element);
+				Document doc_write = new Document(root);
+		        try {
+		        	XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
+		        	sortie.output(doc_write, new FileOutputStream("./config/main.xml"));
+		        }
+		        catch (Exception e){
+		        	e.printStackTrace();
+		        }
 			}
 		});
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
@@ -314,6 +349,24 @@ public class Authentification {
 		);
 		panel_3.setLayout(gl_panel_3);
 		frmAuthentification.getContentPane().setLayout(groupLayout);
+	}
+	
+	private void LoadConfiguration() {
+		
+		SAXBuilder saxBuilder = new SAXBuilder();
+		Element element =  null;
+        Document document = null;
+        try {
+            document = saxBuilder.build(new File("./config/main.xml"));
+            element = document.getRootElement().getChild("driver");
+            cb_driver.setSelectedIndex(Integer.parseInt(document.getRootElement().getChild("driver").getText()));
+            tf_host.setText(document.getRootElement().getChild("host").getText());
+            tf_dbname.setText(document.getRootElement().getChild("name").getText());
+            tf_username.setText(document.getRootElement().getChild("username").getText());
+            tf_password.setText(document.getRootElement().getChild("password").getText());
+        } catch (Exception ex) {
+        	ex.printStackTrace();
+        }
 	}
 }
 
