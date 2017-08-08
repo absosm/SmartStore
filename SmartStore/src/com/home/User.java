@@ -103,7 +103,6 @@ public class User {
 			prepared.setString(3, telephone);
 			prepared.setString(4, password);
 			prepared.setInt(5, id);
-			
 			if (prepared.executeUpdate() > 0) {
 				b=true;
 			}
@@ -113,6 +112,22 @@ public class User {
 		}
 		
 		return b;
+	}
+	
+	public void login() {
+		
+		DataBase database = Session.getDatabase();
+				
+		try {
+			PreparedStatement prepared = (PreparedStatement) database.getConnection()
+				.prepareStatement("UPDATE users SET last_login=NOW() WHERE id=?");
+			prepared.setInt(1, id);
+			prepared.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void block(boolean b) {

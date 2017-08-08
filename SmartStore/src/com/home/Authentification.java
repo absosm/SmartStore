@@ -73,7 +73,7 @@ public class Authentification {
 	 */
 	public Authentification() {
 		initialize();
-		Session.setAuthentification(frmAuthentification);
+		Session.setAuthentificationForm(frmAuthentification);
 		LoadConfiguration();
 	}
 
@@ -188,8 +188,7 @@ public class Authentification {
 				
 				if (User.exist(tf_login.getText(), Encode.sha256(tf_loginpassword.getText()))) {
 					Session.setUser(User.get(tf_login.getText()));
-					Session.setMainForm(new MainForm());
-					Session.showMainForm();
+					Session.start();
 					frmAuthentification.setVisible(false);
 				}else {
 					JOptionPane.showMessageDialog(null, "le nom d'utilisateur ou le mot de passe et incorrect!");
