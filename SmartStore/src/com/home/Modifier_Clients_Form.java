@@ -542,7 +542,7 @@ public class Modifier_Clients_Form extends JFrame {
 		}		
 		return null;
 		
-		 // la methode returner le resultate pour l'affichge
+		 
 	}
 	/**
 	 * @param result
