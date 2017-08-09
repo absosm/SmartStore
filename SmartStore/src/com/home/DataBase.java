@@ -129,7 +129,7 @@ public class DataBase {
                 return false;
             }
         }catch (Exception e) {
-        	JOptionPane.showMessageDialog(null, e);
+        	e.printStackTrace();
             return false;
         }
     }
@@ -144,7 +144,7 @@ public class DataBase {
             return statement.executeQuery(sql);
         }catch (Exception e) {
         	
-            JOptionPane.showMessageDialog(null, e);
+        	e.printStackTrace();
            
             return null;
         }
@@ -159,7 +159,7 @@ public class DataBase {
             return statement.executeUpdate(sql);
         }catch (Exception e) {
         	
-            JOptionPane.showMessageDialog(null, e);
+        	e.printStackTrace();
            
             return -1;
         }
@@ -180,7 +180,7 @@ public class DataBase {
         try {
             connection.close();
         }catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+        	e.printStackTrace();
         }
     }
 }
