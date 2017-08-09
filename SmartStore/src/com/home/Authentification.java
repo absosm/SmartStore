@@ -282,6 +282,12 @@ public class Authentification {
 		JButton btnNewButton = new JButton("Enregistrer");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Configuration.database.driver = cb_driver.getSelectedIndex();
+				Configuration.database.host = tf_host.getText();
+				Configuration.database.name = tf_dbname.getText();
+				Configuration.database.username = tf_username.getText();
+				Configuration.database.password = new String( 
+						Base64.getEncoder().encode(tf_password.getText().getBytes()) );
 				Configuration.save();
 			}
 		});
