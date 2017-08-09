@@ -1,3 +1,7 @@
+/**
+ * Cette Classe permet de:
+ * afficher une formulaire pour Modifier un Client
+ */
 package com.home;
 import java.awt.EventQueue;
 
@@ -32,6 +36,7 @@ import java.util.regex.Pattern;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
+
 
 
 public class Modifier_Clients_Form extends JFrame {
@@ -297,7 +302,7 @@ public class Modifier_Clients_Form extends JFrame {
 			tfId.setHorizontalAlignment(SwingConstants.CENTER);
 			tfId.setFont(new Font("Tahoma", Font.BOLD, 14));
 			tfId.setForeground(new Color(51, 102, 204));
-			tfId.setBounds(526, 186, 86, 30);
+			tfId.setBounds(526, 186, 104, 30);
 			panel.add(tfId);
 			tfId.setColumns(10);
 			
@@ -518,6 +523,12 @@ public class Modifier_Clients_Form extends JFrame {
 			btnModifier.setVisible(true);
 			Modifier_clien(recherche_client_avec_num(Num));
 	}
+	/**
+	 * @param Num
+	 * @return
+	 * cette méthode prend l'identificateur de Client
+	 * et faire une recherche sur la base de données
+	 */
 	public static ResultSet recherche_client_avec_num(Integer Num) // cette méthode prend les informations depuis le tableau 
 	{															  // et faire une recherche sur la base de données
 		DataBase database = Session.getDatabase();
@@ -533,8 +544,13 @@ public class Modifier_Clients_Form extends JFrame {
 		
 		 // la methode returner le resultate pour l'affichge
 	}
-	public static void Modifier_clien(ResultSet result) // la methode charger tous les information du client selectionner  
-	{                                                   // et remplir le formulaire 
+	/**
+	 * @param result
+	 * la methode charger tous les information du client selectionner
+	 * et remplir le formulaire a partire result
+	 */
+	public static void Modifier_clien(ResultSet result) 
+	{                                                   
 		try {    if (result!=null){
 						result.next();
 						
@@ -569,6 +585,9 @@ public class Modifier_Clients_Form extends JFrame {
 		
 	}
 	
+	/**
+	 * 
+	 */
 	public static void Modifier_Client_Sql()
 	{
 		PreparedStatement prepared=null;
@@ -577,14 +596,6 @@ public class Modifier_Clients_Form extends JFrame {
 			Matcher matcher1 = pattern.matcher(tfemail.getText());// passage de parametre
 			if(matcher1.find() || tfemail.getText().equals("") ){
 			DataBase database=Session.getDatabase();
-			/*String Query="UPDATE client SET Nom='"+tfnom.getText()+"',Prenom='"+tfprenom.getText()+"',Adresse='"+tfadresse.getText()+
-						"',Famille='"+tffamille.getText()+"',CodePostal='"+tfcodepostal.getText()+"',wilaya='"+tfwilaya.getSelectedItem().toString()+
-						"',Commune='"+tfcommune.getSelectedItem().toString()+"',TelPortable='"+tftelportabl.getText()+"',TeleFix='"+tftelfix.getText()+"',Fax='"+tffax.getText()
-						+"',NRC='"+tfnrc.getText()+"',NART='"+tfnart.getText()+"',NIF='"+tfnif.getText()+"',NIS='"+tfnis.getText()+"',RIB='"+tfrib.getText()
-						+"',ComptBancaire='"+tfcomptebancaire.getText()+"',Email='"+tfemail.getText()+"',SiteWeb='"+tfsiteweb.getText()+"',ModeTarif='"+
-						cbmodetarif.getSelectedIndex()+"',LimitationCredit='"+tflimitation.getText()+"',Solde_Initial='"+tfsolde_initial.getText()+"' WHERE id='"+id_label.getText()+"';";	
-				
-				connecet.prepareStatement(Query).executeUpdate();*/
 			String selectSQL="UPDATE client SET Nom=? ,Prenom=? ,Adresse=? ,Famille=? ,CodePostal=? ,wilaya=?"
 					+ ",Commune=? ,TelPortable=? ,TeleFix=? ,Fax=? ,NRC=? ,NART=? ,NIF=? ,NIS=? ,RIB=? ,ComptBancaire=?"
 					+ ",Email=? ,SiteWeb=? ,ModeTarif=? ,LimitationCredit=? ,Solde_Initial=? WHERE id=?;";	

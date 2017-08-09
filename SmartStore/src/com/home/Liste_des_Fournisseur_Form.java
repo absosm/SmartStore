@@ -1,15 +1,15 @@
 /**
  * Cette Classe permet de:
- * Rechercher Client par Numero
- * Rechercher Client par nom (et/ou) prenom
- * Ajouter    Client 
- * Modifier   Client
- * supprimer  Client
+ * Rechercher Fournisseur par Numero
+ * Rechercher Fournisseur par nom (et/ou) prenom
+ * Ajouter    Fournisseur 
+ * Modifier   Fournisseur
+ * supprimer  Fournisseur
  */
 package com.home;
 
 
-import com.home.AddClients_Form.*;
+import com.home.AddFournisseur_Form.*;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -39,12 +39,12 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Liste_des_Clients_Form extends JFrame {
+public class Liste_des_Fournisseur_Form extends JFrame {
 
 	private JPanel contentPane;
-	private static JTextField Nom_client;
-	private static JTextField Prenom_client;
-	private static JTextField Num_Client;
+	private static JTextField Nom_Fournisseur;
+	private static JTextField Prenom_Fournisseur;
+	private static JTextField Num_Fournisseur;
 	private static JTable table;
 	private static Connection connecet=null;
 
@@ -56,7 +56,7 @@ public class Liste_des_Clients_Form extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					Liste_des_Clients_Form frame = new Liste_des_Clients_Form();
+					Liste_des_Fournisseur_Form frame = new Liste_des_Fournisseur_Form();
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -68,9 +68,9 @@ public class Liste_des_Clients_Form extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Liste_des_Clients_Form() {
+	public Liste_des_Fournisseur_Form() {
 		setTitle("Recherche");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Liste_des_Clients_Form.class.getResource("/images_Resource/Search-People-icon.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Liste_des_Fournisseur_Form.class.getResource("/images_Resource/Search-People-icon.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1000, 599);
 		setVisible(true);
@@ -95,7 +95,7 @@ public class Liste_des_Clients_Form extends JFrame {
 					int a=table.getSelectedRow();
 					Object num = tableModel.getValueAt(a, 0);
 					if(num!=null){
-					new Modifier_Clients_Form(Integer.valueOf(num.toString()));
+					new Modifier_Fournisseur_Form(Integer.valueOf(num.toString()));
 					}
 				}
 			}
@@ -128,7 +128,7 @@ public class Liste_des_Clients_Form extends JFrame {
 				{null, null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"N\u00B0Client", "Nom", "Prenom", "Telephone", "Adresse", "Wilaya", "Commune", "Solde"
+				"N\u00B0Fournisseur", "Nom", "Prenom", "Telephone", "Adresse", "Wilaya", "Commune", "Solde"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
@@ -140,12 +140,12 @@ public class Liste_des_Clients_Form extends JFrame {
 		});
 		scrollPane.setViewportView(table);
 		
-		Nom_client = new JTextField();
-		Nom_client.addKeyListener(new KeyAdapter() {
+		Nom_Fournisseur = new JTextField();
+		Nom_Fournisseur.addKeyListener(new KeyAdapter() {
 			
 			public void keyTyped(KeyEvent arg0) {
 				try {
-					affichage_table(AddClients_Form.info_search_Client(Nom_client.getText(),Prenom_client.getText())); // recherche intelligent
+					affichage_table(AddFournisseur_Form.info_search_fourniseur(Nom_Fournisseur.getText(),Prenom_Fournisseur.getText())); // recherche intelligent
 					
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(new JFrame(),e.getMessage()+"\n erreur de recherche à partir le Nom","ERREUR",JOptionPane.ERROR_MESSAGE);
@@ -153,53 +153,53 @@ public class Liste_des_Clients_Form extends JFrame {
 				}
 			}
 		});
-		Nom_client.setBounds(61, 70, 151, 47);
-		contentPane.add(Nom_client);
-		Nom_client.setColumns(10);
+		Nom_Fournisseur.setBounds(61, 70, 151, 47);
+		contentPane.add(Nom_Fournisseur);
+		Nom_Fournisseur.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nom");
-		lblNewLabel.setBounds(21, 81, 46, 23);
+		lblNewLabel.setBounds(10, 80, 47, 23);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		contentPane.add(lblNewLabel);		
-		Prenom_client = new JTextField();
-		Prenom_client.addKeyListener(new KeyAdapter() {
+		Prenom_Fournisseur = new JTextField();
+		Prenom_Fournisseur.addKeyListener(new KeyAdapter() {
 			
 			public void keyTyped(KeyEvent arg0) {
 				try {
-					affichage_table(AddClients_Form.info_search_Client(Nom_client.getText(),Prenom_client.getText()));// #hhhh recherche intelligent
+					affichage_table(AddFournisseur_Form.info_search_fourniseur(Nom_Fournisseur.getText(),Prenom_Fournisseur.getText()));// #hhhh recherche intelligent
 
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(new JFrame(),e.getMessage()+"\n erreur de recherche à partir le PréNom","ERREUR",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		Prenom_client.setBounds(281, 70, 157, 47);
-		Prenom_client.setColumns(10);
-		contentPane.add(Prenom_client);
+		Prenom_Fournisseur.setBounds(281, 70, 157, 47);
+		Prenom_Fournisseur.setColumns(10);
+		contentPane.add(Prenom_Fournisseur);
 		
 		JLabel lblPrenom = new JLabel("Prenom");
 		lblPrenom.setBounds(219, 81, 59, 23);
 		lblPrenom.setFont(new Font("Tahoma", Font.BOLD, 14));
 		contentPane.add(lblPrenom);
 		
-		Num_Client = new JTextField();
-		Num_Client.setBounds(508, 70, 104, 47);
-		Num_Client.setColumns(10);
-		contentPane.add(Num_Client);
+		Num_Fournisseur = new JTextField();
+		Num_Fournisseur.setBounds(557, 70, 105, 47);
+		Num_Fournisseur.setColumns(10);
+		contentPane.add(Num_Fournisseur);
 		
-		JLabel lblNclient = new JLabel("N°Client");
-		lblNclient.setBounds(448, 80, 62, 23);
-		lblNclient.setFont(new Font("Tahoma", Font.BOLD, 14));
-		contentPane.add(lblNclient);
+		JLabel lblNFournisseur = new JLabel("N\u00B0Fournisseur");
+		lblNFournisseur.setBounds(448, 77, 99, 28);
+		lblNFournisseur.setFont(new Font("Tahoma", Font.BOLD, 14));
+		contentPane.add(lblNFournisseur);
 		
 		JButton btnNewButton = new JButton("Recherche");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images_Resource/Search-icon.png")));
+		btnNewButton.setIcon(new ImageIcon(Liste_des_Fournisseur_Form.class.getResource("/images_Resource/Search-icon.png")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					if(!Num_Client.getText().equals("")){
-					affichage_table(AddClients_Form.ID_search_Client(Integer.parseInt(Num_Client.getText())));   // recherche avec ID et 
+					if(!Num_Fournisseur.getText().equals("")){
+					affichage_table(AddFournisseur_Form.ID_search_fourniseur(Integer.parseInt(Num_Fournisseur.getText())));   // recherche avec ID et 
 					}   																						// et afficher le résultat dans une table
 					}
 				catch (Exception e) {
@@ -207,16 +207,16 @@ public class Liste_des_Clients_Form extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setBounds(634, 70, 157, 47);
+		btnNewButton.setBounds(670, 68, 157, 47);
 		contentPane.add(btnNewButton);
 		
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new AddClients_Form();                // creer un instance du class "addClient"   
-			}                                    // pour ajouter un client 
+				new AddFournisseur_Form();                // creer un instance du class "AddFournisseur_form"   
+			}                                    		  // pour ajouter un Fournisseur 
 		});
-		btnAjouter.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images_Resource/employeeIcon.png")));
+		btnAjouter.setIcon(new ImageIcon(Liste_des_Fournisseur_Form.class.getResource("/images_Resource/fournisseur.png")));
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnAjouter.setBounds(61, 2, 153, 57);
 		contentPane.add(btnAjouter);
@@ -229,11 +229,11 @@ public class Liste_des_Clients_Form extends JFrame {
 					List<String> list = new ArrayList<String>();
 					DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 					int a=table.getSelectedRow();
-					list.add(tableModel.getValueAt(a, 0).toString()); // passer les informations de Client
+					list.add(tableModel.getValueAt(a, 0).toString()); // passer les informations de Fournisseur
 					list.add(tableModel.getValueAt(a, 1).toString());
 					list.add(tableModel.getValueAt(a, 2).toString());
 					list.add(tableModel.getValueAt(a, 7).toString());
-					new Sup_Client_Form(list);                             // lancer une fenêtre pour valider la suppression
+					new Sup_Fournisseur_Form(list);                             // lancer une fenêtre pour valider la suppression
 					
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(new JFrame(),e1.getMessage()+"\n Sélectionnez l'élément pour supprimer ","ERREUR",JOptionPane.ERROR_MESSAGE);
@@ -241,7 +241,7 @@ public class Liste_des_Clients_Form extends JFrame {
 				}
 			}
 		});
-		btnSupprimer.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images_Resource/Delete_48.png")));
+		btnSupprimer.setIcon(new ImageIcon(Liste_des_Fournisseur_Form.class.getResource("/images_Resource/Delete_48.png")));
 		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnSupprimer.setBounds(281, 2, 157, 57);
 		contentPane.add(btnSupprimer);
@@ -254,12 +254,12 @@ public class Liste_des_Clients_Form extends JFrame {
 	 * methode pour l'affichage des resultates des recherche client
 	 */
 	private static void affichage_table(ResultSet result) 
-	{            										 
+	{            										  
 		try {
 			DefaultTableModel tableModel=(DefaultTableModel) table.getModel(); 
 			tableModel.setNumRows(0);
 					
-			while(result.next())  
+			while(result.next())      
 			{
 				tableModel.addRow(
 					new Object[]{result.getString("id"),result.getString("Nom"),
@@ -270,7 +270,7 @@ public class Liste_des_Clients_Form extends JFrame {
 			}
 		
 			
-		} catch (Exception e) {    
+		} catch (Exception e) {    // dans le cas d'erreur lancer une fenetre d'alert
 			JOptionPane.showMessageDialog(new JFrame(),e.getMessage(),"ERREUR",JOptionPane.ERROR_MESSAGE);
 			
 		}

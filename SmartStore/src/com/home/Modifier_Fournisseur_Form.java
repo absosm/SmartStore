@@ -1,7 +1,3 @@
-/**
- * Cette Classe permet de:
- * afficher une formulaire pour ajouter un Fournisseur
- */
 package com.home;
 import java.awt.EventQueue;
 
@@ -33,7 +29,7 @@ import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
 
 
-public class AddFournisseur_Form extends JFrame {
+public class Modifier_Fournisseur_Form extends JFrame {
 
 	private static JPanel contentPane;
 	private static JTextField tfnom;
@@ -54,6 +50,7 @@ public class AddFournisseur_Form extends JFrame {
 	private static JTextField tfsolde;
 	private static JComboBox tfwilaya;
 	private static JComboBox tfcommune;
+	private static JTextField tfId;
 
 	/**
 	 * Launch the application.
@@ -63,8 +60,8 @@ public class AddFournisseur_Form extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					AddFournisseur_Form frame = new AddFournisseur_Form();
-					frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+					//Modifier_Fournisseur_Form frame = new Modifier_Fournisseur_Form();
+					//frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -75,8 +72,8 @@ public class AddFournisseur_Form extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddFournisseur_Form() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(AddFournisseur_Form.class.getResource("/images_Resource/fournisseur - Copie.png")));
+	public Modifier_Fournisseur_Form(Integer Num) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Modifier_Fournisseur_Form.class.getResource("/images_Resource/fournisseur - Copie.png")));
 		setFont(new Font("Tahoma", Font.BOLD, 14));
 		setTitle("Ajouter Fournisseur");
 		setVisible(true);
@@ -261,6 +258,17 @@ public class AddFournisseur_Form extends JFrame {
 		tffax.setBounds(69, 227, 326, 30);
 		panel.add(tffax);
 		
+		JLabel lblNewLabel_2 = new JLabel("N\u00B0Fournisseur");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_2.setBounds(527, 155, 99, 17);
+		panel.add(lblNewLabel_2);
+		
+		tfId = new JTextField();
+		tfId.setEditable(false);
+		tfId.setBounds(527, 186, 104, 30);
+		panel.add(tfId);
+		tfId.setColumns(10);
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(240, 240, 240));
 		tabbedPane.addTab("Plus_Information", new ImageIcon(this.getClass().getResource("/images_Resource/Button-Info-icon.png")), panel_1, null);
@@ -387,16 +395,16 @@ public class AddFournisseur_Form extends JFrame {
 		tfsolde.setBounds(264, 234, 237, 30);
 		panel_1.add(tfsolde);
 		
-		JButton btnOk = new JButton("ok");
+		JButton btnOk = new JButton("modifier");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Ajouter_fournisseur();
+				Modifier_fournisseur_Sql();
 			}
 		});
-		btnOk.setForeground(new Color(0, 255, 102));
+		btnOk.setForeground(new Color(0, 0, 255));
 		btnOk.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnOk.setIcon(new ImageIcon(AddFournisseur_Form.class.getResource("/images_Resource/database-accept-icon.png")));
-		btnOk.setBounds(128, 350, 77, 33);
+		btnOk.setIcon(new ImageIcon(Modifier_Fournisseur_Form.class.getResource("/images_Resource/database-accept-icon.png")));
+		btnOk.setBounds(128, 350, 117, 33);
 		contentPane.add(btnOk);
 		
 		JButton btnAnnuler = new JButton("annuler");
@@ -407,112 +415,95 @@ public class AddFournisseur_Form extends JFrame {
 		});
 		btnAnnuler.setForeground(new Color(255, 51, 51));
 		btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnAnnuler.setIcon(new ImageIcon(AddFournisseur_Form.class.getResource("/images_Resource/Misc-Delete-Database-icon.png")));
+		btnAnnuler.setIcon(new ImageIcon(Modifier_Fournisseur_Form.class.getResource("/images_Resource/Misc-Delete-Database-icon.png")));
 		btnAnnuler.setBounds(507, 350, 113, 33);
 		contentPane.add(btnAnnuler);
+		Modifier_Fournisseur_remplir(recherche_Fournisseur_avec_num(Num));
 	}
 ////////////////////////////////////////////////les méthodes/////////////////////////////////////////////////////////////
-/**
-* @param ID
-* @return 
-* cette methode faire une recherche d'un Fournisseur a base de identificateur 
-* la methode returner le resultate pour l'affichge
-*/
-public static ResultSet ID_search_fourniseur(int ID)//
-				
-{
-DataBase database= Session.getDatabase();
-String SqlQury="select * from fournisseurs where id="+ID+";";		
-return database.getResult(SqlQury); 
-}
+	/************************************************************************************************/
 
-/********************************************************************************************/
-/**
-* @param nom
-* @param prenom
-* @return
-* cette methode faire une recherche d'un fourniseur a base de numero ou nom/prenom 
-* la methode returner le resultate pour l'affichge
-*/
-public static ResultSet info_search_fourniseur(String nom, String prenom)
-{
-							
-DataBase database=Session.getDatabase();
-String SqlQury="select * from fournisseurs where Nom LIKE '"+nom+"%' AND Prenom LIKE '"+prenom+"%';";		
-return database.getResult(SqlQury); 
-}
+	public static ResultSet recherche_Fournisseur_avec_num(Integer Num) // cette méthode prend les informations depuis le tableau 
+	{															  // et faire une recherche sur la base de données
+		DataBase database = Session.getDatabase();
+		String SqlQury="select * from fournisseurs where id='"+Num+"';";
+		try {
+			return database.getResult(SqlQury);  
+			                  
+		} catch (Exception e) {			 
+			JOptionPane.showMessageDialog(new JFrame(),e.getMessage(),"ERREUR",JOptionPane.ERROR_MESSAGE);
+			
+		}		
+		return null;
+		
+		 // la methode returner le resultate pour l'affichge
+	}
 /************************************************************************************************/
-/**
- * cette methode ajouter un Fournisseur
- */
-private static void Ajouter_fournisseur() {
+	public static void Modifier_Fournisseur_remplir(ResultSet result) // la methode charger tous les information du Fournisseur selectionner  
+	{                                                         // et remplir le formulaire 
+		try {    if (result!=null){ 
+   					 result.next();
+					 tfId.setText(result.getString("id"));
+					 tfnom.setText(result.getString("Nom"));
+					 tfprenom.setText(result.getString("prenom"));
+					 tfadresse.setText(result.getString("Adresse"));
+					 tfcodepostal.setText(result.getString("CodePostal"));
+					 tftelportabl.setText(result.getString("TelPortable"));
+					 tftelfix.setText(result.getString("TeleFix"));
+					 tffax.setText(result.getString("Fax"));
+					 tfnrc.setText(result.getString("NRC"));
+					 tfnif.setText(result.getString("NIF"));
+					 tfcomptebancaire.setText(result.getString("ComptBancaire"));
+					 tfemail.setText(result.getString("Email"));
+					 tfnart.setText(result.getString("NART"));
+					 tfnis.setText(result.getString("NIS"));
+					 tfrib.setText(result.getString("RIB"));
+					 tfsiteweb.setText(result.getString("Siteweb"));
+					 tfsolde.setText(result.getString("Solde_Initial"));
+					 tfwilaya.setSelectedItem(result.getString("wilaya"));
+					 tfcommune.setSelectedItem(result.getString("Commune"));					 
+					}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}	
+/************************************************************************************************/
+private static void Modifier_fournisseur_Sql() {
 
-	ResultSet resultSet=null;								
+	PreparedStatement prepared=null;
 	try {
 		Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
 		Matcher matcher1 = pattern.matcher(tfemail.getText());// passage de parametre
 		if(matcher1.find() || tfemail.getText().equals("") ){
-			DataBase database = Session.getDatabase();
-			String selectSQL=null;
-			PreparedStatement prepared=null;
-		try {
-			selectSQL="select * from fournisseurs where Nom=? AND Prenom =?";
-			prepared = (PreparedStatement) database.getConnection()
-				.prepareStatement(selectSQL);
-			prepared.setString(1, tfnom.getText());
-			prepared.setString(2, tfprenom.getText());
-			resultSet=prepared.executeQuery();
-			resultSet.last();
-			
-		} catch (SQLException g) {
-			// TODO Auto-generated catch block
-			g.printStackTrace();
-		}
-		if(resultSet.getRow() !=0)
-		{
-			JOptionPane.showMessageDialog(new JFrame(), "le fournisseur déjà existe", "ERREUR de connection",
-			        JOptionPane.ERROR_MESSAGE);
-			
-		}
-		else
-		{
-			try {
-				selectSQL="insert into fournisseurs(Nom,Prenom,Adresse,CodePostal,wilaya,Commune,TelPortable,TeleFix,"+
-						"Fax,NRC,NART,NIF,NIS,RIB,ComptBancaire,Email,SiteWeb,Solde_Initial)Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-						prepared=(PreparedStatement) database.getConnection().prepareStatement(selectSQL);
-						prepared.setString(1,  tfnom.getText());
-						prepared.setString(2,  tfprenom.getText());
-						prepared.setString(3,  tfadresse.getText());
-						prepared.setInt(4,     Integer.parseInt(tfcodepostal.getText()));
-						prepared.setString(5,  tfwilaya.getSelectedItem().toString());
-						prepared.setString(6,  tfcommune.getSelectedItem().toString());
-						prepared.setString(7,  tftelportabl.getText());
-						prepared.setString(8,  tftelfix.getText());
-						prepared.setString(9, tffax.getText());
-						prepared.setString(10, tfnrc.getText());
-						prepared.setString(11, tfnart.getText());
-						prepared.setString(12, tfnif.getText());
-						prepared.setString(13, tfnis.getText());
-						prepared.setString(14, tfrib.getText());
-						prepared.setString(15, tfcomptebancaire.getText());
-						prepared.setString(16, tfemail.getText());
-						prepared.setString(17, tfsiteweb.getText());
-						prepared.setDouble(18, Double.parseDouble(tfsolde.getText()));
-						prepared.executeUpdate();
-					
-						JOptionPane.showMessageDialog(new JFrame(), "Inscription Success", "Information d'inscription",
-						        JOptionPane.INFORMATION_MESSAGE);
-						tfadresse.setText(null);tfcodepostal.setText("0");tfcomptebancaire.setText(null);
-						tfemail.setText(null);tffax.setText(null);tfnart.setText(null);
-						tfnif.setText(null);tfnis.setText(null);tfnom.setText(null);tfnrc.setText(null);tfprenom.setText(null);
-						tfrib.setText(null);tfsiteweb.setText(null);tftelfix.setText(null);tftelportabl.setText(null);tfsolde.setText("0");
-					
-			} catch (Exception e2) {
-				JOptionPane.showMessageDialog(new JFrame(), "erreur de type donnees", "ERREUR d'inscription",
-				        JOptionPane.ERROR_MESSAGE);
-			}
+		DataBase database=Session.getDatabase();
+		String selectSQL="UPDATE fournisseurs SET Nom=? ,Prenom=? ,Adresse=? ,CodePostal=? ,wilaya=?"
+				+ ",Commune=? ,TelPortable=? ,TeleFix=? ,Fax=? ,NRC=? ,NART=? ,NIF=? ,NIS=? ,RIB=? ,ComptBancaire=?"
+				+ ",Email=? ,SiteWeb=? ,Solde_Initial=? WHERE id=?;";	
+		prepared=(PreparedStatement) database.getConnection().prepareStatement(selectSQL);
+		prepared.setString(1,  tfnom.getText());
+		prepared.setString(2,  tfprenom.getText());
+		prepared.setString(3,  tfadresse.getText());
+		prepared.setInt(4,     Integer.parseInt("0"+tfcodepostal.getText()));
+		prepared.setString(5,  tfwilaya.getSelectedItem().toString());
+		prepared.setString(6,  tfcommune.getSelectedItem().toString());
+		prepared.setString(7,  tftelportabl.getText());
+		prepared.setString(8,  tftelfix.getText());
+		prepared.setString(9, tffax.getText());
+		prepared.setString(10, tfnrc.getText());
+		prepared.setString(11, tfnart.getText());
+		prepared.setString(12, tfnif.getText());
+		prepared.setString(13, tfnis.getText());
+		prepared.setString(14, tfrib.getText());
+		prepared.setString(15, tfcomptebancaire.getText());
+		prepared.setString(16, tfemail.getText());
+		prepared.setString(17, tfsiteweb.getText());
+		prepared.setDouble(18, Double.parseDouble(tfsolde.getText()));
+		prepared.setDouble(19, Double.parseDouble(tfId.getText()));
+		prepared.executeUpdate();
+			JOptionPane.showMessageDialog(new JFrame(), "Modification Success", "Information d'inscription",
+			        JOptionPane.INFORMATION_MESSAGE);
 		
-		}
 	}
 		else
 		{
@@ -523,7 +514,9 @@ private static void Ajouter_fournisseur() {
 						
 	} catch (Exception ex) {
 		JOptionPane.showMessageDialog(new JFrame(), ex, "ERREUR de connection",
-		        JOptionPane.ERROR_MESSAGE);					
+		        JOptionPane.ERROR_MESSAGE);
+		
+			//ex.printStackTrace();
 	}
 	
 }

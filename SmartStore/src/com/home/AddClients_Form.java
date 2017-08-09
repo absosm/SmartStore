@@ -1,3 +1,7 @@
+/**
+ * Cette Classe permet de:
+ * afficher une formulaire pour ajouter un client
+ */
 package com.home;
 import java.awt.EventQueue;
 
@@ -477,92 +481,7 @@ public class AddClients_Form extends JFrame {
 			btnOk = new JButton("ok");
 			btnOk.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
-					
-					//PreparedStatement preparedStatement=null;
-					ResultSet resultSet=null;
-					try {
-						Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
-						Matcher matcher1 = pattern.matcher(tfemail.getText());// passage de parametre
-						if(matcher1.find() || tfemail.getText().equals("") ){
-							DataBase database = Session.getDatabase();
-							String selectSQL=null;
-							PreparedStatement prepared=null;
-							try {
-								selectSQL="select * from client where Nom=? AND Prenom =?";
-								prepared = (PreparedStatement) database.getConnection()
-									.prepareStatement(selectSQL);
-								prepared.setString(1, tfnom.getText());
-								prepared.setString(2, tfprenom.getText());
-								resultSet=prepared.executeQuery();
-								resultSet.last();
-								
-							} catch (SQLException g) {
-								// TODO Auto-generated catch block
-								g.printStackTrace();
-							} 
-						if(resultSet.getRow() !=0)
-						{
-							JOptionPane.showMessageDialog(new JFrame(), "le client déjà existe", "ERREUR de connection",
-							        JOptionPane.ERROR_MESSAGE);
-							
-						}
-						else
-						{
-							try {
-								selectSQL="insert into client(Nom,Prenom,Adresse,Famille,CodePostal,wilaya,Commune,TelPortable,TeleFix,"+
-										"Fax,NRC,NART,NIF,NIS,RIB,ComptBancaire,Email,SiteWeb,ModeTarif,"+
-												"LimitationCredit,Solde_Initial)Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-										prepared=(PreparedStatement) database.getConnection().prepareStatement(selectSQL);
-										prepared.setString(1,  tfnom.getText());
-										prepared.setString(2,  tfprenom.getText());
-										prepared.setString(3,  tfadresse.getText());
-										prepared.setString(4,  tffamille.getText());
-										prepared.setInt(5,     Integer.parseInt(tfcodepostal.getText()));
-										prepared.setString(6,  tfwilaya.getSelectedItem().toString());
-										prepared.setString(7,  tfcommune.getSelectedItem().toString());
-										prepared.setString(8,  tftelportabl.getText());
-										prepared.setString(9,  tftelfix.getText());
-										prepared.setString(10, tffax.getText());
-										prepared.setString(11, tfnrc.getText());
-										prepared.setString(12, tfnart.getText());
-										prepared.setString(13, tfnif.getText());
-										prepared.setString(14, tfnis.getText());
-										prepared.setString(15, tfrib.getText());
-										prepared.setString(16, tfcomptebancaire.getText());
-										prepared.setString(17, tfemail.getText());
-										prepared.setString(18, tfsiteweb.getText());
-										prepared.setInt(19,    cbmodetarif.getSelectedIndex());
-										prepared.setDouble(20, Double.parseDouble(tflimitation.getText()));
-										prepared.setDouble(21, Double.parseDouble(tfsolde_initial.getText()));
-										prepared.executeUpdate();
-									
-										JOptionPane.showMessageDialog(new JFrame(), "Inscription Success", "Information d'inscription",
-										        JOptionPane.INFORMATION_MESSAGE);
-										tfadresse.setText(null);tfcodepostal.setText("0");tfcomptebancaire.setText(null);
-										tfemail.setText(null);tffamille.setText(null);tffax.setText(null);tfnart.setText(null);tflimitation.setText("0");
-										tfnif.setText(null);tfnis.setText(null);tfnom.setText(null);tfnrc.setText(null);tfprenom.setText(null);
-										tfrib.setText(null);tfsiteweb.setText(null);tftelfix.setText(null);tftelportabl.setText(null);tfsolde_initial.setText("0");
-									
-							} catch (Exception e2) {
-								JOptionPane.showMessageDialog(new JFrame(), "erreur de type donnees", "ERREUR d'inscription",
-								        JOptionPane.ERROR_MESSAGE);
-							}
-							}
-					}
-						else
-						{
-							JOptionPane.showMessageDialog(new JFrame(), "Adresse e-mail incorrecte \t\t \n E-Mail format:   xxxxxx@yyyy.zzz", "ERREUR d'inscription",
-							        JOptionPane.ERROR_MESSAGE);
-							
-						}
-										
-					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(new JFrame(), ex, "ERREUR de connection",
-						        JOptionPane.ERROR_MESSAGE);
-						
-							//ex.printStackTrace();
-					}
+					Ajouter_Client();
 				}
 			});
 			btnOk.setForeground(new Color(0, 255, 102));
@@ -621,5 +540,92 @@ public class AddClients_Form extends JFrame {
 		return database.getResult(SqlQury); 
 	}
 	/************************************************************************************************/
+	/**
+	 * cette methode ajouter un client
+	 */
+	private static void Ajouter_Client(){
+		ResultSet resultSet=null;
+		try {
+			Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
+			Matcher matcher1 = pattern.matcher(tfemail.getText());// passage de parametre
+			if(matcher1.find() || tfemail.getText().equals("") ){
+				DataBase database = Session.getDatabase();
+				String selectSQL=null;
+				PreparedStatement prepared=null;
+				try {
+					selectSQL="select * from client where Nom=? AND Prenom =?";
+					prepared = (PreparedStatement) database.getConnection()
+						.prepareStatement(selectSQL);
+					prepared.setString(1, tfnom.getText());
+					prepared.setString(2, tfprenom.getText());
+					resultSet=prepared.executeQuery();
+					resultSet.last();
+					
+				} catch (SQLException g) {
+					g.printStackTrace();
+				} 
+			if(resultSet.getRow() !=0)
+			{
+				JOptionPane.showMessageDialog(new JFrame(), "le client déjà existe", "ERREUR de connection",
+				        JOptionPane.ERROR_MESSAGE);
+				
+			}
+			else
+			{
+				try {
+					selectSQL="insert into client(Nom,Prenom,Adresse,Famille,CodePostal,wilaya,Commune,TelPortable,TeleFix,"+
+							"Fax,NRC,NART,NIF,NIS,RIB,ComptBancaire,Email,SiteWeb,ModeTarif,"+
+									"LimitationCredit,Solde_Initial)Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+							prepared=(PreparedStatement) database.getConnection().prepareStatement(selectSQL);
+							prepared.setString(1,  tfnom.getText());
+							prepared.setString(2,  tfprenom.getText());
+							prepared.setString(3,  tfadresse.getText());
+							prepared.setString(4,  tffamille.getText());
+							prepared.setInt(5,     Integer.parseInt(tfcodepostal.getText()));
+							prepared.setString(6,  tfwilaya.getSelectedItem().toString());
+							prepared.setString(7,  tfcommune.getSelectedItem().toString());
+							prepared.setString(8,  tftelportabl.getText());
+							prepared.setString(9,  tftelfix.getText());
+							prepared.setString(10, tffax.getText());
+							prepared.setString(11, tfnrc.getText());
+							prepared.setString(12, tfnart.getText());
+							prepared.setString(13, tfnif.getText());
+							prepared.setString(14, tfnis.getText());
+							prepared.setString(15, tfrib.getText());
+							prepared.setString(16, tfcomptebancaire.getText());
+							prepared.setString(17, tfemail.getText());
+							prepared.setString(18, tfsiteweb.getText());
+							prepared.setInt(19,    cbmodetarif.getSelectedIndex());
+							prepared.setDouble(20, Double.parseDouble(tflimitation.getText()));
+							prepared.setDouble(21, Double.parseDouble(tfsolde_initial.getText()));
+							prepared.executeUpdate();
+						
+							JOptionPane.showMessageDialog(new JFrame(), "Inscription Success", "Information d'inscription",
+							        JOptionPane.INFORMATION_MESSAGE);
+							tfadresse.setText(null);tfcodepostal.setText("0");tfcomptebancaire.setText(null);
+							tfemail.setText(null);tffamille.setText(null);tffax.setText(null);tfnart.setText(null);tflimitation.setText("0");
+							tfnif.setText(null);tfnis.setText(null);tfnom.setText(null);tfnrc.setText(null);tfprenom.setText(null);
+							tfrib.setText(null);tfsiteweb.setText(null);tftelfix.setText(null);tftelportabl.setText(null);tfsolde_initial.setText("0");
+						
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(new JFrame(), "erreur de type donnees", "ERREUR d'inscription",
+					        JOptionPane.ERROR_MESSAGE);
+				}
+				}
+		}
+			else
+			{
+				JOptionPane.showMessageDialog(new JFrame(), "Adresse e-mail incorrecte \t\t \n E-Mail format:   xxxxxx@yyyy.zzz", "ERREUR d'inscription",
+				        JOptionPane.ERROR_MESSAGE);
+				
+			}
+							
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(new JFrame(), ex, "ERREUR de connection",
+			        JOptionPane.ERROR_MESSAGE);
+			
+				//ex.printStackTrace();
+		}
+	}
 	
 }
