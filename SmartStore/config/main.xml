@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <database>
+    <driver>0</driver>
+    <host>localhost</host>
+    <name>smart_store</name>
+    <username>root</username>
+    <password />
+  </database>
+  <authentification>
+    <username>admin</username>
+    <password />
+    <remember>true</remember>
+  </authentification>
+</root>

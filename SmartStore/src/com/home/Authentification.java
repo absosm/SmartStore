@@ -3,7 +3,6 @@ package com.home;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
-
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.GroupLayout;
@@ -20,10 +19,19 @@ import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URL;
+import java.util.Base64;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import java.awt.Color;
 import java.awt.Window.Type;
 
@@ -36,6 +44,8 @@ public class Authentification {
 	private JTextField tf_dbname;
 	private JTextField tf_username;
 	private JPasswordField tf_password;
+	private JComboBox cb_driver;
+	private JCheckBox chk_remember;
 
 	/**
 	 * Launch the application.
@@ -61,9 +71,10 @@ public class Authentification {
 	 * Create the application.
 	 */
 	public Authentification() {
+		Configuration.initialize();
+		Configuration.Load();
 		initialize();
-		
-		Session.setAuthentification(frmAuthentification);
+		Session.setAuthentificationForm(frmAuthentification);
 	}
 
 	/**
@@ -146,7 +157,7 @@ public class Authentification {
 		tabbedPane.addTab("Connexion", null, panel_1, null);
 		
 		tf_login = new JTextField();
-		tf_login.setText("admin");
+		tf_login.setText(Configuration.authentification.username);
 		tf_login.setColumns(10);
 		
 		JLabel lblUtilisateur = new JLabel("Utilisateur:");
@@ -154,8 +165,10 @@ public class Authentification {
 		JLabel lblMotDePasse = new JLabel("Mot de passe:");
 		
 		tf_loginpassword = new JPasswordField();
+		tf_loginpassword.setText(Configuration.authentification.password);
 		
-		JCheckBox chckbxSouvenirLeMot = new JCheckBox("Souvenir le mot passe");
+		chk_remember = new JCheckBox("Souvenir le mot passe");
+		chk_remember.setSelected(Configuration.authentification.remember);
 		
 		JButton btnConnexion = new JButton("Connexion");
 		btnConnexion.addActionListener(new ActionListener() {
@@ -177,9 +190,19 @@ public class Authentification {
 				
 				if (User.exist(tf_login.getText(), Encode.sha256(tf_loginpassword.getText()))) {
 					Session.setUser(User.get(tf_login.getText()));
-					Session.setMainForm(new MainForm());
-					Session.showMainForm();
+					Session.start();
 					frmAuthentification.setVisible(false);
+					Configuration.authentification.remember = chk_remember.isSelected();
+					if (chk_remember.isSelected()) {
+						Configuration.authentification.username = tf_login.getText();
+						Configuration.authentification.password = new String( 
+								Base64.getEncoder().encode(tf_loginpassword.getText().getBytes()) );
+					}else {
+						Configuration.authentification.username = "";
+						Configuration.authentification.password = "";
+					}
+					
+					Configuration.save();
 				}else {
 					JOptionPane.showMessageDialog(null, "le nom d'utilisateur ou le mot de passe et incorrect!");
 				}
@@ -199,7 +222,7 @@ public class Authentification {
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(tf_login)
 								.addComponent(tf_loginpassword, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-								.addComponent(chckbxSouvenirLeMot)))
+								.addComponent(chk_remember)))
 						.addComponent(btnConnexion, Alignment.TRAILING))
 					.addContainerGap())
 		);
@@ -217,7 +240,7 @@ public class Authentification {
 							.addComponent(lblMotDePasse))
 						.addComponent(tf_loginpassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(chckbxSouvenirLeMot)
+					.addComponent(chk_remember)
 					.addGap(12)
 					.addComponent(btnConnexion)
 					.addContainerGap())
@@ -227,25 +250,26 @@ public class Authentification {
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Option", null, panel_3, null);
 		
-		JComboBox cb_driver = new JComboBox();
+		cb_driver = new JComboBox();
 		cb_driver.setModel(new DefaultComboBoxModel(new String[] {"MySQL"}));
+		cb_driver.setSelectedIndex(Configuration.database.driver);
 		
 		JLabel lblNewLabel = new JLabel("Moteur de base:");
 		
 		tf_host = new JTextField();
-		tf_host.setText("localhost");
+		tf_host.setText(Configuration.database.host);
 		tf_host.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Serveur:");
 		
 		tf_dbname = new JTextField();
-		tf_dbname.setText("smart_store");
+		tf_dbname.setText(Configuration.database.name);
 		tf_dbname.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Nom de base:");
 		
 		tf_username = new JTextField();
-		tf_username.setText("root");
+		tf_username.setText(Configuration.database.username);
 		tf_username.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Utilisateur:");
@@ -253,10 +277,18 @@ public class Authentification {
 		JLabel lblNewLabel_4 = new JLabel("Mot de passe");
 		
 		tf_password = new JPasswordField();
+		tf_password.setText(Configuration.database.password);
 		
 		JButton btnNewButton = new JButton("Enregistrer");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Configuration.database.driver = cb_driver.getSelectedIndex();
+				Configuration.database.host = tf_host.getText();
+				Configuration.database.name = tf_dbname.getText();
+				Configuration.database.username = tf_username.getText();
+				Configuration.database.password = new String( 
+						Base64.getEncoder().encode(tf_password.getText().getBytes()) );
+				Configuration.save();
 			}
 		});
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
@@ -314,6 +346,33 @@ public class Authentification {
 		);
 		panel_3.setLayout(gl_panel_3);
 		frmAuthentification.getContentPane().setLayout(groupLayout);
+	}
+	
+	private void LoadConfiguration() {
+		
+		SAXBuilder saxBuilder = new SAXBuilder();
+		Element config_db=null, config_auth=null;
+        Document document = null;
+        try {
+            document = saxBuilder.build(new File("./config/main.xml"));
+            config_db = document.getRootElement().getChild("database");
+            config_auth = document.getRootElement().getChild("authentification");
+            
+            cb_driver.setSelectedIndex(Integer.parseInt(config_db.getChild("driver").getText()));
+            tf_host.setText(config_db.getChild("host").getText());
+            tf_dbname.setText(config_db.getChild("name").getText());
+            tf_username.setText(config_db.getChild("username").getText());
+            tf_password.setText(config_db.getChild("password").getText());
+            
+            boolean remember = Boolean.parseBoolean(config_auth.getChild("remember").getText());
+            if (remember) {
+            	tf_login.setText(config_auth.getChild("username").getText());
+            	tf_loginpassword.setText( new String(Base64.getDecoder().decode(config_auth.getChild("username").getText().getBytes())) );
+            }
+            
+        } catch (Exception ex) {
+        	ex.printStackTrace();
+        }
 	}
 }
 

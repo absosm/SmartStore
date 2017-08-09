@@ -14,28 +14,39 @@ public class Session {
 	 */
 	private static MainForm mainForm;
 	private static ProfileForm profileForm;
-	private static JFrame authentification;
+	private static JFrame authentificationForm;
+	
+	public static void start() {
+		mainForm = new MainForm();
+		mainForm.setVisible(true);
+		user.login();
+	}
 
 	public static void Disconnect() {
 		
+		/**
+		 * tuer les variables globales et fermer tous les forms 	
+		 */
 		if (database != null) database.Disconnect();
 		database = null;
+		user = null;
+		
 		if (profileForm != null) profileForm.dispose();
 		profileForm = null;
 		if (mainForm != null) mainForm.dispose();
 		mainForm = null;
 		
-		authentification.setVisible(true);
+		authentificationForm.setVisible(true);
 	}
 	
-	public static JFrame getAuthentification() {
-		return authentification;
+	public static JFrame getAuthentificationForm() {
+		return authentificationForm;
 	}
 
-	public static void setAuthentification(JFrame authentification) {
+	public static void setAuthentificationForm(JFrame authentification) {
 		
-		if (Session.authentification == null)
-			Session.authentification = authentification;
+		if (Session.authentificationForm == null)
+			Session.authentificationForm = authentification;
 	}
 	
 	public static ProfileForm getProfileForm() {
@@ -66,10 +77,6 @@ public class Session {
 
 	public static MainForm getMainForm() {
 		return mainForm;
-	}
-	
-	public static void showMainForm() {
-		mainForm.setVisible(true);
 	}
 
 	public static void setMainForm(MainForm mainForm) {
