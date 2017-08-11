@@ -11,26 +11,25 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 import com.home.DataBase;
+import com.home.Famille;
 import com.home.Session;
 import com.home.customise.CustomTableModel;
-import com.home.customise.Field;
 
 import javax.swing.JToolBar;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Vector;
 import java.awt.event.ActionEvent;
 
 public class FamilleForm extends JFrame {
@@ -124,17 +123,19 @@ public class FamilleForm extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomTableModel model = (CustomTableModel) table.getModel();
-				model.addRow(new Field());
+				model.addRow(new Famille());
 			}
 		});
 		btnNewButton_2.setIcon(new ImageIcon(FamilleForm.class.getResource("/images/add.png")));
 		toolBar.add(btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("");
-		btnNewButton_3.setIcon(new ImageIcon(FamilleForm.class.getResource("/images/edit.png")));
-		toolBar.add(btnNewButton_3);
-		
 		JButton btnNewButton_4 = new JButton("");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CustomTableModel model = (CustomTableModel)table.getModel();
+				model.delete(table.getSelectedRow());
+			}
+		});
 		btnNewButton_4.setIcon(new ImageIcon(FamilleForm.class.getResource("/images/delete.png")));
 		toolBar.add(btnNewButton_4);
 		
@@ -144,6 +145,42 @@ public class FamilleForm extends JFrame {
 		toolBar.add(lblRecherche);
 		
 		textField = new JTextField();
+		textField.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				
+				DataBase database = Session.getDatabase();
+				
+				try {
+					PreparedStatement prepared = database.getConnection().
+							prepareStatement("SELECT id FROM families WHERE designation like ?");
+					prepared.setString(1, "%"+textField.getText()+"%");
+					ResultSet result = prepared.executeQuery();
+					CustomTableModel model = new CustomTableModel();
+					while (result.next()) {
+						Famille f = new Famille(result.getInt("id"));
+						model.addRow(f);
+					}
+					table.setModel(model);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				warn();
+			}
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				warn();
+			}
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				warn();
+			}
+		});
 		lblRecherche.setLabelFor(textField);
 		toolBar.add(textField);
 		
@@ -162,12 +199,10 @@ public class FamilleForm extends JFrame {
 		
 		DataBase database = Session.getDatabase();
 		try {
-			ResultSet result = database.getConnection().prepareStatement("SELECT * FROM families").executeQuery();
+			ResultSet result = database.getConnection().prepareStatement("SELECT id FROM families").executeQuery();
 			CustomTableModel model = new CustomTableModel();
 			while (result.next()) {
-				Field f = new Field();
-				f.setDesignation(result.getString("designation"));
-				f.setNote(result.getString("note"));
+				Famille f = new Famille(result.getInt("id"));
 				model.addRow(f);
 			}
 			table.setModel(model);
