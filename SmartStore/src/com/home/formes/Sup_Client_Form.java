@@ -1,4 +1,4 @@
-package com.home;
+package com.home.formes;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import com.home.DataBase;
+import com.home.Session;
 import com.mysql.jdbc.DatabaseMetaData;
 
 import javax.swing.JLabel;

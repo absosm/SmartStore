@@ -1,4 +1,4 @@
-package com.home;
+package com.home.formes;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -19,10 +19,14 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
+
+import com.home.ProfileForm;
+import com.home.Session;
 
 import javafx.application.Application;
 
@@ -61,6 +65,12 @@ public class MainForm extends JFrame {
 	 * Create the frame.
 	 */
 	public MainForm() {
+		
+		if (!Session.isRegister()) {
+			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
+			Runtime.getRuntime().exit(0);
+		}
+		
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent arg0) {
@@ -71,7 +81,7 @@ public class MainForm extends JFrame {
 		setTitle("SmartStore V 0.1");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainForm.class.getResource("/images_Resource/logo2.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(0, 0, 1024, 768);
+		setBounds(0, 0, 1521, 690);
 		setExtendedState( getExtendedState() | JFrame.MAXIMIZED_BOTH );
 		/**
 		 * centraliser fenètre
@@ -94,8 +104,8 @@ public class MainForm extends JFrame {
 		JMenuItem mntmProfile = new JMenuItem("Profile utilisateur");
 		mntmProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Session.setProfileForm(new ProfileForm(Session.getUser()));
-				Session.showProfileForm();
+				Session.setForm(Session.PROFILE, new ProfileForm(Session.getUser()));
+				Session.showForm(Session.PROFILE);
 			}
 		});
 		mnfichier.add(mntmProfile);
@@ -110,8 +120,17 @@ public class MainForm extends JFrame {
 		mntmTerminer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_MASK));
 		mnfichier.add(mntmTerminer);
 		
-		JMenu mnEdi = new JMenu("Edition");
-		menuBar.add(mnEdi);
+		JMenu mnProduits = new JMenu("Produits");
+		menuBar.add(mnProduits);
+		
+		JMenuItem mntmFamilleDeProduit = new JMenuItem("Famille de produit");
+		mntmFamilleDeProduit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Session.setForm(Session.FAMILLE, new FamilleForm());
+				Session.showForm(Session.FAMILLE);
+			}
+		});
+		mnProduits.add(mntmFamilleDeProduit);
 		
 		JMenu mnAffichage = new JMenu("Affichage");
 		menuBar.add(mnAffichage);
@@ -132,16 +151,24 @@ public class MainForm extends JFrame {
 		
 		JToolBar toolBar = new JToolBar();
 		toolBar.setRollover(true);
+		
+		JPanel panel = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addComponent(toolBar, GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(10)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1887, Short.MAX_VALUE)
+					.addGap(10))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(640, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 337, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(219, Short.MAX_VALUE))
 		);
 		
 		JButton btnNewButton = new JButton("Clients");

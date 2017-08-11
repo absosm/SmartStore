@@ -2,13 +2,15 @@
  * Cette Classe permet de:
  * afficher une formulaire pour Modifier un Client
  */
-package com.home;
+package com.home.formes;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import com.home.DataBase;
+import com.home.Session;
 import com.mysql.jdbc.PreparedStatement;
 
 import javax.swing.JTabbedPane;

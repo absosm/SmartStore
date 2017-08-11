@@ -1,4 +1,4 @@
-package com.home;
+package com.home.formes;
 
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -32,10 +32,19 @@ import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+
+import com.home.Configuration;
+import com.home.DataBase;
+import com.home.Encode;
+import com.home.Session;
+import com.home.User;
+import com.home.Configuration.authentification;
+import com.home.Configuration.database;
+
 import java.awt.Color;
 import java.awt.Window.Type;
 
-public class Authentification {
+public class AuthentificationForm {
 
 	private JFrame frmAuthentification;
 	private JTextField tf_login;
@@ -58,7 +67,7 @@ public class Authentification {
 					 * permet de sauvgarde thème de système.
 					 */
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					Authentification window = new Authentification();
+					AuthentificationForm window = new AuthentificationForm();
 					window.frmAuthentification.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,11 +79,11 @@ public class Authentification {
 	/**
 	 * Create the application.
 	 */
-	public Authentification() {
+	public AuthentificationForm() {
 		Configuration.initialize();
 		Configuration.Load();
 		initialize();
-		Session.setAuthentificationForm(frmAuthentification);
+		Session.setForm(Session.AUTHENTIFICATION, frmAuthentification);
 	}
 
 	/**
@@ -393,5 +402,4 @@ class ImagePanel extends JPanel {
 	  {
 	    g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 	  }
-
 }

@@ -1,4 +1,4 @@
-package com.home;
+package com.home.formes;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,6 +16,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
+
+import com.home.DataBase;
+import com.home.Session;
 import com.mysql.jdbc.PreparedStatement;
 
 import java.awt.event.ActionListener;

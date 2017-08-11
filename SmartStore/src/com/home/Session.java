@@ -1,25 +1,41 @@
 package com.home;
 
+import java.util.List;
+
 import javax.swing.JFrame;
+
+import com.home.formes.MainForm;
 
 public class Session {
 	
 	/**
 	 * déclaration les variables globales du session
 	 */
-	private static DataBase database;	
+	private static DataBase database;
 	private static User user;
+	private static boolean register = false;
 	/**
 	 * déclaration les attributes formes de l'application
 	 */
-	private static MainForm mainForm;
-	private static ProfileForm profileForm;
-	private static JFrame authentificationForm;
+	private static JFrame[] Form = new JFrame[10];
+	/**
+	 * declaration des constants identificateurs relatifs des forms
+	 */
+	public static final int AUTHENTIFICATION		= 0;
+	public static final int MAIN					= 1;
+	public static final int PROFILE					= 2;
+	public static final int FAMILLE					= 3;
 	
 	public static void start() {
-		mainForm = new MainForm();
-		mainForm.setVisible(true);
+		
 		user.login();
+		register = true;
+		Form[MAIN] = new MainForm();
+		Form[MAIN].setVisible(true);
+	}
+	
+	public static boolean isRegister() {
+		return register;
 	}
 
 	public static void Disconnect() {
@@ -31,38 +47,32 @@ public class Session {
 		database = null;
 		user = null;
 		
-		if (profileForm != null) profileForm.dispose();
-		profileForm = null;
-		if (mainForm != null) mainForm.dispose();
-		mainForm = null;
+		for (int i=1; i<4; i++) {
+			
+			if (Form[i] != null) {
+				Form[i].dispose();
+				Form[i] = null;
+			}
+		}
 		
-		authentificationForm.setVisible(true);
+		Form[AUTHENTIFICATION].setVisible(true);
+		register = false;
 	}
 	
-	public static JFrame getAuthentificationForm() {
-		return authentificationForm;
+	public static JFrame getForm(int id) {
+		return Form[id];
 	}
 
-	public static void setAuthentificationForm(JFrame authentification) {
+	public static void setForm(int id, JFrame form) {
 		
-		if (Session.authentificationForm == null)
-			Session.authentificationForm = authentification;
+		if (Form[id] == null)
+			Form[id] = form;
 	}
 	
-	public static ProfileForm getProfileForm() {
-		return profileForm;
-	}
-
-	public static void setProfileForm(ProfileForm profileForm) {
+	public static void showForm(int id) {
 		
-		if (Session.profileForm == null)
-			Session.profileForm = profileForm;
-	}
-	
-	public static void showProfileForm() {
-		
-		if (profileForm != null)
-			profileForm.setVisible(true);
+		if (Form[id] != null)
+			Form[id].setVisible(true);
 	}
 
 	public static User getUser() {
@@ -73,14 +83,6 @@ public class Session {
 		
 		if (user != null)
 			Session.user = user;
-	}
-
-	public static MainForm getMainForm() {
-		return mainForm;
-	}
-
-	public static void setMainForm(MainForm mainForm) {
-		Session.mainForm = mainForm;
 	}
 
 	public static DataBase getDatabase() {
