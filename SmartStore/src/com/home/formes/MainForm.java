@@ -138,6 +138,15 @@ public class MainForm extends JFrame {
 		JMenu mnOutils = new JMenu("Outils");
 		menuBar.add(mnOutils);
 		
+		JMenuItem mntmConfiguration = new JMenuItem("Configuration");
+		mntmConfiguration.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Session.setForm(Session.CONFIGURATION, new ConfigurationForm());
+				Session.showForm(Session.CONFIGURATION);
+			}
+		});
+		mnOutils.add(mntmConfiguration);
+		
 		JMenu mnAide = new JMenu("?");
 		menuBar.add(mnAide);
 		

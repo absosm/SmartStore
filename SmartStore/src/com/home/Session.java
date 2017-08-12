@@ -22,9 +22,11 @@ public class Session {
 	 * declaration des constants identificateurs relatifs des forms
 	 */
 	public static final int AUTHENTIFICATION		= 0;
+	
 	public static final int MAIN					= 1;
-	public static final int PROFILE					= 2;
-	public static final int FAMILLE					= 3;
+	public static final int CONFIGURATION			= 2;
+	public static final int PROFILE					= 3;
+	public static final int FAMILLE					= 4;
 	
 	public static void start() {
 		
@@ -47,7 +49,7 @@ public class Session {
 		database = null;
 		user = null;
 		
-		for (int i=1; i<4; i++) {
+		for (int i=1; i<Form.length; i++) {
 			
 			if (Form[i] != null) {
 				Form[i].dispose();

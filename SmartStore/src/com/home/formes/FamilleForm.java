@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
@@ -32,7 +33,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 
-public class FamilleForm extends JFrame {
+public class FamilleForm extends JFrame{
 
 	private JPanel contentPane;
 	private JTable table;
@@ -58,6 +59,11 @@ public class FamilleForm extends JFrame {
 	 * Create the frame.
 	 */
 	public FamilleForm() {
+		
+		if (!Session.isRegister()) {
+			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
+			Runtime.getRuntime().exit(0);
+		}
 		
 		setTitle("Famille de produit:");
 		setResizable(false);

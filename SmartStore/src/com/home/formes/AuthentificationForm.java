@@ -92,7 +92,6 @@ public class AuthentificationForm {
 	private void initialize() {
 		
 		frmAuthentification = new JFrame();
-		frmAuthentification.setType(Type.UTILITY);
 		frmAuthentification.setResizable(false);
 		frmAuthentification.setTitle("Authentification");
 		frmAuthentification.setBounds(100, 100, 442, 337);
