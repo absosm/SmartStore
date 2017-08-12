@@ -58,7 +58,7 @@ public class Sup_Client_Form extends JFrame {
 	 */
 	public Sup_Client_Form(final List<String> list) {
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Sup_Client_Form.class.getResource("/images_Resource/Delete_48.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Sup_Client_Form.class.getResource("/images/Delete_48.png")));
 		setTitle("Supprimer_Client");
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -69,7 +69,7 @@ public class Sup_Client_Form extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("<html>Si vous êtes sûr de supprimer le client sélectionnez<font color=\"#00ff00\"> Oui </font>\r\n<br>\r\nmais si vous ne voulez pas supprimer sélectionnez <font color=\"#ff0000\">Annuler</font></html>");
-		lblNewLabel.setIcon(new ImageIcon(Sup_Client_Form.class.getResource("/images_Resource/stamp.png")));
+		lblNewLabel.setIcon(new ImageIcon(Sup_Client_Form.class.getResource("/images/stamp.png")));
 		lblNewLabel.setFont(new Font("Simplified Arabic", Font.BOLD, 16));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel.setBounds(10, 11, 472, 63);
@@ -137,7 +137,7 @@ public class Sup_Client_Form extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setIcon(new ImageIcon(Sup_Client_Form.class.getResource("/images_Resource/user-red-delete.png")));
+		btnNewButton.setIcon(new ImageIcon(Sup_Client_Form.class.getResource("/images/user-red-delete.png")));
 		btnNewButton.setFont(new Font("Simplified Arabic", Font.BOLD, 16));
 		btnNewButton.setBounds(349, 238, 97, 41);
 		contentPane.add(btnNewButton);
@@ -148,7 +148,7 @@ public class Sup_Client_Form extends JFrame {
 				dispose();
 			}
 		});
-		btnOui.setIcon(new ImageIcon(Sup_Client_Form.class.getResource("/images_Resource/1490388962_DeleteRed.png")));
+		btnOui.setIcon(new ImageIcon(Sup_Client_Form.class.getResource("/images/1490388962_DeleteRed.png")));
 		btnOui.setFont(new Font("Simplified Arabic", Font.BOLD, 16));
 		btnOui.setBounds(39, 238, 123, 41);
 		contentPane.add(btnOui);

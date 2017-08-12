@@ -95,7 +95,7 @@ public class Modifier_Clients_Form extends JFrame {
 	
 	public Modifier_Clients_Form(Integer Num) {
 		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Modifier_Clients_Form.class.getResource("/images_Resource/employeeIcon.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Modifier_Clients_Form.class.getResource("/images/employeeIcon.png")));
 
 		
 		setTitle("Modifier Client");
@@ -115,7 +115,7 @@ public class Modifier_Clients_Form extends JFrame {
 			JPanel panel = new JPanel();   
 			//panel.setBackground(Color.LIGHT_GRAY);
 			panel.setToolTipText("");
-			tabbedPane.addTab("Général", new ImageIcon(this.getClass().getResource("/images_Resource/Download-Folder-icon.png")), panel, "Des informations générales");
+			tabbedPane.addTab("Général", new ImageIcon(this.getClass().getResource("/images/Download-Folder-icon.png")), panel, "Des informations générales");
 			panel.setLayout(null);
 			
 			JLabel lblNewLabel = new JLabel("Nom ");
@@ -219,19 +219,19 @@ public class Modifier_Clients_Form extends JFrame {
 			panel.add(tfcommune);
 			
 			JLabel lblTel = new JLabel("Tél");
-			lblTel.setIcon(new ImageIcon(this.getClass().getResource("/images_Resource/Mobile-icon.png")));
+			lblTel.setIcon(new ImageIcon(this.getClass().getResource("/images/Mobile-icon.png")));
 			lblTel.setFont(new Font("Tahoma", Font.BOLD, 14));
 			lblTel.setBounds(7, 132, 56, 32);
 			panel.add(lblTel);
 			
 			JLabel lblTl = new JLabel("Tél");
-			lblTl.setIcon(new ImageIcon(this.getClass().getResource("/images_Resource/phone-icon.png")));
+			lblTl.setIcon(new ImageIcon(this.getClass().getResource("/images/phone-icon.png")));
 			lblTl.setFont(new Font("Tahoma", Font.BOLD, 14));
 			lblTl.setBounds(8, 175, 56, 32);
 			panel.add(lblTl);
 			
 			JLabel lblFax = new JLabel("Fax");
-			lblFax.setIcon(new ImageIcon(this.getClass().getResource("/images_Resource/Fax-icon.png")));
+			lblFax.setIcon(new ImageIcon(this.getClass().getResource("/images/Fax-icon.png")));
 			lblFax.setFont(new Font("Tahoma", Font.BOLD, 14));
 			lblFax.setBounds(7, 222, 60, 32);
 			panel.add(lblFax);
@@ -310,7 +310,7 @@ public class Modifier_Clients_Form extends JFrame {
 			
 			JPanel panel_1 = new JPanel();
 			panel_1.setBackground(new Color(240, 240, 240));
-			tabbedPane.addTab("Plus_Information", new ImageIcon(this.getClass().getResource("/images_Resource/Button-Info-icon.png")), panel_1, null);
+			tabbedPane.addTab("Plus_Information", new ImageIcon(this.getClass().getResource("/images/Button-Info-icon.png")), panel_1, null);
 			panel_1.setLayout(null);
 			
 			JLabel lblN = new JLabel("N° R C");
@@ -329,7 +329,7 @@ public class Modifier_Clients_Form extends JFrame {
 			panel_1.add(lblCompte);
 			
 			JLabel lblEmail = new JLabel("Email");
-			lblEmail.setIcon(new ImageIcon(this.getClass().getResource("/images_Resource/email-2-icon (1).png")));
+			lblEmail.setIcon(new ImageIcon(this.getClass().getResource("/images/email-2-icon (1).png")));
 			lblEmail.setFont(new Font("Tahoma", Font.BOLD, 14));
 			lblEmail.setBounds(10, 195, 64, 24);
 			panel_1.add(lblEmail);
@@ -383,7 +383,7 @@ public class Modifier_Clients_Form extends JFrame {
 			panel_1.add(lblRIP);
 			
 			JLabel lblSiteWeb = new JLabel("Site Web");
-			lblSiteWeb.setIcon(new ImageIcon(this.getClass().getResource("/images_Resource/HTTP-icon (1).png")));
+			lblSiteWeb.setIcon(new ImageIcon(this.getClass().getResource("/images/HTTP-icon (1).png")));
 			lblSiteWeb.setFont(new Font("Tahoma", Font.BOLD, 12));
 			lblSiteWeb.setBounds(337, 191, 97, 32);
 			panel_1.add(lblSiteWeb);
@@ -417,12 +417,12 @@ public class Modifier_Clients_Form extends JFrame {
 			panel_1.add(tfsiteweb);
 			
 			JLabel lblNewLabel_1 = new JLabel("");
-			lblNewLabel_1.setIcon(new ImageIcon(this.getClass().getResource("/images_Resource/Money-icon (1).png")));
+			lblNewLabel_1.setIcon(new ImageIcon(this.getClass().getResource("/images/Money-icon (1).png")));
 			lblNewLabel_1.setBounds(3, 135, 32, 32);
 			panel_1.add(lblNewLabel_1);
 			
 			JPanel panel_2 = new JPanel();
-			tabbedPane.addTab("Tarification", new ImageIcon(this.getClass().getResource("/images_Resource/Pricing-icon.png")), panel_2, null);
+			tabbedPane.addTab("Tarification", new ImageIcon(this.getClass().getResource("/images/Pricing-icon.png")), panel_2, null);
 			panel_2.setLayout(null);
 			
 			JLabel lblModeDeTarif = new JLabel("Mode de Tarif");
@@ -507,7 +507,7 @@ public class Modifier_Clients_Form extends JFrame {
 			});
 			btnAnnuler.setForeground(new Color(255, 51, 51));
 			btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnAnnuler.setIcon(new ImageIcon(this.getClass().getResource("/images_Resource/Misc-Delete-Database-icon.png")));
+			btnAnnuler.setIcon(new ImageIcon(this.getClass().getResource("/images/Misc-Delete-Database-icon.png")));
 			btnAnnuler.setBounds(507, 350, 113, 44);
 			contentPane.add(btnAnnuler);
 			
@@ -517,7 +517,7 @@ public class Modifier_Clients_Form extends JFrame {
 					Modifier_Client_Sql();
 				}
 			});
-			btnModifier.setIcon(new ImageIcon(Modifier_Clients_Form.class.getResource("/images_Resource/if_user_profile_edit_103781.png")));
+			btnModifier.setIcon(new ImageIcon(Modifier_Clients_Form.class.getResource("/images/if_user_profile_edit_103781.png")));
 			btnModifier.setForeground(Color.GREEN);
 			btnModifier.setFont(new Font("Tahoma", Font.BOLD, 14));
 			btnModifier.setBounds(50, 353, 123, 41);

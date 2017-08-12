@@ -43,6 +43,16 @@ public class ConfigurationForm extends JFrame {
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTextField textField_8;
+	private JTextField textField_9;
+	private JTextField textField_10;
+	private JTextField textField_11;
+	private JTextField textField_12;
+	private JTextField textField_13;
+	private JTextField textField_14;
+	private JTextField textField_15;
+	private JTextField textField_16;
+	private JTextField textField_17;
+	private JTextField textField_18;
 
 	/**
 	 * Launch the application.
@@ -72,7 +82,7 @@ public class ConfigurationForm extends JFrame {
 		
 		setResizable(false);
 		setTitle("Configuration");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 771, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -124,7 +134,7 @@ public class ConfigurationForm extends JFrame {
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(panel_7, GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
 					.addContainerGap())
@@ -316,7 +326,7 @@ public class ConfigurationForm extends JFrame {
 		);
 		
 		JToolBar toolBar = new JToolBar();
-		
+		toolBar.setBorder(new LineBorder(new Color(0, 0, 0)));
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setBackground(Color.BLUE);
 		lblNewLabel_4.setIcon(new ImageIcon(dimg));
@@ -352,6 +362,215 @@ public class ConfigurationForm extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Configuration du facture", null, panel_2, null);
+		
+		JPanel panel_9 = new JPanel();
+		panel_9.setBorder(new TitledBorder(null, "Ent\u00EAte de page de bon de livraison", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		
+		JLabel label = new JLabel("Nom ou raison social:");
+		
+		JLabel label_1 = new JLabel("Info 1:");
+		
+		JLabel label_2 = new JLabel("Info 2:");
+		
+		JLabel label_3 = new JLabel("Info 3:");
+		
+		textField_9 = new JTextField();
+		textField_9.setColumns(10);
+		
+		textField_10 = new JTextField();
+		textField_10.setColumns(10);
+		
+		textField_11 = new JTextField();
+		textField_11.setColumns(10);
+		
+		textField_12 = new JTextField();
+		textField_12.setColumns(10);
+		
+		JPanel panel_10 = new JPanel();
+		panel_10.setBorder(new LineBorder(new Color(0, 0, 0)));
+		
+		JToolBar toolBar_1 = new JToolBar();
+		toolBar_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		
+		JLabel label_4 = new JLabel("");
+		label_4.setBackground(Color.YELLOW);
+		GroupLayout gl_panel_10 = new GroupLayout(panel_10);
+		gl_panel_10.setHorizontalGroup(
+			gl_panel_10.createParallelGroup(Alignment.TRAILING)
+				.addGap(0, 183, Short.MAX_VALUE)
+				.addComponent(toolBar_1, GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+				.addGroup(gl_panel_10.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(label_4, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_panel_10.setVerticalGroup(
+			gl_panel_10.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 200, Short.MAX_VALUE)
+				.addGroup(gl_panel_10.createSequentialGroup()
+					.addComponent(toolBar_1, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(label_4, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setIcon(new ImageIcon(ConfigurationForm.class.getResource("/images/add.png")));
+		toolBar_1.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("");
+		btnNewButton_2.setIcon(new ImageIcon(ConfigurationForm.class.getResource("/images/delete.png")));
+		toolBar_1.add(btnNewButton_2);
+		panel_10.setLayout(gl_panel_10);
+		
+		textField_13 = new JTextField();
+		textField_13.setColumns(10);
+		
+		textField_14 = new JTextField();
+		textField_14.setColumns(10);
+		
+		JLabel label_5 = new JLabel("New label");
+		
+		JLabel label_6 = new JLabel("New label");
+		
+		JLabel label_7 = new JLabel("New label");
+		
+		JLabel label_8 = new JLabel("New label");
+		
+		textField_15 = new JTextField();
+		textField_15.setColumns(10);
+		
+		textField_16 = new JTextField();
+		textField_16.setColumns(10);
+		
+		textField_17 = new JTextField();
+		textField_17.setColumns(10);
+		
+		JLabel label_9 = new JLabel("New label");
+		
+		JSeparator separator_1 = new JSeparator();
+		
+		textField_18 = new JTextField();
+		textField_18.setColumns(10);
+		
+		JLabel lblNewLabel_12 = new JLabel("New label");
+		GroupLayout gl_panel_9 = new GroupLayout(panel_9);
+		gl_panel_9.setHorizontalGroup(
+			gl_panel_9.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 571, Short.MAX_VALUE)
+				.addGroup(gl_panel_9.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_9.createSequentialGroup()
+							.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_9.createParallelGroup(Alignment.TRAILING, false)
+									.addComponent(textField_13, Alignment.LEADING)
+									.addComponent(textField_14, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))
+								.addComponent(label_5)
+								.addComponent(label_6))
+							.addGap(18)
+							.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
+								.addComponent(label_7)
+								.addComponent(label_8)
+								.addComponent(textField_15, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+								.addComponent(textField_16, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)))
+						.addComponent(textField_17, GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+						.addComponent(label_9))
+					.addGap(18))
+				.addGroup(gl_panel_9.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+					.addContainerGap())
+				.addGroup(gl_panel_9.createSequentialGroup()
+					.addGap(10)
+					.addGroup(gl_panel_9.createParallelGroup(Alignment.TRAILING)
+						.addComponent(label)
+						.addComponent(label_1)
+						.addComponent(label_2)
+						.addComponent(label_3)
+						.addComponent(lblNewLabel_12))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_9.createSequentialGroup()
+							.addComponent(textField_18, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addGroup(gl_panel_9.createSequentialGroup()
+							.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
+								.addComponent(textField_9, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+								.addComponent(textField_10, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+								.addComponent(textField_11, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+								.addComponent(textField_12, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE))
+							.addGap(10))))
+		);
+		gl_panel_9.setVerticalGroup(
+			gl_panel_9.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_9.createSequentialGroup()
+					.addGap(5)
+					.addGroup(gl_panel_9.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_9.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_1))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_9.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_2))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_9.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_3))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_9.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField_18, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_12))
+					.addGap(9)
+					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 8, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel_9.createSequentialGroup()
+							.addGroup(gl_panel_9.createParallelGroup(Alignment.BASELINE)
+								.addComponent(label_5)
+								.addComponent(label_8))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel_9.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textField_14, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textField_16, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel_9.createParallelGroup(Alignment.BASELINE)
+								.addComponent(label_6)
+								.addComponent(label_7))
+							.addGap(4)
+							.addGroup(gl_panel_9.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textField_13, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textField_15, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(15)
+							.addComponent(label_9)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textField_17, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(23, Short.MAX_VALUE))
+		);
+		panel_9.setLayout(gl_panel_9);
+		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
+		gl_panel_2.setHorizontalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		gl_panel_2.setVerticalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		panel_2.setLayout(gl_panel_2);
 		
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Affichage", null, panel_3, null);

@@ -25,7 +25,6 @@ import javax.swing.SwingConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
 
-import com.home.ProfileForm;
 import com.home.Session;
 
 import javafx.application.Application;
@@ -79,7 +78,7 @@ public class MainForm extends JFrame {
 		});
 		
 		setTitle("SmartStore V 0.1");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainForm.class.getResource("/images_Resource/logo2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainForm.class.getResource("/images/logo2.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1521, 690);
 		setExtendedState( getExtendedState() | JFrame.MAXIMIZED_BOTH );
@@ -189,7 +188,7 @@ public class MainForm extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/Client.png")));
+		btnNewButton.setIcon(new ImageIcon(MainForm.class.getResource("/images/Client.png")));
 		
 		JButton btnFournisseur = new JButton("Fournisseurs");
 		btnFournisseur.addActionListener(new ActionListener() {
@@ -198,22 +197,22 @@ public class MainForm extends JFrame {
 			}
 		});
 		toolBar.add(btnFournisseur);
-		btnFournisseur.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/fournisseur.png")));
+		btnFournisseur.setIcon(new ImageIcon(MainForm.class.getResource("/images/fournisseur.png")));
 		btnFournisseur.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JButton btnProduis = new JButton("Produits");
 		toolBar.add(btnProduis);
-		btnProduis.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/produit.png")));
+		btnProduis.setIcon(new ImageIcon(MainForm.class.getResource("/images/produit.png")));
 		btnProduis.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JButton btnBonDachat = new JButton("Achats");
 		toolBar.add(btnBonDachat);
-		btnBonDachat.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/achat.png")));
+		btnBonDachat.setIcon(new ImageIcon(MainForm.class.getResource("/images/achat.png")));
 		btnBonDachat.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JButton btnVents = new JButton("Vents");
 		toolBar.add(btnVents);
-		btnVents.setIcon(new ImageIcon(MainForm.class.getResource("/images_Resource/vents.png")));
+		btnVents.setIcon(new ImageIcon(MainForm.class.getResource("/images/vents.png")));
 		btnVents.setFont(new Font("Tahoma", Font.BOLD, 14));
 		contentPane.setLayout(gl_contentPane);
 	}

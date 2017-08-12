@@ -72,7 +72,7 @@ public class Liste_des_Clients_Form extends JFrame {
 	 */
 	public Liste_des_Clients_Form() {
 		setTitle("Recherche");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Liste_des_Clients_Form.class.getResource("/images_Resource/Search-People-icon.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Liste_des_Clients_Form.class.getResource("/images/Search-People-icon.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1000, 599);
 		setVisible(true);
@@ -196,7 +196,7 @@ public class Liste_des_Clients_Form extends JFrame {
 		
 		JButton btnNewButton = new JButton("Recherche");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images_Resource/Search-icon.png")));
+		btnNewButton.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images/Search-icon.png")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -218,7 +218,7 @@ public class Liste_des_Clients_Form extends JFrame {
 				new AddClients_Form();                // creer un instance du class "addClient"   
 			}                                    // pour ajouter un client 
 		});
-		btnAjouter.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images_Resource/employeeIcon.png")));
+		btnAjouter.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images/employeeIcon.png")));
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnAjouter.setBounds(61, 2, 153, 57);
 		contentPane.add(btnAjouter);
@@ -243,7 +243,7 @@ public class Liste_des_Clients_Form extends JFrame {
 				}
 			}
 		});
-		btnSupprimer.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images_Resource/Delete_48.png")));
+		btnSupprimer.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images/Delete_48.png")));
 		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnSupprimer.setBounds(281, 2, 157, 57);
 		contentPane.add(btnSupprimer);
