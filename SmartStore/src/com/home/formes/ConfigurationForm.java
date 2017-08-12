@@ -392,8 +392,18 @@ public class ConfigurationForm extends JFrame {
 		JToolBar toolBar_1 = new JToolBar();
 		toolBar_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
+		BufferedImage img1 = null;
+		try {
+		    img1 = ImageIO.read(new File("images/logo.png"));
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		Image dimg1 = img1.getScaledInstance(160, 160, Image.SCALE_SMOOTH);
 		JLabel label_4 = new JLabel("");
 		label_4.setBackground(Color.YELLOW);
+		label_4.setIcon(new ImageIcon(dimg1));
+		
+		
 		GroupLayout gl_panel_10 = new GroupLayout(panel_10);
 		gl_panel_10.setHorizontalGroup(
 			gl_panel_10.createParallelGroup(Alignment.TRAILING)

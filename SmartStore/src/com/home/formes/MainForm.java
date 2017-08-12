@@ -125,7 +125,7 @@ public class MainForm extends JFrame {
 		JMenuItem mntmFamilleDeProduit = new JMenuItem("Famille de produit");
 		mntmFamilleDeProduit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Session.setForm(Session.FAMILLE, new FamilleForm());
+				Session.setForm(Session.FAMILLE, new FamiliesForm());
 				Session.showForm(Session.FAMILLE);
 			}
 		});

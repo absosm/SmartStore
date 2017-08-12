@@ -33,7 +33,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 
-public class FamilleForm extends JFrame{
+public class FamiliesForm extends JFrame{
 
 	private JPanel contentPane;
 	private JTable table;
@@ -46,7 +46,7 @@ public class FamilleForm extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FamilleForm frame = new FamilleForm();
+					FamiliesForm frame = new FamiliesForm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +58,7 @@ public class FamilleForm extends JFrame{
 	/**
 	 * Create the frame.
 	 */
-	public FamilleForm() {
+	public FamiliesForm() {
 		
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
@@ -132,7 +132,7 @@ public class FamilleForm extends JFrame{
 				model.addRow(new Famille());
 			}
 		});
-		btnNewButton_2.setIcon(new ImageIcon(FamilleForm.class.getResource("/images/add.png")));
+		btnNewButton_2.setIcon(new ImageIcon(FamiliesForm.class.getResource("/images/add.png")));
 		toolBar.add(btnNewButton_2);
 		
 		JButton btnNewButton_4 = new JButton("");
@@ -142,7 +142,7 @@ public class FamilleForm extends JFrame{
 				model.delete(table.getSelectedRow());
 			}
 		});
-		btnNewButton_4.setIcon(new ImageIcon(FamilleForm.class.getResource("/images/delete.png")));
+		btnNewButton_4.setIcon(new ImageIcon(FamiliesForm.class.getResource("/images/delete.png")));
 		toolBar.add(btnNewButton_4);
 		
 		toolBar.addSeparator(new Dimension(15, 20));
