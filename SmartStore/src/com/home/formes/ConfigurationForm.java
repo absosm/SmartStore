@@ -30,6 +30,7 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JToolBar;
 import javax.swing.JComboBox;
+import java.awt.Font;
 
 public class ConfigurationForm extends JFrame {
 
@@ -89,6 +90,7 @@ public class ConfigurationForm extends JFrame {
 		setContentPane(contentPane);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
+		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JPanel panel_1 = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -148,6 +150,7 @@ public class ConfigurationForm extends JFrame {
 		);
 		
 		JLabel lblNewLabel = new JLabel("Nom ou raison social:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		textField = new JTextField();
 		textField.setColumns(10);
@@ -162,10 +165,13 @@ public class ConfigurationForm extends JFrame {
 		textField_3.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Info 1:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel_2 = new JLabel("Info 2:");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel_3 = new JLabel("Info 3:");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		BufferedImage img = null;
 		try {
@@ -187,6 +193,7 @@ public class ConfigurationForm extends JFrame {
 		textField_4.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("New label");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
@@ -198,23 +205,29 @@ public class ConfigurationForm extends JFrame {
 		textField_7.setColumns(10);
 		
 		JLabel lblNewLabel_6 = new JLabel("New label");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel_7 = new JLabel("New label");
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel_8 = new JLabel("New label");
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		textField_8 = new JTextField();
 		textField_8.setColumns(10);
 		
 		JLabel lblNewLabel_9 = new JLabel("New label");
+		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JComboBox comboBox = new JComboBox();
 		
 		JLabel lblNewLabel_10 = new JLabel("New label");
+		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JComboBox comboBox_1 = new JComboBox();
 		
 		JLabel lblNewLabel_11 = new JLabel("New label");
+		lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		GroupLayout gl_panel_7 = new GroupLayout(panel_7);
 		gl_panel_7.setHorizontalGroup(
