@@ -176,6 +176,11 @@ public class ProductsForm extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new AddProducts();
+			}
+		});
 		button.setIcon(new ImageIcon(ProductsForm.class.getResource("/images/add.png")));
 		toolBar.add(button);
 		
