@@ -116,9 +116,11 @@ public class ProductsForm extends JFrame {
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addComponent(toolBar_1, GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
-				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 827, Short.MAX_VALUE)
-				.addComponent(toolBar, GroupLayout.DEFAULT_SIZE, 827, Short.MAX_VALUE)
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
+				.addComponent(toolBar, GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addComponent(toolBar_1, GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -127,7 +129,7 @@ public class ProductsForm extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE))
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE))
 		);
 		
 		JButton btnNewButton = new JButton("New button");
@@ -142,7 +144,7 @@ public class ProductsForm extends JFrame {
 		panel_2.setLayout(null);
 		
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(465, 0, 279, 20);
+		comboBox_1.setBounds(465, 0, 270, 22);
 		panel_2.add(comboBox_1);
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
@@ -150,7 +152,7 @@ public class ProductsForm extends JFrame {
 		panel_2.add(lblNewLabel_1);
 		
 		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(66, -1, 333, 23);
+		comboBox_2.setBounds(66, 0, 333, 22);
 		panel_2.add(comboBox_2);
 		
 		JLabel lblNewLabel_2 = new JLabel("New label");
