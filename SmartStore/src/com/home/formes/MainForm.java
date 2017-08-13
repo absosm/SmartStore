@@ -125,11 +125,20 @@ public class MainForm extends JFrame {
 		JMenuItem mntmFamilleDeProduit = new JMenuItem("Famille de produit");
 		mntmFamilleDeProduit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Session.setForm(Session.FAMILLE, new FamiliesForm());
-				Session.showForm(Session.FAMILLE);
+				Session.setForm(Session.FAMILIES, new FamiliesForm());
+				Session.showForm(Session.FAMILIES);
 			}
 		});
 		mnProduits.add(mntmFamilleDeProduit);
+		
+		JMenuItem mntmListesDesProduits = new JMenuItem("Listes des produits");
+		mntmListesDesProduits.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Session.setForm(Session.PRODUCTS, new ProductsForm());
+				Session.showForm(Session.PRODUCTS);
+			}
+		});
+		mnProduits.add(mntmListesDesProduits);
 		
 		JMenu mnAffichage = new JMenu("Affichage");
 		menuBar.add(mnAffichage);
@@ -201,6 +210,12 @@ public class MainForm extends JFrame {
 		btnFournisseur.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JButton btnProduis = new JButton("Produits");
+		btnProduis.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Session.setForm(Session.PRODUCTS, new ProductsForm());
+				Session.showForm(Session.PRODUCTS);
+			}
+		});
 		toolBar.add(btnProduis);
 		btnProduis.setIcon(new ImageIcon(MainForm.class.getResource("/images/produit.png")));
 		btnProduis.setFont(new Font("Tahoma", Font.BOLD, 14));

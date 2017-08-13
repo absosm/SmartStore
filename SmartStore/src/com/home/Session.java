@@ -26,7 +26,8 @@ public class Session {
 	public static final int MAIN					= 1;
 	public static final int CONFIGURATION			= 2;
 	public static final int PROFILE					= 3;
-	public static final int FAMILLE					= 4;
+	public static final int FAMILIES				= 4;
+	public static final int PRODUCTS				= 5;
 	
 	public static void start() {
 		
