@@ -1,6 +1,8 @@
 package com.home;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class Product {
 	
@@ -95,5 +97,69 @@ public class Product {
 	}
 	public void setMesure_unit(String mesure_unit) {
 		this.mesure_unit = mesure_unit;
-	}	
+	}
+	
+	public void add() {
+				
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+					prepareStatement("INSERT INTO products(designation, family, barcode, cost, "
+							+ "selling1, selling2, selling3, amount, used, min, expiration, mesure_unit) "
+							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			prepared.setString(1, getDesignation());
+			prepared.setString(2, getFamily());
+			prepared.setString(3, getBarcode());
+			prepared.setDouble(4, getCost());
+			prepared.setDouble(5, getSelling1());
+			prepared.setDouble(6, getSelling2());
+			prepared.setDouble(7, getSelling3());
+			prepared.setInt(8, getAmount());
+			prepared.setInt(9, getUsed());
+			prepared.setInt(10, getMin());
+			prepared.setDate(11, getExpiration());
+			prepared.setString(12, getMesure_unit());
+			prepared.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void update() {
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+					prepareStatement("UPDATE products SET designation=?, family=?, barcode=?, cost=?, "
+							+ "selling1=?, selling2=?, selling3=?, amount=?, used=?, min=?, expiration=?"
+							+ ", mesure_unit=? WHERE id=?");
+			prepared.setString(1, getDesignation());
+			prepared.setString(2, getFamily());
+			prepared.setString(3, getBarcode());
+			prepared.setDouble(4, getCost());
+			prepared.setDouble(5, getSelling1());
+			prepared.setDouble(6, getSelling2());
+			prepared.setDouble(7, getSelling3());
+			prepared.setInt(8, getAmount());
+			prepared.setInt(9, getUsed());
+			prepared.setInt(10, getMin());
+			prepared.setDate(11, getExpiration());
+			prepared.setString(12, getMesure_unit());
+			prepared.setInt(13, getId());
+			prepared.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void delete() {
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+					prepareStatement("DELETE FROM products WHERE id=?");
+			prepared.setInt(1, getId());
+			prepared.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

@@ -3,7 +3,7 @@ package com.home.custom;
 import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 
-import com.home.Famille;
+import com.home.Family;
 
 public class CustomTableModel extends AbstractTableModel {
 
@@ -33,10 +33,10 @@ public class CustomTableModel extends AbstractTableModel {
     
     public void setValueAt(Object value, int row, int col) {
     	
-    	Famille f = (Famille) data.get(row).get(3);
+    	Family f = (Family) data.get(row).get(3);
     	
     	if (f == null) {
-    		f = new Famille();
+    		f = new Family();
     		data.get(row).set(3, f);
     	}
     		
@@ -61,18 +61,18 @@ public class CustomTableModel extends AbstractTableModel {
         return data.get(row).get(column);
     }
     
-    public Famille getFamille(int row) {
-    	return (Famille)data.get(row).get(3);
+    public Family getFamille(int row) {
+    	return (Family)data.get(row).get(3);
     }
     
     public void delete(int row) {
-    	Famille f = (Famille)data.get(row).get(3);
+    	Family f = (Family)data.get(row).get(3);
     	f.delete();
     	data.remove(row);
     	fireTableDataChanged();
     }
     
-    public void addRow(Famille famille) {
+    public void addRow(Family famille) {
         
         if (famille == null) {
             throw new IllegalArgumentException("rowData cannot be null");

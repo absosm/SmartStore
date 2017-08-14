@@ -5,14 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Famille {
+public class Family {
 	
 	private int id;
 	private String designation;
 	private String note;
 	private int count;
 	
-	public Famille() {
+	public Family() {
 		
 		setDesignation("(vide)");
 		setNote("(vide)");
@@ -36,7 +36,7 @@ public class Famille {
 		}
 	}
 	
-	public Famille(int id) {
+	public Family(int id) {
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
 					prepareStatement("SELECT * FROM families WHERE id=?");
@@ -125,9 +125,9 @@ public class Famille {
 		}
 	}
 	
-	public static Famille get(int id) {
+	public static Family get(int id) {
 		
-		Famille famille = new Famille();
+		Family famille = new Family();
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
 					prepareStatement("SELECT * FROM families WHERE id=?");
