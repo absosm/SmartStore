@@ -37,6 +37,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class AddProducts extends JFrame {
 
@@ -60,6 +61,7 @@ public class AddProducts extends JFrame {
 	private static JTextField tf_Boni6;
 	private static JLabel Labe_Image ;
 	private static JComboBox comboBox_famille;
+	private static JLabel lb_path_Image;
 
 	/**
 	 * Launch the application.
@@ -152,18 +154,18 @@ public class AddProducts extends JFrame {
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		
 		comboBox_famille = new JComboBox();
+		
 		comboBox_famille.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent e) {
 				comboBox_famille.removeAllItems();
 				DataBase database=Session.getDatabase();
-				Remplire_Combobox(database.getResult("Select designation from families"),comboBox_famille);	
-			}
+				Remplire_Combobox(database.getResult("Select designation from families"),comboBox_famille);
+				}
 		});
 		
-		JComboBox comboBox_1 = new JComboBox();
+	    JComboBox comboBox_1 = new JComboBox();
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
@@ -266,66 +268,134 @@ public class AddProducts extends JFrame {
 		lblPrixVente_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_Prix_Achat = new JTextField();
+		tf_Prix_Achat.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				Auto_update_of_Prix_achat();
+			}
+		});
 		tf_Prix_Achat.setColumns(10);
 		
 		tf_Prix_Vente1 = new JTextField();
 		tf_Prix_Vente1.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent arg0) {
-
+			public void keyReleased(KeyEvent arg0) {
 				tf_Boni1.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente1.getText().toString())));
-				
-				
-				
 			}
 		});
 		tf_Prix_Vente1.setColumns(10);
 		
 		tf_Prix_Vente2 = new JTextField();
+		tf_Prix_Vente2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				tf_Boni2.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente2.getText().toString())).replace(" ", ""));
+			}
+		});
 		tf_Prix_Vente2.setColumns(10);
 		
 		tf_Prix_Vente3 = new JTextField();
+		tf_Prix_Vente3.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				tf_Boni3.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente3.getText().toString())).replace(" ", ""));
+			}
+		});
 		tf_Prix_Vente3.setColumns(10);
 		
 		tf_Prix_Vente4 = new JTextField();
+		tf_Prix_Vente4.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				tf_Boni4.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente4.getText().toString())).replace(" ", ""));
+			}
+		});
 		tf_Prix_Vente4.setColumns(10);
 		
 		tf_Prix_Vente5 = new JTextField();
+		tf_Prix_Vente5.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				tf_Boni5.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente5.getText().toString())).replace(" ", ""));
+			}
+		});
 		tf_Prix_Vente5.setColumns(10);
 		
 		tf_Prix_Vente6 = new JTextField();
+		tf_Prix_Vente6.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				tf_Boni6.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente6.getText().toString())).replace(" ", ""));
+			}
+		});
 		tf_Prix_Vente6.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("PRIX");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JLabel lblBoni = new JLabel("BONI");
+		JLabel lblBoni = new JLabel("BONI %");
 		lblBoni.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBoni.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_Boni1 = new JTextField();
 		tf_Boni1.setBackground(new Color(204, 255, 204));
+		tf_Boni1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				tf_Prix_Vente1.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_Prix_Achat.getText().toString() , tf_Boni1.getText().toString())).replace(" ", ""));
+			}
+		});
 		tf_Boni1.setColumns(10);
 		
 		tf_Boni2 = new JTextField();
 		tf_Boni2.setBackground(new Color(204, 255, 204));
+		tf_Boni2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				tf_Prix_Vente2.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_Prix_Achat.getText().toString() , tf_Boni2.getText().toString())).replace(" ", ""));
+			}
+		});
 		tf_Boni2.setColumns(10);
 		
 		tf_Boni3 = new JTextField();
 		tf_Boni3.setBackground(new Color(204, 255, 204));
+		tf_Boni3.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				tf_Prix_Vente3.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_Prix_Achat.getText().toString() , tf_Boni3.getText().toString())).replace(" ", ""));
+			}
+		});
 		tf_Boni3.setColumns(10);
 		
 		tf_Boni4 = new JTextField();
 		tf_Boni4.setBackground(new Color(204, 255, 204));
+		tf_Boni4.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				tf_Prix_Vente4.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_Prix_Achat.getText().toString() , tf_Boni4.getText().toString())).replace(" ", ""));
+			}
+		});
 		tf_Boni4.setColumns(10);
 		
 		tf_Boni5 = new JTextField();
 		tf_Boni5.setBackground(new Color(204, 255, 204));
+		tf_Boni5.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				tf_Prix_Vente5.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_Prix_Achat.getText().toString() , tf_Boni5.getText().toString())).replace(" ", ""));
+			}
+		});
 		tf_Boni5.setColumns(10);
 		
 		tf_Boni6 = new JTextField();
 		tf_Boni6.setBackground(new Color(204, 255, 204));
+		tf_Boni6.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				tf_Prix_Vente6.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_Prix_Achat.getText().toString() , tf_Boni6.getText().toString())).replace(" ", ""));
+			}
+		});
 		tf_Boni6.setColumns(10);
 		
 		JPanel panel_4 = new JPanel();
@@ -434,6 +504,8 @@ public class AddProducts extends JFrame {
 		lblnombreDesJours.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JComboBox comboBox_3 = new JComboBox();
+		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
+				, "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
@@ -486,8 +558,9 @@ public class AddProducts extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Labe_Image.setIcon(Use_Files.Image(Use_Files.filechooser_Images()));
-					//Labe_Image.seti
+					String ImagePath=Use_Files.filechooser_Images();
+					Labe_Image.setIcon(Use_Files.Image(ImagePath));
+					lb_path_Image.setText(ImagePath);
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
@@ -499,31 +572,71 @@ public class AddProducts extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btnAnnulerLaPhoto = new JButton("Annuler la Photo");
+		btnAnnulerLaPhoto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Labe_Image.setIcon(null);
+				lb_path_Image.setText(null);				
+			}
+		});
 		btnAnnulerLaPhoto.setIcon(new ImageIcon(AddProducts.class.getResource("/images/cancel.png")));
 		btnAnnulerLaPhoto.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		lb_path_Image = new JLabel("");
+		
+		JButton btnNewButton_3 = new JButton("");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String ImagePath=lb_path_Image.getText();
+				if (ImagePath!=null)
+				{
+					Labe_Image.setIcon(Use_Files.ResizeImage(ImagePath,Labe_Image));
+				}
+			}
+		});
+		btnNewButton_3.setIcon(new ImageIcon(AddProducts.class.getResource("/images/resize_x32.png")));
+		
+		JLabel lblAutoResize = new JLabel("Auto resize");
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(56)
-					.addComponent(Image_panel, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)
-					.addGap(34)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnAnnulerLaPhoto, GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
-					.addContainerGap(132, Short.MAX_VALUE))
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(56)
+							.addComponent(Image_panel, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)
+							.addGap(34)
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_2.createSequentialGroup()
+									.addComponent(btnNewButton_3, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblAutoResize))
+								.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(btnAnnulerLaPhoto, GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lb_path_Image, GroupLayout.PREFERRED_SIZE, 611, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(38, Short.MAX_VALUE))
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(27)
+					.addComponent(lb_path_Image, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING, false)
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_2.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnNewButton_3, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel_2.createSequentialGroup()
+									.addGap(15)
+									.addComponent(lblAutoResize)))
+							.addPreferredGap(ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
 							.addComponent(btnAnnulerLaPhoto, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 						.addComponent(Image_panel, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(25, Short.MAX_VALUE))
+					.addContainerGap(19, Short.MAX_VALUE))
 		);
 		
 		Labe_Image = new JLabel("Image");
@@ -531,39 +644,80 @@ public class AddProducts extends JFrame {
 		GroupLayout gl_Image_panel = new GroupLayout(Image_panel);
 		gl_Image_panel.setHorizontalGroup(
 			gl_Image_panel.createParallelGroup(Alignment.LEADING)
-				.addComponent(Labe_Image, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+				.addGroup(gl_Image_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(Labe_Image, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+					.addGap(29))
 		);
 		gl_Image_panel.setVerticalGroup(
 			gl_Image_panel.createParallelGroup(Alignment.LEADING)
-				.addComponent(Labe_Image, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+				.addGroup(gl_Image_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(Labe_Image, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		Image_panel.setLayout(gl_Image_panel);
 		panel_2.setLayout(gl_panel_2);
 		contentPane.setLayout(gl_contentPane);
 	}
-	private static void Remplire_Combobox(ResultSet result , JComboBox combobox){
+	private static void Remplire_Combobox(ResultSet result , JComboBox combobox)
+	{
 		try {
 			while(result.next()){
 				combobox.addItem(result.getString(1));
 	        }
 		} catch (Exception e) {
 			// TODO: handle exception
-		}
-		
+		}		
 	}
-	private static double Calcule_Boni(String prix_achat ,String prix_vent)
+	/**
+	 * @param prix_achat
+	 * @param prix_vent
+	 * @return
+	 * Remplir automatiquement le champ de texte Boni 
+	 */
+	private static float Calcule_Boni(String prix_achat ,String prix_vent)
 	{
-		if(!prix_achat.equals("")){
-			double boni=0.00;
-			double prix_Achat=0.00;
-			double prix_Vent=0.00;
-			double one=1.00;
-			double hundred=100.00;
-			prix_Achat=Double.parseDouble(prix_achat);
-			prix_Vent=Double.parseDouble(prix_vent);
-			boni=((prix_Vent/prix_Achat)-one)*hundred;
+		if(!prix_achat.equals("") && !prix_vent.equals(""))
+		{
+			float boni=0;
+			float prix_Achat=0;
+			float prix_Vent=0;
+			prix_Achat=Float.parseFloat(prix_achat);
+			prix_Vent=Float.parseFloat(prix_vent);
+			boni=((prix_Vent/prix_Achat)-1)*100;
 			return boni;
 		}
-		return 0.00;
+		return 0;
 	}
+	/**
+	 * @param prix_achat
+	 * @param prix_vent
+	 * @return
+	 * Remplir automatiquement le champ de texte Boni
+	 */
+	private static float Calcule_Prix_Vent(String prix_achat ,String boni)
+	{
+		if(!prix_achat.equals("") && !boni.equals(""))
+		{
+			float Boni=0;
+			float prix_Achat=0;
+			float prix_Vent=0;
+			prix_Achat=Float.parseFloat(prix_achat);
+			Boni=Float.parseFloat(boni);
+			prix_Vent=(((prix_Achat*Boni)/100)+prix_Achat);
+			return prix_Vent;
+		}
+		return 0;
+	}
+	private static void Auto_update_of_Prix_achat()
+	{
+		tf_Boni1.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente1.getText().toString())));
+		tf_Boni2.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente2.getText().toString())));
+		tf_Boni3.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente3.getText().toString())));
+		tf_Boni4.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente4.getText().toString())));
+		tf_Boni5.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente5.getText().toString())));
+		tf_Boni6.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente6.getText().toString())));
+		}
+		
 }
