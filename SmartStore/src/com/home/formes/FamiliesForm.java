@@ -18,7 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 
 import com.home.DataBase;
-import com.home.Famille;
+import com.home.Family;
 import com.home.Session;
 import com.home.custom.CustomTableModel;
 
@@ -129,7 +129,7 @@ public class FamiliesForm extends JFrame{
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomTableModel model = (CustomTableModel) table.getModel();
-				model.addRow(new Famille());
+				model.addRow(new Family());
 			}
 		});
 		btnNewButton_2.setIcon(new ImageIcon(FamiliesForm.class.getResource("/images/add.png")));
@@ -164,7 +164,7 @@ public class FamiliesForm extends JFrame{
 					ResultSet result = prepared.executeQuery();
 					CustomTableModel model = new CustomTableModel();
 					while (result.next()) {
-						Famille f = new Famille(result.getInt("id"));
+						Family f = new Family(result.getInt("id"));
 						model.addRow(f);
 					}
 					table.setModel(model);
@@ -208,7 +208,7 @@ public class FamiliesForm extends JFrame{
 			ResultSet result = database.getConnection().prepareStatement("SELECT id FROM families").executeQuery();
 			CustomTableModel model = new CustomTableModel();
 			while (result.next()) {
-				Famille f = new Famille(result.getInt("id"));
+				Family f = new Family(result.getInt("id"));
 				model.addRow(f);
 			}
 			table.setModel(model);
