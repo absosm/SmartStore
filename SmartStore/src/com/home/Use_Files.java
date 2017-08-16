@@ -6,6 +6,7 @@ import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Use_Files {
@@ -55,6 +56,14 @@ public class Use_Files {
 	 * methode auto resize de l'image avec label_image
 	 */
 	public static ImageIcon ResizeImage(String ImagePath,JLabel Labe_Image)
+    {
+        ImageIcon MyImage = new ImageIcon(ImagePath);
+        Image img = MyImage.getImage();
+        Image newImg = img.getScaledInstance(Labe_Image.getWidth(), Labe_Image.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImg);
+        return image;
+    }
+	public static ImageIcon ResizeImage_Panel(String ImagePath,JPanel Labe_Image)
     {
         ImageIcon MyImage = new ImageIcon(ImagePath);
         Image img = MyImage.getImage();

@@ -38,6 +38,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
+import com.toedter.calendar.JDateChooser;
 
 public class AddProducts extends JFrame {
 
@@ -62,6 +63,11 @@ public class AddProducts extends JFrame {
 	private static JLabel Labe_Image ;
 	private static JComboBox comboBox_famille;
 	private static JLabel lb_path_Image;
+	private static JPanel Image_panel;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	
 
 	/**
 	 * Launch the application.
@@ -87,7 +93,7 @@ public class AddProducts extends JFrame {
 		setTitle("Ajouter Produit");
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 700, 500);
+		setBounds(100, 100, 750, 500);
 		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -97,6 +103,11 @@ public class AddProducts extends JFrame {
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btnNewButton_2 = new JButton("Annuler");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
 		btnNewButton_2.setIcon(new ImageIcon(AddProducts.class.getResource("/images/1490388962_DeleteRed.png")));
 		
 		JButton btnOk = new JButton("OK");
@@ -104,27 +115,26 @@ public class AddProducts extends JFrame {
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(120)
 					.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
 					.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
 					.addGap(170))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 664, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(109, Short.MAX_VALUE))
+					.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(23)
-					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 374, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 379, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(12, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		
@@ -165,8 +175,6 @@ public class AddProducts extends JFrame {
 				}
 		});
 		
-	    JComboBox comboBox_1 = new JComboBox();
-		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
 		
@@ -181,6 +189,9 @@ public class AddProducts extends JFrame {
 			}
 		});
 		btnNewButton_1.setIcon(new ImageIcon(AddProducts.class.getResource("/images/add.png")));
+		
+		JDateChooser dateChooser_1 = new JDateChooser();
+		dateChooser_1.getCalendarButton().setIcon(new ImageIcon(AddProducts.class.getResource("/images/calendar.png")));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -198,15 +209,16 @@ public class AddProducts extends JFrame {
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(comboBox_famille, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
 							.addComponent(textField_3, Alignment.LEADING)
-							.addComponent(textField_2, Alignment.LEADING)
-							.addComponent(comboBox_1, Alignment.LEADING, 0, 251, Short.MAX_VALUE)))
-					.addContainerGap(62, Short.MAX_VALUE))
+							.addComponent(textField_2, Alignment.LEADING))
+						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(dateChooser_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+								.addComponent(comboBox_famille, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap(114, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -228,10 +240,10 @@ public class AddProducts extends JFrame {
 								.addComponent(lblFamille)
 								.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))))
 					.addGap(18)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblDateDuStock)
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+						.addComponent(dateChooser_1, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+					.addGap(15)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_1)
 						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
@@ -437,15 +449,15 @@ public class AddProducts extends JFrame {
 								.addComponent(tf_Boni1, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblBoni, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 313, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(121, Short.MAX_VALUE))
+					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 365, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGap(16)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 301, Short.MAX_VALUE)
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNewLabel_3)
@@ -483,67 +495,160 @@ public class AddProducts extends JFrame {
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblPrixVente_5)
 								.addComponent(tf_Prix_Vente6, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tf_Boni6, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addComponent(tf_Boni6, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+							.addContainerGap(57, Short.MAX_VALUE))))
 		);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("");
 		
 		JLabel lblDateDePremption = new JLabel("<html>Date de <br>p\u00E9remption</br></html>");
 		lblDateDePremption.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblDateDePremption.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel label = new JLabel("<html>Date de <br>p\u00E9remption</br></html>");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		
 		JLabel lblnombreDesJours = new JLabel("<html>Nombre des <br> jours d'alerte</br></html>");
+		lblnombreDesJours.setIcon(new ImageIcon("C:\\Users\\DocteurTnou\\Desktop\\event.png"));
 		lblnombreDesJours.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblnombreDesJours.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JComboBox comboBox_3 = new JComboBox();
 		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
 				, "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		
+		JComboBox comboBox = new JComboBox();
+		
+		JComboBox comboBox_4 = new JComboBox();
+		
+		JComboBox comboBox_5 = new JComboBox();
+		
+		JComboBox comboBox_6 = new JComboBox();
+		
+		JLabel lbldpotmagasin = new JLabel("D\u00E9pot Magasin");
+		lbldpotmagasin.setHorizontalAlignment(SwingConstants.CENTER);
+		lbldpotmagasin.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JLabel lblunitDemesure = new JLabel("<html>Unit\u00E8 de<br>Mesure</br></html>");
+		lblunitDemesure.setHorizontalAlignment(SwingConstants.CENTER);
+		lblunitDemesure.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JLabel lblstockmin = new JLabel("Stock Min");
+		lblstockmin.setHorizontalAlignment(SwingConstants.CENTER);
+		lblstockmin.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JLabel lblColissage = new JLabel("Colissage");
+		lblColissage.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JLabel lblTva = new JLabel("TVA %");
+		lblTva.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JLabel lbllocalisationrayonnage = new JLabel("<html>Localisation/<br>Rayonnage</br></html>");
+		lbllocalisationrayonnage.setHorizontalAlignment(SwingConstants.CENTER);
+		lbllocalisationrayonnage.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JLabel lblLimiteDePrix = new JLabel("Limite de prix de vente");
+		lblLimiteDePrix.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.getCalendarButton().setIcon(new ImageIcon(AddProducts.class.getResource("/images/calendar.png")));
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
+			gl_panel_4.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_4.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+								.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblColissage)
+								.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel_4.createSequentialGroup()
+									.addGap(10)
+									.addComponent(chckbxNewCheckBox))
+								.addComponent(lblstockmin, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDateDePremption))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_4.createSequentialGroup()
+									.addComponent(label, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+									.addGap(56)
+									.addComponent(lblnombreDesJours, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
+								.addGroup(gl_panel_4.createSequentialGroup()
+									.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblunitDemesure, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+										.addComponent(comboBox_5, 0, 140, Short.MAX_VALUE)
+										.addComponent(comboBox, 0, 140, Short.MAX_VALUE)
+										.addComponent(lblTva, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+										.addComponent(dateChooser, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(comboBox_6, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lbllocalisationrayonnage, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+										.addComponent(comboBox_4, 0, 110, Short.MAX_VALUE)
+										.addComponent(lbldpotmagasin)
+										.addComponent(comboBox_3, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+						.addComponent(lblLimiteDePrix)
+						.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE))
+					.addGap(21))
+		);
+		gl_panel_4.setVerticalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_4.createSequentialGroup()
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_4.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(lblDateDePremption)
-							.addGap(36)
-							.addComponent(label, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-							.addComponent(lblnombreDesJours, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, gl_panel_4.createSequentialGroup()
-							.addGap(38)
-							.addComponent(chckbxNewCheckBox)
-							.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-							.addGroup(gl_panel_4.createSequentialGroup()
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
-							.addGap(33)
-							.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
-		);
-		gl_panel_4.setVerticalGroup(
-			gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_4.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDateDePremption)
-						.addComponent(label, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblnombreDesJours, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
+								.addComponent(label, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDateDePremption)))
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addGap(7)
+							.addComponent(lblnombreDesJours)))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addComponent(dateChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(comboBox_3, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+							.addComponent(chckbxNewCheckBox)))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblunitDemesure, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lbldpotmagasin, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblstockmin, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
-							.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(chckbxNewCheckBox))
-					.addContainerGap(207, Short.MAX_VALUE))
+							.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBox_4, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblColissage)
+							.addComponent(lblTva))
+						.addComponent(lbllocalisationrayonnage, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addGap(2)
+							.addComponent(comboBox_6, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
+							.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+							.addComponent(comboBox_5, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblLimiteDePrix, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		panel_4.setLayout(gl_panel_4);
 		panel_1.setLayout(gl_panel_1);
@@ -551,7 +656,7 @@ public class AddProducts extends JFrame {
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Photo Produit", new ImageIcon(AddProducts.class.getResource("/images/photo-camera-x32.png")), panel_2, null);
 		
-		JPanel Image_panel = new JPanel();
+		Image_panel = new JPanel();
 		Image_panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JButton btnNewButton = new JButton("Ajout\u00E9 une Photo");
@@ -589,7 +694,7 @@ public class AddProducts extends JFrame {
 				String ImagePath=lb_path_Image.getText();
 				if (ImagePath!=null)
 				{
-					Labe_Image.setIcon(Use_Files.ResizeImage(ImagePath,Labe_Image));
+					Labe_Image.setIcon(Use_Files.ResizeImage_Panel(ImagePath,Image_panel));
 				}
 			}
 		});
@@ -644,17 +749,11 @@ public class AddProducts extends JFrame {
 		GroupLayout gl_Image_panel = new GroupLayout(Image_panel);
 		gl_Image_panel.setHorizontalGroup(
 			gl_Image_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_Image_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(Labe_Image, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-					.addGap(29))
+				.addComponent(Labe_Image, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
 		);
 		gl_Image_panel.setVerticalGroup(
 			gl_Image_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_Image_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(Labe_Image, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-					.addContainerGap())
+				.addComponent(Labe_Image, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
 		);
 		Image_panel.setLayout(gl_Image_panel);
 		panel_2.setLayout(gl_panel_2);
@@ -719,5 +818,4 @@ public class AddProducts extends JFrame {
 		tf_Boni5.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente5.getText().toString())));
 		tf_Boni6.setText(String.format("%12.2f", Calcule_Boni(tf_Prix_Achat.getText().toString(),tf_Prix_Vente6.getText().toString())));
 		}
-		
 }
