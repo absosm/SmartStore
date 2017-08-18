@@ -2,6 +2,7 @@ package com.home;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,7 +26,7 @@ public class Client {
 	private String NART;
 	private String NIF;
 	private String NIS;
-	private String RIP;
+	private String RIB;
 	private String ComptBancaire;
 	private String Email;
 	private String SiteWeb;
@@ -37,6 +38,9 @@ public class Client {
 	 * @return 
 	 * Intrger : ID
 	 */
+	public Client(){
+		
+	}
 	public int getId()
 	{
 		return Id;
@@ -220,13 +224,13 @@ public class Client {
 	 * @return
 	 *String : RIP
 	 */
-	public String getRIP()
+	public String getRIB()
 	{
-		return RIP;
+		return RIB;
 	}
-	public void setRIP(String rip)
+	public void setRIB(String rib)
 	{
-		this.RIP=rip;
+		this.RIB=rib;
 	}
 	/**
 	 * @return
@@ -257,7 +261,7 @@ public class Client {
 	 * @return
 	 * (true/false) test format email
 	 */
-	public boolean format_Email(String email)
+	public static boolean format_Email(String email)
 	{  
 		try {
 		Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
@@ -318,8 +322,95 @@ public class Client {
 	{
 		this.Solde_Initial=solde_initial;
 	}
-	public Client(){
-		this.getId();
+	
+	
+	/**
+	 * @param nom
+	 * @param prenom
+	 * @return
+	 * (true/false) recherche par nom et prénom
+	 */
+	public static boolean exist(String nom,String prenom)
+	{
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+					prepareStatement("select * from client where Nom=? AND Prenom =? ");
+			prepared.setString(1, nom);
+			prepared.setString(2, prenom);
+			ResultSet resultSet=prepared.executeQuery();
+			resultSet.last();
+			if (resultSet.getRow()!=0)
+			{
+				return true;
+			}			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false ;	
+		
+	}
+	/**
+	 * @param id
+	 * @return
+	 * (true/false) recherche par Id
+	 */
+	public static boolean exist(int id)
+	{
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().prepareStatement("select * from client where id=?;");
+			prepared.setInt(1,id);			
+			ResultSet resultSet=prepared.executeQuery();
+			resultSet.last();
+			if (resultSet.getRow()!=0)
+			{
+				return true;
+			}			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 */
+	public void add()
+	{
+		String selectSQL="insert into client(Nom,Prenom,Adresse,Famille,CodePostal,wilaya,Commune,TelPortable,TeleFix,"+
+				"Fax,NRC,NART,NIF,NIS,RIB,ComptBancaire,Email,SiteWeb,ModeTarif,"+
+						"LimitationCredit,Solde_Initial)Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+					prepareStatement(selectSQL);
+			prepared.setString(1 , getNom());
+			prepared.setString(2 , getPrenom());
+			prepared.setString(3 , getAdresse());
+			prepared.setString(4 , getFamille());
+			prepared.setInt   (5 , getCodePostal());
+			prepared.setString(6 , getWilaya());
+			prepared.setString(7 , getCommune());
+			prepared.setString(8 , getTelPortable());
+			prepared.setString(9 , getTeleFix());
+			prepared.setString(10, getFax());
+			prepared.setString(11, getNRC());
+			prepared.setString(12, getNART());
+			prepared.setString(13, getNIF());
+			prepared.setString(14, getNIS());
+			prepared.setString(15, getRIB());
+			prepared.setString(16, getComptBancaire());
+			prepared.setString(17, getEmail());
+			prepared.setString(18, getSiteWeb());
+			prepared.setInt   (19, getModeTarif());
+			prepared.setDouble(20, getLimitationCredit());
+			prepared.setDouble(21, getSolde_Initial());
+			prepared.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	/**
@@ -342,7 +433,8 @@ public class Client {
 	 * @return
 	 * void delete Client
 	 */
-	public void delete(int id ){
+
+	public static void delete(int id ){
 		try {
 				PreparedStatement prepared = Session.getDatabase().getConnection().
 				prepareStatement("DELETE FROM client WHERE id=?");
@@ -353,16 +445,44 @@ public class Client {
 			// TODO: handle exception
 		}
 		}
+	/**
+	 * Update Client information
+	 */
 	public void update()
 	{
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement("UPDATE products SET designation=?, family=?, barcode=?, cost=?, "
-							+ "selling1=?, selling2=?, selling3=?, amount=?, used=?, min=?, expiration=?"
-							+ ", mesure_unit=? WHERE id=?");
-			
+					prepareStatement("UPDATE client SET Nom=? ,Prenom=? ,Adresse=? ,Famille=? ,CodePostal=? ,wilaya=?"
+							+ ",Commune=? ,TelPortable=? ,TeleFix=? ,Fax=? ,NRC=? ,NART=? ,NIF=? ,NIS=? ,RIB=? ,ComptBancaire=?"
+							+ ",Email=? ,SiteWeb=? ,ModeTarif=? ,LimitationCredit=? ,Solde_Initial=? WHERE id=?;");
+			prepared.setString(1 , getNom());
+			prepared.setString(2 , getPrenom());
+			prepared.setString(3 , getAdresse());
+			prepared.setString(4 , getFamille());
+			prepared.setInt   (5 , getCodePostal());
+			prepared.setString(6 , getWilaya());
+			prepared.setString(7 , getCommune());
+			prepared.setString(8 , getTelPortable());
+			prepared.setString(9 , getTeleFix());
+			prepared.setString(10, getFax());
+			prepared.setString(11, getNRC());
+			prepared.setString(12, getNART());
+			prepared.setString(13, getNIF());
+			prepared.setString(14, getNIS());
+			prepared.setString(15, getRIB());
+			prepared.setString(16, getComptBancaire());
+			prepared.setString(17, getEmail());
+			prepared.setString(18, getSiteWeb());
+			prepared.setInt   (19, getModeTarif());
+			prepared.setDouble(20, getLimitationCredit());
+			prepared.setDouble(21, getSolde_Initial());
+			prepared.setInt(22, getId());
+			prepared.executeUpdate();			
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
+	
+	
 }
