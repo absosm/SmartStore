@@ -1,5 +1,6 @@
 package com.home;
 
+import java.security.SecurityPermission;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,38 +11,50 @@ import java.time.LocalDate;
 public class Product {
 	
 	private int id;
+	private String barcode;
 	private String designation;
 	private String family;
-	private String barcode;
-	private double cost;
-	private Date store_date;
-	private double selling1;
-	private double selling2;
-	private double selling3;
+	private String mesure_unit;
 	private int amount;
 	private int used;
 	private int min;
+	private double cost;
+	private double selling1;
+	private double selling2;
+	private double selling3;
+	private double selling_limit;
+	private double tva;
+	private Date store_date;
 	private Date expiration;
-	private String mesure_unit;
+	private int packing;
+	private String location;
+	private String shelf;
 	private String path_image;
-
+	
+	
 	public Product () {
 		
+		setBarcode("");
 		setDesignation("");
 		setFamily("");
-		setBarcode("");
-		setCost(0);
-		setStore_date(Date.valueOf(LocalDate.now()));
-		setSelling1(0);
-		setSelling2(0);
-		setSelling3(0);
+		setMesure_unit("");
 		setAmount(0);
 		setUsed(0);
 		setMin(0);
+		setCost(0);
+		setSelling1(0);
+		setSelling2(0);
+		setSelling3(0);
+		setSelling_limit(0);
+		setTva(0);
+		setStore_date(Date.valueOf(LocalDate.now()));
 		setExpiration(Date.valueOf(LocalDate.now()));
-		setMesure_unit("");
+		setPacking(0);
+		setLocation("");
+		setShelf("");
+		setPath_image("");
 	}
-	
+
 	public Product(int id) {
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
@@ -160,27 +173,65 @@ public class Product {
 	public void setPath_image(String path_image) {
 		this.path_image = path_image;
 	}
+	public double getSelling_limit() {
+		return selling_limit;
+	}
+	public void setSelling_limit(double selling_limit) {
+		this.selling_limit = selling_limit;
+	}
+	public double getTva() {
+		return tva;
+	}
+	public void setTva(double tva) {
+		this.tva = tva;
+	}
+	public int getPacking() {
+		return packing;
+	}
+	public void setPacking(int packing) {
+		this.packing = packing;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public String getShelf() {
+		return shelf;
+	}
+	public void setShelf(String shelf) {
+		this.shelf = shelf;
+	}
 	
 	public void add() {
 				
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement("INSERT INTO products(designation, family, barcode, cost, store_date"
-							+ "selling1, selling2, selling3, amount, used, min, expiration, mesure_unit) "
-							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-			prepared.setString(1, getDesignation());
-			prepared.setString(2, getFamily());
-			prepared.setString(3, getBarcode());
-			prepared.setDouble(4, getCost());
-			prepared.setDate(5, getStore_date());
-			prepared.setDouble(6, getSelling1());
-			prepared.setDouble(7, getSelling2());
-			prepared.setDouble(8, getSelling3());
-			prepared.setInt(9, getAmount());
-			prepared.setInt(10, getUsed());
-			prepared.setInt(11, getMin());
-			prepared.setDate(12, getExpiration());
-			prepared.setString(13, getMesure_unit());
+					prepareStatement("INSERT INTO products(barcode, designation, family, mesure_unit, amount, "
+							+ "used, min, cost, selling1, selling2, selling3, selling_limit, tva, store_date, "
+							+ "expiration, packing, location, shelf, path_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, "
+							+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			prepared.setString(1, getBarcode());
+			prepared.setString(2, getDesignation());
+			prepared.setString(3, getFamily());
+			prepared.setString(4, getMesure_unit());
+			prepared.setInt(5, getAmount());
+			prepared.setInt(6, getUsed());
+			prepared.setInt(7, getMin());
+			prepared.setDouble(8, getCost());
+			prepared.setDouble(9, getSelling1());
+			prepared.setDouble(10, getSelling2());
+			prepared.setDouble(11, getSelling3());
+			prepared.setDouble(12, getSelling_limit());
+			prepared.setDouble(13, getTva());
+			prepared.setDate(14, getStore_date());
+			prepared.setDate(15, getExpiration());
+			prepared.setInt(16, getPacking());
+			prepared.setString(17, getLocation());
+			prepared.setString(18, getShelf());
+			prepared.setString(19, getPath_image());
+			
 			if (prepared.executeUpdate() > 0) {
 				ResultSet result = prepared.getGeneratedKeys();
 				result.next();
@@ -191,27 +242,34 @@ public class Product {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void update() {
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement("UPDATE products SET designation=?, family=?, barcode=?, cost=?, store_date=?,"
-							+ "selling1=?, selling2=?, selling3=?, amount=?, used=?, min=?, expiration=?"
-							+ ", mesure_unit=? WHERE id=?");
-			prepared.setString(1, getDesignation());
-			prepared.setString(2, getFamily());
-			prepared.setString(3, getBarcode());
-			prepared.setDouble(4, getCost());
-			prepared.setDate(5, getStore_date());
-			prepared.setDouble(6, getSelling1());
-			prepared.setDouble(7, getSelling2());
-			prepared.setDouble(8, getSelling3());
-			prepared.setInt(9, getAmount());
-			prepared.setInt(10, getUsed());
-			prepared.setInt(11, getMin());
-			prepared.setDate(12, getExpiration());
-			prepared.setString(13, getMesure_unit());
-			prepared.setInt(14, getId());
+					prepareStatement("UPDATE products SET barcode=?, designation=?, family=?, mesure_unit=?, "
+							+ "amount=?, used=?, min=?, cost=?, selling1=?, selling2=?, selling3=?, selling_limit=?,"
+							+ "tva=?, store_date=?, expiration=?, packing=?, location=?, shelf=?, path_image=?"
+							+ " WHERE id=?");
+			prepared.setString(1, getBarcode());
+			prepared.setString(2, getDesignation());
+			prepared.setString(3, getFamily());
+			prepared.setString(4, getMesure_unit());
+			prepared.setInt(5, getAmount());
+			prepared.setInt(6, getUsed());
+			prepared.setInt(7, getMin());
+			prepared.setDouble(8, getCost());
+			prepared.setDouble(9, getSelling1());
+			prepared.setDouble(10, getSelling2());
+			prepared.setDouble(11, getSelling3());
+			prepared.setDouble(12, getSelling_limit());
+			prepared.setDouble(13, getTva());
+			prepared.setDate(14, getStore_date());
+			prepared.setDate(15, getExpiration());
+			prepared.setInt(16, getPacking());
+			prepared.setString(17, getLocation());
+			prepared.setString(18, getShelf());
+			prepared.setString(19, getPath_image());
+			prepared.setInt(20, getId());
 			prepared.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
