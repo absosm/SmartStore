@@ -47,6 +47,10 @@ import com.toedter.calendar.JDateChooser;
 import jdk.management.resource.internal.inst.DatagramChannelImplRMHooks;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class AddProduct extends JFrame {
 	
@@ -105,12 +109,6 @@ public class AddProduct extends JFrame {
 	 * Create the frame.
 	 */
 	public AddProduct() {
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowActivated(WindowEvent arg0) {
-				Remplire_Combobox("SELECT designation FROM families", cb_family);
-			}
-		});
 		
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
@@ -127,7 +125,14 @@ public class AddProduct extends JFrame {
 		setBounds(100, 100, 750, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		setContentPane(contentPane);		
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				Remplire_Combobox("SELECT designation FROM families", cb_family);
+			}
+		});
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -242,6 +247,13 @@ public class AddProduct extends JFrame {
 		tf_designation.setColumns(10);
 		
 		cb_family = new JComboBox();
+		cb_family.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					product.setFamily(e.getItem().toString());
+				}
+			}
+		});
 		cb_family.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_amount = new JTextField();
@@ -264,9 +276,18 @@ public class AddProduct extends JFrame {
 		JDateChooser tf_store_date = new JDateChooser();
 		tf_store_date.setDateFormatString("dd/MM/yyyy");
 		tf_store_date.getDateEditor().setEnabled(false);
+		tf_store_date.getDateEditor().addPropertyChangeListener( new PropertyChangeListener() {
+	        public void propertyChange(PropertyChangeEvent e) {
+	            if ("date".equals(e.getPropertyName())) {
+	                product.setStore_date((java.util.Date) e.getNewValue());
+	                System.out.println(product.getStore_date());
+	            }
+	        }
+		});
 		tf_store_date.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_store_date.setDate(new Date());
 		tf_store_date.getCalendarButton().setIcon(new ImageIcon(AddProduct.class.getResource("/images/calendar.png")));
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
