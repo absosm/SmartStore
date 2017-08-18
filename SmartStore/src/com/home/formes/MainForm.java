@@ -216,7 +216,8 @@ public class MainForm extends JFrame {
 		JButton btnProduis = new JButton("Produits");
 		btnProduis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Session.setForm(Session.PRODUCTS, new ProductsForm());
+				if (!Session.isSetForm(Session.PRODUCTS))
+					Session.setForm(Session.PRODUCTS, new ProductsForm());
 				Session.showForm(Session.PRODUCTS);
 			}
 		});
