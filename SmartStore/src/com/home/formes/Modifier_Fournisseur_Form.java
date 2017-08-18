@@ -76,10 +76,15 @@ public class Modifier_Fournisseur_Form extends JFrame {
 	 * Create the frame.
 	 */
 	public Modifier_Fournisseur_Form(Integer Num) {
+		
+		if (!Session.isRegister()) {
+			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
+			Runtime.getRuntime().exit(0);
+		}
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Modifier_Fournisseur_Form.class.getResource("/images/fournisseur - Copie.png")));
 		setFont(new Font("Tahoma", Font.BOLD, 14));
 		setTitle("Ajouter Fournisseur");
-		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 700, 450);
 		contentPane = new JPanel();

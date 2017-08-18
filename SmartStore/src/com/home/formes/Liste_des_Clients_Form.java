@@ -28,6 +28,7 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.home.Session;
 import com.home.formes.AddClients_Form.*;
 
 import javax.swing.ScrollPaneConstants;
@@ -71,11 +72,16 @@ public class Liste_des_Clients_Form extends JFrame {
 	 * Create the frame.
 	 */
 	public Liste_des_Clients_Form() {
+		
+		if (!Session.isRegister()) {
+			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
+			Runtime.getRuntime().exit(0);
+		}
+		
 		setTitle("Recherche");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Liste_des_Clients_Form.class.getResource("/images/Search-People-icon.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1000, 599);
-		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

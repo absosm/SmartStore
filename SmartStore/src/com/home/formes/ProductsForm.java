@@ -178,7 +178,10 @@ public class ProductsForm extends JFrame {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new AddProducts();
+				
+				if (!Session.isSetForm(Session.ADDPRODUCT))
+					Session.setForm(Session.ADDPRODUCT, new AddProduct());
+				Session.showForm(Session.ADDPRODUCT);
 			}
 		});
 		button.setIcon(new ImageIcon(ProductsForm.class.getResource("/images/add.png")));

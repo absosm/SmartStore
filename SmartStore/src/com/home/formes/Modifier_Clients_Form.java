@@ -95,6 +95,11 @@ public class Modifier_Clients_Form extends JFrame {
 	
 	public Modifier_Clients_Form(Integer Num) {
 		
+		if (!Session.isRegister()) {
+			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
+			Runtime.getRuntime().exit(0);
+		}
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Modifier_Clients_Form.class.getResource("/images/employeeIcon.png")));
 
 		
@@ -105,7 +110,6 @@ public class Modifier_Clients_Form extends JFrame {
 			contentPane = new JPanel();
 			setContentPane(contentPane);
 			contentPane.setLayout(null);
-			setVisible(true);
 			JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 			tabbedPane.setFont(new Font("Tahoma", Font.BOLD, 16));
 			tabbedPane.setBackground(Color.LIGHT_GRAY);

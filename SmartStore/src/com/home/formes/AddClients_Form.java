@@ -91,6 +91,11 @@ public class AddClients_Form extends JFrame {
 	 */
 	public AddClients_Form() {
 		
+		if (!Session.isRegister()) {
+			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
+			Runtime.getRuntime().exit(0);
+		}
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AddClients_Form.class.getResource("/images/employeeIcon.png")));
 
 		

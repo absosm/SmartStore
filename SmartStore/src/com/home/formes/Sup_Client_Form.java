@@ -57,10 +57,15 @@ public class Sup_Client_Form extends JFrame {
 	 * Create the frame.
 	 */
 	public Sup_Client_Form(final List<String> list) {
+		
+		if (!Session.isRegister()) {
+			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
+			Runtime.getRuntime().exit(0);
+		}
+		
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Sup_Client_Form.class.getResource("/images/Delete_48.png")));
 		setTitle("Supprimer_Client");
-		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 512, 326);
 		contentPane = new JPanel();

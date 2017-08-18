@@ -28,13 +28,15 @@ public class Session {
 	public static final int PROFILE					= 3;
 	public static final int FAMILIES				= 4;
 	public static final int PRODUCTS				= 5;
+	public static final int ADDPRODUCT				= 6;
 	
 	public static void start() {
 		
 		user.login();
 		register = true;
-		Form[MAIN] = new MainForm();
-		Form[MAIN].setVisible(true);
+		if (!isSetForm(MAIN))
+			setForm(MAIN, new MainForm());
+		showForm(MAIN);
 	}
 	
 	public static boolean isRegister() {
@@ -68,14 +70,24 @@ public class Session {
 
 	public static void setForm(int id, JFrame form) {
 		
-		if (Form[id] == null)
+		if (!isSetForm(id)) {
 			Form[id] = form;
+			Form[id].setLocationRelativeTo(null);
+		}
+	}
+	
+	public static boolean isSetForm(int id) {
+		boolean b = false;
+		if (Form[id] != null) 
+			b = true;
+		return b;
 	}
 	
 	public static void showForm(int id) {
 		
-		if (Form[id] != null)
+		if (Form[id] != null) {
 			Form[id].setVisible(true);
+		}
 	}
 
 	public static User getUser() {

@@ -45,6 +45,11 @@ public class ProfileForm extends JFrame {
 	 */
 	public ProfileForm(User user) {
 		
+		if (!Session.isRegister()) {
+			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
+			Runtime.getRuntime().exit(0);
+		}
+		
 		/**
 		 * importer profile de l'utilisateur en mettant en class "USER"
 		 */
