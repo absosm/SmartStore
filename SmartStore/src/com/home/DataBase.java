@@ -96,6 +96,8 @@ public class DataBase {
      * @return
      */
     public boolean Connect() {
+    	
+    	boolean b = false;
         
         try {
             
@@ -123,15 +125,13 @@ public class DataBase {
             connection = DriverManager.getConnection(url, prop);
             
             if (connection != null) {
-                statement = connection.createStatement();
                 return true;
-            }else {
-                return false;
             }
         }catch (Exception e) {
         	e.printStackTrace();
-            return false;
         }
+        
+        return b;
     }
     
     /**
@@ -140,14 +140,15 @@ public class DataBase {
      * @return
      */
     public ResultSet getResult(String sql) {
+    	
+    	ResultSet result = null;
         try {
-            return statement.executeQuery(sql);
+        	statement = connection.createStatement();
+            result = statement.executeQuery(sql);
         }catch (Exception e) {
-        	
         	e.printStackTrace();
-           
-            return null;
         }
+        return result;
     }
     /**
      * retourn le resultat selon le requête (Update/insert/delete) qui vous avez saisie dans paramètre sql
@@ -155,14 +156,14 @@ public class DataBase {
      * @return
      */
     public int getResult_Update(String sql) {
+    	int result = -1;
         try {
-            return statement.executeUpdate(sql);
+        	statement = connection.createStatement();
+            result = statement.executeUpdate(sql);
         }catch (Exception e) {
-        	
         	e.printStackTrace();
-           
-            return -1;
         }
+        return result;
     }
 
     /**
@@ -178,6 +179,7 @@ public class DataBase {
 	 */
     public void Disconnect() {
         try {
+        	statement.close();
             connection.close();
         }catch (Exception e) {
         	e.printStackTrace();

@@ -45,6 +45,8 @@ import javax.swing.DefaultComboBoxModel;
 import com.toedter.calendar.JDateChooser;
 
 import jdk.management.resource.internal.inst.DatagramChannelImplRMHooks;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AddProduct extends JFrame {
 	
@@ -103,6 +105,12 @@ public class AddProduct extends JFrame {
 	 * Create the frame.
 	 */
 	public AddProduct() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				Remplire_Combobox("SELECT designation FROM families", cb_family);
+			}
+		});
 		
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
@@ -135,12 +143,8 @@ public class AddProduct extends JFrame {
 		
 		JButton btnOk = new JButton("OK");
 		btnOk.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
 		btnOk.setIcon(new ImageIcon(AddProduct.class.getResource("/images/database-accept-icon.png")));
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -236,14 +240,8 @@ public class AddProduct extends JFrame {
         });
 		tf_designation.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_designation.setColumns(10);
-		cb_family = new JComboBox();
-		cb_family.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				Remplire_Combobox(Session.getDatabase().getResult("Select designation from families"),cb_family);
-			}
-		});
 		
+		cb_family = new JComboBox();
 		cb_family.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_amount = new JTextField();
@@ -856,23 +854,18 @@ public class AddProduct extends JFrame {
 		Image_panel.setLayout(gl_Image_panel);
 		panel_2.setLayout(gl_panel_2);
 		contentPane.setLayout(gl_contentPane);
-		
-		Remplire_Combobox(Session.getDatabase().getResult("Select designation from families"),cb_family);
 	}
 	
-	private static void Remplire_Combobox(ResultSet result , JComboBox combobox)
+	private static void Remplire_Combobox(String sql, JComboBox combobox)
 	{
-		if (result == null)
-			return;
+		ResultSet result = Session.getDatabase().getResult(sql);
 		
 		if (combobox != null)
 			combobox.removeAllItems();
-		
 		try {
 			while(result.next()){
 				combobox.addItem(result.getString(1));
 	        }
-			result.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
