@@ -29,11 +29,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.home.DataBase;
+import com.home.Product;
 import com.home.Session;
 import com.home.Use_Files;
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
-import javafx.scene.control.ComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
@@ -42,7 +41,14 @@ import javax.swing.DefaultComboBoxModel;
 import com.toedter.calendar.JDateChooser;
 
 public class AddProduct extends JFrame {
-
+	
+	/**
+	 * declaration des attributs (SmartStore)
+	 */
+	private Product product;
+	/**
+	 * déclaration des attributs (GUI)
+	 */
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -117,6 +123,11 @@ public class AddProduct extends JFrame {
 		btnNewButton_2.setIcon(new ImageIcon(AddProduct.class.getResource("/images/1490388962_DeleteRed.png")));
 		
 		JButton btnOk = new JButton("OK");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				product = new Product();
+			}
+		});
 		btnOk.setIcon(new ImageIcon(AddProduct.class.getResource("/images/database-accept-icon.png")));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
