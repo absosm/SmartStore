@@ -28,6 +28,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.home.DataBase;
@@ -106,6 +108,10 @@ public class AddProduct extends JFrame {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
 			Runtime.getRuntime().exit(0);
 		}
+		/**
+		 * creation d'un nouveau instant objet Produit
+		 */
+		product = new Product();
 		
 		setTitle("Ajouter Produit");
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -131,7 +137,7 @@ public class AddProduct extends JFrame {
 		btnOk.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				product = new Product();
+				
 			}
 		});
 		btnOk.setIcon(new ImageIcon(AddProduct.class.getResource("/images/database-accept-icon.png")));
@@ -183,23 +189,62 @@ public class AddProduct extends JFrame {
 		lblDateDuStock.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_barcode = new JTextField();
+		tf_barcode.getDocument().addDocumentListener(new DocumentListener() {
+			
+			protected void updateFieldState() {
+                product.setBarcode(tf_barcode.getText());
+            }
+
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void insertUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void removeUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+        });
 		tf_barcode.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_barcode.setColumns(10);
-		
 		tf_designation = new JTextField();
+		tf_designation.getDocument().addDocumentListener(new DocumentListener() {
+			
+			protected void updateFieldState() {
+                product.setDesignation(tf_designation.getText());
+            }
+
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void insertUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void removeUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+        });
 		tf_designation.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_designation.setColumns(10);
 		cb_family = new JComboBox();
-		cb_family.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		cb_family.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				cb_family.removeAllItems();
-				DataBase database=Session.getDatabase();
-				Remplire_Combobox(database.getResult("Select designation from families"),cb_family);
-				}
+		cb_family.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Remplire_Combobox(Session.getDatabase().getResult("Select designation from families"),cb_family);
+			}
 		});
+		
+		cb_family.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_amount = new JTextField();
 		tf_amount.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -724,8 +769,6 @@ public class AddProduct extends JFrame {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
-				
-				
 			}
 		});
 		btnNewButton.setIcon(new ImageIcon(AddProduct.class.getResource("/images/add.png")));
@@ -735,7 +778,7 @@ public class AddProduct extends JFrame {
 		btnAnnulerLaPhoto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Labe_Image.setIcon(null);
-				lb_path_Image.setText(null);				
+				lb_path_Image.setText(null);
 			}
 		});
 		btnAnnulerLaPhoto.setIcon(new ImageIcon(AddProduct.class.getResource("/images/cancel.png")));
@@ -813,15 +856,26 @@ public class AddProduct extends JFrame {
 		Image_panel.setLayout(gl_Image_panel);
 		panel_2.setLayout(gl_panel_2);
 		contentPane.setLayout(gl_contentPane);
+		
+		Remplire_Combobox(Session.getDatabase().getResult("Select designation from families"),cb_family);
 	}
+	
 	private static void Remplire_Combobox(ResultSet result , JComboBox combobox)
 	{
+		if (result == null)
+			return;
+		
+		if (combobox != null)
+			combobox.removeAllItems();
+		
 		try {
 			while(result.next()){
 				combobox.addItem(result.getString(1));
 	        }
+			result.close();
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}		
 	}
 	/**
