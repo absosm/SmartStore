@@ -71,11 +71,8 @@ public class Session {
 	}
 
 	public static void setForm(int id, JFrame form) {
-		
-		if (!isSetForm(id)) {
-			Form[id] = form;
-			Form[id].setLocationRelativeTo(null);
-		}
+		Form[id] = form;
+		Form[id].setLocationRelativeTo(null);
 	}
 	
 	public static boolean isSetForm(int id) {
@@ -87,9 +84,12 @@ public class Session {
 	
 	public static void showForm(int id) {
 		
-		if (Form[id] != null) {
+		if (Form[id] != null)
 			Form[id].setVisible(true);
-		}
+	}
+	
+	public static void removeForm(int id) {
+		Form[id] = null;
 	}
 
 	public static User getUser() {
