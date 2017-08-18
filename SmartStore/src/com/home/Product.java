@@ -62,20 +62,25 @@ public class Product {
 			prepared.setInt(1, id);
 			ResultSet result = prepared.executeQuery();
 			if (result.next()) {
-				setId(result.getInt(1));
+				setBarcode(result.getString(1));
 				setDesignation(result.getString(2));
 				setFamily(result.getString(3));
-				setBarcode(result.getString(4));
-				setCost(result.getDouble(5));
-				setStore_date(result.getDate(6));
-				setSelling1(result.getDouble(7));
-				setSelling2(result.getDouble(8));
-				setSelling3(result.getDouble(9));
-				setAmount(result.getInt(10));
-				setUsed(result.getInt(11));
-				setMin(result.getInt(12));
-				setExpiration(result.getDate(13));
-				setMesure_unit(result.getString(14));
+				setMesure_unit(result.getString(4));
+				setAmount(result.getInt(5));
+				setUsed(result.getInt(6));
+				setMin(result.getInt(7));
+				setCost(result.getDouble(8));
+				setSelling1(result.getDouble(9));
+				setSelling2(result.getDouble(10));
+				setSelling3(result.getDouble(11));
+				setSelling_limit(result.getDouble(12));
+				setTva(result.getDouble(13));
+				setStore_date(result.getDate(14));
+				setExpiration(result.getDate(15));
+				setPacking(result.getInt(16));
+				setLocation(result.getString(17));
+				setShelf(result.getString(18));
+				setPath_image(result.getString(19));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
