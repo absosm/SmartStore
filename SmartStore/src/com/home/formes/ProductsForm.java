@@ -180,7 +180,7 @@ public class ProductsForm extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				if (!Session.isSetForm(Session.ADDPRODUCT))
-					Session.setForm(Session.ADDPRODUCT, new AddProduct());
+					Session.setForm(Session.ADDPRODUCT, new AddProductForm());
 				Session.showForm(Session.ADDPRODUCT);
 			}
 		});

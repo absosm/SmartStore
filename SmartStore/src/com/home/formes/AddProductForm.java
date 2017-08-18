@@ -52,7 +52,7 @@ import java.beans.PropertyChangeListener;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
-public class AddProduct extends JFrame {
+public class AddProductForm extends JFrame {
 	
 	/**
 	 * declaration des attributs (SmartStore)
@@ -96,7 +96,7 @@ public class AddProduct extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					AddProduct frame = new AddProduct();
+					AddProductForm frame = new AddProductForm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -108,7 +108,7 @@ public class AddProduct extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddProduct() {
+	public AddProductForm() {
 		
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
@@ -144,11 +144,11 @@ public class AddProduct extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_2.setIcon(new ImageIcon(AddProduct.class.getResource("/images/1490388962_DeleteRed.png")));
+		btnNewButton_2.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/1490388962_DeleteRed.png")));
 		
 		JButton btnOk = new JButton("OK");
 		btnOk.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnOk.setIcon(new ImageIcon(AddProduct.class.getResource("/images/database-accept-icon.png")));
+		btnOk.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/database-accept-icon.png")));
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -177,7 +177,7 @@ public class AddProduct extends JFrame {
 		
 		
 		JPanel panel = new JPanel();
-		tabbedPane.addTab("G\u00E9n\u00E9ral", new ImageIcon(AddProduct.class.getResource("/images/Download-Folder-icon.png")), panel, null);
+		tabbedPane.addTab("G\u00E9n\u00E9ral", new ImageIcon(AddProductForm.class.getResource("/images/Download-Folder-icon.png")), panel, null);
 		
 		JLabel lblNewLabel = new JLabel("Code produit");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -271,7 +271,7 @@ public class AddProduct extends JFrame {
 				Session.showForm(Session.FAMILIES);
 			}
 		});
-		btnNewButton_1.setIcon(new ImageIcon(AddProduct.class.getResource("/images/add.png")));
+		btnNewButton_1.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/add.png")));
 		
 		JDateChooser tf_store_date = new JDateChooser();
 		tf_store_date.setDateFormatString("dd/MM/yyyy");
@@ -286,7 +286,7 @@ public class AddProduct extends JFrame {
 		});
 		tf_store_date.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_store_date.setDate(new Date());
-		tf_store_date.getCalendarButton().setIcon(new ImageIcon(AddProduct.class.getResource("/images/calendar.png")));
+		tf_store_date.getCalendarButton().setIcon(new ImageIcon(AddProductForm.class.getResource("/images/calendar.png")));
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -351,7 +351,7 @@ public class AddProduct extends JFrame {
 		panel.setLayout(gl_panel);
 		
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Plus d'info", new ImageIcon(AddProduct.class.getResource("/images/Button-Info-icon.png")), panel_1, null);
+		tabbedPane.addTab("Plus d'info", new ImageIcon(AddProductForm.class.getResource("/images/Button-Info-icon.png")), panel_1, null);
 		
 		JLabel lblNewLabel_3 = new JLabel("Prix d'achat");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -680,7 +680,7 @@ public class AddProduct extends JFrame {
 		experation.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		experation.setDate(new Date());
 		experation.getDateEditor().setEnabled(false);
-		experation.getCalendarButton().setIcon(new ImageIcon(AddProduct.class.getResource("/images/calendar.png")));
+		experation.getCalendarButton().setIcon(new ImageIcon(AddProductForm.class.getResource("/images/calendar.png")));
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
@@ -773,7 +773,7 @@ public class AddProduct extends JFrame {
 		panel_1.setLayout(gl_panel_1);
 		
 		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Photo Produit", new ImageIcon(AddProduct.class.getResource("/images/photo-camera-x32.png")), panel_2, null);
+		tabbedPane.addTab("Photo Produit", new ImageIcon(AddProductForm.class.getResource("/images/photo-camera-x32.png")), panel_2, null);
 		
 		Image_panel = new JPanel();
 		Image_panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -790,7 +790,7 @@ public class AddProduct extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setIcon(new ImageIcon(AddProduct.class.getResource("/images/add.png")));
+		btnNewButton.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/add.png")));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btnAnnulerLaPhoto = new JButton("Annuler la Photo");
@@ -800,7 +800,7 @@ public class AddProduct extends JFrame {
 				lb_path_Image.setText(null);
 			}
 		});
-		btnAnnulerLaPhoto.setIcon(new ImageIcon(AddProduct.class.getResource("/images/cancel.png")));
+		btnAnnulerLaPhoto.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/cancel.png")));
 		btnAnnulerLaPhoto.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		lb_path_Image = new JLabel("");
@@ -815,7 +815,7 @@ public class AddProduct extends JFrame {
 				}
 			}
 		});
-		btnNewButton_3.setIcon(new ImageIcon(AddProduct.class.getResource("/images/resize_x32.png")));
+		btnNewButton_3.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/resize_x32.png")));
 		
 		JLabel lblAutoResize = new JLabel("Auto resize");
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
