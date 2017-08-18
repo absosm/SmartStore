@@ -279,8 +279,8 @@ public class AddProduct extends JFrame {
 		tf_store_date.getDateEditor().addPropertyChangeListener( new PropertyChangeListener() {
 	        public void propertyChange(PropertyChangeEvent e) {
 	            if ("date".equals(e.getPropertyName())) {
-	                product.setStore_date((java.util.Date) e.getNewValue());
-	                System.out.println(product.getStore_date());
+	                /*product.setStore_date((java.util.Date) e.getNewValue());
+	                System.out.println(product.getStore_date());*/
 	            }
 	        }
 		});
