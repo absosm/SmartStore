@@ -51,6 +51,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.JSeparator;
 
 public class AddProductForm extends JFrame {
 	
@@ -67,7 +68,7 @@ public class AddProductForm extends JFrame {
 	private JTextField tf_amount;
 	private JTextField tf_actual;
 	private static  JTextField tf_cost;
-	private static JTextField tf_seeling1;
+	private static JTextField tf_selling1;
 	private static JTextField tf_selling2;
 	private static JTextField tf_selling3;
 	private static JTextField tf_Prix_Vente4;
@@ -401,6 +402,27 @@ public class AddProductForm extends JFrame {
 		
 		tf_cost = new JTextField();
 		tf_cost.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tf_cost.getDocument().addDocumentListener(new DocumentListener() {
+			
+			protected void updateFieldState() {
+                product.setCost(Double.parseDouble((tf_cost.getText())));
+            }
+
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void insertUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void removeUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+        });
 		tf_cost.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -409,18 +431,60 @@ public class AddProductForm extends JFrame {
 		});
 		tf_cost.setColumns(10);
 		
-		tf_seeling1 = new JTextField();
-		tf_seeling1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_seeling1.addKeyListener(new KeyAdapter() {
+		tf_selling1 = new JTextField();
+		tf_selling1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tf_selling1.getDocument().addDocumentListener(new DocumentListener() {
+			
+			protected void updateFieldState() {
+                product.setSelling1(Double.parseDouble((tf_selling1.getText())));
+            }
+
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void insertUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void removeUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+        });
+		tf_selling1.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				tf_Boni1.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_seeling1.getText().toString())));
+				tf_Boni1.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_selling1.getText().toString())));
 			}
 		});
-		tf_seeling1.setColumns(10);
+		tf_selling1.setColumns(10);
 		
 		tf_selling2 = new JTextField();
 		tf_selling2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tf_selling2.getDocument().addDocumentListener(new DocumentListener() {
+			
+			protected void updateFieldState() {
+                product.setSelling2(Double.parseDouble((tf_selling2.getText())));
+            }
+
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void insertUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void removeUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+        });
 		tf_selling2.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -431,6 +495,27 @@ public class AddProductForm extends JFrame {
 		
 		tf_selling3 = new JTextField();
 		tf_selling3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tf_selling3.getDocument().addDocumentListener(new DocumentListener() {
+			
+			protected void updateFieldState() {
+                product.setSelling1(Double.parseDouble((tf_selling3.getText())));
+            }
+
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void insertUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void removeUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+        });
 		tf_selling3.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -483,7 +568,7 @@ public class AddProductForm extends JFrame {
 		tf_Boni1.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				tf_seeling1.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_cost.getText().toString() , tf_Boni1.getText().toString())).replace(" ", ""));
+				tf_selling1.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_cost.getText().toString() , tf_Boni1.getText().toString())).replace(" ", ""));
 			}
 		});
 		tf_Boni1.setColumns(10);
@@ -569,7 +654,7 @@ public class AddProductForm extends JFrame {
 								.addComponent(tf_Prix_Vente4, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
 								.addComponent(tf_selling3, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
 								.addComponent(tf_selling2, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-								.addComponent(tf_seeling1, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+								.addComponent(tf_selling1, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
 								.addComponent(tf_Prix_Vente6, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
 								.addComponent(lblNewLabel_4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -602,7 +687,7 @@ public class AddProductForm extends JFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblPrixVente)
-								.addComponent(tf_seeling1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+								.addComponent(tf_selling1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 								.addComponent(tf_Boni1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
@@ -644,7 +729,7 @@ public class AddProductForm extends JFrame {
 		JLabel lblnombreDesJours = new JLabel("<html>Nombre des <br> jours d'alerte</br></html>");
 		lblnombreDesJours.setIcon(new ImageIcon("C:\\Users\\DocteurTnou\\Desktop\\event.png"));
 		lblnombreDesJours.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblnombreDesJours.setHorizontalAlignment(SwingConstants.CENTER);
+		lblnombreDesJours.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		JComboBox comboBox_3 = new JComboBox();
 		comboBox_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -680,11 +765,11 @@ public class AddProductForm extends JFrame {
 		lbldpotmagasin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblunitDemesure = new JLabel("<html>Unit\u00E8 de<br>Mesure</br></html>");
-		lblunitDemesure.setHorizontalAlignment(SwingConstants.CENTER);
+		lblunitDemesure.setHorizontalAlignment(SwingConstants.LEFT);
 		lblunitDemesure.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblstockmin = new JLabel("Stock Min");
-		lblstockmin.setHorizontalAlignment(SwingConstants.CENTER);
+		lblstockmin.setHorizontalAlignment(SwingConstants.LEFT);
 		lblstockmin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblColissage = new JLabel("Colissage");
@@ -725,23 +810,26 @@ public class AddProductForm extends JFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel_4.createSequentialGroup()
-									.addComponent(label, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-									.addGap(56)
-									.addComponent(lblnombreDesJours, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
-								.addGroup(gl_panel_4.createSequentialGroup()
-									.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING)
-										.addComponent(experation, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblunitDemesure, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-										.addComponent(comboBox_5, Alignment.LEADING, 0, 140, Short.MAX_VALUE)
-										.addComponent(comboBox, Alignment.LEADING, 0, 140, Short.MAX_VALUE)
-										.addComponent(lblTva, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(comboBox_6, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lbllocalisationrayonnage, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-										.addComponent(comboBox_4, 0, 110, Short.MAX_VALUE)
-										.addComponent(lbldpotmagasin)
-										.addComponent(comboBox_3, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+									.addComponent(lblunitDemesure, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_panel_4.createSequentialGroup()
+										.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING)
+											.addComponent(experation, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+											.addComponent(comboBox_5, Alignment.LEADING, 0, 140, Short.MAX_VALUE)
+											.addComponent(comboBox, Alignment.LEADING, 0, 140, Short.MAX_VALUE)
+											.addComponent(lblTva, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.RELATED))
+									.addGroup(gl_panel_4.createSequentialGroup()
+										.addComponent(label, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+										.addGap(80))))
+							.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblnombreDesJours, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(comboBox_6, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lbllocalisationrayonnage, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBox_4, 0, 110, Short.MAX_VALUE)
+								.addComponent(lbldpotmagasin)
+								.addComponent(comboBox_3, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 						.addComponent(lblLimiteDePrix)
 						.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE))
 					.addGap(21))
@@ -763,11 +851,11 @@ public class AddProductForm extends JFrame {
 						.addComponent(comboBox_3, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
 						.addComponent(chckbxNewCheckBox)
 						.addComponent(experation, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblunitDemesure, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lbldpotmagasin, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblstockmin, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblstockmin, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblunitDemesure, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
@@ -790,7 +878,7 @@ public class AddProductForm extends JFrame {
 							.addComponent(comboBox_5, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblLimiteDePrix, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
 					.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
@@ -959,7 +1047,7 @@ public class AddProductForm extends JFrame {
 	}
 	private static void Auto_update_of_Prix_achat()
 	{
-		tf_Boni1.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_seeling1.getText().toString())));
+		tf_Boni1.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_selling1.getText().toString())));
 		tf_Boni2.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_selling2.getText().toString())));
 		tf_Boni3.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_selling3.getText().toString())));
 		tf_Boni4.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_Prix_Vente4.getText().toString())));
