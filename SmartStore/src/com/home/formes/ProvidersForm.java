@@ -29,7 +29,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.home.Session;
-import com.home.formes.AddFournisseur_Form.*;
+import com.home.formes.AddProviderForm.*;
 
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
@@ -103,7 +103,7 @@ public class ProvidersForm extends JFrame {
 					int a=table.getSelectedRow();
 					Object num = tableModel.getValueAt(a, 0);
 					if(num!=null){
-					new Modifier_Fournisseur_Form(Integer.valueOf(num.toString()));
+					new UpdateProviderForm(Integer.valueOf(num.toString()));
 					}
 				}
 			}
@@ -153,7 +153,7 @@ public class ProvidersForm extends JFrame {
 			
 			public void keyTyped(KeyEvent arg0) {
 				try {
-					affichage_table(AddFournisseur_Form.info_search_fourniseur(Nom_Fournisseur.getText(),Prenom_Fournisseur.getText())); // recherche intelligent
+					affichage_table(AddProviderForm.info_search_fourniseur(Nom_Fournisseur.getText(),Prenom_Fournisseur.getText())); // recherche intelligent
 					
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(new JFrame(),e.getMessage()+"\n erreur de recherche à partir le Nom","ERREUR",JOptionPane.ERROR_MESSAGE);
@@ -174,7 +174,7 @@ public class ProvidersForm extends JFrame {
 			
 			public void keyTyped(KeyEvent arg0) {
 				try {
-					affichage_table(AddFournisseur_Form.info_search_fourniseur(Nom_Fournisseur.getText(),Prenom_Fournisseur.getText()));// #hhhh recherche intelligent
+					affichage_table(AddProviderForm.info_search_fourniseur(Nom_Fournisseur.getText(),Prenom_Fournisseur.getText()));// #hhhh recherche intelligent
 
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(new JFrame(),e.getMessage()+"\n erreur de recherche à partir le PréNom","ERREUR",JOptionPane.ERROR_MESSAGE);
@@ -207,7 +207,7 @@ public class ProvidersForm extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(!Num_Fournisseur.getText().equals("")){
-					affichage_table(AddFournisseur_Form.ID_search_fourniseur(Integer.parseInt(Num_Fournisseur.getText())));   // recherche avec ID et 
+					affichage_table(AddProviderForm.ID_search_fourniseur(Integer.parseInt(Num_Fournisseur.getText())));   // recherche avec ID et 
 					}   																						// et afficher le résultat dans une table
 					}
 				catch (Exception e) {
@@ -221,7 +221,7 @@ public class ProvidersForm extends JFrame {
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new AddFournisseur_Form();                // creer un instance du class "AddFournisseur_form"   
+				new AddProviderForm();                // creer un instance du class "AddFournisseur_form"   
 			}                                    		  // pour ajouter un Fournisseur 
 		});
 		btnAjouter.setIcon(new ImageIcon(ProvidersForm.class.getResource("/images/fournisseur.png")));

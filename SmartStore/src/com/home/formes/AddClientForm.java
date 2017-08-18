@@ -40,7 +40,7 @@ import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
 
 
-public class AddClients_Form extends JFrame {
+public class AddClientForm extends JFrame {
 
 	private JPanel contentPane;
 	private static JTextField tfnom;
@@ -77,7 +77,7 @@ public class AddClients_Form extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					AddClients_Form frame = new AddClients_Form();
+					AddClientForm frame = new AddClientForm();
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					} catch (Exception e) {
 					e.printStackTrace();
@@ -89,14 +89,14 @@ public class AddClients_Form extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddClients_Form() {
+	public AddClientForm() {
 		
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
 			Runtime.getRuntime().exit(0);
 		}
 		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(AddClients_Form.class.getResource("/images/employeeIcon.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AddClientForm.class.getResource("/images/employeeIcon.png")));
 
 		
 		setTitle("Ajouter Client");

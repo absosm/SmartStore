@@ -32,7 +32,7 @@ import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
 
 
-public class Modifier_Fournisseur_Form extends JFrame {
+public class UpdateProviderForm extends JFrame {
 
 	private static JPanel contentPane;
 	private static JTextField tfnom;
@@ -75,14 +75,14 @@ public class Modifier_Fournisseur_Form extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Modifier_Fournisseur_Form(Integer Num) {
+	public UpdateProviderForm(Integer Num) {
 		
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
 			Runtime.getRuntime().exit(0);
 		}
 		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Modifier_Fournisseur_Form.class.getResource("/images/fournisseur - Copie.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateProviderForm.class.getResource("/images/fournisseur - Copie.png")));
 		setFont(new Font("Tahoma", Font.BOLD, 14));
 		setTitle("Ajouter Fournisseur");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -411,7 +411,7 @@ public class Modifier_Fournisseur_Form extends JFrame {
 		});
 		btnOk.setForeground(new Color(0, 0, 255));
 		btnOk.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnOk.setIcon(new ImageIcon(Modifier_Fournisseur_Form.class.getResource("/images/database-accept-icon.png")));
+		btnOk.setIcon(new ImageIcon(UpdateProviderForm.class.getResource("/images/database-accept-icon.png")));
 		btnOk.setBounds(128, 350, 117, 33);
 		contentPane.add(btnOk);
 		
@@ -423,7 +423,7 @@ public class Modifier_Fournisseur_Form extends JFrame {
 		});
 		btnAnnuler.setForeground(new Color(255, 51, 51));
 		btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnAnnuler.setIcon(new ImageIcon(Modifier_Fournisseur_Form.class.getResource("/images/Misc-Delete-Database-icon.png")));
+		btnAnnuler.setIcon(new ImageIcon(UpdateProviderForm.class.getResource("/images/Misc-Delete-Database-icon.png")));
 		btnAnnuler.setBounds(507, 350, 113, 33);
 		contentPane.add(btnAnnuler);
 		Modifier_Fournisseur_remplir(recherche_Fournisseur_avec_num(Num));

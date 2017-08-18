@@ -41,7 +41,7 @@ import java.awt.Toolkit;
 
 
 
-public class Modifier_Clients_Form extends JFrame {
+public class UpdateClientForm extends JFrame {
 
 	private JPanel contentPane;
 	private static JTextField tfnom;
@@ -93,14 +93,14 @@ public class Modifier_Clients_Form extends JFrame {
 	 */
 	// constructeur avec un paramètre pour la recherche et la modification 
 	
-	public Modifier_Clients_Form(Integer Num) {
+	public UpdateClientForm(Integer Num) {
 		
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
 			Runtime.getRuntime().exit(0);
 		}
 		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Modifier_Clients_Form.class.getResource("/images/employeeIcon.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateClientForm.class.getResource("/images/employeeIcon.png")));
 
 		
 		setTitle("Modifier Client");
@@ -521,7 +521,7 @@ public class Modifier_Clients_Form extends JFrame {
 					Modifier_Client_Sql();
 				}
 			});
-			btnModifier.setIcon(new ImageIcon(Modifier_Clients_Form.class.getResource("/images/if_user_profile_edit_103781.png")));
+			btnModifier.setIcon(new ImageIcon(UpdateClientForm.class.getResource("/images/if_user_profile_edit_103781.png")));
 			btnModifier.setForeground(Color.GREEN);
 			btnModifier.setFont(new Font("Tahoma", Font.BOLD, 14));
 			btnModifier.setBounds(50, 353, 123, 41);
