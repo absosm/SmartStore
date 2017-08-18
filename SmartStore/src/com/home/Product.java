@@ -14,6 +14,7 @@ public class Product {
 	private String family;
 	private String barcode;
 	private double cost;
+	private Date store_date;
 	private double selling1;
 	private double selling2;
 	private double selling3;
@@ -22,13 +23,15 @@ public class Product {
 	private int min;
 	private Date expiration;
 	private String mesure_unit;
-	
+	private String path_image;
+
 	public Product () {
 		
 		setDesignation("");
 		setFamily("");
 		setBarcode("");
 		setCost(0);
+		setStore_date(Date.valueOf(LocalDate.now()));
 		setSelling1(0);
 		setSelling2(0);
 		setSelling3(0);
@@ -51,14 +54,15 @@ public class Product {
 				setFamily(result.getString(3));
 				setBarcode(result.getString(4));
 				setCost(result.getDouble(5));
-				setSelling1(result.getDouble(6));
-				setSelling2(result.getDouble(7));
-				setSelling3(result.getDouble(8));
-				setAmount(result.getInt(9));
-				setUsed(result.getInt(10));
-				setMin(result.getInt(11));
-				setExpiration(result.getDate(12));
-				setMesure_unit(result.getString(13));
+				setStore_date(result.getDate(6));
+				setSelling1(result.getDouble(7));
+				setSelling2(result.getDouble(8));
+				setSelling3(result.getDouble(9));
+				setAmount(result.getInt(10));
+				setUsed(result.getInt(11));
+				setMin(result.getInt(12));
+				setExpiration(result.getDate(13));
+				setMesure_unit(result.getString(14));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -95,6 +99,12 @@ public class Product {
 	}
 	public void setCost(double cost) {
 		this.cost = cost;
+	}
+	public Date getStore_date() {
+		return store_date;
+	}
+	public void setStore_date(Date store_date) {
+		this.store_date = store_date;
 	}
 	public double getSelling1() {
 		return selling1;
@@ -144,26 +154,33 @@ public class Product {
 	public void setMesure_unit(String mesure_unit) {
 		this.mesure_unit = mesure_unit;
 	}
+	public String getPath_image() {
+		return path_image;
+	}
+	public void setPath_image(String path_image) {
+		this.path_image = path_image;
+	}
 	
 	public void add() {
 				
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement("INSERT INTO products(designation, family, barcode, cost, "
+					prepareStatement("INSERT INTO products(designation, family, barcode, cost, store_date"
 							+ "selling1, selling2, selling3, amount, used, min, expiration, mesure_unit) "
-							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, getDesignation());
 			prepared.setString(2, getFamily());
 			prepared.setString(3, getBarcode());
 			prepared.setDouble(4, getCost());
-			prepared.setDouble(5, getSelling1());
-			prepared.setDouble(6, getSelling2());
-			prepared.setDouble(7, getSelling3());
-			prepared.setInt(8, getAmount());
-			prepared.setInt(9, getUsed());
-			prepared.setInt(10, getMin());
-			prepared.setDate(11, getExpiration());
-			prepared.setString(12, getMesure_unit());
+			prepared.setDate(5, getStore_date());
+			prepared.setDouble(6, getSelling1());
+			prepared.setDouble(7, getSelling2());
+			prepared.setDouble(8, getSelling3());
+			prepared.setInt(9, getAmount());
+			prepared.setInt(10, getUsed());
+			prepared.setInt(11, getMin());
+			prepared.setDate(12, getExpiration());
+			prepared.setString(13, getMesure_unit());
 			if (prepared.executeUpdate() > 0) {
 				ResultSet result = prepared.getGeneratedKeys();
 				result.next();
@@ -178,22 +195,23 @@ public class Product {
 	public void update() {
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement("UPDATE products SET designation=?, family=?, barcode=?, cost=?, "
+					prepareStatement("UPDATE products SET designation=?, family=?, barcode=?, cost=?, store_date=?,"
 							+ "selling1=?, selling2=?, selling3=?, amount=?, used=?, min=?, expiration=?"
 							+ ", mesure_unit=? WHERE id=?");
 			prepared.setString(1, getDesignation());
 			prepared.setString(2, getFamily());
 			prepared.setString(3, getBarcode());
 			prepared.setDouble(4, getCost());
-			prepared.setDouble(5, getSelling1());
-			prepared.setDouble(6, getSelling2());
-			prepared.setDouble(7, getSelling3());
-			prepared.setInt(8, getAmount());
-			prepared.setInt(9, getUsed());
-			prepared.setInt(10, getMin());
-			prepared.setDate(11, getExpiration());
-			prepared.setString(12, getMesure_unit());
-			prepared.setInt(13, getId());
+			prepared.setDate(5, getStore_date());
+			prepared.setDouble(6, getSelling1());
+			prepared.setDouble(7, getSelling2());
+			prepared.setDouble(8, getSelling3());
+			prepared.setInt(9, getAmount());
+			prepared.setInt(10, getUsed());
+			prepared.setInt(11, getMin());
+			prepared.setDate(12, getExpiration());
+			prepared.setString(13, getMesure_unit());
+			prepared.setInt(14, getId());
 			prepared.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
