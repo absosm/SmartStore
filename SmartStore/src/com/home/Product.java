@@ -1,6 +1,5 @@
 package com.home;
 
-import java.security.SecurityPermission;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -207,6 +206,9 @@ public class Product {
 	}
 	public void setShelf(String shelf) {
 		this.shelf = shelf;
+	}
+	public int getActual() {
+		return (amount-used);
 	}
 	
 	public void add() {

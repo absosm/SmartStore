@@ -103,7 +103,8 @@ public class MainForm extends JFrame {
 		JMenuItem mntmProfile = new JMenuItem("Profile utilisateur");
 		mntmProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Session.setForm(Session.PROFILE, new ProfileForm(Session.getUser()));
+				if (!Session.isSetForm(Session.PROFILE))
+					Session.setForm(Session.PROFILE, new ProfileForm(Session.getUser()));
 				Session.showForm(Session.PROFILE);
 			}
 		});
@@ -125,7 +126,8 @@ public class MainForm extends JFrame {
 		JMenuItem mntmFamilleDeProduit = new JMenuItem("Famille de produit");
 		mntmFamilleDeProduit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Session.setForm(Session.FAMILIES, new FamiliesForm());
+				if (!Session.isSetForm(Session.FAMILIES))
+					Session.setForm(Session.FAMILIES, new FamiliesForm());
 				Session.showForm(Session.FAMILIES);
 			}
 		});
@@ -134,7 +136,8 @@ public class MainForm extends JFrame {
 		JMenuItem mntmListesDesProduits = new JMenuItem("Listes des produits");
 		mntmListesDesProduits.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Session.setForm(Session.PRODUCTS, new ProductsForm());
+				if (!Session.isSetForm(Session.PRODUCTS))
+					Session.setForm(Session.PRODUCTS, new ProductsForm());
 				Session.showForm(Session.PRODUCTS);
 			}
 		});
@@ -149,7 +152,8 @@ public class MainForm extends JFrame {
 		JMenuItem mntmConfiguration = new JMenuItem("Configuration");
 		mntmConfiguration.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Session.setForm(Session.CONFIGURATION, new ConfigurationForm());
+				if (!Session.isSetForm(Session.CONFIGURATION))
+					Session.setForm(Session.CONFIGURATION, new ConfigurationForm());
 				Session.showForm(Session.CONFIGURATION);
 			}
 		});
@@ -226,11 +230,21 @@ public class MainForm extends JFrame {
 		btnProduis.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JButton btnBonDachat = new JButton("Achats");
+		btnBonDachat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		toolBar.add(btnBonDachat);
 		btnBonDachat.setIcon(new ImageIcon(MainForm.class.getResource("/images/achat.png")));
 		btnBonDachat.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JButton btnVents = new JButton("Vents");
+		btnVents.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		toolBar.add(btnVents);
 		btnVents.setIcon(new ImageIcon(MainForm.class.getResource("/images/vents.png")));
 		btnVents.setFont(new Font("Tahoma", Font.BOLD, 14));

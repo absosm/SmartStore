@@ -257,17 +257,42 @@ public class AddProductForm extends JFrame {
 		cb_family.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_amount = new JTextField();
+		tf_amount.getDocument().addDocumentListener(new DocumentListener() {
+			
+			protected void updateFieldState() {
+                product.setAmount(Integer.parseInt(tf_amount.getText()));
+                tf_actual.setText(product.getActual()+"");
+            }
+
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void insertUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+
+			public void removeUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				updateFieldState();
+			}
+        });
 		tf_amount.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_amount.setColumns(10);
 		
 		tf_actual = new JTextField();
 		tf_actual.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tf_actual.setEditable(false);
 		tf_actual.setColumns(10);
 		
 		JButton btnNewButton_1 = new JButton("");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Session.setForm(Session.FAMILIES, new FamiliesForm());
+				
+				if (!Session.isSetForm(Session.FAMILIES))
+					Session.setForm(Session.FAMILIES, new FamiliesForm());
 				Session.showForm(Session.FAMILIES);
 			}
 		});
@@ -279,8 +304,8 @@ public class AddProductForm extends JFrame {
 		tf_store_date.getDateEditor().addPropertyChangeListener( new PropertyChangeListener() {
 	        public void propertyChange(PropertyChangeEvent e) {
 	            if ("date".equals(e.getPropertyName())) {
-	                /*product.setStore_date((java.util.Date) e.getNewValue());
-	                System.out.println(product.getStore_date());*/
+	            	
+	                product.setStore_date(new java.sql.Date(((java.util.Date)e.getNewValue()).getTime()));
 	            }
 	        }
 		});
