@@ -30,6 +30,7 @@ public class Session {
 	public static final int PRODUCTS				= 5;
 	public static final int ADDPRODUCT				= 6;
 	public static final int CLIENTS					= 7;
+	public static final int PROVIDERS				= 8;
 	
 	public static void start() {
 		

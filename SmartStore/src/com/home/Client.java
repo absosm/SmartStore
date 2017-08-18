@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
  *
  */
 public class Client {
+	
 	private int Id ;
 	private String Nom;
 	private String Prenom;

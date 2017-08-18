@@ -204,7 +204,9 @@ public class MainForm extends JFrame {
 		JButton btnFournisseur = new JButton("Fournisseurs");
 		btnFournisseur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new Liste_des_Fournisseur_Form();
+				if (!Session.isSetForm(Session.PROVIDERS))
+					Session.setForm(Session.PROVIDERS, new ProvidersForm());
+				Session.showForm(Session.PROVIDERS);
 			}
 		});
 		toolBar.add(btnFournisseur);
