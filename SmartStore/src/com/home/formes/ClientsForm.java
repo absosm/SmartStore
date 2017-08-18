@@ -42,7 +42,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Liste_des_Clients_Form extends JFrame {
+public class ClientsForm extends JFrame {
 
 	private JPanel contentPane;
 	private static JTextField Nom_client;
@@ -59,7 +59,7 @@ public class Liste_des_Clients_Form extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					Liste_des_Clients_Form frame = new Liste_des_Clients_Form();
+					ClientsForm frame = new ClientsForm();
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -71,7 +71,7 @@ public class Liste_des_Clients_Form extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Liste_des_Clients_Form() {
+	public ClientsForm() {
 		
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
@@ -79,7 +79,7 @@ public class Liste_des_Clients_Form extends JFrame {
 		}
 		
 		setTitle("Recherche");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Liste_des_Clients_Form.class.getResource("/images/Search-People-icon.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ClientsForm.class.getResource("/images/Search-People-icon.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1000, 599);
 		contentPane = new JPanel();
@@ -202,7 +202,7 @@ public class Liste_des_Clients_Form extends JFrame {
 		
 		JButton btnNewButton = new JButton("Recherche");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images/Search-icon.png")));
+		btnNewButton.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Search-icon.png")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -224,7 +224,7 @@ public class Liste_des_Clients_Form extends JFrame {
 				new AddClients_Form();                // creer un instance du class "addClient"   
 			}                                    // pour ajouter un client 
 		});
-		btnAjouter.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images/employeeIcon.png")));
+		btnAjouter.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/employeeIcon.png")));
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnAjouter.setBounds(61, 2, 153, 57);
 		contentPane.add(btnAjouter);
@@ -249,7 +249,7 @@ public class Liste_des_Clients_Form extends JFrame {
 				}
 			}
 		});
-		btnSupprimer.setIcon(new ImageIcon(Liste_des_Clients_Form.class.getResource("/images/Delete_48.png")));
+		btnSupprimer.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Delete_48.png")));
 		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnSupprimer.setBounds(281, 2, 157, 57);
 		contentPane.add(btnSupprimer);
