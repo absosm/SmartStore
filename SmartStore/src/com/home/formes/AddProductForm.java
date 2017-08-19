@@ -110,6 +110,7 @@ public class AddProductForm extends JFrame {
 	 * Create the frame.
 	 */
 	public AddProductForm() {
+		setResizable(false);
 		
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
@@ -314,10 +315,14 @@ public class AddProductForm extends JFrame {
 		tf_store_date.setDate(new Date());
 		tf_store_date.getCalendarButton().setIcon(new ImageIcon(AddProductForm.class.getResource("/images/calendar.png")));
 		
+		JButton btnNewButton_4 = new JButton("G\u00E9n\u00E9rer");
+		btnNewButton_4.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/refresh.png")));
+		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(58)
 					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblDsignation)
@@ -327,18 +332,21 @@ public class AddProductForm extends JFrame {
 						.addComponent(lblNewLabel_1)
 						.addComponent(lblNewLabel_2))
 					.addGap(18)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(cb_family, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 						.addComponent(tf_store_date, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tf_barcode, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
-						.addComponent(tf_designation)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(tf_barcode, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnNewButton_4, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
+						.addComponent(tf_designation, GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
 						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-							.addComponent(tf_amount, Alignment.LEADING)
-							.addComponent(tf_actual, Alignment.LEADING)))
-					.addContainerGap(37, Short.MAX_VALUE))
+							.addComponent(tf_actual, Alignment.LEADING)
+							.addComponent(tf_amount, Alignment.LEADING)))
+					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -346,7 +354,8 @@ public class AddProductForm extends JFrame {
 					.addGap(45)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(tf_barcode, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel))
+						.addComponent(lblNewLabel)
+						.addComponent(btnNewButton_4, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(tf_designation, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
@@ -372,7 +381,7 @@ public class AddProductForm extends JFrame {
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(tf_actual, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_2))
-					.addContainerGap(114, Short.MAX_VALUE))
+					.addContainerGap(51, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		
