@@ -20,7 +20,7 @@ import javax.swing.JScrollPane;
 import com.home.DataBase;
 import com.home.Family;
 import com.home.Session;
-import com.home.custom.CustomTableModel;
+import com.home.custom.FamiliesModel;
 
 import javax.swing.JToolBar;
 import javax.swing.ImageIcon;
@@ -128,7 +128,7 @@ public class FamiliesForm extends JFrame{
 		JButton btnNewButton_2 = new JButton("");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CustomTableModel model = (CustomTableModel) table.getModel();
+				FamiliesModel model = (FamiliesModel) table.getModel();
 				model.addRow(new Family());
 			}
 		});
@@ -138,7 +138,7 @@ public class FamiliesForm extends JFrame{
 		JButton btnNewButton_4 = new JButton("");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CustomTableModel model = (CustomTableModel)table.getModel();
+				FamiliesModel model = (FamiliesModel)table.getModel();
 				model.delete(table.getSelectedRow());
 			}
 		});
@@ -162,7 +162,7 @@ public class FamiliesForm extends JFrame{
 							prepareStatement("SELECT id FROM families WHERE designation like ?");
 					prepared.setString(1, "%"+textField.getText()+"%");
 					ResultSet result = prepared.executeQuery();
-					CustomTableModel model = new CustomTableModel();
+					FamiliesModel model = new FamiliesModel();
 					while (result.next()) {
 						Family f = new Family(result.getInt("id"));
 						model.addRow(f);
@@ -206,7 +206,7 @@ public class FamiliesForm extends JFrame{
 		DataBase database = Session.getDatabase();
 		try {
 			ResultSet result = database.getConnection().prepareStatement("SELECT id FROM families").executeQuery();
-			CustomTableModel model = new CustomTableModel();
+			FamiliesModel model = new FamiliesModel();
 			while (result.next()) {
 				Family f = new Family(result.getInt("id"));
 				model.addRow(f);

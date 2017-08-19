@@ -52,6 +52,11 @@ import java.beans.PropertyChangeListener;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JSeparator;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JToolBar;
+import javax.swing.border.TitledBorder;
 
 public class AddProductForm extends JFrame {
 	
@@ -68,18 +73,6 @@ public class AddProductForm extends JFrame {
 	private JTextField tf_amount;
 	private JTextField tf_actual;
 	private static  JTextField tf_cost;
-	private static JTextField tf_selling1;
-	private static JTextField tf_selling2;
-	private static JTextField tf_selling3;
-	private static JTextField tf_Prix_Vente4;
-	private static JTextField tf_Prix_Vente5;
-	private static JTextField tf_Prix_Vente6;
-	private static JTextField tf_Boni1;
-	private static JTextField tf_Boni2;
-	private static JTextField tf_Boni3;
-	private static JTextField tf_Boni4;
-	private static JTextField tf_Boni5;
-	private static JTextField tf_Boni6;
 	private static JLabel Labe_Image ;
 	private static JComboBox cb_family;
 	private static JLabel lb_path_Image;
@@ -87,6 +80,7 @@ public class AddProductForm extends JFrame {
 	private JTextField min;
 	private JTextField textField_5;
 	private JTextField textField_6;
+	private JTable table;
 	
 
 	/**
@@ -338,10 +332,10 @@ public class AddProductForm extends JFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 						.addComponent(tf_store_date, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(tf_barcode, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addComponent(tf_barcode, GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnNewButton_4, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
+							.addComponent(btnNewButton_4))
 						.addComponent(tf_designation, GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
 						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
 							.addComponent(tf_actual, Alignment.LEADING)
@@ -355,7 +349,7 @@ public class AddProductForm extends JFrame {
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(tf_barcode, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel)
-						.addComponent(btnNewButton_4, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnNewButton_4, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(tf_designation, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
@@ -391,24 +385,6 @@ public class AddProductForm extends JFrame {
 		JLabel lblNewLabel_3 = new JLabel("Prix d'achat");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JLabel lblPrixVente = new JLabel("Prix Vente 1");
-		lblPrixVente.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JLabel lblPrixVente_1 = new JLabel("Prix Vente 2");
-		lblPrixVente_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JLabel lblPrixVente_2 = new JLabel("Prix Vente 3");
-		lblPrixVente_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JLabel lblPrixVente_3 = new JLabel("Prix Vente 4");
-		lblPrixVente_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JLabel lblPrixVente_4 = new JLabel("Prix Vente 5");
-		lblPrixVente_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JLabel lblPrixVente_5 = new JLabel("Prix Vente 6");
-		lblPrixVente_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
 		tf_cost = new JTextField();
 		tf_cost.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_cost.getDocument().addDocumentListener(new DocumentListener() {
@@ -435,249 +411,30 @@ public class AddProductForm extends JFrame {
 		tf_cost.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				Auto_update_of_Prix_achat();
+				//Auto_update_of_Prix_achat();
 			}
 		});
 		tf_cost.setColumns(10);
 		
-		tf_selling1 = new JTextField();
-		tf_selling1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_selling1.getDocument().addDocumentListener(new DocumentListener() {
-			
-			protected void updateFieldState() {
-                product.setSelling1(Double.parseDouble((tf_selling1.getText())));
-            }
-
-			public void changedUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				updateFieldState();
-			}
-
-			public void insertUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				updateFieldState();
-			}
-
-			public void removeUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				updateFieldState();
-			}
-        });
-		tf_selling1.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				tf_Boni1.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_selling1.getText().toString())));
-			}
-		});
-		tf_selling1.setColumns(10);
-		
-		tf_selling2 = new JTextField();
-		tf_selling2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_selling2.getDocument().addDocumentListener(new DocumentListener() {
-			
-			protected void updateFieldState() {
-                product.setSelling2(Double.parseDouble((tf_selling2.getText())));
-            }
-
-			public void changedUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				updateFieldState();
-			}
-
-			public void insertUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				updateFieldState();
-			}
-
-			public void removeUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				updateFieldState();
-			}
-        });
-		tf_selling2.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				tf_Boni2.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_selling2.getText().toString())).replace(" ", ""));
-			}
-		});
-		tf_selling2.setColumns(10);
-		
-		tf_selling3 = new JTextField();
-		tf_selling3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_selling3.getDocument().addDocumentListener(new DocumentListener() {
-			
-			protected void updateFieldState() {
-                product.setSelling1(Double.parseDouble((tf_selling3.getText())));
-            }
-
-			public void changedUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				updateFieldState();
-			}
-
-			public void insertUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				updateFieldState();
-			}
-
-			public void removeUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				updateFieldState();
-			}
-        });
-		tf_selling3.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				tf_Boni3.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_selling3.getText().toString())).replace(" ", ""));
-			}
-		});
-		tf_selling3.setColumns(10);
-		
-		tf_Prix_Vente4 = new JTextField();
-		tf_Prix_Vente4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_Prix_Vente4.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				tf_Boni4.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_Prix_Vente4.getText().toString())).replace(" ", ""));
-			}
-		});
-		tf_Prix_Vente4.setColumns(10);
-		
-		tf_Prix_Vente5 = new JTextField();
-		tf_Prix_Vente5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_Prix_Vente5.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				tf_Boni5.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_Prix_Vente5.getText().toString())).replace(" ", ""));
-			}
-		});
-		tf_Prix_Vente5.setColumns(10);
-		
-		tf_Prix_Vente6 = new JTextField();
-		tf_Prix_Vente6.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_Prix_Vente6.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				tf_Boni6.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_Prix_Vente6.getText().toString())).replace(" ", ""));
-			}
-		});
-		tf_Prix_Vente6.setColumns(10);
-		
-		JLabel lblNewLabel_4 = new JLabel("PRIX");
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JLabel lblBoni = new JLabel("BONI %");
-		lblBoni.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBoni.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		tf_Boni1 = new JTextField();
-		tf_Boni1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_Boni1.setBackground(new Color(204, 255, 204));
-		tf_Boni1.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				tf_selling1.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_cost.getText().toString() , tf_Boni1.getText().toString())).replace(" ", ""));
-			}
-		});
-		tf_Boni1.setColumns(10);
-		
-		tf_Boni2 = new JTextField();
-		tf_Boni2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_Boni2.setBackground(new Color(204, 255, 204));
-		tf_Boni2.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				tf_selling2.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_cost.getText().toString() , tf_Boni2.getText().toString())).replace(" ", ""));
-			}
-		});
-		tf_Boni2.setColumns(10);
-		
-		tf_Boni3 = new JTextField();
-		tf_Boni3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_Boni3.setBackground(new Color(204, 255, 204));
-		tf_Boni3.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				tf_selling3.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_cost.getText().toString() , tf_Boni3.getText().toString())).replace(" ", ""));
-			}
-		});
-		tf_Boni3.setColumns(10);
-		
-		tf_Boni4 = new JTextField();
-		tf_Boni4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_Boni4.setBackground(new Color(204, 255, 204));
-		tf_Boni4.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				tf_Prix_Vente4.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_cost.getText().toString() , tf_Boni4.getText().toString())).replace(" ", ""));
-			}
-		});
-		tf_Boni4.setColumns(10);
-		
-		tf_Boni5 = new JTextField();
-		tf_Boni5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_Boni5.setBackground(new Color(204, 255, 204));
-		tf_Boni5.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				tf_Prix_Vente5.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_cost.getText().toString() , tf_Boni5.getText().toString())).replace(" ", ""));
-			}
-		});
-		tf_Boni5.setColumns(10);
-		
-		tf_Boni6 = new JTextField();
-		tf_Boni6.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_Boni6.setBackground(new Color(204, 255, 204));
-		tf_Boni6.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				tf_Prix_Vente6.setText(String.format("%12.2f",Calcule_Prix_Vent(tf_cost.getText().toString() , tf_Boni6.getText().toString())).replace(" ", ""));
-			}
-		});
-		tf_Boni6.setColumns(10);
-		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Prix de vente", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(tf_cost, GroupLayout.PREFERRED_SIZE, 222, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblPrixVente_1, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblPrixVente)
-								.addComponent(lblPrixVente_2, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblPrixVente_3, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblPrixVente_4, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblPrixVente_5, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(tf_Prix_Vente5, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-								.addComponent(tf_Prix_Vente4, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-								.addComponent(tf_selling3, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-								.addComponent(tf_selling2, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-								.addComponent(tf_selling1, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-								.addComponent(tf_Prix_Vente6, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-								.addComponent(lblNewLabel_4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-								.addComponent(tf_Boni6, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tf_Boni5, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tf_Boni4, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tf_Boni3, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tf_Boni2, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tf_Boni1, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblBoni, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-					.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 314, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 365, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(20, Short.MAX_VALUE))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -689,42 +446,48 @@ public class AddProductForm extends JFrame {
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNewLabel_3)
 								.addComponent(tf_cost, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-							.addGap(16)
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_4)
-								.addComponent(lblBoni, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblPrixVente)
-								.addComponent(tf_selling1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tf_Boni1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblPrixVente_1)
-								.addComponent(tf_selling2, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tf_Boni2, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblPrixVente_2)
-								.addComponent(tf_selling3, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tf_Boni3, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblPrixVente_3)
-								.addComponent(tf_Prix_Vente4, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tf_Boni4, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblPrixVente_4)
-								.addComponent(tf_Prix_Vente5, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tf_Boni5, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblPrixVente_5)
-								.addComponent(tf_Prix_Vente6, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tf_Boni6, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap(57, Short.MAX_VALUE))))
+							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 259, GroupLayout.PREFERRED_SIZE)))
+					.addGap(235))
 		);
+		
+		JToolBar toolBar = new JToolBar();
+		
+		JScrollPane scrollPane = new JScrollPane();
+		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
+		gl_panel_3.setHorizontalGroup(
+			gl_panel_3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_3.createSequentialGroup()
+					.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(243, Short.MAX_VALUE))
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+		);
+		gl_panel_3.setVerticalGroup(
+			gl_panel_3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_3.createSequentialGroup()
+					.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+		);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Boni", "Prix", "Cat\u00E9gorie"
+			}
+		));
+		scrollPane.setViewportView(table);
+		
+		JButton button = new JButton("");
+		button.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/add.png")));
+		toolBar.add(button);
+		
+		JButton button_1 = new JButton("");
+		button_1.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/delete.png")));
+		toolBar.add(button_1);
+		panel_3.setLayout(gl_panel_3);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("");
 		
@@ -1020,7 +783,7 @@ public class AddProductForm extends JFrame {
 	 * @return
 	 * Remplir automatiquement le champ de texte Boni 
 	 */
-	private static float Calcule_Boni(String prix_achat ,String prix_vent)
+	/*private static float Calcule_Boni(String prix_achat ,String prix_vent)
 	{
 		if(!prix_achat.equals("") && !prix_vent.equals(""))
 		{
@@ -1033,14 +796,14 @@ public class AddProductForm extends JFrame {
 			return boni;
 		}
 		return 0;
-	}
+	}*/
 	/**
 	 * @param prix_achat
 	 * @param prix_vent
 	 * @return
 	 * Remplir automatiquement le champ de texte Boni
 	 */
-	private static float Calcule_Prix_Vent(String prix_achat ,String boni)
+	/*private static float Calcule_Prix_Vent(String prix_achat ,String boni)
 	{
 		if(!prix_achat.equals("") && !boni.equals(""))
 		{
@@ -1053,8 +816,8 @@ public class AddProductForm extends JFrame {
 			return prix_Vent;
 		}
 		return 0;
-	}
-	private static void Auto_update_of_Prix_achat()
+	}*/
+	/*private static void Auto_update_of_Prix_achat()
 	{
 		tf_Boni1.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_selling1.getText().toString())));
 		tf_Boni2.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_selling2.getText().toString())));
@@ -1062,5 +825,5 @@ public class AddProductForm extends JFrame {
 		tf_Boni4.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_Prix_Vente4.getText().toString())));
 		tf_Boni5.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_Prix_Vente5.getText().toString())));
 		tf_Boni6.setText(String.format("%12.2f", Calcule_Boni(tf_cost.getText().toString(),tf_Prix_Vente6.getText().toString())));
-		}
+		}*/
 }

@@ -5,12 +5,12 @@ import javax.swing.table.AbstractTableModel;
 
 import com.home.Family;
 
-public class CustomTableModel extends AbstractTableModel {
+public class FamiliesModel extends AbstractTableModel {
 
     private Vector<Vector> data;
     private String columnNames[] = {"Désignation", "Remarque", "Nombre"};
     
-    public CustomTableModel() {
+    public FamiliesModel() {
         data = new Vector<Vector>();
     }
   
