@@ -57,6 +57,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
+import javax.swing.border.LineBorder;
 
 public class AddProductForm extends JFrame {
 	
@@ -420,7 +421,10 @@ public class AddProductForm extends JFrame {
 		panel_4.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Prix de vente", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_3.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Prix de vente", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		((javax.swing.border.TitledBorder) panel_3.getBorder()).setTitleFont(new Font("Tahoma", Font.PLAIN, 14));
+		panel_3.repaint();
+		
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -471,11 +475,12 @@ public class AddProductForm extends JFrame {
 		);
 		
 		table = new JTable();
+		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Boni", "Prix", "Cat\u00E9gorie"
+				"Cat\u00E9gorie", "Prix", "Boni"
 			}
 		));
 		scrollPane.setViewportView(table);
