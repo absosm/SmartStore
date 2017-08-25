@@ -13,27 +13,27 @@ import java.util.regex.Pattern;
 public class Client {
 	
 	private int Id ;
-	private String Nom;
-	private String Prenom;
-	private String Adresse;
-	private String Famille;
-	private int CodePostal;
+	private String Name;
+	private String First_name;
+	private String Address;
+	private String Family;
+	private int Postal_Code;
 	private String Wilaya;
-	private String Commune;
-	private String TelPortable;
-	private String TeleFix;
+	private String City;
+	private String Mobile_Number;
+	private String Telphone;
 	private String Fax;
 	private String NRC;
 	private String NART;
 	private String NIF;
 	private String NIS;
 	private String RIB;
-	private String ComptBancaire;
+	private String Bank_Account;
 	private String Email;
-	private String SiteWeb;
-	private int ModeTarif;
-	private double LimitationCredit ;
-	private double Solde_Initial;
+	private String Website;
+	private int Pricing_Mode;
+	private double Limitation_Credit ;
+	private double Initial_Credit;
 	
 	/**
 	 * @return 
@@ -55,62 +55,62 @@ public class Client {
 	 * @return
 	 * String : Nom
 	 */
-	public String getNom()
+	public String getName()
 	{
-		return Nom;
+		return Name;
 	}
-	public void setNom(String nom)
+	public void setName(String nom)
 	{
-		this.Nom=nom;
+		this.Name=nom;
 	}
 
 	/**
 	 * @return
 	 * String : Prenom
 	 */
-	public String getPrenom()
+	public String getFirst_name()
 	{
-		return Prenom;
+		return First_name;
 	}
-	public void setPrenom(String prenom)
+	public void setFirst_name(String prenom)
 	{
-		this.Prenom=prenom;
+		this.First_name=prenom;
 	}	
 	/**
 	 * @return
-	 *String :  Adresse
+	 *String :  Address
 	 */
-	public String getAdresse()
+	public String getAddress()
 	{
-		return Adresse;
+		return Address;
 	}
-	public void setAdresse(String adresse)
+	public void setAddress(String address)
 	{
-		this.Adresse=adresse;
+		this.Address=address;
 	}
 	/**
 	 * @return
-	 * String : Famille
+	 * String : Family
 	 */
-	public String getFamille()
+	public String getFamily()
 	{
-		return Famille;
+		return Family;
 	}
-	public void setFamille(String famille)
+	public void setFamily(String famille)
 	{
-		this.Famille=famille;
+		this.Family=famille;
 	}
 	/**
 	 * @return
 	 * String : CodePostal
 	 */
-	public int getCodePostal()
+	public int getPostal_Code()
 	{
-		return CodePostal;
+		return Postal_Code;
 	}
-	public void setCodePostal(int codepostal)
+	public void setPostal_Code(int codepostal)
 	{
-		this.CodePostal=codepostal;
+		this.Postal_Code=codepostal;
 	}
 	/**
 	 * @return
@@ -128,37 +128,37 @@ public class Client {
 	 * @return
 	 * String : Commune
 	 */
-	public String getCommune()
+	public String getCity()
 	{
-		return Commune;
+		return City;
 	}
-	public void setCommune(String commune)
+	public void setCity(String commune)
 	{
-		this.Commune=commune;
+		this.City=commune;
 	}	
 	/**
 	 * @return
 	 * String : TelPortable
 	 */
-	public String getTelPortable()
+	public String getMobile_Number()
 	{
-		return TelPortable;
+		return Mobile_Number;
 	}
 	public void setTelePortable(String telePortable)
 	{
-		this.TelPortable=telePortable;
+		this.Mobile_Number=telePortable;
 	}
 	/**
 	 * @return
 	 * String : TeleFix
 	 */
-	public String getTeleFix()
+	public String getTelphone()
 	{
-		return TeleFix;
+		return Telphone;
 	}
-	public void setTeleFix(String telefix)
+	public void setTelphone(String telefix)
 	{
-		this.TeleFix=telefix;
+		this.Telphone=telefix;
 	}
 	/**
 	 * @return
@@ -237,13 +237,13 @@ public class Client {
 	 * @return
 	 *String : ComptBancaire
 	 */
-	public String getComptBancaire()
+	public String getBank_Account()
 	{
-		return ComptBancaire;
+		return Bank_Account;
 	}
-	public void setComptBancaire(String comptBancaire)
+	public void setBank_Account(String comptBancaire)
 	{
-		this.ComptBancaire=comptBancaire;
+		this.Bank_Account=comptBancaire;
 	}
 	/**
 	 * @return
@@ -279,49 +279,49 @@ public class Client {
 	 * @return
 	 *String : SiteWeb
 	 */
-	public String getSiteWeb()
+	public String getWebsite()
 	{
-		return SiteWeb;
+		return Website;
 	}
-	public void setSiteWeb(String siteweb)
+	public void setWebsite(String siteweb)
 	{
-		this.SiteWeb=siteweb;
+		this.Website=siteweb;
 	}
 	/**
 	 * @return
 	 *integer : ModeTarif
 	 */
-	public int getModeTarif()
+	public int getPricing_Mode()
 	{
-		return ModeTarif;
+		return Pricing_Mode;
 	}
-	public void setModeTarif(int modetarif)
+	public void setPricing_Mode(int modetarif)
 	{
-		this.ModeTarif=modetarif;
+		this.Pricing_Mode=modetarif;
 	}
 	/**
 	 * @return
 	 *double : LimitationCredit
 	 */
-	public double getLimitationCredit()
+	public double getLimitation_Credit()
 	{
-		return LimitationCredit;
+		return Limitation_Credit;
 	}
-	public void setLimitationCredit(double limitationcredit)
+	public void setLimitation_Credit(double limitationcredit)
 	{
-		this.LimitationCredit=limitationcredit;
+		this.Limitation_Credit=limitationcredit;
 	}
 	/**
 	 * @return
 	 *double : Solde_Initial
 	 */
-	public double getSolde_Initial()
+	public double getInitial_Credit()
 	{
-		return Solde_Initial;
+		return Initial_Credit;
 	}
-	public void setSolde_Initial(double solde_initial)
+	public void setInitial_Credit(double solde_initial)
 	{
-		this.Solde_Initial=solde_initial;
+		this.Initial_Credit=solde_initial;
 	}
 	
 	
@@ -385,27 +385,27 @@ public class Client {
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
 					prepareStatement(selectSQL);
-			prepared.setString(1 , getNom());
-			prepared.setString(2 , getPrenom());
-			prepared.setString(3 , getAdresse());
-			prepared.setString(4 , getFamille());
-			prepared.setInt   (5 , getCodePostal());
+			prepared.setString(1 , getName());
+			prepared.setString(2 , getFirst_name());
+			prepared.setString(3 , getAddress());
+			prepared.setString(4 , getFamily());
+			prepared.setInt   (5 , getPostal_Code());
 			prepared.setString(6 , getWilaya());
-			prepared.setString(7 , getCommune());
-			prepared.setString(8 , getTelPortable());
-			prepared.setString(9 , getTeleFix());
+			prepared.setString(7 , getCity());
+			prepared.setString(8 , getMobile_Number());
+			prepared.setString(9 , getTelphone());
 			prepared.setString(10, getFax());
 			prepared.setString(11, getNRC());
 			prepared.setString(12, getNART());
 			prepared.setString(13, getNIF());
 			prepared.setString(14, getNIS());
 			prepared.setString(15, getRIB());
-			prepared.setString(16, getComptBancaire());
+			prepared.setString(16, getBank_Account());
 			prepared.setString(17, getEmail());
-			prepared.setString(18, getSiteWeb());
-			prepared.setInt   (19, getModeTarif());
-			prepared.setDouble(20, getLimitationCredit());
-			prepared.setDouble(21, getSolde_Initial());
+			prepared.setString(18, getWebsite());
+			prepared.setInt   (19, getPricing_Mode());
+			prepared.setDouble(20, getLimitation_Credit());
+			prepared.setDouble(21, getInitial_Credit());
 			prepared.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -453,30 +453,30 @@ public class Client {
 	{
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement("UPDATE client SET Nom=? ,Prenom=? ,Adresse=? ,Famille=? ,CodePostal=? ,wilaya=?"
-							+ ",Commune=? ,TelPortable=? ,TeleFix=? ,Fax=? ,NRC=? ,NART=? ,NIF=? ,NIS=? ,RIB=? ,ComptBancaire=?"
-							+ ",Email=? ,SiteWeb=? ,ModeTarif=? ,LimitationCredit=? ,Solde_Initial=? WHERE id=?;");
-			prepared.setString(1 , getNom());
-			prepared.setString(2 , getPrenom());
-			prepared.setString(3 , getAdresse());
-			prepared.setString(4 , getFamille());
-			prepared.setInt   (5 , getCodePostal());
+					prepareStatement("UPDATE client SET Name=? ,First_name=? ,Address=? ,Family=? ,Postal_Code=? ,Wilaya=?"
+							+ ",City=? ,Mobile_Number=? ,Telphone=? ,Fax=? ,NRC=? ,NART=? ,NIF=? ,NIS=? ,RIB=? ,Bank_Account=?"
+							+ ",Email=? ,Website=? ,Pricing_Mode=? ,Limitation_Credit=? ,Initial_Credit=? WHERE id=?;");
+			prepared.setString(1 , getName());
+			prepared.setString(2 , getFirst_name());
+			prepared.setString(3 , getAddress());
+			prepared.setString(4 , getFamily());
+			prepared.setInt   (5 , getPostal_Code());
 			prepared.setString(6 , getWilaya());
-			prepared.setString(7 , getCommune());
-			prepared.setString(8 , getTelPortable());
-			prepared.setString(9 , getTeleFix());
+			prepared.setString(7 , getCity());
+			prepared.setString(8 , getMobile_Number());
+			prepared.setString(9 , getTelphone());
 			prepared.setString(10, getFax());
 			prepared.setString(11, getNRC());
 			prepared.setString(12, getNART());
 			prepared.setString(13, getNIF());
 			prepared.setString(14, getNIS());
 			prepared.setString(15, getRIB());
-			prepared.setString(16, getComptBancaire());
+			prepared.setString(16, getBank_Account());
 			prepared.setString(17, getEmail());
-			prepared.setString(18, getSiteWeb());
-			prepared.setInt   (19, getModeTarif());
-			prepared.setDouble(20, getLimitationCredit());
-			prepared.setDouble(21, getSolde_Initial());
+			prepared.setString(18, getWebsite());
+			prepared.setInt   (19, getPricing_Mode());
+			prepared.setDouble(20, getLimitation_Credit());
+			prepared.setDouble(21, getInitial_Credit());
 			prepared.setInt(22, getId());
 			prepared.executeUpdate();			
 		} catch (Exception e) {
