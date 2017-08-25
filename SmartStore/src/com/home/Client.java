@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
@@ -35,17 +36,79 @@ public class Client {
 	private double Limitation_Credit ;
 	private double Initial_Credit;
 	
+	
 	/**
-	 * @return 
-	 * Intrger : ID
+	 * 
 	 */
 	public Client(){
-		
+		setName("");
+		setFirst_name("");
+		setAddress("");
+		setFamily("");
+		setPostal_Code(0);
+		setWilaya("");
+		setCity("");
+		setMobile_Number("");
+		setTelphone("");
+		setFax("");
+		setNRC("");
+		setNART("");
+		setNIF("");
+		setNIS("");
+		setRIB("");
+		setBank_Account("");
+		setEmail("");
+		setWebsite("");
+		setPricing_Mode(0);
+		setLimitation_Credit(0);
+		setInitial_Credit(0);		
 	}
+	
+	public Client(int id){
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+					prepareStatement("SELECT * FROM client WHERE id=?");
+			prepared.setInt(1, id);
+			ResultSet result = prepared.executeQuery();
+			if (result.next()) {		
+			setName(result.getString(2));
+			setFirst_name(result.getString(3));
+			setAddress(result.getString(4));
+			setFamily(result.getString(5));
+			setPostal_Code(result.getInt(6));
+			setWilaya(result.getString(7));
+			setCity(result.getString(8));
+			setMobile_Number(result.getString(9));
+			setTelphone(result.getString(10));
+			setFax(result.getString(11));
+			setNRC(result.getString(12));
+			setNART(result.getString(13));
+			setNIF(result.getString(14));
+			setNIS(result.getString(15));
+			setRIB(result.getString(16));
+			setBank_Account(result.getString(17));
+			setEmail(result.getString(18));
+			setWebsite(result.getString(19));
+			setPricing_Mode(result.getInt(20));
+			setLimitation_Credit(result.getDouble(21));
+			setInitial_Credit(result.getDouble(22));
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+				
+	}
+	/**
+	 * @param id
+	 */
 	public int getId()
 	{
 		return Id;
 	}
+
 	public void setId(int id)
 	{
 		this.Id=id;
@@ -53,28 +116,28 @@ public class Client {
 	
 	/**
 	 * @return
-	 * String : Nom
+	 * String : name
 	 */
 	public String getName()
 	{
 		return Name;
 	}
-	public void setName(String nom)
+	public void setName(String name)
 	{
-		this.Name=nom;
+		this.Name=name;
 	}
 
 	/**
 	 * @return
-	 * String : Prenom
+	 * String : First_name
 	 */
 	public String getFirst_name()
 	{
 		return First_name;
 	}
-	public void setFirst_name(String prenom)
+	public void setFirst_name(String first_name)
 	{
-		this.First_name=prenom;
+		this.First_name=first_name;
 	}	
 	/**
 	 * @return
@@ -96,21 +159,21 @@ public class Client {
 	{
 		return Family;
 	}
-	public void setFamily(String famille)
+	public void setFamily(String family)
 	{
-		this.Family=famille;
+		this.Family=family;
 	}
 	/**
 	 * @return
-	 * String : CodePostal
+	 * String : Postal_Code
 	 */
 	public int getPostal_Code()
 	{
 		return Postal_Code;
 	}
-	public void setPostal_Code(int codepostal)
+	public void setPostal_Code(int postal_code)
 	{
-		this.Postal_Code=codepostal;
+		this.Postal_Code=postal_code;
 	}
 	/**
 	 * @return
@@ -126,39 +189,39 @@ public class Client {
 	}
 	/**
 	 * @return
-	 * String : Commune
+	 * String : City
 	 */
 	public String getCity()
 	{
 		return City;
 	}
-	public void setCity(String commune)
+	public void setCity(String city)
 	{
-		this.City=commune;
+		this.City=city;
 	}	
 	/**
 	 * @return
-	 * String : TelPortable
+	 * String : mobile_number
 	 */
 	public String getMobile_Number()
 	{
 		return Mobile_Number;
 	}
-	public void setTelePortable(String telePortable)
+	public void setMobile_Number(String mobile_number)
 	{
-		this.Mobile_Number=telePortable;
+		this.Mobile_Number=mobile_number;
 	}
 	/**
 	 * @return
-	 * String : TeleFix
+	 * String : Telephone
 	 */
 	public String getTelphone()
 	{
 		return Telphone;
 	}
-	public void setTelphone(String telefix)
+	public void setTelphone(String phone)
 	{
-		this.Telphone=telefix;
+		this.Telphone=phone;
 	}
 	/**
 	 * @return
@@ -283,21 +346,21 @@ public class Client {
 	{
 		return Website;
 	}
-	public void setWebsite(String siteweb)
+	public void setWebsite(String website)
 	{
-		this.Website=siteweb;
+		this.Website=website;
 	}
 	/**
 	 * @return
-	 *integer : ModeTarif
+	 *integer : pricing_mode
 	 */
 	public int getPricing_Mode()
 	{
 		return Pricing_Mode;
 	}
-	public void setPricing_Mode(int modetarif)
+	public void setPricing_Mode(int pricing_mode)
 	{
-		this.Pricing_Mode=modetarif;
+		this.Pricing_Mode=pricing_mode;
 	}
 	/**
 	 * @return
@@ -307,21 +370,21 @@ public class Client {
 	{
 		return Limitation_Credit;
 	}
-	public void setLimitation_Credit(double limitationcredit)
+	public void setLimitation_Credit(double limitation_credit)
 	{
-		this.Limitation_Credit=limitationcredit;
+		this.Limitation_Credit=limitation_credit;
 	}
 	/**
 	 * @return
-	 *double : Solde_Initial
+	 *double : initial_credit
 	 */
 	public double getInitial_Credit()
 	{
 		return Initial_Credit;
 	}
-	public void setInitial_Credit(double solde_initial)
+	public void setInitial_Credit(double initial_credit)
 	{
-		this.Initial_Credit=solde_initial;
+		this.Initial_Credit=initial_credit;
 	}
 	
 	
@@ -331,7 +394,7 @@ public class Client {
 	 * @return
 	 * (true/false) recherche par nom et prénom
 	 */
-	public static boolean exist(String nom,String prenom)
+	public static boolean exist(String nom ,String prenom)
 	{
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
@@ -384,7 +447,7 @@ public class Client {
 						"LimitationCredit,Solde_Initial)Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement(selectSQL);
+					prepareStatement(selectSQL,Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1 , getName());
 			prepared.setString(2 , getFirst_name());
 			prepared.setString(3 , getAddress());
@@ -406,7 +469,11 @@ public class Client {
 			prepared.setInt   (19, getPricing_Mode());
 			prepared.setDouble(20, getLimitation_Credit());
 			prepared.setDouble(21, getInitial_Credit());
-			prepared.executeUpdate();
+			if(prepared.executeUpdate()>0){
+				ResultSet result = prepared.getGeneratedKeys();
+				result.next();
+				setId(result.getInt(1));				
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
