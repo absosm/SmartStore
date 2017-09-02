@@ -11,6 +11,7 @@ import javax.swing.UIManager;
 
 import org.omg.CORBA.PRIVATE_MEMBER;
 
+import com.home.Client;
 import com.home.DataBase;
 import com.home.Session;
 import com.mysql.jdbc.PreparedStatement;
@@ -580,32 +581,30 @@ public class AddClientForm extends JFrame {
 			else
 			{
 				try {
-					selectSQL="insert into client(Nom,Prenom,Adresse,Famille,CodePostal,wilaya,Commune,TelPortable,TeleFix,"+
-							"Fax,NRC,NART,NIF,NIS,RIB,ComptBancaire,Email,SiteWeb,ModeTarif,"+
-									"LimitationCredit,Solde_Initial)Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-							prepared=(PreparedStatement) database.getConnection().prepareStatement(selectSQL);
-							prepared.setString(1,  tfnom.getText());
-							prepared.setString(2,  tfprenom.getText());
-							prepared.setString(3,  tfadresse.getText());
-							prepared.setString(4,  tffamille.getText());
-							prepared.setInt(5,     Integer.parseInt(tfcodepostal.getText()));
-							prepared.setString(6,  tfwilaya.getSelectedItem().toString());
-							prepared.setString(7,  tfcommune.getSelectedItem().toString());
-							prepared.setString(8,  tftelportabl.getText());
-							prepared.setString(9,  tftelfix.getText());
-							prepared.setString(10, tffax.getText());
-							prepared.setString(11, tfnrc.getText());
-							prepared.setString(12, tfnart.getText());
-							prepared.setString(13, tfnif.getText());
-							prepared.setString(14, tfnis.getText());
-							prepared.setString(15, tfrib.getText());
-							prepared.setString(16, tfcomptebancaire.getText());
-							prepared.setString(17, tfemail.getText());
-							prepared.setString(18, tfsiteweb.getText());
-							prepared.setInt(19,    cbmodetarif.getSelectedIndex());
-							prepared.setDouble(20, Double.parseDouble(tflimitation.getText()));
-							prepared.setDouble(21, Double.parseDouble(tfsolde_initial.getText()));
-							prepared.executeUpdate();
+					Client client = new Client();
+					client.setName(tfnom.getText());
+					client.setFirst_name(tfprenom.getText());
+					client.setAddress(tfadresse.getText());
+					client.setFamily(tffamille.getText());
+					client.setPostal_Code(Integer.parseInt(tfcodepostal.getText()));
+					client.setWilaya(tfwilaya.getSelectedItem().toString());
+					client.setCity(tfcommune.getSelectedItem().toString());
+					client.setMobile_Number(tftelportabl.getText());
+					client.setTelphone(tftelfix.getText());
+					client.setFax(tffax.getText());
+					client.setNRC(tfnrc.getText());
+					client.setNART(tfnart.getText());
+					client.setNIF(tfnif.getText());
+					client.setNIS(tfnis.getText());
+					client.setRIB(tfrib.getText());
+					client.setBank_Account(tfcomptebancaire.getText());
+					client.setEmail(tfemail.getText());
+					client.setWebsite(tfsiteweb.getText());
+					client.setPricing_Mode(cbmodetarif.getSelectedIndex());
+					client.setLimitation_Credit(Double.parseDouble(tflimitation.getText()));
+					client.setInitial_Credit(Double.parseDouble(tfsolde_initial.getText()));
+					client.add();
+							
 						
 							JOptionPane.showMessageDialog(new JFrame(), "Inscription Success", "Information d'inscription",
 							        JOptionPane.INFORMATION_MESSAGE);

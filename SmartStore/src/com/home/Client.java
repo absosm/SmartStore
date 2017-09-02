@@ -443,11 +443,10 @@ public class Client {
 	public void add()
 	{
 		String selectSQL="insert into client(Name,First_name,Address,Family,Postal_Code,Wilaya,City,Mobile_Number,Telphone"+
-				"Fax,NRC,NART,NIF,NIS,RIB,Bank_Account,Email,Website,Pricing_Mode,"+
-						"Limitation_Credit,Initial_Credit)Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			"Fax,NRC,NART,NIF,NIS,RIB,Bank_Account,Email,Website,Pricing_Mode,"+
+			"Limitation_Credit,Initial_Credit)Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		try {
-			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement(selectSQL,Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement prepared = Session.getDatabase().getConnection().prepareStatement(selectSQL,Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1 , getName());
 			prepared.setString(2 , getFirst_name());
 			prepared.setString(3 , getAddress());
@@ -472,7 +471,7 @@ public class Client {
 			if(prepared.executeUpdate()>0){
 				ResultSet result = prepared.getGeneratedKeys();
 				result.next();
-				setId(result.getInt(1));				
+				this.setId(result.getInt(1));				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
