@@ -22,7 +22,6 @@ public class Session {
 	 * declaration des constants identificateurs relatifs des forms
 	 */
 	public static final int AUTHENTIFICATION		= 0;
-	
 	public static final int MAIN					= 1;
 	public static final int CONFIGURATION			= 2;
 	public static final int PROFILE					= 3;
@@ -70,7 +69,8 @@ public class Session {
 		return Form[id];
 	}
 
-	public static void setForm(int id, JFrame form) {
+	public static void setForm(int id, JFrame form) 
+	{
 		Form[id] = form;
 		Form[id].setLocationRelativeTo(null);
 	}
