@@ -49,10 +49,11 @@ public class Provider {
  
  public Provider(int id){
 	 try {
-			PreparedStatement prepared = Session.getDatabase().getConnection().prepareStatement("SELECT * FROM provider WHERE id=?");
-			prepared.setInt(1, id);
-			ResultSet result = prepared.executeQuery();
-			if (result.next()) {	
+		PreparedStatement prepared = Session.getDatabase().getConnection().
+				prepareStatement("SELECT * FROM provider WHERE id=?");
+		prepared.setInt(1, id);
+		ResultSet result = prepared.executeQuery();
+		if (result.next()) {	
 			setId(id);
 			setName(result.getString(1));
 			setFirst_name(result.getString(2));
@@ -72,7 +73,7 @@ public class Provider {
 			setEmail(result.getString(16));
 			setWebsite(result.getString(17));
 			setInitial_Credit(result.getDouble(18));
-			}
+		}
 			
 			
 		} catch (Exception e) {
