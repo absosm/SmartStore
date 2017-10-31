@@ -270,10 +270,11 @@ public class ClientsForm extends JFrame {
 			while(result.next())  
 			{
 				tableModel.addRow(
-					new Object[]{result.getString("id"),result.getString("Nom"),
-					result.getString("Prenom"),result.getString("TelPortable"),
-					result.getString("Adresse"),result.getString("wilaya"),
-					result.getString("Commune"),result.getString("Solde_Initial")
+					new Object[]{result.getString("id"),
+							result.getString("Name"),
+					result.getString("First_name"),result.getString("Mobile_Number"),
+					result.getString("Address"),result.getString("Wilaya"),
+					result.getString("City"),result.getString("Initial_Credit")
 					});
 			}
 		

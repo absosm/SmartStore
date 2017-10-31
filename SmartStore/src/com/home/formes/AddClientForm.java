@@ -544,7 +544,7 @@ public class AddClientForm extends JFrame {
 	{
 		                												
 		DataBase database=Session.getDatabase();
-		String SqlQury="select * from Client where Nom LIKE '"+nom+"%' AND Prenom LIKE '"+prenom+"%';";		
+		String SqlQury="select * from Client where Name LIKE '"+nom+"%' AND First_name LIKE '"+prenom+"%';";		
 		return database.getResult(SqlQury); 
 	}
 	/************************************************************************************************/
