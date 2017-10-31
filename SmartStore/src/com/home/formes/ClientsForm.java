@@ -231,9 +231,10 @@ public class ClientsForm extends JFrame {
 		
 		JButton btnSupprimer = new JButton("Supprimer");
 		btnSupprimer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					
+			public void actionPerformed(ActionEvent e) 
+			{
+				try 
+				{
 					List<String> list = new ArrayList<String>();
 					DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 					int a=table.getSelectedRow();
@@ -242,7 +243,6 @@ public class ClientsForm extends JFrame {
 					list.add(tableModel.getValueAt(a, 2).toString());
 					list.add(tableModel.getValueAt(a, 7).toString());
 					new Sup_Client_Form(list);                             // lancer une fenêtre pour valider la suppression
-					
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(new JFrame(),e1.getMessage()+"\n Sélectionnez l'élément pour supprimer ","ERREUR",JOptionPane.ERROR_MESSAGE);
 					
@@ -270,8 +270,8 @@ public class ClientsForm extends JFrame {
 			while(result.next())  
 			{
 				tableModel.addRow(
-					new Object[]{result.getString("id"),
-							result.getString("Name"),
+					new Object[]{
+					result.getString("id"),result.getString("Name"),
 					result.getString("First_name"),result.getString("Mobile_Number"),
 					result.getString("Address"),result.getString("Wilaya"),
 					result.getString("City"),result.getString("Initial_Credit")
