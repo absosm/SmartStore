@@ -554,25 +554,7 @@ public class AddClientForm extends JFrame {
 	private static void Ajouter_Client(){
 		ResultSet resultSet=null;
 		try {
-			Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
-			Matcher matcher1 = pattern.matcher(tfemail.getText());// passage de parametre
-			if(matcher1.find() || tfemail.getText().equals("") ){
-				DataBase database = Session.getDatabase();
-				String selectSQL=null;
-				PreparedStatement prepared=null;
-				try {
-					selectSQL="select * from client where Nom=? AND Prenom =?";
-					prepared = (PreparedStatement) database.getConnection()
-						.prepareStatement(selectSQL);
-					prepared.setString(1, tfnom.getText());
-					prepared.setString(2, tfprenom.getText());
-					resultSet=prepared.executeQuery();
-					resultSet.last();
-					
-				} catch (SQLException g) {
-					g.printStackTrace();
-				} 
-			if(resultSet.getRow() !=0)
+			if(Client.exist(tfnom.getText(), tfprenom.getText()))
 			{
 				JOptionPane.showMessageDialog(new JFrame(), "le client déjà existe", "ERREUR de connection",
 				        JOptionPane.ERROR_MESSAGE);
@@ -582,6 +564,7 @@ public class AddClientForm extends JFrame {
 			{
 				try {
 					Client client = new Client();
+					if (client.setEmail(tfemail.getText())){
 					client.setName(tfnom.getText());
 					client.setFirst_name(tfprenom.getText());
 					client.setAddress(tfadresse.getText());
@@ -598,12 +581,12 @@ public class AddClientForm extends JFrame {
 					client.setNIS(tfnis.getText());
 					client.setRIB(tfrib.getText());
 					client.setBank_Account(tfcomptebancaire.getText());
-					client.setEmail(tfemail.getText());
 					client.setWebsite(tfsiteweb.getText());
 					client.setPricing_Mode(cbmodetarif.getSelectedIndex());
 					client.setLimitation_Credit(Double.parseDouble(tflimitation.getText()));
 					client.setInitial_Credit(Double.parseDouble(tfsolde_initial.getText()));
 					client.add();
+					
 							
 						
 							JOptionPane.showMessageDialog(new JFrame(), "Inscription Success", "Information d'inscription",
@@ -612,19 +595,13 @@ public class AddClientForm extends JFrame {
 							tfemail.setText(null);tffamille.setText(null);tffax.setText(null);tfnart.setText(null);tflimitation.setText("0");
 							tfnif.setText(null);tfnis.setText(null);tfnom.setText(null);tfnrc.setText(null);tfprenom.setText(null);
 							tfrib.setText(null);tfsiteweb.setText(null);tftelfix.setText(null);tftelportabl.setText(null);tfsolde_initial.setText("0");
-						
+					}
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(new JFrame(), "erreur de type donnees", "ERREUR d'inscription",
 					        JOptionPane.ERROR_MESSAGE);
 				}
 				}
-		}
-			else
-			{
-				JOptionPane.showMessageDialog(new JFrame(), "Adresse e-mail incorrecte \t\t \n E-Mail format:   xxxxxx@yyyy.zzz", "ERREUR d'inscription",
-				        JOptionPane.ERROR_MESSAGE);
-				
-			}
+		
 							
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(new JFrame(), ex, "ERREUR de connection",

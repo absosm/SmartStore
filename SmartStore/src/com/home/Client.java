@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 /**
  * @author DocteurTnou
  *
@@ -316,9 +319,27 @@ public class Client {
 	{
 		return Email;
 	}
-	public void setEmail(String email)
+	public boolean setEmail(String email)
 	{
-		this.Email=email;
+		try {
+			Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
+			Matcher matcher1 = pattern.matcher(email);// passage de parametre
+			if(matcher1.find() ||email.equals("") ){
+			this.Email=email;
+			return true;
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(new JFrame(), "Adresse e-mail incorrecte \t\t \n E-Mail format:   xxxxxx@yyyy.zzz", "ERREUR d'inscription",
+				        JOptionPane.ERROR_MESSAGE);
+				return false;
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		
 	}
 	/**
 	 * @param email
@@ -335,8 +356,7 @@ public class Client {
 		catch (Exception e) {
 		// TODO: handle exception
 			}
-		return false;
-		
+		return false;		
 	}
 	/**
 	 * @return
@@ -398,7 +418,7 @@ public class Client {
 	{
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement("select * from client where Name=? AND First_name =? ");
+			prepareStatement("select * from client where Name=? AND First_name =? ");
 			prepared.setString(1, name);
 			prepared.setString(2, First_name);
 			ResultSet resultSet=prepared.executeQuery();
@@ -468,10 +488,15 @@ public class Client {
 			prepared.setInt   (19, getPricing_Mode());
 			prepared.setDouble(20, getLimitation_Credit());
 			prepared.setDouble(21, getInitial_Credit());
-			if(prepared.executeUpdate()>0){
+			System.out.println("hello world");
+			if(prepared.executeUpdate()>0)
+			{	
 				ResultSet result = prepared.getGeneratedKeys();
 				result.next();
 				this.setId(result.getInt(1));				
+			}
+			else{
+				System.out.println("noussaiba Bawala");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -481,7 +506,7 @@ public class Client {
 	}
 	
 	/**
-	 * @return
+	 * @return 
 	 * void delete Client
 	 */
 	public void delete(){
@@ -519,9 +544,10 @@ public class Client {
 	{
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement("UPDATE client SET Name=? ,First_name=? ,Address=? ,Family=? ,Postal_Code=? ,Wilaya=?"
+					        prepareStatement("UPDATE client SET Name=? ,First_name=? ,Address=? ,Family=? ,Postal_Code=? ,Wilaya=?"
 							+ ",City=? ,Mobile_Number=? ,Telphone=? ,Fax=? ,NRC=? ,NART=? ,NIF=? ,NIS=? ,RIB=? ,Bank_Account=?"
 							+ ",Email=? ,Website=? ,Pricing_Mode=? ,Limitation_Credit=? ,Initial_Credit=? WHERE id=?;");
+			
 			prepared.setString(1 , getName());
 			prepared.setString(2 , getFirst_name());
 			prepared.setString(3 , getAddress());
@@ -543,7 +569,7 @@ public class Client {
 			prepared.setInt   (19, getPricing_Mode());
 			prepared.setDouble(20, getLimitation_Credit());
 			prepared.setDouble(21, getInitial_Credit());
-			prepared.setInt(22, getId());
+			prepared.setInt   (22, getId());
 			prepared.executeUpdate();			
 		} catch (Exception e) {
 			// TODO: handle exception
