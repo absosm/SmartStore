@@ -197,6 +197,7 @@ public class AuthentificationForm {
 				}
 				
 				if (User.exist(tf_login.getText(), Encode.sha256(tf_loginpassword.getText()))) {
+					
 					Session.setUser(User.get(tf_login.getText()));
 					Session.start();
 					frmAuthentification.setVisible(false);

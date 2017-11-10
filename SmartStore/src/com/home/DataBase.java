@@ -84,6 +84,7 @@ public class DataBase {
     	 */
     	this.port = 3306;				// port par défault de MySQL server
     	this.driver = DataBase.MYSQL;	// identifier le moteur
+    	statement = null;
     }
     
     public DataBase(int driver, int port) {
@@ -178,9 +179,13 @@ public class DataBase {
 	 * déconnexion la laiason    
 	 */
     public void Disconnect() {
-        try {
-        	statement.close();
-            connection.close();
+        
+    	try {
+        	
+        	if (statement != null) statement.close();
+        		
+        	if (connection != null) connection.close();
+            
         }catch (Exception e) {
         	e.printStackTrace();
         }
