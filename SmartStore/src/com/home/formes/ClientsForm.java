@@ -269,10 +269,10 @@ public class ClientsForm extends JFrame {
 			field_name = "id";
 			break;
 		case 1:
-			field_name = "Nom";
+			field_name = "firstname";
 			break;
 		case 2:
-			field_name = "Prenom";
+			field_name = "lastname";
 			break;
 		}
 		
@@ -290,10 +290,10 @@ public class ClientsForm extends JFrame {
 			{
 				model.addRow(
 					new Object[]{
-					result.getString("id"),result.getString("Nom"),
-					result.getString("Prenom"),result.getString("TelPortable"),
-					result.getString("Adresse"),result.getString("wilaya"),
-					result.getString("Commune"),result.getString("Solde_Initial")
+					result.getString("id"),result.getString("firstname"),
+					result.getString("lastname"),result.getString("mobile"),
+					result.getString("address"),result.getString("wilaya"),
+					result.getString("city"),result.getString("solde")
 				});
 			}
 			table.setModel(model);
