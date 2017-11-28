@@ -518,19 +518,6 @@ public class AddClientForm extends JFrame {
 	}
 	
 ////////////////////////////////////////////////les méthodes/////////////////////////////////////////////////////////////
-	/**
-	 * @param ID
-	 * @return 
-	 * cette methode faire une recherche d'un client a base de identificateur 
-	 * la methode returner le resultate pour l'affichge
-	 */
-	public static ResultSet ID_search_Client(int ID)//
-															
-	{
-		DataBase database= Session.getDatabase();
-		String SqlQury="select * from Client where id="+ID+";";		
-		return database.getResult(SqlQury); 
-	}
 	
 	/********************************************************************************************/
 	/**

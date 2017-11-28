@@ -31,6 +31,9 @@ public class Session {
 	public static final int CLIENTS					= 7;
 	public static final int PROVIDERS				= 8;
 	
+	public static final int ADDCLIENT				= 9;
+	
+	
 	public static void start() {
 		
 		user.login();

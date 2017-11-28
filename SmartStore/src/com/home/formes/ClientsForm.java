@@ -28,6 +28,7 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.home.DataBase;
 import com.home.Session;
 import com.home.formes.AddClientForm.*;
 
@@ -41,15 +42,25 @@ import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JToolBar;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class ClientsForm extends JFrame {
 
 	private JPanel contentPane;
-	private static JTextField Nom_client;
-	private static JTextField Prenom_client;
-	private static JTextField Num_Client;
 	private static JTable table;
 	private static Connection connecet=null;
+	private JTextField tffind;
+	private JComboBox comboBox;
 
 	/**
 	 * Launch the application.
@@ -87,10 +98,81 @@ public class ClientsForm extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JToolBar toolBar = new JToolBar();
+		toolBar.setBounds(0, 0, 984, 59);
+		contentPane.add(toolBar);
+		
+		JButton btnNewButton_1 = new JButton("Ajouter");
+		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				// pour ajouter un client
+				if (!Session.isSetForm(Session.ADDCLIENT))
+					// creer un instance du class "addClient"
+					Session.setForm(Session.ADDCLIENT, new AddClientForm());
+			}
+		});
+		btnNewButton_1.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/employeeIcon.png")));
+		toolBar.add(btnNewButton_1);
+		
+		JButton button = new JButton("Supprimer");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		button.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Delete_48.png")));
+		button.setFont(new Font("Tahoma", Font.BOLD, 14));
+		toolBar.add(button);
+
+		toolBar.addSeparator(new Dimension(15, 48));
+		
+		JPanel panel = new JPanel();
+		toolBar.add(panel);
+		
+		JLabel lblRecherchePar = new JLabel("Recherche par:");
+		lblRecherchePar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+		comboBox = new JComboBox();
+		comboBox.setFont(new Font("Tahoma", Font.BOLD, 14));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Code", "Nom", "Prenom"}));
+		
+		tffind = new JTextField();
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblRecherchePar)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(tffind, GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblRecherchePar))
+						.addComponent(tffind, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		panel.setLayout(gl_panel);
+		
+		JButton btnNewButton = new JButton("");
+		toolBar.add(btnNewButton);
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnNewButton.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Search-icon.png")));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(10, 70, 964, 479);
+		contentPane.add(panel_1);
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(10, 136, 964, 414);
-		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		table.setFillsViewportHeight(true);
@@ -147,112 +229,27 @@ public class ClientsForm extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(table);
-		
-		Nom_client = new JTextField();
-		Nom_client.addKeyListener(new KeyAdapter() {
-			
-			public void keyTyped(KeyEvent arg0) {
-				try {
-					affichage_table(AddClientForm.info_search_Client(Nom_client.getText(),Prenom_client.getText())); // recherche intelligent
-					
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(new JFrame(),e.getMessage()+"\n erreur de recherche à partir le Nom","ERREUR",JOptionPane.ERROR_MESSAGE);
-					
-				}
-			}
-		});
-		Nom_client.setBounds(61, 70, 151, 47);
-		contentPane.add(Nom_client);
-		Nom_client.setColumns(10);
-		
-		JLabel lblNewLabel = new JLabel("Nom");
-		lblNewLabel.setBounds(21, 81, 46, 23);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		contentPane.add(lblNewLabel);		
-		Prenom_client = new JTextField();
-		Prenom_client.addKeyListener(new KeyAdapter() {
-			
-			public void keyTyped(KeyEvent arg0) {
-				try {
-					affichage_table(AddClientForm.info_search_Client(Nom_client.getText(),Prenom_client.getText()));// #hhhh recherche intelligent
-
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(new JFrame(),e.getMessage()+"\n erreur de recherche à partir le PréNom","ERREUR",JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		Prenom_client.setBounds(281, 70, 157, 47);
-		Prenom_client.setColumns(10);
-		contentPane.add(Prenom_client);
-		
-		JLabel lblPrenom = new JLabel("Prenom");
-		lblPrenom.setBounds(219, 81, 59, 23);
-		lblPrenom.setFont(new Font("Tahoma", Font.BOLD, 14));
-		contentPane.add(lblPrenom);
-		
-		Num_Client = new JTextField();
-		Num_Client.setBounds(508, 70, 104, 47);
-		Num_Client.setColumns(10);
-		contentPane.add(Num_Client);
-		
-		JLabel lblNclient = new JLabel("N°Client");
-		lblNclient.setBounds(448, 80, 62, 23);
-		lblNclient.setFont(new Font("Tahoma", Font.BOLD, 14));
-		contentPane.add(lblNclient);
-		
-		JButton btnNewButton = new JButton("Recherche");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Search-icon.png")));
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		panel_1.setLayout(gl_panel_1);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					if(!Num_Client.getText().equals("")){
-					affichage_table(AddClientForm.ID_search_Client(Integer.parseInt(Num_Client.getText())));   // recherche avec ID et 
-					}   																						// et afficher le résultat dans une table
-					}
-				catch (Exception e) {
-					JOptionPane.showMessageDialog(new JFrame(),e.getMessage()+"\n erreur de recherche à partir le Numéro ID,","ERREUR",JOptionPane.ERROR_MESSAGE);
-				}
+				FindBy(comboBox.getSelectedIndex(), tffind.getText());
 			}
 		});
-		btnNewButton.setBounds(634, 70, 157, 47);
-		contentPane.add(btnNewButton);
-		
-		JButton btnAjouter = new JButton("Ajouter");
-		btnAjouter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new AddClientForm();                // creer un instance du class "addClient"   
-			}                                    // pour ajouter un client 
-		});
-		btnAjouter.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/employeeIcon.png")));
-		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnAjouter.setBounds(61, 2, 153, 57);
-		contentPane.add(btnAjouter);
-		
-		JButton btnSupprimer = new JButton("Supprimer");
-		btnSupprimer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				try 
-				{
-					List<String> list = new ArrayList<String>();
-					DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-					int a=table.getSelectedRow();
-					list.add(tableModel.getValueAt(a, 0).toString()); // passer les informations de Client
-					list.add(tableModel.getValueAt(a, 1).toString());
-					list.add(tableModel.getValueAt(a, 2).toString());
-					list.add(tableModel.getValueAt(a, 7).toString());
-					new Sup_Client_Form(list);                             // lancer une fenêtre pour valider la suppression
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(new JFrame(),e1.getMessage()+"\n Sélectionnez l'élément pour supprimer ","ERREUR",JOptionPane.ERROR_MESSAGE);
-					
-				}
-			}
-		});
-		btnSupprimer.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Delete_48.png")));
-		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnSupprimer.setBounds(281, 2, 157, 57);
-		contentPane.add(btnSupprimer);
 	}
 	/************************************************************************************************/
 	
@@ -261,29 +258,47 @@ public class ClientsForm extends JFrame {
 	 * @param result
 	 * methode pour l'affichage des resultates des recherche client
 	 */
-	private static void affichage_table(ResultSet result) 
-	{            										 
+	private void FindBy(int FindType, String value) 
+	{
+		DataBase database= Session.getDatabase();
+		String sql_format = "SELECT * FROM Client WHERE %s=?";
+		String field_name = null, SQL = null;
+		
+		switch (FindType) {
+		case 0:
+			field_name = "id";
+			break;
+		case 1:
+			field_name = "Nom";
+			break;
+		case 2:
+			field_name = "Prenom";
+			break;
+		}
+		
+		SQL = String.format(sql_format, field_name);
+		
 		try {
-			DefaultTableModel tableModel=(DefaultTableModel) table.getModel(); 
-			tableModel.setNumRows(0);
+			PreparedStatement ps = database.getConnection().prepareStatement(SQL);
+			ps.setString(1, value);
+			ResultSet result = ps.executeQuery();
+		
+			DefaultTableModel model = (DefaultTableModel) table.getModel(); 
+			model.setNumRows(0);
 					
 			while(result.next())  
 			{
-				tableModel.addRow(
+				model.addRow(
 					new Object[]{
-					result.getString("id"),result.getString("Name"),
-					result.getString("First_name"),result.getString("Mobile_Number"),
-					result.getString("Address"),result.getString("Wilaya"),
-					result.getString("City"),result.getString("Initial_Credit")
-					});
+					result.getString("id"),result.getString("Nom"),
+					result.getString("Prenom"),result.getString("TelPortable"),
+					result.getString("Adresse"),result.getString("wilaya"),
+					result.getString("Commune"),result.getString("Solde_Initial")
+				});
 			}
-		
-			
+			table.setModel(model);
 		} catch (Exception e) {    
-			JOptionPane.showMessageDialog(new JFrame(),e.getMessage(),"ERREUR",JOptionPane.ERROR_MESSAGE);
-			
+			e.printStackTrace();
 		}
-		
-		
 	}
 }
