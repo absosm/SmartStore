@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import com.home.Client;
 import com.home.DataBase;
 import com.home.Session;
 import com.mysql.jdbc.PreparedStatement;
@@ -38,37 +39,40 @@ import java.util.regex.Pattern;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 
 public class UpdateClientForm extends JFrame {
 
 	private JPanel contentPane;
-	private static JTextField tfnom;
-	private static JTextField tfprenom;
-	private static JTextField tfadresse;
-	private static JTextField tffamille;
-	private static JTextField tfcodepostal;
-	private static JTextField tftelportabl;
-	private static JTextField tftelfix;
-	private static JTextField tffax;
-	private static JTextField tfnrc;
-	private static JTextField tfnif;
-	private static JTextField tfcomptebancaire;
-	private static JTextField tfemail;
-	private static JTextField tfnart;
-	private static JTextField tfnis;
-	private static JTextField tfrib;
-	private static JTextField tfsiteweb;
-	private static JTextField tflimitation;
-	private static JTextField tfsolde_initial;
-	private static JComboBox  tfwilaya;
-	private static JComboBox  tfcommune;
-	private static JComboBox  cbmodetarif;
-	private static JButton 	  btnModifier;
-	private static JLabel 	  id_label;
-	private static Connection connecet=null;
-	static private JTextField tfId;
+	private JTextField tffirstname;
+	private JTextField tflastname;
+	private JTextField tfaddress;
+	private JTextField tffamily;
+	private JTextField tfzip;
+	private JTextField tftelportabl;
+	private JTextField tftelfix;
+	private JTextField tffax;
+	private JTextField tfnrc;
+	private JTextField tfnif;
+	private JTextField tfcomptebancaire;
+	private JTextField tfemail;
+	private JTextField tfnart;
+	private JTextField tfnis;
+	private JTextField tfrib;
+	private JTextField tfsiteweb;
+	private JTextField tflimitation;
+	private JTextField tfsolde_initial;
+	private JComboBox  tfwilaya;
+	private JComboBox  tfcommune;
+	private JComboBox  cbmodetarif;
+	private JButton 	  btnModifier;
+	private JLabel 	  id_label;
+	private JTextField tfId;
+	
+	private Client client;
 	
 
 	/**
@@ -93,7 +97,16 @@ public class UpdateClientForm extends JFrame {
 	 */
 	// constructeur avec un paramètre pour la recherche et la modification 
 	
-	public UpdateClientForm(Integer Num) {
+	public UpdateClientForm(Client client) {
+		
+		this.client = client;
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				Session.removeForm(Session.UPDATECLIENT);
+			}
+		});
 		
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
@@ -103,7 +116,7 @@ public class UpdateClientForm extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UpdateClientForm.class.getResource("/images/employeeIcon.png")));
 
 		
-		setTitle("Modifier Client");
+		setTitle("Modifier Client [code: "+client.getId()+" ]");
 		
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 700, 450);
@@ -133,17 +146,17 @@ public class UpdateClientForm extends JFrame {
 			lblPrenom.setBounds(321, 11, 63, 14);
 			panel.add(lblPrenom);
 			
-			tfnom = new JTextField();
-			tfnom.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			tfnom.setBounds(69, 8, 242, 30);
-			panel.add(tfnom);
-			tfnom.setColumns(10);
+			tffirstname = new JTextField(client.getFirstname());
+			tffirstname.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			tffirstname.setBounds(69, 8, 242, 30);
+			panel.add(tffirstname);
+			tffirstname.setColumns(10);
 			
-			tfprenom = new JTextField();
-			tfprenom.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			tfprenom.setColumns(10);
-			tfprenom.setBounds(399, 8, 232, 30);
-			panel.add(tfprenom);
+			tflastname = new JTextField(client.getLastname());
+			tflastname.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			tflastname.setColumns(10);
+			tflastname.setBounds(399, 8, 232, 30);
+			panel.add(tflastname);
 			
 			JLabel lblAdresse = new JLabel("Adresse ");
 			lblAdresse.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -156,17 +169,17 @@ public class UpdateClientForm extends JFrame {
 			lblFamille.setBounds(409, 58, 56, 14);
 			panel.add(lblFamille);
 			
-			tfadresse = new JTextField();
-			tfadresse.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			tfadresse.setColumns(10);
-			tfadresse.setBounds(69, 52, 326, 30);
-			panel.add(tfadresse);
+			tfaddress = new JTextField(client.getAddress());
+			tfaddress.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			tfaddress.setColumns(10);
+			tfaddress.setBounds(69, 52, 326, 30);
+			panel.add(tfaddress);
 			
-			tffamille = new JTextField();
-			tffamille.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			tffamille.setColumns(10);
-			tffamille.setBounds(466, 52, 165, 30);
-			panel.add(tffamille);
+			tffamily = new JTextField(client.getFamily());
+			tffamily.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			tffamily.setColumns(10);
+			tffamily.setBounds(466, 52, 165, 30);
+			panel.add(tffamily);
 			
 			JLabel lblCode = new JLabel("Code");
 			lblCode.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -178,13 +191,13 @@ public class UpdateClientForm extends JFrame {
 			lblPostal.setBounds(10, 107, 46, 14);
 			panel.add(lblPostal);
 			
-			tfcodepostal = new JTextField();
-			tfcodepostal.addKeyListener(new KeyAdapter() {
+			tfzip = new JTextField(client.getZip());
+			tfzip.addKeyListener(new KeyAdapter() {
 			
 				public void keyTyped(KeyEvent evt) {
 					char c=evt.getKeyChar();
 					if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
-							tfcodepostal.getText().length()>=5)
+							tfzip.getText().length()>=5)
 					{
 						getToolkit().beep();
 						evt.consume();
@@ -192,11 +205,11 @@ public class UpdateClientForm extends JFrame {
 					}
 				}
 			});
-			tfcodepostal.setText("0");
-			tfcodepostal.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			tfcodepostal.setBounds(69, 93, 63, 30);
-			panel.add(tfcodepostal);
-			tfcodepostal.setColumns(10);
+			tfzip.setText("0");
+			tfzip.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			tfzip.setBounds(69, 93, 63, 30);
+			panel.add(tfzip);
+			tfzip.setColumns(10);
 			
 			JLabel lblWilaya = new JLabel("Wilaya");
 			lblWilaya.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -518,7 +531,7 @@ public class UpdateClientForm extends JFrame {
 			btnModifier = new JButton("Modifier");
 			btnModifier.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					Modifier_Client_Sql();
+					
 				}
 			});
 			btnModifier.setIcon(new ImageIcon(UpdateClientForm.class.getResource("/images/if_user_profile_edit_103781.png")));
@@ -527,125 +540,5 @@ public class UpdateClientForm extends JFrame {
 			btnModifier.setBounds(50, 353, 123, 41);
 			contentPane.add(btnModifier);
 			btnModifier.setVisible(true);
-			Modifier_clien(recherche_client_avec_num(Num));
-	}
-	/**
-	 * @param Num
-	 * @return
-	 * cette méthode prend l'identificateur de Client
-	 * et faire une recherche sur la base de données
-	 */
-	public static ResultSet recherche_client_avec_num(Integer Num) // cette méthode prend les informations depuis le tableau 
-	{															  // et faire une recherche sur la base de données
-		DataBase database = Session.getDatabase();
-		String SqlQury="select * from client where id='"+Num+"';";
-		try {
-			return database.getResult(SqlQury);  
-			                  
-		} catch (Exception e) {			 
-			JOptionPane.showMessageDialog(new JFrame(),e.getMessage(),"ERREUR",JOptionPane.ERROR_MESSAGE);
-			
-		}		
-		return null;
-		
-		 
-	}
-	/**
-	 * @param result
-	 * la methode charger tous les information du client selectionner
-	 * et remplir le formulaire a partire result
-	 */
-	public static void Modifier_clien(ResultSet result) 
-	{                                                   
-		try {    if (result!=null){
-						result.next();
-						
-						
-					 tfId.setText(result.getString("id"));
-					 tfnom.setText(result.getString("Nom"));
-					 tfprenom.setText(result.getString("prenom"));
-					 tfadresse.setText(result.getString("Adresse"));
-					 tffamille.setText(result.getString("Famille"));
-					 tfcodepostal.setText(result.getString("CodePostal"));
-					 tftelportabl.setText(result.getString("TelPortable"));
-					 tftelfix.setText(result.getString("TeleFix"));
-					 tffax.setText(result.getString("Fax"));
-					 tfnrc.setText(result.getString("NRC"));
-					 tfnif.setText(result.getString("NIF"));
-					 tfcomptebancaire.setText(result.getString("ComptBancaire"));
-					 tfemail.setText(result.getString("Email"));
-					 tfnart.setText(result.getString("NART"));
-					 tfnis.setText(result.getString("NIS"));
-					 tfrib.setText(result.getString("RIB"));
-					 tfsiteweb.setText(result.getString("Siteweb"));
-					 tflimitation.setText(result.getString("LimitationCredit"));
-					 tfsolde_initial.setText(result.getString("Solde_Initial"));
-					 
-					 cbmodetarif.setSelectedIndex((Integer.valueOf(result.getString("ModeTarif"))));
-					 tfwilaya.setSelectedItem(result.getString("wilaya"));
-					 tfcommune.setSelectedItem(result.getString("Commune"));					 
-					}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-	}
-	
-	/**
-	 * 
-	 */
-	public static void Modifier_Client_Sql()
-	{
-		PreparedStatement prepared=null;
-		try {
-			Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
-			Matcher matcher1 = pattern.matcher(tfemail.getText());// passage de parametre
-			if(matcher1.find() || tfemail.getText().equals("") ){
-			DataBase database=Session.getDatabase();
-			String selectSQL="UPDATE client SET Nom=? ,Prenom=? ,Adresse=? ,Famille=? ,CodePostal=? ,wilaya=?"
-					+ ",Commune=? ,TelPortable=? ,TeleFix=? ,Fax=? ,NRC=? ,NART=? ,NIF=? ,NIS=? ,RIB=? ,ComptBancaire=?"
-					+ ",Email=? ,SiteWeb=? ,ModeTarif=? ,LimitationCredit=? ,Solde_Initial=? WHERE id=?;";	
-			prepared=(PreparedStatement) database.getConnection().prepareStatement(selectSQL);
-			prepared.setString(1,  tfnom.getText());
-			prepared.setString(2,  tfprenom.getText());
-			prepared.setString(3,  tfadresse.getText());
-			prepared.setString(4,  tffamille.getText());
-			prepared.setInt(5,     Integer.parseInt("0"+tfcodepostal.getText()));
-			prepared.setString(6,  tfwilaya.getSelectedItem().toString());
-			prepared.setString(7,  tfcommune.getSelectedItem().toString());
-			prepared.setString(8,  tftelportabl.getText());
-			prepared.setString(9,  tftelfix.getText());
-			prepared.setString(10, tffax.getText());
-			prepared.setString(11, tfnrc.getText());
-			prepared.setString(12, tfnart.getText());
-			prepared.setString(13, tfnif.getText());
-			prepared.setString(14, tfnis.getText());
-			prepared.setString(15, tfrib.getText());
-			prepared.setString(16, tfcomptebancaire.getText());
-			prepared.setString(17, tfemail.getText());
-			prepared.setString(18, tfsiteweb.getText());
-			prepared.setInt(19,    cbmodetarif.getSelectedIndex());
-			prepared.setDouble(20, Double.parseDouble(tflimitation.getText()));
-			prepared.setDouble(21, Double.parseDouble(tfsolde_initial.getText()));
-			prepared.setDouble(22, Double.parseDouble(tfId.getText()));
-			prepared.executeUpdate();
-				JOptionPane.showMessageDialog(new JFrame(), "Modification Success", "Information d'inscription",
-				        JOptionPane.INFORMATION_MESSAGE);
-			
-		}
-			else
-			{
-				JOptionPane.showMessageDialog(new JFrame(), "Adresse e-mail incorrecte \t\t \n E-Mail format:   xxxxxx@yyyy.zzz", "ERREUR d'inscription",
-				        JOptionPane.ERROR_MESSAGE);
-				
-			}
-							
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(new JFrame(), ex, "ERREUR de connection",
-			        JOptionPane.ERROR_MESSAGE);
-			
-				//ex.printStackTrace();
-		}
-		
 	}
 }

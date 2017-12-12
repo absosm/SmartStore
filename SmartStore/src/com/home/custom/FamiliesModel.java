@@ -10,6 +10,8 @@ public class FamiliesModel extends AbstractTableModel {
     private Vector<Vector> data;
     private String columnNames[] = {"Désignation", "Remarque", "Nombre"};
     
+    public static final int TAG = 3;
+    
     public FamiliesModel() {
         data = new Vector<Vector>();
     }
@@ -33,11 +35,11 @@ public class FamiliesModel extends AbstractTableModel {
     
     public void setValueAt(Object value, int row, int col) {
     	
-    	Family f = (Family) data.get(row).get(3);
+    	Family f = (Family) data.get(row).get(TAG);
     	
     	if (f == null) {
     		f = new Family();
-    		data.get(row).set(3, f);
+    		data.get(row).set(TAG, f);
     	}
     		
 		switch (col) {
@@ -62,11 +64,11 @@ public class FamiliesModel extends AbstractTableModel {
     }
     
     public Family getFamille(int row) {
-    	return (Family)data.get(row).get(3);
+    	return (Family)data.get(row).get(TAG);
     }
     
     public void delete(int row) {
-    	Family f = (Family)data.get(row).get(3);
+    	Family f = (Family)data.get(row).get(TAG);
     	f.delete();
     	data.remove(row);
     	fireTableDataChanged();

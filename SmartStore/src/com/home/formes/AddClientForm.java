@@ -551,27 +551,27 @@ public class AddClientForm extends JFrame {
 			{
 				try {
 					Client client = new Client();
-					if (client.setEmail(tfemail.getText())){
-					client.setName(tfnom.getText());
-					client.setFirst_name(tfprenom.getText());
+					if (client.setMail(tfemail.getText())){
+					client.setFirstname(tfnom.getText());
+					client.setLastname(tfprenom.getText());
 					client.setAddress(tfadresse.getText());
 					client.setFamily(tffamille.getText());
-					client.setPostal_Code(Integer.parseInt(tfcodepostal.getText()));
+					client.setZip(tfcodepostal.getText());
 					client.setWilaya(tfwilaya.getSelectedItem().toString());
 					client.setCity(tfcommune.getSelectedItem().toString());
-					client.setMobile_Number(tftelportabl.getText());
-					client.setTelphone(tftelfix.getText());
+					client.setMobile(tftelportabl.getText());
+					client.setPhone(tftelfix.getText());
 					client.setFax(tffax.getText());
 					client.setNRC(tfnrc.getText());
 					client.setNART(tfnart.getText());
 					client.setNIF(tfnif.getText());
 					client.setNIS(tfnis.getText());
 					client.setRIB(tfrib.getText());
-					client.setBank_Account(tfcomptebancaire.getText());
+					client.setBank_account(tfcomptebancaire.getText());
 					client.setWebsite(tfsiteweb.getText());
-					client.setPricing_Mode(cbmodetarif.getSelectedIndex());
-					client.setLimitation_Credit(Double.parseDouble(tflimitation.getText()));
-					client.setInitial_Credit(Double.parseDouble(tfsolde_initial.getText()));
+					client.setMode(cbmodetarif.getSelectedIndex());
+					client.setCredit_limit(Double.parseDouble(tflimitation.getText()));
+					client.setCredit(Double.parseDouble(tfsolde_initial.getText()));
 					client.add();
 					
 							

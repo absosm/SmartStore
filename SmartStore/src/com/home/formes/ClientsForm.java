@@ -28,8 +28,12 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.home.Client;
 import com.home.DataBase;
+import com.home.Family;
 import com.home.Session;
+import com.home.custom.ClientsModel;
+import com.home.custom.FamiliesModel;
 import com.home.formes.AddClientForm.*;
 
 import javax.swing.ScrollPaneConstants;
@@ -58,9 +62,10 @@ public class ClientsForm extends JFrame {
 
 	private JPanel contentPane;
 	private static JTable table;
-	private static Connection connecet=null;
 	private JTextField tffind;
 	private JComboBox comboBox;
+	private JButton btndelete;
+	private JButton btnEdit;
 
 	/**
 	 * Launch the application.
@@ -92,15 +97,12 @@ public class ClientsForm extends JFrame {
 		setTitle("Recherche");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ClientsForm.class.getResource("/images/Search-People-icon.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1000, 599);
+		setBounds(100, 100, 1008, 599);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		JToolBar toolBar = new JToolBar();
-		toolBar.setBounds(0, 0, 984, 59);
-		contentPane.add(toolBar);
 		
 		JButton btnNewButton_1 = new JButton("Ajouter");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -116,15 +118,34 @@ public class ClientsForm extends JFrame {
 		btnNewButton_1.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/employeeIcon.png")));
 		toolBar.add(btnNewButton_1);
 		
-		JButton button = new JButton("Supprimer");
-		button.addActionListener(new ActionListener() {
+		btndelete = new JButton("Supprimer");
+		btndelete.setEnabled(false);
+		btndelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				ClientsModel model = (ClientsModel)table.getModel();
+				model.delete(table.getSelectedRow());
 			}
 		});
-		button.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Delete_48.png")));
-		button.setFont(new Font("Tahoma", Font.BOLD, 14));
-		toolBar.add(button);
+		
+		btnEdit = new JButton("Modifier");
+		btnEdit.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/if_user_profile_edit_103781.png")));
+		btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				ClientsModel model = (ClientsModel)table.getModel();
+				Client client = model.getClient(table.getSelectedRow());
+				
+				if (!Session.isSetForm(Session.UPDATECLIENT))
+					Session.setForm(Session.UPDATECLIENT, new UpdateClientForm(client));
+				Session.showForm(Session.UPDATECLIENT);
+			}
+		});
+		btnEdit.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnEdit.setEnabled(false);
+		toolBar.add(btnEdit);
+		btndelete.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Delete_48.png")));
+		btndelete.setFont(new Font("Tahoma", Font.BOLD, 14));
+		toolBar.add(btndelete);
 
 		toolBar.addSeparator(new Dimension(15, 48));
 		
@@ -168,88 +189,73 @@ public class ClientsForm extends JFrame {
 		btnNewButton.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Search-icon.png")));
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 70, 964, 479);
-		contentPane.add(panel_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
 		table = new JTable();
 		table.setFillsViewportHeight(true);
+		table.setRowHeight(32);
 		table.addMouseListener(new MouseAdapter() {
 			
 			public void mouseClicked(MouseEvent event) {
-				if(event.getClickCount()>=2)
-				{
-					DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-					int a=table.getSelectedRow();
-					Object num = tableModel.getValueAt(a, 0);
-					if(num!=null){
-					new UpdateClientForm(Integer.valueOf(num.toString()));
-					}
+				
+				ClientsModel model = (ClientsModel)table.getModel();
+				Client c = model.getClient(table.getSelectedRow());
+				
+				if (c != null) {
+					btnEdit.setEnabled(true);
+					btndelete.setEnabled(true);
+				} else {
+					btnEdit.setEnabled(false);
+					btndelete.setEnabled(false);
 				}
 			}
 		});
 		table.setFont(new Font("Tahoma", Font.BOLD, 14));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"N\u00B0Client", "Nom", "Prenom", "Telephone", "Adresse", "Wilaya", "Commune", "Solde"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		ClientsModel model = new ClientsModel();
+		table.setModel(model);
 		scrollPane.setViewportView(table);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 954, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		panel_1.setLayout(gl_panel_1);
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addComponent(toolBar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(10)
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 974, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+					.addGap(11)
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		contentPane.setLayout(gl_contentPane);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				FindBy(comboBox.getSelectedIndex(), tffind.getText());
 			}
 		});
+		
+		Load();
 	}
 	/************************************************************************************************/
 	
@@ -261,7 +267,7 @@ public class ClientsForm extends JFrame {
 	private void FindBy(int FindType, String value) 
 	{
 		DataBase database= Session.getDatabase();
-		String sql_format = "SELECT * FROM Client WHERE %s=?";
+		String sql_format = "SELECT * FROM clients WHERE %s=?";
 		String field_name = null, SQL = null;
 		
 		switch (FindType) {
@@ -282,22 +288,33 @@ public class ClientsForm extends JFrame {
 			PreparedStatement ps = database.getConnection().prepareStatement(SQL);
 			ps.setString(1, value);
 			ResultSet result = ps.executeQuery();
-		
-			DefaultTableModel model = (DefaultTableModel) table.getModel(); 
-			model.setNumRows(0);
-					
-			while(result.next())  
-			{
-				model.addRow(
-					new Object[]{
-					result.getString("id"),result.getString("firstname"),
-					result.getString("lastname"),result.getString("mobile"),
-					result.getString("address"),result.getString("wilaya"),
-					result.getString("city"),result.getString("solde")
-				});
+
+			ClientsModel model = new ClientsModel();
+			while (result.next()) {
+				Client client = new Client(result.getInt("id"));
+				model.addRow(client);
 			}
 			table.setModel(model);
+			
 		} catch (Exception e) {    
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void Load() {
+		
+		DataBase database = Session.getDatabase();
+		try {
+			ResultSet result = database.getConnection().prepareStatement("SELECT id FROM clients").executeQuery();
+			ClientsModel model = new ClientsModel();
+			while (result.next()) {
+				Client client = new Client(result.getInt("id"));
+				model.addRow(client);
+			}
+			table.setModel(model);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
