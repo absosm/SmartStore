@@ -3,6 +3,7 @@
  * afficher une formulaire pour Modifier un Client
  */
 package com.home.formes;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -34,8 +35,6 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-
-
 public class UpdateClientForm extends JFrame {
 	
 	private Client client;
@@ -65,26 +64,6 @@ public class UpdateClientForm extends JFrame {
 	private JLabel 	  id_label;
 	private JTextField tfId;
 	private JTextField tflastname;
-	
-	
-	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					//Modifier_Clients frame = new Modifier_Clients();
-					//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

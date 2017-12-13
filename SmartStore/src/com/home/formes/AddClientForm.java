@@ -61,22 +61,6 @@ public class AddClientForm extends JFrame {
 	private JComboBox  cbmode;
 	private JButton    btnOk;
 	private JLabel 	  id_label;
-	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AddClientForm frame = new AddClientForm();
-					} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
