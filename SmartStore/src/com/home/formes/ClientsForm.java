@@ -57,6 +57,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class ClientsForm extends JFrame {
 
@@ -74,9 +76,7 @@ public class ClientsForm extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					ClientsForm frame = new ClientsForm();
-					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -88,6 +88,12 @@ public class ClientsForm extends JFrame {
 	 * Create the frame.
 	 */
 	public ClientsForm() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				Load();
+			}
+		});
 		
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
@@ -96,7 +102,6 @@ public class ClientsForm extends JFrame {
 		
 		setTitle("Recherche");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ClientsForm.class.getResource("/images/Search-People-icon.png")));
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1008, 599);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -200,21 +205,38 @@ public class ClientsForm extends JFrame {
 			
 			public void mouseClicked(MouseEvent event) {
 				
-				ClientsModel model = (ClientsModel)table.getModel();
-				Client c = model.getClient(table.getSelectedRow());
-				
-				if (c != null) {
-					btnEdit.setEnabled(true);
-					btndelete.setEnabled(true);
-				} else {
-					btnEdit.setEnabled(false);
-					btndelete.setEnabled(false);
+				if (table.getSelectedRow()>=0) {
+					
+					ClientsModel model = (ClientsModel)table.getModel();
+					Client c = model.getClient(table.getSelectedRow());
+					if (c != null) {
+						btnEdit.setEnabled(true);
+						btndelete.setEnabled(true);
+					} else {
+						btnEdit.setEnabled(false);
+						btndelete.setEnabled(false);
+					}
 				}
+				
 			}
 		});
 		table.setFont(new Font("Tahoma", Font.BOLD, 14));
 		ClientsModel model = new ClientsModel();
-		table.setModel(model);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null, Boolean.FALSE, null},
+			},
+			new String[] {
+				"N\u00B0Client", "Nom", "Prenom", "Telephone", "Adresse", "Wilaya", "Commune", "Solde"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Object.class, Object.class, Object.class, String.class, Object.class, Integer.class, Boolean.class, Object.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
 		scrollPane.setViewportView(table);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -254,8 +276,6 @@ public class ClientsForm extends JFrame {
 				FindBy(comboBox.getSelectedIndex(), tffind.getText());
 			}
 		});
-		
-		Load();
 	}
 	/************************************************************************************************/
 	

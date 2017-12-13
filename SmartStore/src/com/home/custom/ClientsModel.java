@@ -1,15 +1,24 @@
 package com.home.custom;
 
 import java.util.Vector;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.table.AbstractTableModel;
 
+import com.home.Cities;
 import com.home.Client;
+
+import javafx.scene.control.ComboBox;
 
 public class ClientsModel extends AbstractTableModel {
 
     private Vector<Vector> data;
-    private String columnNames[] = {"N\u00B0Client", "Nom", "Prenom", "Telephone", 
+    private String columnNames[] = {"N\u00B0Client", "Nom", "Prenom", "Mobile", 
     								"Adresse", "Wilaya", "Commune", "Solde"};
+	private Class[] columnTypes = new Class[] {
+		Object.class, Object.class, Object.class, Object.class, Object.class, Object.class , Object.class, Object.class
+	};
     
     public static final int TAG = 8;
     
@@ -31,7 +40,10 @@ public class ClientsModel extends AbstractTableModel {
     }
     
     public boolean isCellEditable(int row, int col) { 
-    	return true; 
+    	if (col == 0 || col == 5 || col == 6)
+    		return false;
+    	else
+    		return true; 
     }
     
     public void setValueAt(Object value, int row, int col) {
@@ -54,16 +66,10 @@ public class ClientsModel extends AbstractTableModel {
 			c.setLastname((String)value);
 			break;
 		case 3:
-			c.setPhone((String)value);
+			c.setMobile((String)value);
 			break;
 		case 4:
 			c.setAddress((String)value);
-			break;
-		case 5:
-			c.setWilaya((String)value);
-			break;
-		case 6:
-			c.setCity((String)value);
 			break;
 		case 7:
 			c.setCredit(Double.parseDouble((String)value));
@@ -76,8 +82,24 @@ public class ClientsModel extends AbstractTableModel {
       }
 
     public Object getValueAt(int row, int column) {
-        return data.get(row).get(column);
+    	
+    	if (column == 5) {
+    		int codew = (Integer) data.get(row).get(5);
+    		return Cities.getWilaya(codew+1);
+    	}
+    	
+    	if (column == 6) {
+    		int codew = (Integer) data.get(row).get(5);
+    		int codec = (Integer) data.get(row).get(6);
+    		return Cities.getCity(codew+1, codec+1);
+    	}
+    		
+    	return data.get(row).get(column);
     }
+    
+    public Class getColumnClass(int columnIndex) {
+		return columnTypes[columnIndex];
+	}
     
     public Client getClient(int row) {
     	return (Client)data.get(row).get(TAG);

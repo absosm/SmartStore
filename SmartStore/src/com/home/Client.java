@@ -21,8 +21,8 @@ public class Client {
 	private String address;			// 4
 	private String family;			// 5
 	private String zip;				// 6
-	private String wilaya;			// 7
-	private String city;			// 8
+	private int wilaya;				// 7
+	private int city;				// 8
 	 
 	private String mobile;			// 9
 	private String phone;			// 10
@@ -51,8 +51,8 @@ public class Client {
 		setAddress("");
 		setFamily("");
 		setZip("");
-		setWilaya("");
-		setCity("");
+		setWilaya(0);
+		setCity(0);
 		setMobile("");
 		setPhone("");
 		setFax("");
@@ -85,8 +85,8 @@ public class Client {
 				setAddress(result.getString(4));
 				setFamily(result.getString(5));
 				setZip(result.getString(6));
-				setWilaya(result.getString(7));
-				setCity(result.getString(8));
+				setWilaya(result.getInt(7));
+				setCity(result.getInt(8));
 				setMobile(result.getString(9));
 				setPhone(result.getString(10));
 				setFax(result.getString(11));
@@ -189,11 +189,11 @@ public class Client {
 	 * @return
 	 * String : Wilaya
 	 */
-	public String getWilaya()
+	public int getWilaya()
 	{
 		return wilaya;
 	}
-	public void setWilaya(String wilaya)
+	public void setWilaya(int wilaya)
 	{
 		this.wilaya=wilaya;
 	}
@@ -201,11 +201,11 @@ public class Client {
 	 * @return
 	 * String : City
 	 */
-	public String getCity()
+	public int getCity()
 	{
 		return city;
 	}
-	public void setCity(String city)
+	public void setCity(int city)
 	{
 		this.city=city;
 	}	
@@ -467,8 +467,9 @@ public class Client {
 	/**
 	 * 
 	 */
-	public void add()
+	public boolean add()
 	{
+		boolean b = false;
 		String selectSQL="INSERT INTO clients(firstname,lastname,address,family,zip,wilaya,city,"
 				+ "mobile,phone,fax,mail,website,mode,bank_account,credit,credit_limit,NRC,NART,"
 				+ "NIF,NIS,RIB) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
@@ -480,8 +481,8 @@ public class Client {
 			prepared.setString(3 , getAddress());
 			prepared.setString(4 , getFamily());
 			prepared.setString(5 , getZip());
-			prepared.setString(6 , getWilaya());
-			prepared.setString(7 , getCity());
+			prepared.setInt   (6 , getWilaya());
+			prepared.setInt   (7 , getCity());
 			prepared.setString(8 , getMobile());
 			prepared.setString(9 , getPhone());
 			prepared.setString(10, getFax());
@@ -499,14 +500,16 @@ public class Client {
 			
 			prepared.executeUpdate();
 			ResultSet result = prepared.getGeneratedKeys();
-			result.next();
-			this.setId(result.getInt(1));
-			
+			if (result.next()) {
+				this.setId(result.getInt(1));
+				b = true;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		return b;
 	}
 	
 	/**
@@ -561,8 +564,8 @@ public class Client {
 			prepared.setString(3 , getAddress());
 			prepared.setString(4 , getFamily());
 			prepared.setString(5 , getZip());
-			prepared.setString(6 , getWilaya());
-			prepared.setString(7 , getCity());
+			prepared.setInt(6 , getWilaya());
+			prepared.setInt(7 , getCity());
 			prepared.setString(8 , getMobile());
 			prepared.setString(9 , getPhone());
 			prepared.setString(10, getFax());
