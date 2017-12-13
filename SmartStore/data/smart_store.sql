@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 12, 2017 at 04:13 PM
+-- Generation Time: Dec 13, 2017 at 03:30 PM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.12
 
@@ -29,14 +29,14 @@ USE `smart_store`;
 --
 
 CREATE TABLE IF NOT EXISTS `clients` (
-  `id` int(10) NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `firstname` varchar(50) COLLATE utf8_bin NOT NULL,
   `lastname` varchar(50) COLLATE utf8_bin NOT NULL,
   `address` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `family` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `zip` varchar(10) COLLATE utf8_bin DEFAULT NULL,
-  `wilaya` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  `city` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `wilaya` tinyint(4) DEFAULT NULL,
+  `city` tinyint(4) DEFAULT NULL,
   `mobile` varchar(15) COLLATE utf8_bin DEFAULT NULL,
   `phone` varchar(15) COLLATE utf8_bin DEFAULT NULL,
   `fax` varchar(15) COLLATE utf8_bin DEFAULT NULL,
@@ -52,22 +52,14 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `NIS` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `RIB` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `clients`
 --
 
 INSERT INTO `clients` (`id`, `firstname`, `lastname`, `address`, `family`, `zip`, `wilaya`, `city`, `mobile`, `phone`, `fax`, `mail`, `website`, `mode`, `bank_account`, `credit`, `credit_limit`, `NRC`, `NART`, `NIF`, `NIS`, `RIB`) VALUES
-(1, 'tebri', 'abdenour', '', '', '0', '', '', '', '0696286671', '', '', '', 0, NULL, 0, 9000, '', '', '', '', ''),
-(2, 'عبد الله', 'بوجمعة', '', '', '0', '', '', '147852369', '', '', '', '', 0, '', 0, 19000, '', '', '', '', ''),
-(3, 'تبري', 'عبد الحكيم', 'حي ميموني الطاهر الوطاية بسكرة', 'مواد غذائية', '7030', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 20000, NULL, NULL, NULL, NULL, NULL),
-(4, 'تبري', 'عبد النور', 'حي ميموني الطاهر الوطاية بسكرة', 'مواد غذائية', '7030', 'BISKRA	', 'الوطاية', '0696286671', '033629338', '033629338', 'tebri@hotmail.com', 'tebri.com', 3, NULL, 0, 100000000, '0123456', '0123', '0123456789', '00000', '12061992'),
-(8, 'tebri', 'minou', '', '', '0', '', '', '', '', '', '', '', 0, '', 0, 0, '', '', '', '', ''),
-(10, 'tebri', 'loulou', '', '', '0', '', '', '', '', '', '', '', 0, '', 0, 20000, '', '', '', '', ''),
-(11, 'tebri', 'abdelhakim', 'hai mimouni taher eloutaya 07030', 'informatique 7', '7030', 'Biskra', 'eloutaya', '0696286671', '033629338', '033629338', '', '', 1, '5465465465464', 1500000, 25000000, '4565456', '7897899', '123123', '7897987', '54654654'),
-(12, 'tebri', 'abdo', '', '', '0', '', '', '', '', '', '', '', 0, '', 0, 5000, '', '', '', '', ''),
-(13, 'تبري', 'nounou', '', '', '0', '', '', '', '', '', '', '', 0, '', 0, 0, '', '', '', '', '');
+(4, 'Oussama', 'ABBAS', 'HAI KHOBZI BISKRA', 'Cosmitique', '07000', 6, 7, '0550200150', '033679511', '033679509', 'absosm@gmail.com', 'www.absosm.com', 4, '3772888011234', 15000, 10000, '349017728', '321672882', '897639201124', '1235623', '22391032738');
 
 -- --------------------------------------------------------
 
@@ -119,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `fournisseurs` (
   `SiteWeb` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `Solde` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Des information sur les fourniseure';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Des information sur les fourniseure';
 
 --
 -- Dumping data for table `fournisseurs`
@@ -157,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `produits` (
   `localisation_Rayonnage` varchar(50) COLLATE utf8_bin NOT NULL,
   `Limite_prix_vente` double NOT NULL,
   PRIMARY KEY (`Id_produit`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -175,14 +167,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `privilege` int(11) NOT NULL,
   `last_login` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `firstname`, `lastname`, `telephone`, `privilege`, `last_login`) VALUES
-(1, 'admin', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'ABBAS', 'Oussama', '0550200150', 1, '2017-11-29 13:42:06');
+(1, 'admin', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'ABBAS', 'Oussama', '0550200150', 1, '2017-12-13 16:02:36');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
