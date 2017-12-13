@@ -1,18 +1,15 @@
 package com.home.formes;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.beans.PropertyVetoException;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.GroupLayout;
@@ -21,17 +18,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.LineBorder;
 
 import com.home.Session;
-
-import javafx.application.Application;
-
-import java.awt.Color;
-import javax.swing.JInternalFrame;
-import javax.swing.JDesktopPane;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;

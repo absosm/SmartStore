@@ -9,10 +9,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-/**
- * @author DocteurTnou
- *
- */
+
 public class Client {
 	
 	private int id ;				// 1

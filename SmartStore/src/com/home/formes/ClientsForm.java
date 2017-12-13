@@ -1,11 +1,3 @@
-/**
- * Cette Classe permet de:
- * Rechercher Client par Numero
- * Rechercher Client par nom (et/ou) prenom
- * Ajouter    Client 
- * Modifier   Client
- * supprimer  Client
- */
 package com.home.formes;
 
 
@@ -221,22 +213,6 @@ public class ClientsForm extends JFrame {
 			}
 		});
 		table.setFont(new Font("Tahoma", Font.BOLD, 14));
-		ClientsModel model = new ClientsModel();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, Boolean.FALSE, null},
-			},
-			new String[] {
-				"N\u00B0Client", "Nom", "Prenom", "Telephone", "Adresse", "Wilaya", "Commune", "Solde"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Object.class, Object.class, Object.class, String.class, Object.class, Integer.class, Boolean.class, Object.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
 		scrollPane.setViewportView(table);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(

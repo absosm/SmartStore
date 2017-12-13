@@ -20,29 +20,22 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.Base64;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
 
 import com.home.Configuration;
 import com.home.DataBase;
 import com.home.Encode;
 import com.home.Session;
 import com.home.User;
-import com.home.Configuration.authentification;
-import com.home.Configuration.database;
 
 import java.awt.Color;
-import java.awt.Window.Type;
 
 public class AuthentificationForm {
 

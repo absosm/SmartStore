@@ -1,5 +1,5 @@
 package com.home.formes;
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 
 import com.home.DataBase;
 import com.home.Session;
-import com.mysql.jdbc.DatabaseMetaData;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -22,9 +21,6 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Toolkit;

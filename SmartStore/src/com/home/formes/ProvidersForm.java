@@ -8,8 +8,6 @@
  */
 package com.home.formes;
 
-
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -29,7 +27,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.home.Session;
-import com.home.formes.AddProviderForm.*;
 
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;

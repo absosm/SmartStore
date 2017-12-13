@@ -10,8 +10,6 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-import com.mysql.jdbc.Driver;
-
 public class Configuration {
 	
 	private static SAXBuilder saxBuilder;

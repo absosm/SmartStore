@@ -7,7 +7,6 @@ public class Encode {
 	public static String sha256(String clear) {
 		
 		String cipher = null;
-		
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("SHA-256");

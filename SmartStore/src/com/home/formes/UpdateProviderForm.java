@@ -1,4 +1,5 @@
 package com.home.formes;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -24,7 +25,6 @@ import com.mysql.jdbc.PreparedStatement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.KeyAdapter;

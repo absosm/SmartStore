@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Provider {
+	
 	private  int Id;
 	private  String Name;
 	private  String First_name;
@@ -26,7 +27,7 @@ public class Provider {
 	private  String Website;
 	private  double Initial_Credit;
 	
- public Provider() {	
+	public Provider() {	
 		setName("");
 		setFirst_name("");
 		setAddress("");		
@@ -47,40 +48,40 @@ public class Provider {
 		setInitial_Credit(0);		
 	}
  
- public Provider(int id){
-	 try {
-		PreparedStatement prepared = Session.getDatabase().getConnection().
-				prepareStatement("SELECT * FROM provider WHERE id=?");
-		prepared.setInt(1, id);
-		ResultSet result = prepared.executeQuery();
-		if (result.next()) {	
-			setId(id);
-			setName(result.getString(1));
-			setFirst_name(result.getString(2));
-			setAddress(result.getString(3));
-			setPostal_Code(result.getInt(4));
-			setWilaya(result.getString(5));
-			setCity(result.getString(6));
-			setMobile_Number(result.getString(7));
-			setTelphone(result.getString(8));
-			setFax(result.getString(9));
-			setNRC(result.getString(10));
-			setNART(result.getString(11));
-			setNIF(result.getString(12));
-			setNIS(result.getString(13));
-			setRIB(result.getString(14));
-			setBank_Account(result.getString(15));
-			setEmail(result.getString(16));
-			setWebsite(result.getString(17));
-			setInitial_Credit(result.getDouble(18));
-		}
-			
-			
+	public Provider(int id){
+		
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+					prepareStatement("SELECT * FROM provider WHERE id=?");
+			prepared.setInt(1, id);
+			ResultSet result = prepared.executeQuery();
+			if (result.next()) {	
+				setId(id);
+				setName(result.getString(1));
+				setFirst_name(result.getString(2));
+				setAddress(result.getString(3));
+				setPostal_Code(result.getInt(4));
+				setWilaya(result.getString(5));
+				setCity(result.getString(6));
+				setMobile_Number(result.getString(7));
+				setTelphone(result.getString(8));
+				setFax(result.getString(9));
+				setNRC(result.getString(10));
+				setNART(result.getString(11));
+				setNIF(result.getString(12));
+				setNIS(result.getString(13));
+				setRIB(result.getString(14));
+				setBank_Account(result.getString(15));
+				setEmail(result.getString(16));
+				setWebsite(result.getString(17));
+				setInitial_Credit(result.getDouble(18));
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 	 
- }
+	}
 	/**
 	 * @param id
 	 */

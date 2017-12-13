@@ -1,7 +1,5 @@
 package com.home.formes;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.swing.JFrame;
@@ -28,6 +26,8 @@ import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.EventQueue;
+
 import javax.swing.JToolBar;
 import javax.swing.JComboBox;
 import java.awt.Font;

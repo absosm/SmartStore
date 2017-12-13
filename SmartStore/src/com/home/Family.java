@@ -144,7 +144,6 @@ public class Family {
 			famille = null;
 			e.printStackTrace();
 		}
-		
 		return famille;
 	}
 }

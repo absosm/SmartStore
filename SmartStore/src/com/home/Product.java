@@ -285,6 +285,7 @@ public class Product {
 	}
 	
 	public void delete() {
+		
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
 					prepareStatement("DELETE FROM products WHERE id=?");

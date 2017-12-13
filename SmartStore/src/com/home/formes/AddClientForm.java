@@ -7,17 +7,11 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
-import org.omg.CORBA.PRIVATE_MEMBER;
-
 import com.home.Cities;
 import com.home.Client;
-import com.home.DataBase;
 import com.home.Session;
-import com.mysql.jdbc.PreparedStatement;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
@@ -29,25 +23,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
 
 
 public class AddClientForm extends JFrame {

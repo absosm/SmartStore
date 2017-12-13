@@ -58,7 +58,6 @@ public class Session {
 		user = null;
 		
 		for (int i=1; i<Form.length; i++) {
-			
 			if (Form[i] != null) {
 				Form[i].dispose();
 				Form[i] = null;

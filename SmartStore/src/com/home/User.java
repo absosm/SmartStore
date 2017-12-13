@@ -137,7 +137,6 @@ public class User {
 	public static boolean exist(String username, String password) {
 		
 		boolean b = false;
-		
 		DataBase database = Session.getDatabase();
 				
 		try {

@@ -161,7 +161,6 @@ public class AddProviderForm extends JFrame {
 				{
 					getToolkit().beep();
 					evt.consume();
-					
 				}
 			}
 		});

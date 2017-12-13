@@ -14,6 +14,7 @@ public class Use_Files {
 	 * filechooser_Images fenêtre pour choisir une image
 	 */
 	public static String filechooser_Images(){
+		
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle("Selection d'image");
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","gif","png");
@@ -27,7 +28,6 @@ public class Use_Files {
 		else{
 			return null;
 		}
-		
 	}
 	
 	/**

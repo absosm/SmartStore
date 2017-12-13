@@ -2,8 +2,6 @@ package com.home.custom;
 
 import java.util.Vector;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.table.AbstractTableModel;
 
 import com.home.Cities;

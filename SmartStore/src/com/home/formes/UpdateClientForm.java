@@ -13,9 +13,7 @@ import javax.swing.event.DocumentListener;
 
 import com.home.Cities;
 import com.home.Client;
-import com.home.DataBase;
 import com.home.Session;
-import com.mysql.jdbc.PreparedStatement;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
@@ -30,15 +28,6 @@ import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Date;
-import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Toolkit;

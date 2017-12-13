@@ -9,7 +9,6 @@ public class FamiliesModel extends AbstractTableModel {
 
     private Vector<Vector> data;
     private String columnNames[] = {"Désignation", "Remarque", "Nombre"};
-    
     public static final int TAG = 3;
     
     public FamiliesModel() {
