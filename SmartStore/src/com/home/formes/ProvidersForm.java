@@ -23,7 +23,10 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.home.DataBase;
+import com.home.Provider;
 import com.home.Session;
+import com.home.custom.ProvidersModel;
 
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
@@ -33,11 +36,16 @@ import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JToolBar;
 import javax.swing.JComboBox;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class ProvidersForm extends JFrame {
 
@@ -49,18 +57,26 @@ public class ProvidersForm extends JFrame {
 	private JPanel contentPane;
 	private static JTable table;
 	private JTextField textField;
+	private JComboBox<Object> comboBox;
 
 	/**
 	 * Create the frame.
 	 */
 	public ProvidersForm() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				comboBox.setSelectedIndex(1);
+				Load();
+			}
+		});
 		
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
 			Runtime.getRuntime().exit(0);
 		}
 		
-		setTitle("Recherche");
+		setTitle("Liste des fournisseurs");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ProvidersForm.class.getResource("/images/Search-People-icon.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1004, 599);
@@ -76,8 +92,9 @@ public class ProvidersForm extends JFrame {
 		JLabel label = new JLabel("Recherche par:");
 		label.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
-		JComboBox<Object> comboBox = new JComboBox<Object>();
+		comboBox = new JComboBox<Object>();
 		comboBox.setFont(new Font("Tahoma", Font.BOLD, 14));
+		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Code", "Nom", "Prenom"}));
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -106,8 +123,11 @@ public class ProvidersForm extends JFrame {
 		toolBar.add(btnAjouter);
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new AddProviderForm();                // creer un instance du class "AddFournisseur_form"   
-			}                                    		  // pour ajouter un Fournisseur 
+				// pour ajouter un fournisseur
+				if (!Session.isSetForm(Session.ADDPROVIDER))
+					// creer un instance du class "addProvider"
+					Session.setForm(Session.ADDPROVIDER, new AddProviderForm());
+			}
 		});
 		btnAjouter.setIcon(new ImageIcon(ProvidersForm.class.getResource("/images/fournisseur - Copie.png")));
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -165,6 +185,7 @@ public class ProvidersForm extends JFrame {
 		
 		table = new JTable();
 		table.setFillsViewportHeight(true);
+		table.setRowHeight(32);
 		table.addMouseListener(new MouseAdapter() {
 			
 			public void mouseClicked(MouseEvent event) {
@@ -198,5 +219,22 @@ public class ProvidersForm extends JFrame {
 		);
 		panel_1.setLayout(gl_panel_1);
 		contentPane.setLayout(gl_contentPane);
+	}
+	
+	public void Load() {
+		
+		DataBase database = Session.getDatabase();
+		try {
+			ResultSet result = database.getConnection().prepareStatement("SELECT id FROM providers").executeQuery();
+			ProvidersModel model = new ProvidersModel();
+			while (result.next()) {
+				Provider provider = new Provider(result.getInt("id"));
+				model.addRow(provider);
+			}
+			table.setModel(model);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

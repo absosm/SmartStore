@@ -1,14 +1,21 @@
 /**
  * Cette Classe permet de:
- * afficher une formulaire pour ajouter un Fournisseur
+ * afficher une formulaire pour ajouter un client
  */
 package com.home.formes;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import com.home.Cities;
+import com.home.Provider;
+import com.home.Session;
+import com.home.docfilter.Filter;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
-
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -18,48 +25,44 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
-
-import com.home.DataBase;
-import com.home.Session;
-import com.mysql.jdbc.PreparedStatement;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class AddProviderForm extends JFrame {
-
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private static JPanel contentPane;
-	private static JTextField tfnom;
-	private static JTextField tfprenom;
-	private static JTextField tfadresse;
-	private static JTextField tfcodepostal;
-	private static JTextField tftelportabl;
-	private static JTextField tftelfix;
-	private static JTextField tffax;
-	private static JTextField tfnrc;
-	private static JTextField tfnif;
-	private static JTextField tfcomptebancaire;
-	private static JTextField tfemail;
-	private static JTextField tfnart;
-	private static JTextField tfnis;
-	private static JTextField tfrib;
-	private static JTextField tfsiteweb;
-	private static JTextField tfsolde;
-	private static JComboBox<Object> tfwilaya;
-	private static JComboBox<Object> tfcommune;
+
+	private Provider provider;
+
+	private JPanel contentPane;
+	private JTextField tflastname;
+	private JTextField tffirstname;
+	private JTextField tfaddress;
+	private JTextField tffamily;
+	private JTextField tfzip;
+	private JTextField tfmobile;
+	private JTextField tfphone;
+	private JTextField tffax;
+	private JTextField tfnrc;
+	private JTextField tfnif;
+	private JTextField tfbank_account;
+	private JTextField tfmail;
+	private JTextField tfnart;
+	private JTextField tfnis;
+	private JTextField tfrib;
+	private JTextField tfwebsite;
+	private JComboBox<Object>  cbwilaya;
+	private JComboBox<Object>  cbcity;
+	private JButton    btnOk;
+	private JLabel 	  id_label;
+	private JTextField textField;
 
 	/**
 	 * Create the frame.
@@ -71,16 +74,24 @@ public class AddProviderForm extends JFrame {
 			Runtime.getRuntime().exit(0);
 		}
 		
+		provider = new Provider();
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				Session.removeForm(Session.ADDPROVIDER);
+			}
+		});
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AddProviderForm.class.getResource("/images/fournisseur - Copie.png")));
-		setFont(new Font("Tahoma", Font.BOLD, 14));
-		setTitle("Ajouter Fournisseur");
-		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		setTitle("Ajouter Fournisseur");
+		
 		setBounds(100, 100, 700, 450);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setFont(new Font("Tahoma", Font.BOLD, 16));
 		tabbedPane.setBackground(Color.LIGHT_GRAY);
@@ -104,28 +115,83 @@ public class AddProviderForm extends JFrame {
 		lblPrenom.setBounds(321, 11, 63, 14);
 		panel.add(lblPrenom);
 		
-		tfnom = new JTextField();
-		tfnom.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tfnom.setBounds(69, 8, 242, 30);
-		panel.add(tfnom);
-		tfnom.setColumns(10);
+		tflastname = new JTextField();
+		Filter.TextField(tflastname, Filter.UPPERCASE);
+		tflastname.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				provider.setLastname(tflastname.getText());
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
 		
-		tfprenom = new JTextField();
-		tfprenom.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tfprenom.setColumns(10);
-		tfprenom.setBounds(399, 8, 232, 30);
-		panel.add(tfprenom);
+		tflastname.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tflastname.setBounds(69, 8, 242, 30);
+		panel.add(tflastname);
+		tflastname.setColumns(10);
+		
+		tffirstname = new JTextField();
+		Filter.TextField(tffirstname, Filter.FIRSTUPPERCASE);
+		tffirstname.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				provider.setFirstname(tffirstname.getText());
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
+		tffirstname.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tffirstname.setColumns(10);
+		tffirstname.setBounds(399, 8, 232, 30);
+		panel.add(tffirstname);
 		
 		JLabel lblAdresse = new JLabel("Adresse ");
 		lblAdresse.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblAdresse.setBounds(10, 58, 63, 14);
 		panel.add(lblAdresse);
 		
-		tfadresse = new JTextField();
-		tfadresse.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tfadresse.setColumns(10);
-		tfadresse.setBounds(69, 52, 562, 30);
-		panel.add(tfadresse);
+		JLabel lblFamille = new JLabel("Famille ");
+		lblFamille.setHorizontalAlignment(SwingConstants.LEFT);
+		lblFamille.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblFamille.setBounds(409, 58, 56, 14);
+		panel.add(lblFamille);
+		
+		tfaddress = new JTextField();
+		tfaddress.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				provider.setAddress(tfaddress.getText());
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
+		tfaddress.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfaddress.setColumns(10);
+		tfaddress.setBounds(69, 52, 326, 30);
+		panel.add(tfaddress);
+		
+		tffamily = new JTextField();
+		tffamily.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				provider.setFamily(tffamily.getText());
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
+		tffamily.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tffamily.setColumns(10);
+		tffamily.setBounds(466, 52, 165, 30);
+		panel.add(tffamily);
 		
 		JLabel lblCode = new JLabel("Code");
 		lblCode.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -137,48 +203,57 @@ public class AddProviderForm extends JFrame {
 		lblPostal.setBounds(10, 107, 46, 14);
 		panel.add(lblPostal);
 		
-		tfcodepostal = new JTextField();
-		tfcodepostal.addKeyListener(new KeyAdapter() {
+		tfzip = new JTextField();
+		tfzip.getDocument().addDocumentListener(new DocumentListener() {
 			
-			public void keyTyped(KeyEvent evt) {
-				char c=evt.getKeyChar();
-				if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
-						tfcodepostal.getText().length()>=5)
-				{
-					getToolkit().beep();
-					evt.consume();
-				}
+			public void warn() {
+				provider.setZip(tfzip.getText());
 			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
 		});
-		tfcodepostal.setText("0");
-		tfcodepostal.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tfcodepostal.setBounds(69, 93, 63, 30);
-		panel.add(tfcodepostal);
-		tfcodepostal.setColumns(10);
+		Filter.TextField(tfzip, Filter.ZIP);
+		tfzip.setText("0");
+		tfzip.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfzip.setBounds(69, 93, 63, 30);
+		panel.add(tfzip);
 		
 		JLabel lblWilaya = new JLabel("Wilaya");
 		lblWilaya.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblWilaya.setBounds(142, 93, 46, 22);
 		panel.add(lblWilaya);
 		
-		tfwilaya = new JComboBox<Object>();
-		tfwilaya.setFont(new Font("Tahoma", Font.BOLD, 12));
-		tfwilaya.setModel(new DefaultComboBoxModel<Object>(new String[] {"", "ADRAR\t", "AIN DEFLA\t", "AIN TEMOUCHENT\t", "AL TARF\t", "ALGER\t", "ANNABA\t", "B.B.ARRERIDJ\t", "BATNA\t", "BECHAR\t", "BEJAIA\t", "BISKRA\t", "BLIDA\t", "BOUIRA\t", "BOUMERDES\t", "CHLEF\t", "CONSTANTINE\t", "DJELFA\t", "EL BAYADH\t", "EL OUED\t", "GHARDAIA\t", "GUELMA\t", "ILLIZI\t", "JIJEL\t", "KHENCHELA\t", "LAGHOUAT\t", "MASCARA\t", "MEDEA\t", "MILA\t", "MOSTAGANEM\t", "M’SILA\t", "NAAMA\t", "ORAN\t", "OUARGLA\t", "OUM ELBOUAGHI\t", "RELIZANE\t", "SAIDA\t", "SETIF\t", "SIDI BEL ABBES\t", "SKIKDA\t", "SOUKAHRAS\t", "TAMANGHASSET\t", "TEBESSA\t", "TIARET\t", "TINDOUF\t", "TIPAZA\t", "TISSEMSILT\t", "TIZI.OUZOU\t", "TLEMCEN"}));
-		tfwilaya.setSelectedIndex(0);
-		tfwilaya.setBounds(191, 92, 178, 29);
-		panel.add(tfwilaya);
+		cbcity = new JComboBox<Object>();
+		cbcity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				provider.setCity(cbcity.getSelectedIndex());
+			}
+		});
+		cbcity.setFont(new Font("Tahoma", Font.BOLD, 12));
+		cbcity.setModel(new DefaultComboBoxModel<Object>(new String[] {""}));
+		cbcity.setSelectedIndex(0);
+		cbcity.setBounds(465, 92, 165, 29);
+		panel.add(cbcity);
+		
+		cbwilaya = new JComboBox<Object>();
+		cbwilaya.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex()+1)));
+				provider.setWilaya(cbwilaya.getSelectedIndex());
+			}
+		});
+		cbwilaya.setFont(new Font("Tahoma", Font.BOLD, 12));
+		cbwilaya.setModel(new DefaultComboBoxModel<Object>(Cities.LoadWilaya()));
+		cbwilaya.setSelectedIndex(6);
+		cbwilaya.setBounds(191, 92, 178, 29);
+		panel.add(cbwilaya);
 		
 		JLabel lblCommune = new JLabel("Commune");
 		lblCommune.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCommune.setBounds(383, 98, 71, 21);
 		panel.add(lblCommune);
-		
-		tfcommune = new JComboBox<Object>();
-		tfcommune.setModel(new DefaultComboBoxModel<Object>(new String[] {""}));
-		tfcommune.setSelectedIndex(0);
-		tfcommune.setEditable(true);
-		tfcommune.setBounds(465, 92, 165, 29);
-		panel.add(tfcommune);
 		
 		JLabel lblTel = new JLabel("Tél");
 		lblTel.setIcon(new ImageIcon(this.getClass().getResource("/images/Mobile-icon.png")));
@@ -198,62 +273,62 @@ public class AddProviderForm extends JFrame {
 		lblFax.setBounds(7, 222, 60, 32);
 		panel.add(lblFax);
 		
-		tftelportabl = new JTextField();
-		tftelportabl.addKeyListener(new KeyAdapter() {
-		
-			public void keyTyped(KeyEvent evt) {
-				char c=evt.getKeyChar();
-				if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
-						tftelportabl.getText().length()>=10)
-				{
-					getToolkit().beep();
-					evt.consume();
-					
-				}
-			}
-		});
-		tftelportabl.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tftelportabl.setColumns(10);
-		tftelportabl.setBounds(69, 138, 326, 30);
-		panel.add(tftelportabl);
-		
-		tftelfix = new JTextField();
-		tftelfix.addKeyListener(new KeyAdapter() {
+		tfmobile = new JTextField();
+		Filter.TextField(tfmobile, Filter.PHONE);
+		tfmobile.getDocument().addDocumentListener(new DocumentListener() {
 			
-			public void keyTyped(KeyEvent e) {
-				char c=e.getKeyChar();
-				if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
-						tftelfix.getText().length()>=9)
-				{
-					getToolkit().beep();
-					e.consume();
-					
-				}
+			public void warn() {
+				provider.setMobile(tfmobile.getText());
 			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
 		});
-		tftelfix.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tftelfix.setColumns(10);
-		tftelfix.setBounds(69, 185, 326, 30);
-		panel.add(tftelfix);
+		tfmobile.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfmobile.setColumns(10);
+		tfmobile.setBounds(69, 138, 187, 30);
+		panel.add(tfmobile);
+		
+		tfphone = new JTextField();
+		Filter.TextField(tfphone, Filter.PHONE);
+		tfphone.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				provider.setPhone(tfphone.getText());
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
+		tfphone.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfphone.setColumns(10);
+		tfphone.setBounds(69, 185, 326, 30);
+		panel.add(tfphone);
 		
 		tffax = new JTextField();
-		tffax.addKeyListener(new KeyAdapter() {
+		Filter.TextField(tffax, Filter.PHONE);
+		tffax.getDocument().addDocumentListener(new DocumentListener() {
 			
-			public void keyTyped(KeyEvent e) {
-				char c=e.getKeyChar();
-				if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
-						tffax.getText().length()>=9)
-				{
-					getToolkit().beep();
-					e.consume();
-					
-				}
+			public void warn() {
+				provider.setFax(tffax.getText());
 			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
 		});
 		tffax.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tffax.setColumns(10);
 		tffax.setBounds(69, 227, 326, 30);
 		panel.add(tffax);
+		
+		id_label = new JLabel("");
+		id_label.setHorizontalAlignment(SwingConstants.CENTER);
+		id_label.setFont(new Font("Tahoma", Font.BOLD, 14));
+		id_label.setBounds(480, 186, 151, 29);
+		panel.add(id_label);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(240, 240, 240));
@@ -287,6 +362,16 @@ public class AddProviderForm extends JFrame {
 		panel_1.add(lblBanq);
 		
 		tfnrc = new JTextField();
+		tfnrc.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				provider.setNRC(tfnrc.getText());
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
 		tfnrc.setForeground(new Color(0, 102, 204));
 		tfnrc.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnrc.setBounds(103, 24, 237, 30);
@@ -294,25 +379,55 @@ public class AddProviderForm extends JFrame {
 		tfnrc.setColumns(10);
 		
 		tfnif = new JTextField();
+		tfnif.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				provider.setNIF(tfnif.getText());
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
 		tfnif.setForeground(new Color(0, 102, 204));
 		tfnif.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnif.setColumns(10);
 		tfnif.setBounds(103, 84, 237, 30);
 		panel_1.add(tfnif);
 		
-		tfcomptebancaire = new JTextField();
-		tfcomptebancaire.setForeground(new Color(0, 102, 204));
-		tfcomptebancaire.setFont(new Font("Tahoma", Font.BOLD, 14));
-		tfcomptebancaire.setColumns(10);
-		tfcomptebancaire.setBounds(103, 136, 237, 30);
-		panel_1.add(tfcomptebancaire);
+		tfbank_account = new JTextField();
+		tfbank_account.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				provider.setBank_account(tfbank_account.getText());
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
+		tfbank_account.setForeground(new Color(0, 102, 204));
+		tfbank_account.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfbank_account.setColumns(10);
+		tfbank_account.setBounds(103, 136, 237, 30);
+		panel_1.add(tfbank_account);
 		
-		tfemail = new JTextField();
-		tfemail.setForeground(new Color(0, 102, 204));
-		tfemail.setFont(new Font("Tahoma", Font.BOLD, 14));
-		tfemail.setColumns(10);
-		tfemail.setBounds(103, 193, 237, 30);
-		panel_1.add(tfemail);
+		tfmail = new JTextField();
+		tfmail.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				provider.setMail(tfmail.getText());
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
+		tfmail.setForeground(new Color(0, 102, 204));
+		tfmail.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfmail.setColumns(10);
+		tfmail.setBounds(103, 193, 237, 30);
+		panel_1.add(tfmail);
 		
 		JLabel lblNArt = new JLabel("N° Art");
 		lblNArt.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -336,6 +451,16 @@ public class AddProviderForm extends JFrame {
 		panel_1.add(lblSiteWeb);
 		
 		tfnart = new JTextField();
+		tfnart.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				provider.setNART(tfnart.getText());
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
 		tfnart.setForeground(new Color(0, 102, 204));
 		tfnart.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnart.setColumns(10);
@@ -343,6 +468,16 @@ public class AddProviderForm extends JFrame {
 		panel_1.add(tfnart);
 		
 		tfnis = new JTextField();
+		tfnis.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				provider.setNIS(tfnis.getText());
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
 		tfnis.setForeground(new Color(0, 102, 204));
 		tfnis.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnis.setColumns(10);
@@ -350,175 +485,85 @@ public class AddProviderForm extends JFrame {
 		panel_1.add(tfnis);
 		
 		tfrib = new JTextField();
+		tfrib.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				provider.setRIB(tfrib.getText());
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
 		tfrib.setForeground(new Color(0, 102, 204));
 		tfrib.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfrib.setColumns(10);
 		tfrib.setBounds(431, 134, 237, 30);
 		panel_1.add(tfrib);
 		
-		tfsiteweb = new JTextField();
-		tfsiteweb.setForeground(new Color(0, 102, 204));
-		tfsiteweb.setFont(new Font("Tahoma", Font.BOLD, 14));
-		tfsiteweb.setColumns(10);
-		tfsiteweb.setBounds(431, 191, 237, 30);
-		panel_1.add(tfsiteweb);
+		tfwebsite = new JTextField();
+		tfwebsite.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				provider.setWebsite(tfwebsite.getText());
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
+		tfwebsite.setForeground(new Color(0, 102, 204));
+		tfwebsite.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfwebsite.setColumns(10);
+		tfwebsite.setBounds(431, 191, 237, 30);
+		panel_1.add(tfwebsite);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(this.getClass().getResource("/images/Money-icon (1).png")));
 		lblNewLabel_1.setBounds(3, 135, 32, 32);
 		panel_1.add(lblNewLabel_1);
 		
-		JLabel lblSoldeInitiale = new JLabel("Solde Initial :");
-		lblSoldeInitiale.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblSoldeInitiale.setBounds(164, 240, 90, 17);
-		panel_1.add(lblSoldeInitiale);
+		JLabel lblSolde = new JLabel("Solde:");
+		lblSolde.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSolde.setBounds(188, 234, 78, 34);
+		panel_1.add(lblSolde);
 		
-		tfsolde = new JTextField();
-		tfsolde.setText("0");
-		tfsolde.setForeground(new Color(0, 102, 204));
-		tfsolde.setFont(new Font("Tahoma", Font.BOLD, 14));
-		tfsolde.setColumns(10);
-		tfsolde.setBounds(264, 234, 237, 30);
-		panel_1.add(tfsolde);
+		textField = new JTextField();
+		textField.setText("0");
+		textField.setHorizontalAlignment(SwingConstants.LEFT);
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textField.setColumns(10);
+		textField.setBounds(276, 238, 256, 30);
+		panel_1.add(textField);
 		
-		JButton btnOk = new JButton("ok");
+		btnOk = new JButton("ok");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Ajouter_fournisseur();
+				if (provider.add())
+					dispose();
+				else
+					JOptionPane.showMessageDialog(null, "pardon, l'insertion de client pas réussi.");
+				Session.showForm(Session.CLIENTS);
 			}
 		});
 		btnOk.setForeground(new Color(0, 255, 102));
 		btnOk.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnOk.setIcon(new ImageIcon(AddProviderForm.class.getResource("/images/database-accept-icon.png")));
-		btnOk.setBounds(128, 350, 77, 33);
+		btnOk.setIcon(new ImageIcon(this.getClass().getResource("/images/database-accept-icon.png")));
+		btnOk.setBounds(72, 353, 77, 41);
 		contentPane.add(btnOk);
 		
 		JButton btnAnnuler = new JButton("annuler");
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dispose();
+				dispose();					
 			}
 		});
 		btnAnnuler.setForeground(new Color(255, 51, 51));
 		btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnAnnuler.setIcon(new ImageIcon(AddProviderForm.class.getResource("/images/Misc-Delete-Database-icon.png")));
-		btnAnnuler.setBounds(507, 350, 113, 33);
+		btnAnnuler.setIcon(new ImageIcon(this.getClass().getResource("/images/Misc-Delete-Database-icon.png")));
+		btnAnnuler.setBounds(507, 350, 113, 44);
 		contentPane.add(btnAnnuler);
-	}
-////////////////////////////////////////////////les méthodes/////////////////////////////////////////////////////////////
-/**
-* @param ID
-* @return 
-* cette methode faire une recherche d'un Fournisseur a base de identificateur 
-* la methode returner le resultate pour l'affichge
-*/
-public static ResultSet ID_search_fourniseur(int ID)//
-				
-{
-DataBase database= Session.getDatabase();
-String SqlQury="select * from fournisseurs where id="+ID+";";		
-return database.getResult(SqlQury); 
-}
-
-/********************************************************************************************/
-/**
-* @param nom
-* @param prenom
-* @return
-* cette methode faire une recherche d'un fourniseur a base de numero ou nom/prenom 
-* la methode returner le resultate pour l'affichge
-*/
-public static ResultSet info_search_fourniseur(String nom, String prenom)
-{
-							
-DataBase database=Session.getDatabase();
-String SqlQury="select * from fournisseurs where Nom LIKE '"+nom+"%' AND Prenom LIKE '"+prenom+"%';";		
-return database.getResult(SqlQury); 
-}
-/************************************************************************************************/
-/**
- * cette methode ajouter un Fournisseur
- */
-private static void Ajouter_fournisseur() {
-
-	ResultSet resultSet=null;								
-	try {
-		Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
-		Matcher matcher1 = pattern.matcher(tfemail.getText());// passage de parametre
-		if(matcher1.find() || tfemail.getText().equals("") ){
-			DataBase database = Session.getDatabase();
-			String selectSQL=null;
-			PreparedStatement prepared=null;
-		try {
-			selectSQL="select * from fournisseurs where Nom=? AND Prenom =?";
-			prepared = (PreparedStatement) database.getConnection()
-				.prepareStatement(selectSQL);
-			prepared.setString(1, tfnom.getText());
-			prepared.setString(2, tfprenom.getText());
-			resultSet=prepared.executeQuery();
-			resultSet.last();
-			
-		} catch (SQLException g) {
-			// TODO Auto-generated catch block
-			g.printStackTrace();
-		}
-		if(resultSet.getRow() !=0)
-		{
-			JOptionPane.showMessageDialog(new JFrame(), "le fournisseur déjà existe", "ERREUR de connection",
-			        JOptionPane.ERROR_MESSAGE);
-			
-		}
-		else
-		{
-			try {
-				selectSQL="insert into fournisseurs(Nom,Prenom,Adresse,CodePostal,wilaya,Commune,TelPortable,TeleFix,"+
-						"Fax,NRC,NART,NIF,NIS,RIB,ComptBancaire,Email,SiteWeb,Solde_Initial)Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-						prepared=(PreparedStatement) database.getConnection().prepareStatement(selectSQL);
-						prepared.setString(1,  tfnom.getText());
-						prepared.setString(2,  tfprenom.getText());
-						prepared.setString(3,  tfadresse.getText());
-						prepared.setInt(4,     Integer.parseInt(tfcodepostal.getText()));
-						prepared.setString(5,  tfwilaya.getSelectedItem().toString());
-						prepared.setString(6,  tfcommune.getSelectedItem().toString());
-						prepared.setString(7,  tftelportabl.getText());
-						prepared.setString(8,  tftelfix.getText());
-						prepared.setString(9, tffax.getText());
-						prepared.setString(10, tfnrc.getText());
-						prepared.setString(11, tfnart.getText());
-						prepared.setString(12, tfnif.getText());
-						prepared.setString(13, tfnis.getText());
-						prepared.setString(14, tfrib.getText());
-						prepared.setString(15, tfcomptebancaire.getText());
-						prepared.setString(16, tfemail.getText());
-						prepared.setString(17, tfsiteweb.getText());
-						prepared.setDouble(18, Double.parseDouble(tfsolde.getText()));
-						prepared.executeUpdate();
-					
-						JOptionPane.showMessageDialog(new JFrame(), "Inscription Success", "Information d'inscription",
-						        JOptionPane.INFORMATION_MESSAGE);
-						tfadresse.setText(null);tfcodepostal.setText("0");tfcomptebancaire.setText(null);
-						tfemail.setText(null);tffax.setText(null);tfnart.setText(null);
-						tfnif.setText(null);tfnis.setText(null);tfnom.setText(null);tfnrc.setText(null);tfprenom.setText(null);
-						tfrib.setText(null);tfsiteweb.setText(null);tftelfix.setText(null);tftelportabl.setText(null);tfsolde.setText("0");
-					
-			} catch (Exception e2) {
-				JOptionPane.showMessageDialog(new JFrame(), "erreur de type donnees", "ERREUR d'inscription",
-				        JOptionPane.ERROR_MESSAGE);
-			}
 		
-		}
-	}
-		else
-		{
-			JOptionPane.showMessageDialog(new JFrame(), "Adresse e-mail incorrecte \t\t \n E-Mail format:   xxxxxx@yyyy.zzz", "ERREUR d'inscription",
-			        JOptionPane.ERROR_MESSAGE);
-			
-		}
-						
-	} catch (Exception ex) {
-		JOptionPane.showMessageDialog(new JFrame(), ex, "ERREUR de connection",
-		        JOptionPane.ERROR_MESSAGE);					
-	}
-	
-}
+		setVisible(true);
+	}	
 }

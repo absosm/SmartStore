@@ -14,7 +14,7 @@ public class Session {
 	/**
 	 * déclaration les attributes formes de l'application
 	 */
-	private static JFrame[] Form = new JFrame[11];
+	private static JFrame[] Form = new JFrame[12];
 	/**
 	 * declaration des constants identificateurs relatifs des forms
 	 */
@@ -29,8 +29,9 @@ public class Session {
 	public static final int PROVIDERS				= 8;
 	
 	public static final int ADDCLIENT				= 9;
+	public static final int ADDPROVIDER				= 10;
 	
-	public static final int UPDATECLIENT			= 10;
+	public static final int UPDATECLIENT			= 11;
 	
 	public static void start() {
 		

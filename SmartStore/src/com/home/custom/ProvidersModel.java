@@ -2,10 +2,10 @@ package com.home.custom;
 
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import com.home.Cities;
-import com.home.Client;
 import com.home.Provider;
 
 public class ProvidersModel extends AbstractTableModel {
@@ -47,34 +47,34 @@ public class ProvidersModel extends AbstractTableModel {
     
     public void setValueAt(Object value, int row, int col) {
     	
-    	Client c = (Client) data.get(row).get(TAG);
+    	Provider p = (Provider) data.get(row).get(TAG);
     	
-    	if (c == null) {
-    		c = new Client();
-    		data.get(row).set(TAG, c);
+    	if (p == null) {
+    		p = new Provider();
+    		data.get(row).set(TAG, p);
     	}
     		
 		switch (col) {
 		case 0:
-			c.setId(Integer.parseInt((String)value));
+			p.setId(Integer.parseInt((String)value));
 			break;
 		case 1:
-			c.setLastname((String)value);
+			p.setLastname((String)value);
 			break;
 		case 2:
-			c.setFirstname((String)value);
+			p.setFirstname((String)value);
 			break;
 		case 3:
-			c.setMobile((String)value);
+			p.setMobile((String)value);
 			break;
 		case 4:
-			c.setAddress((String)value);
+			p.setAddress((String)value);
 			break;
 		case 7:
-			c.setCredit(Double.parseDouble((String)value));
+			p.setCredit(Double.parseDouble((String)value));
 			break;
 		}
-		c.update();
+		p.update();
     	
         data.get(row).set(col, value);
         fireTableCellUpdated(row, col);
@@ -101,9 +101,17 @@ public class ProvidersModel extends AbstractTableModel {
     }
     
     public void delete(int row) {
+    	
     	Provider p = (Provider)data.get(row).get(TAG);
-    	p.delete();
-    	data.remove(row);
+    	int confirm = JOptionPane.showConfirmDialog(null, String.format(
+    			"Voulez vous supprimer cette client \"%s %s\"", p.getLastname(), p.getFirstname()), 
+    			"Confirmation", JOptionPane.YES_NO_OPTION);
+    	
+		if (confirm == JOptionPane.YES_OPTION) {
+			p.delete();
+			data.remove(row);
+		}
+    	
     	fireTableDataChanged();
     }
     
