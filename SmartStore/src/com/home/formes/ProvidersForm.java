@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -23,6 +25,7 @@ import com.home.DataBase;
 import com.home.Provider;
 import com.home.Session;
 import com.home.custom.ProvidersModel;
+import com.home.docfilter.Filter;
 
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
@@ -32,6 +35,7 @@ import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.DefaultComboBoxModel;
@@ -52,7 +56,7 @@ public class ProvidersForm extends JFrame {
 	
 	private JPanel contentPane;
 	private static JTable table;
-	private JTextField textField;
+	private JTextField tffind;
 	private JComboBox<Object> comboBox;
 	private JButton btnedit;
 	private JButton btndelete;
@@ -91,11 +95,41 @@ public class ProvidersForm extends JFrame {
 		label.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		comboBox = new JComboBox<Object>();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tffind.selectAll();
+				tffind.grabFocus();
+				
+				switch (comboBox.getSelectedIndex()) {
+				case 0:
+					Filter.TextField(tffind, Filter.NUMBER);
+					break;
+				case 1:
+					Filter.TextField(tffind, Filter.UPPERCASE);
+					break;
+				case 2:
+					Filter.TextField(tffind, Filter.FIRSTUPPERCASE);
+					break;
+				}
+			}
+		});
 		comboBox.setFont(new Font("Tahoma", Font.BOLD, 14));
 		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Code", "Nom", "Prenom"}));
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tffind = new JTextField();
+		Filter.TextField(tffind, Filter.NUMBER);
+		tffind.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				FindBy(comboBox.getSelectedIndex(), tffind.getText());
+			}
+
+			public void changedUpdate(DocumentEvent arg0)  {warn();}
+			public void insertUpdate(DocumentEvent arg0)  {warn();}
+			public void removeUpdate(DocumentEvent arg0) {warn();}
+			
+		});
+		tffind.setFont(new Font("Tahoma", Font.BOLD, 14));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -105,7 +139,7 @@ public class ProvidersForm extends JFrame {
 					.addGap(10)
 					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
 					.addGap(10)
-					.addComponent(textField, GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
+					.addComponent(tffind, GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -113,7 +147,7 @@ public class ProvidersForm extends JFrame {
 					.addGap(20)
 					.addComponent(label))
 				.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-				.addComponent(textField, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+				.addComponent(tffind, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 		);
 		panel.setLayout(gl_panel);
 		
@@ -245,6 +279,43 @@ public class ProvidersForm extends JFrame {
 			table.setModel(model);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void FindBy(int FindType, String value) 
+	{
+		DataBase database= Session.getDatabase();
+		String sql_format = "SELECT * FROM providers WHERE %s like ?";
+		String field_name = null, SQL = null;
+		
+		switch (FindType) {
+		case 0:
+			field_name = "id";
+			break;
+		case 1:
+			field_name = "lastname";
+			break;
+		case 2:
+			field_name = "firstname";
+			break;
+		}
+		
+		SQL = String.format(sql_format, field_name);
+		
+		try {
+			PreparedStatement ps = database.getConnection().prepareStatement(SQL);
+			ps.setString(1, value+"%");
+			ResultSet result = ps.executeQuery();
+
+			ProvidersModel model = new ProvidersModel();
+			while (result.next()) {
+				Provider provider = new Provider(result.getInt("id"));
+				model.addRow(provider);
+			}
+			table.setModel(model);
+			
+		} catch (Exception e) {    
 			e.printStackTrace();
 		}
 	}
