@@ -19,6 +19,8 @@ import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.DocumentFilter;
 
 import com.home.Client;
 import com.home.DataBase;
@@ -26,7 +28,11 @@ import com.home.Family;
 import com.home.Session;
 import com.home.custom.ClientsModel;
 import com.home.custom.FamiliesModel;
+import com.home.docfilter.Filter;
+import com.home.docfilter.NumberDocumentFilter;
 import com.home.formes.AddClientForm.*;
+
+import javafx.scene.input.KeyCode;
 
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
@@ -60,30 +66,19 @@ public class ClientsForm extends JFrame {
 	private JComboBox comboBox;
 	private JButton btndelete;
 	private JButton btnEdit;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ClientsForm frame = new ClientsForm();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JButton btnfind;
 
 	/**
 	 * Create the frame.
 	 */
 	public ClientsForm() {
+		
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent arg0) {
 				Load();
+				tffind.selectAll();
+				tffind.grabFocus();
 			}
 		});
 		
@@ -119,8 +114,12 @@ public class ClientsForm extends JFrame {
 		btndelete.setEnabled(false);
 		btndelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ClientsModel model = (ClientsModel)table.getModel();
-				model.delete(table.getSelectedRow());
+				if (table.getSelectedRow() >= 0) {
+					ClientsModel model = (ClientsModel)table.getModel();
+					model.delete(table.getSelectedRow());
+				}else {
+					JOptionPane.showMessageDialog(null, "Selectionez un client puis click \"Supprimer\".");
+				}
 			}
 		});
 		
@@ -129,12 +128,17 @@ public class ClientsForm extends JFrame {
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				ClientsModel model = (ClientsModel)table.getModel();
-				Client client = model.getClient(table.getSelectedRow());
-				
-				if (!Session.isSetForm(Session.UPDATECLIENT))
-					Session.setForm(Session.UPDATECLIENT, new UpdateClientForm(client));
-				Session.showForm(Session.UPDATECLIENT);
+				if (table.getSelectedRow()>=0) {
+					
+					ClientsModel model = (ClientsModel)table.getModel();
+					Client client = model.getClient(table.getSelectedRow());
+					
+					if (!Session.isSetForm(Session.UPDATECLIENT))
+						Session.setForm(Session.UPDATECLIENT, new UpdateClientForm(client));
+					Session.showForm(Session.UPDATECLIENT);
+				}else {
+					JOptionPane.showMessageDialog(null, "Selectionez un client puis click \"Modifier\".");
+				}
 			}
 		});
 		btnEdit.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -153,10 +157,40 @@ public class ClientsForm extends JFrame {
 		lblRecherchePar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent arg0) {
+				
+				tffind.selectAll();
+				tffind.grabFocus();
+				
+				switch (comboBox.getSelectedIndex()) {
+				case 0:
+					Filter.TextField(tffind, Filter.NUMBER);
+					break;
+				case 1:
+					Filter.TextField(tffind, Filter.UPPERCASE);
+					break;
+				case 2:
+					Filter.TextField(tffind, Filter.FIRSTUPPERCASE);
+					break;
+				}
+			}
+		});
 		comboBox.setFont(new Font("Tahoma", Font.BOLD, 14));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Code", "Nom", "Prenom"}));
 		
 		tffind = new JTextField();
+		tffind.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				
+				if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+					btnfind.doClick();
+				}
+			}
+		});
+		tffind.setFont(new Font("Tahoma", Font.BOLD, 14));
+		Filter.TextField(tffind, Filter.NUMBER);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -180,10 +214,10 @@ public class ClientsForm extends JFrame {
 		);
 		panel.setLayout(gl_panel);
 		
-		JButton btnNewButton = new JButton("");
-		toolBar.add(btnNewButton);
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Search-icon.png")));
+		btnfind = new JButton("");
+		toolBar.add(btnfind);
+		btnfind.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnfind.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Search-icon.png")));
 		
 		JPanel panel_1 = new JPanel();
 		
@@ -247,7 +281,7 @@ public class ClientsForm extends JFrame {
 					.addGap(1))
 		);
 		contentPane.setLayout(gl_contentPane);
-		btnNewButton.addActionListener(new ActionListener() {
+		btnfind.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				FindBy(comboBox.getSelectedIndex(), tffind.getText());
 			}
@@ -271,10 +305,10 @@ public class ClientsForm extends JFrame {
 			field_name = "id";
 			break;
 		case 1:
-			field_name = "firstname";
+			field_name = "lastname";
 			break;
 		case 2:
-			field_name = "lastname";
+			field_name = "firstname";
 			break;
 		}
 		

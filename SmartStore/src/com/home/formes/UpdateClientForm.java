@@ -11,10 +11,18 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.DocumentFilter;
 
 import com.home.Cities;
 import com.home.Client;
 import com.home.Session;
+import com.home.docfilter.CurrencyDocumentFilter;
+import com.home.docfilter.Filter;
+import com.home.docfilter.FirstNameDocumentFilter;
+import com.home.docfilter.PhoneDocumentFilter;
+import com.home.docfilter.UppercaseDocumentFilter;
+import com.home.docfilter.ZIPDocumentFilter;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
@@ -119,6 +127,7 @@ public class UpdateClientForm extends JFrame {
 		panel.add(lblPrenom);
 		
 		tflastname = new JTextField(client.getLastname());
+		Filter.TextField(tflastname, Filter.UPPERCASE);
 		tflastname.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -135,6 +144,7 @@ public class UpdateClientForm extends JFrame {
 		tflastname.setColumns(10);
 		
 		tffirstname = new JTextField(client.getFirstname());
+		Filter.TextField(tffirstname, Filter.FIRSTUPPERCASE);
 		tffirstname.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -204,6 +214,7 @@ public class UpdateClientForm extends JFrame {
 		panel.add(lblPostal);
 		
 		tfzip = new JTextField(client.getZip());
+		Filter.TextField(tfzip, Filter.ZIP);
 		tfzip.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -213,19 +224,6 @@ public class UpdateClientForm extends JFrame {
 			public void insertUpdate(DocumentEvent e) {warn();}
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
-		});
-		tfzip.addKeyListener(new KeyAdapter() {
-		
-			public void keyTyped(KeyEvent evt) {
-				char c=evt.getKeyChar();
-				if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
-						tfzip.getText().length()>=5)
-				{
-					getToolkit().beep();
-					evt.consume();
-					
-				}
-			}
 		});
 		tfzip.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfzip.setBounds(69, 93, 63, 30);
@@ -286,6 +284,7 @@ public class UpdateClientForm extends JFrame {
 		panel.add(lblFax);
 		
 		tfmobile = new JTextField(client.getMobile());
+		Filter.TextField(tfmobile, Filter.PHONE);
 		tfmobile.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -296,25 +295,13 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfmobile.addKeyListener(new KeyAdapter() {
-			
-			public void keyTyped(KeyEvent evt) {
-				char c=evt.getKeyChar();
-				if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
-						tfmobile.getText().length()>=10)
-				{
-					getToolkit().beep();
-					evt.consume();
-					
-				}
-			}
-		});
 		tfmobile.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfmobile.setColumns(10);
 		tfmobile.setBounds(69, 138, 326, 30);
 		panel.add(tfmobile);
 		
 		tfphone = new JTextField(client.getPhone());
+		Filter.TextField(tfphone, Filter.PHONE);
 		tfphone.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -325,24 +312,13 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfphone.addKeyListener(new KeyAdapter() {
-			
-			public void keyTyped(KeyEvent e) {
-				char c=e.getKeyChar();
-				if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
-						tfphone.getText().length()>=9)
-				{
-					getToolkit().beep();
-					e.consume();
-				}
-			}
-		});
 		tfphone.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfphone.setColumns(10);
 		tfphone.setBounds(69, 185, 326, 30);
 		panel.add(tfphone);
 		
 		tffax = new JTextField(client.getFax());
+		Filter.TextField(tffax, Filter.PHONE);
 		tffax.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -352,19 +328,6 @@ public class UpdateClientForm extends JFrame {
 			public void insertUpdate(DocumentEvent e) {warn();}
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
-		});
-		tffax.addKeyListener(new KeyAdapter() {
-			
-			public void keyTyped(KeyEvent e) {
-				char c=e.getKeyChar();
-				if(!(Character.isDigit(c))||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE||
-						tffax.getText().length()>=9)
-				{
-					getToolkit().beep();
-					e.consume();
-					
-				}
-			}
 		});
 		tffax.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tffax.setColumns(10);
@@ -602,6 +565,7 @@ public class UpdateClientForm extends JFrame {
 		panel_2.add(lblNewLabel_2);
 		
 		tfcredit_limit = new JTextField(""+client.getCredit_limit());
+		Filter.TextField(tfcredit_limit, Filter.CURRENCY);
 		tfcredit_limit.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -613,23 +577,10 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfcredit_limit.addKeyListener(new KeyAdapter() {
-			
-			public void keyTyped(KeyEvent e) {
-				char c=e.getKeyChar();
-				if(!(Character.isDigit(c)||c=='.')||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE)
-				{								//Accepte uniquement des nombres décimaux
-					getToolkit().beep();
-					e.consume();
-					
-				}
-			}
-		});
 		tfcredit_limit.setHorizontalAlignment(SwingConstants.LEFT);
 		tfcredit_limit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfcredit_limit.setBounds(119, 71, 256, 30);
 		panel_2.add(tfcredit_limit);
-		tfcredit_limit.setColumns(10);
 		
 		JLabel lblDeCre = new JLabel("de crédit");
 		lblDeCre.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -642,6 +593,7 @@ public class UpdateClientForm extends JFrame {
 		panel_2.add(lblsoldeinitial);
 		
 		tfcredit = new JTextField(""+client.getCredit());
+		Filter.TextField(tfcredit, Filter.CURRENCY);
 		tfcredit.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -652,18 +604,6 @@ public class UpdateClientForm extends JFrame {
 			public void insertUpdate(DocumentEvent e) {warn();}
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
-		});
-		tfcredit.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char c=e.getKeyChar();
-				if(!(Character.isDigit(c)||c=='.')||c==KeyEvent.VK_BACK_SPACE||c==KeyEvent.VK_DELETE)
-				{								//Accepte uniquement des nombres décimaux
-					getToolkit().beep();
-					e.consume();
-					
-				}
-			}
 		});
 		tfcredit.setHorizontalAlignment(SwingConstants.LEFT);
 		tfcredit.setFont(new Font("Tahoma", Font.PLAIN, 14));

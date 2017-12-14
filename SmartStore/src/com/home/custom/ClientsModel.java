@@ -58,10 +58,10 @@ public class ClientsModel extends AbstractTableModel {
 			c.setId(Integer.parseInt((String)value));
 			break;
 		case 1:
-			c.setFirstname((String)value);
+			c.setLastname((String)value);
 			break;
 		case 2:
-			c.setLastname((String)value);
+			c.setFirstname((String)value);
 			break;
 		case 3:
 			c.setMobile((String)value);
@@ -118,8 +118,8 @@ public class ClientsModel extends AbstractTableModel {
         
         Vector v = new Vector();
         v.add(client.getId());
-        v.add(client.getFirstname());
         v.add(client.getLastname());
+        v.add(client.getFirstname());
         v.add(client.getMobile());
         v.add(client.getAddress());
         v.add(client.getWilaya());

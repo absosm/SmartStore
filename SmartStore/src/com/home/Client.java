@@ -323,27 +323,9 @@ public class Client {
 	{
 		return mail;
 	}
-	public boolean setMail(String email)
+	public void setMail(String mail)
 	{
-		try {
-			Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
-			Matcher matcher1 = pattern.matcher(email);// passage de parametre
-			if(matcher1.find() ||email.equals("") ){
-				this.mail=email;
-				return true;
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(new JFrame(), "Adresse e-mail incorrecte \t\t \n E-Mail format:   xxxxxx@yyyy.zzz", "ERREUR d'inscription",
-				        JOptionPane.ERROR_MESSAGE);
-				return false;
-				
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			return false;
-		}
-		
+		this.mail = mail;		
 	}
 	/**
 	 * @param email
