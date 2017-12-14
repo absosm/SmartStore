@@ -165,6 +165,7 @@ public class ClientsForm extends JFrame {
 		btndelete.setEnabled(false);
 		btndelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if (table.getSelectedRow() >= 0) {
 					ClientsModel model = (ClientsModel)table.getModel();
 					model.delete(table.getSelectedRow());

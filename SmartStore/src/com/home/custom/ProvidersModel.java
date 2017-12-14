@@ -2,13 +2,13 @@ package com.home.custom;
 
 import java.util.Vector;
 
-import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import com.home.Cities;
 import com.home.Client;
+import com.home.Provider;
 
-public class ClientsModel extends AbstractTableModel {
+public class ProvidersModel extends AbstractTableModel {
 
     /**
 	 * 
@@ -16,12 +16,12 @@ public class ClientsModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	
 	private Vector<Vector<Object>> data;
-    private String columnNames[] = {"N\u00B0Client", "Nom", "Prenom", "Mobile", 
+    private String columnNames[] = {"N\u00B0Fournisseur", "Nom", "Prenom", "Mobile", 
     								"Adresse", "Wilaya", "Commune", "Solde"};
     
     public static final int TAG = 8;
     
-    public ClientsModel() {
+    public ProvidersModel() {
         data = new Vector<Vector<Object>>();
     }
   
@@ -96,41 +96,33 @@ public class ClientsModel extends AbstractTableModel {
     	return data.get(row).get(column);
     }
     
-    public Client getClient(int row) {
-    	return (Client)data.get(row).get(TAG);
+    public Provider getProvider(int row) {
+    	return (Provider)data.get(row).get(TAG);
     }
     
     public void delete(int row) {
-    	
-    	Client c = (Client)data.get(row).get(TAG);
-    	int confirm = JOptionPane.showConfirmDialog(null, String.format(
-    			"Voulez vous supprimer cette client \"%s %s\"", c.getLastname(), c.getFirstname()), 
-    			"Confirmation", JOptionPane.YES_NO_OPTION);
-    	
-		if (confirm == JOptionPane.YES_OPTION) {
-			c.delete();
-			data.remove(row);
-		}
-    	
+    	Provider p = (Provider)data.get(row).get(TAG);
+    	p.delete();
+    	data.remove(row);
     	fireTableDataChanged();
     }
     
-    public void addRow(Client client) {
+    public void addRow(Provider provider) {
         
-        if (client == null) {
+        if (provider == null) {
             throw new IllegalArgumentException("rowData cannot be null");
         }
         
         Vector<Object> v = new Vector<Object>();
-        v.add(client.getId());
-        v.add(client.getLastname());
-        v.add(client.getFirstname());
-        v.add(client.getMobile());
-        v.add(client.getAddress());
-        v.add(client.getWilaya());
-        v.add(client.getCity());
-        v.add(client.getCredit());
-        v.add(client);
+        v.add(provider.getId());
+        v.add(provider.getLastname());
+        v.add(provider.getFirstname());
+        v.add(provider.getMobile());
+        v.add(provider.getAddress());
+        v.add(provider.getWilaya());
+        v.add(provider.getCity());
+        v.add(provider.getCredit());
+        v.add(provider);
         data.add(v);
         fireTableDataChanged();
     }

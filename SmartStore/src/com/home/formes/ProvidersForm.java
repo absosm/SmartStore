@@ -17,7 +17,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +29,6 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
@@ -183,20 +180,6 @@ public class ProvidersForm extends JFrame {
 			}
 		});
 		table.setFont(new Font("Tahoma", Font.BOLD, 14));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"N\u00B0Fournisseur", "Nom", "Prenom", "Telephone", "Adresse", "Wilaya", "Commune", "Solde"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
 		scrollPane.setViewportView(table);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -215,36 +198,5 @@ public class ProvidersForm extends JFrame {
 		);
 		panel_1.setLayout(gl_panel_1);
 		contentPane.setLayout(gl_contentPane);
-	}
-	/************************************************************************************************/
-	
-	
-	/**
-	 * @param result
-	 * methode pour l'affichage des resultates des recherche client
-	 */
-	private static void affichage_table(ResultSet result) 
-	{            										  
-		try {
-			DefaultTableModel tableModel=(DefaultTableModel) table.getModel(); 
-			tableModel.setNumRows(0);
-					
-			while(result.next())      
-			{
-				tableModel.addRow(
-					new Object[]{result.getString("id"),result.getString("Nom"),
-					result.getString("Prenom"),result.getString("TelPortable"),
-					result.getString("Adresse"),result.getString("wilaya"),
-					result.getString("Commune"),result.getString("Solde_Initial")
-					});
-			}
-		
-			
-		} catch (Exception e) {    // dans le cas d'erreur lancer une fenetre d'alert
-			JOptionPane.showMessageDialog(new JFrame(),e.getMessage(),"ERREUR",JOptionPane.ERROR_MESSAGE);
-			
-		}
-		
-		
 	}
 }
