@@ -4,8 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Client {
 	
@@ -323,23 +321,6 @@ public class Client {
 	public void setMail(String mail)
 	{
 		this.mail = mail;		
-	}
-	/**
-	 * @param email
-	 * @return
-	 * (true/false) test format email
-	 */
-	public static boolean format_Email(String email)
-	{  
-		try {
-		Pattern pattern = Pattern.compile("^.+@.+\\..+$");//Email validation
-		Matcher matcher = pattern.matcher(email);// passage de parametre	
-		return matcher.find();
-		} 
-		catch (Exception e) {
-		// TODO: handle exception
-			}
-		return false;		
 	}
 	/**
 	 * @return

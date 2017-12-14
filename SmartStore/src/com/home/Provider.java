@@ -7,118 +7,137 @@ import java.sql.Statement;
 
 public class Provider {
 	
-	private  int Id;
-	private  String Name;
-	private  String First_name;
-	private  String Address;
-	private  int Postal_Code;
-	private  String Wilaya;
-	private  String City;
-	private  String Mobile_Number;
-	private  String Telphone;
-	private  String Fax;
-	private  String NRC;
-	private  String NART;
-	private  String NIF;
-	private  String NIS;
-	private  String RIB;
-	private  String Bank_Account;
-	private  String Email;
-	private  String Website;
-	private  double Initial_Credit;
+	private int id ;				// 1
+	private String firstname;		// 2
+	private String lastname;		// 3
+	private String address;			// 4
+	private String family;			// 5
+	private String zip;				// 6
+	private int wilaya;				// 7
+	private int city;				// 8
+	 
+	private String mobile;			// 9
+	private String phone;			// 10
+	private String fax;				// 11
+	private String mail;			// 12
+	private String website;			// 13
 	
-	public Provider() {	
-		setName("");
-		setFirst_name("");
-		setAddress("");		
-		setPostal_Code(0);
-		setWilaya("");
-		setCity("");
-		setMobile_Number("");
-		setTelphone("");
+	private int mode;				// 14
+	
+	private String bank_account;	// 15
+	private double credit;			// 16
+	
+	private String NRC;				// 17
+	private String NART;			// 18
+	private String NIF;				// 19
+	private String NIS;				// 20
+	private String RIB;				// 21
+	
+	/**
+	 * 
+	 */
+	public Provider(){
+		
+		setFirstname("");
+		setLastname("");
+		setAddress("");
+		setFamily("");
+		setZip("");
+		setWilaya(0);
+		setCity(0);
+		setMobile("");
+		setPhone("");
 		setFax("");
 		setNRC("");
 		setNART("");
 		setNIF("");
 		setNIS("");
 		setRIB("");
-		setBank_Account("");
-		setEmail("");
-		setWebsite("");		
-		setInitial_Credit(0);		
+		setBank_account("");
+		setMail("");
+		setWebsite("");
+		setMode(0);
+		setCredit(0);		
 	}
- 
+	
 	public Provider(int id){
 		
 		try {
+			
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement("SELECT * FROM provider WHERE id=?");
+					prepareStatement("SELECT * FROM providers WHERE id=?");
 			prepared.setInt(1, id);
 			ResultSet result = prepared.executeQuery();
-			if (result.next()) {	
-				setId(id);
-				setName(result.getString(1));
-				setFirst_name(result.getString(2));
-				setAddress(result.getString(3));
-				setPostal_Code(result.getInt(4));
-				setWilaya(result.getString(5));
-				setCity(result.getString(6));
-				setMobile_Number(result.getString(7));
-				setTelphone(result.getString(8));
-				setFax(result.getString(9));
-				setNRC(result.getString(10));
-				setNART(result.getString(11));
-				setNIF(result.getString(12));
-				setNIS(result.getString(13));
-				setRIB(result.getString(14));
-				setBank_Account(result.getString(15));
-				setEmail(result.getString(16));
-				setWebsite(result.getString(17));
-				setInitial_Credit(result.getDouble(18));
+			
+			if (result.next()) {
+				setId(result.getInt(1));
+				setFirstname(result.getString(2));
+				setLastname(result.getString(3));
+				setAddress(result.getString(4));
+				setFamily(result.getString(5));
+				setZip(result.getString(6));
+				setWilaya(result.getInt(7));
+				setCity(result.getInt(8));
+				setMobile(result.getString(9));
+				setPhone(result.getString(10));
+				setFax(result.getString(11));
+				
+				setMail(result.getString(12));
+				setWebsite(result.getString(13));
+				setMode(result.getInt(14));
+				setBank_account(result.getString(15));
+				setCredit(result.getDouble(16));
+				
+				setNRC(result.getString(17));
+				setNART(result.getString(18));
+				setNIF(result.getString(19));
+				setNIS(result.getString(20));
+				setRIB(result.getString(21));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-	 
+		
+				
 	}
 	/**
 	 * @param id
 	 */
 	public int getId()
 	{
-		return Id;
+		return id;
 	}
 
 	public void setId(int id)
 	{
-		this.Id=id;
+		this.id=id;
 	}
 	
 	/**
 	 * @return
 	 * String : name
 	 */
-	public String getName()
+	public String getFirstname()
 	{
-		return Name;
+		return firstname;
 	}
-	public void setName(String name)
+	public void setFirstname(String name)
 	{
-		this.Name=name;
+		this.firstname=name;
 	}
 
 	/**
 	 * @return
 	 * String : First_name
 	 */
-	public String getFirst_name()
+	public String getLastname()
 	{
-		return First_name;
+		return lastname;
 	}
-	public void setFirst_name(String first_name)
+	public void setLastname(String first_name)
 	{
-		this.First_name=first_name;
+		this.lastname=first_name;
 	}	
 	/**
 	 * @return
@@ -126,72 +145,83 @@ public class Provider {
 	 */
 	public String getAddress()
 	{
-		return Address;
+		return address;
 	}
 	public void setAddress(String address)
 	{
-		this.Address=address;
+		this.address=address;
 	}
-
+	/**
+	 * @return
+	 * String : Family
+	 */
+	public String getFamily()
+	{
+		return family;
+	}
+	public void setFamily(String family)
+	{
+		this.family=family;
+	}
 	/**
 	 * @return
 	 * String : Postal_Code
 	 */
-	public int getPostal_Code()
+	public String getZip()
 	{
-		return Postal_Code;
+		return zip;
 	}
-	public void setPostal_Code(int postal_code)
+	public void setZip(String zip)
 	{
-		this.Postal_Code=postal_code;
+		this.zip=zip;
 	}
 	/**
 	 * @return
 	 * String : Wilaya
 	 */
-	public String getWilaya()
+	public int getWilaya()
 	{
-		return Wilaya;
+		return wilaya;
 	}
-	public void setWilaya(String wilaya)
+	public void setWilaya(int wilaya)
 	{
-		this.Wilaya=wilaya;
+		this.wilaya=wilaya;
 	}
 	/**
 	 * @return
 	 * String : City
 	 */
-	public String getCity()
+	public int getCity()
 	{
-		return City;
+		return city;
 	}
-	public void setCity(String city)
+	public void setCity(int city)
 	{
-		this.City=city;
+		this.city=city;
 	}	
 	/**
 	 * @return
 	 * String : mobile_number
 	 */
-	public String getMobile_Number()
+	public String getMobile()
 	{
-		return Mobile_Number;
+		return mobile;
 	}
-	public void setMobile_Number(String mobile_number)
+	public void setMobile(String mobile_number)
 	{
-		this.Mobile_Number=mobile_number;
+		this.mobile=mobile_number;
 	}
 	/**
 	 * @return
 	 * String : Telephone
 	 */
-	public String getTelphone()
+	public String getPhone()
 	{
-		return Telphone;
+		return phone;
 	}
-	public void setTelphone(String phone)
+	public void setPhone(String phone)
 	{
-		this.Telphone=phone;
+		this.phone=phone;
 	}
 	/**
 	 * @return
@@ -199,11 +229,11 @@ public class Provider {
 	 */
 	public String getFax()
 	{
-		return Fax;
+		return fax;
 	}
 	public void setFax(String fax)
 	{
-		this.Fax=fax;
+		this.fax=fax;
 	}
 
 	/**
@@ -270,25 +300,25 @@ public class Provider {
 	 * @return
 	 *String : ComptBancaire
 	 */
-	public String getBank_Account()
+	public String getBank_account()
 	{
-		return Bank_Account;
+		return bank_account;
 	}
-	public void setBank_Account(String comptBancaire)
+	public void setBank_account(String comptBancaire)
 	{
-		this.Bank_Account=comptBancaire;
+		this.bank_account=comptBancaire;
 	}
 	/**
 	 * @return
 	 *String : Email
 	 */
-	public String getEmail()
+	public String getMail()
 	{
-		return Email;
+		return mail;
 	}
-	public void setEmail(String email)
+	public void setMail(String mail)
 	{
-		this.Email=email;
+		this.mail = mail;		
 	}
 	/**
 	 * @return
@@ -296,26 +326,37 @@ public class Provider {
 	 */
 	public String getWebsite()
 	{
-		return Website;
+		return website;
 	}
 	public void setWebsite(String website)
 	{
-		this.Website=website;
+		this.website=website;
 	}
-	
-
+	/**
+	 * @return
+	 *integer : pricing_mode
+	 */
+	public int getMode()
+	{
+		return mode;
+	}
+	public void setMode(int pricing_mode)
+	{
+		this.mode=pricing_mode;
+	}
 	/**
 	 * @return
 	 *double : initial_credit
 	 */
-	public double getInitial_Credit()
+	public double getCredit()
 	{
-		return Initial_Credit;
+		return credit;
 	}
-	public void setInitial_Credit(double initial_credit)
+	public void setCredit(double initial_credit)
 	{
-		this.Initial_Credit=initial_credit;
+		this.credit=initial_credit;
 	}
+	
 	
 	/**
 	 * @param nom
@@ -323,25 +364,24 @@ public class Provider {
 	 * @return
 	 * (true/false) recherche par nom et prénom
 	 */
-	public static boolean exist(String name ,String first_name)
+	public static boolean exist(String firstname ,String lastname)
 	{
+		boolean b = false;
+		
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement("select * from provider where Name=? AND First_name =? ");
-			prepared.setString(1, name);
-			prepared.setString(2, first_name);
-			ResultSet resultSet=prepared.executeQuery();
-			resultSet.last();
-			if (resultSet.getRow()!=0)
-			{
-				return true;
-			}			
+			prepareStatement("SELECT * FROM providers WHERE (Name=? AND First_name =?)");
+			prepared.setString(1, firstname);
+			prepared.setString(2, lastname);
+			ResultSet result=prepared.executeQuery();
+			if (result.next())
+				b = true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false ;	
 		
+		return b ;
 	}
 	/**
 	 * @param id
@@ -350,127 +390,144 @@ public class Provider {
 	 */
 	public static boolean exist(int id)
 	{
+		boolean b = false;
+		
 		try {
-			PreparedStatement prepared = Session.getDatabase().getConnection().prepareStatement("select * from provider where id=?;");
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+					prepareStatement("select * from providers where id=?;");
 			prepared.setInt(1,id);			
-			ResultSet resultSet=prepared.executeQuery();
-			resultSet.last();
-			if (resultSet.getRow()!=0)
-			{
-				return true;
-			}			
+			ResultSet result = prepared.executeQuery();
+			if (result.next())
+				b = true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false;
+		
+		return b;
 	}
+	
 	/**
 	 * 
-	 */	
-	public void  add(){
-		String selectSQL="insert into provider (Name,First_name,Address,Postal_Code,Wilaya,City,Mobile_Number,Telphone"+
-			"Fax,NRC,NART,NIF,NIS,RIB,Bank_Account,Email,Website,Initial_Credit)Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+	 */
+	public boolean add()
+	{
+		boolean b = false;
+		String selectSQL="INSERT INTO providers(firstname,lastname,address,family,zip,wilaya,city,"
+				+ "mobile,phone,fax,mail,website,mode,bank_account,credit,NRC,NART,"
+				+ "NIF,NIS,RIB) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
 					prepareStatement(selectSQL,Statement.RETURN_GENERATED_KEYS);
-			prepared.setString(1 , getName());
-			prepared.setString(2 , getFirst_name());
+			prepared.setString(1 , getFirstname());
+			prepared.setString(2 , getLastname());
 			prepared.setString(3 , getAddress());
-			prepared.setInt   (4 , getPostal_Code());
-			prepared.setString(5 , getWilaya());
-			prepared.setString(6 , getCity());
-			prepared.setString(7 , getMobile_Number());
-			prepared.setString(8 , getTelphone());
-			prepared.setString(9, getFax());
-			prepared.setString(10, getNRC());
-			prepared.setString(11, getNART());
-			prepared.setString(12, getNIF());
-			prepared.setString(13, getNIS());
-			prepared.setString(14, getRIB());
-			prepared.setString(15, getBank_Account());
-			prepared.setString(16, getEmail());
-			prepared.setString(17, getWebsite());
-			prepared.setDouble(18, getInitial_Credit());
-			if(prepared.executeUpdate()>0){
-				ResultSet result = prepared.getGeneratedKeys();
-				result.next();
-				setId(result.getInt(1));				
+			prepared.setString(4 , getFamily());
+			prepared.setString(5 , getZip());
+			prepared.setInt   (6 , getWilaya());
+			prepared.setInt   (7 , getCity());
+			prepared.setString(8 , getMobile());
+			prepared.setString(9 , getPhone());
+			prepared.setString(10, getFax());
+			prepared.setString(11, getMail());
+			prepared.setString(12, getWebsite());
+			prepared.setInt   (13, getMode());
+			prepared.setString(14, getBank_account());
+			prepared.setDouble(15, getCredit());
+			prepared.setString(16, getNRC());
+			prepared.setString(17, getNART());
+			prepared.setString(18, getNIF());
+			prepared.setString(19, getNIS());
+			prepared.setString(20, getRIB());
+			
+			prepared.executeUpdate();
+			ResultSet result = prepared.getGeneratedKeys();
+			if (result.next()) {
+				this.setId(result.getInt(1));
+				b = true;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		
+		return b;
 	}
 	
 	/**
-	 * void delete provider
+	 * @return 
+	 * void delete Client
 	 */
 	public void delete(){
-		try {
-				PreparedStatement prepared = Session.getDatabase().getConnection().
-				prepareStatement("DELETE FROM provider WHERE id=?");
-				prepared.setInt(1, getId());
-				prepared.executeUpdate();
-			}
-		catch (Exception e) {
-			// TODO: handle exception
-		}
-		}
-	/**
-	 * @param id
-	 * @return
-	 * void delete provider
-	 */
-
-	public static void delete(int id ){
-		try {
-				PreparedStatement prepared = Session.getDatabase().getConnection().
-				prepareStatement("DELETE FROM provider WHERE id=?");
-				prepared.setInt(1,id);
-				prepared.executeUpdate();
-			}
-		catch (Exception e) {
-			// TODO: handle exception
-		}
-		}
-	/**
-	 * Update Client information
-	 */
-	public void update()
-	{
+		
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement("UPDATE client SET Name=? ,First_name=? ,Address=? ,Postal_Code=? ,Wilaya=?"
-							+ ",City=? ,Mobile_Number=? ,Telphone=? ,Fax=? ,NRC=? ,NART=? ,NIF=? ,NIS=? ,RIB=? ,Bank_Account=?"
-							+ ",Email=? ,Website=?  ,Initial_Credit=? WHERE id=?;");
-			prepared.setString(1 , getName());
-			prepared.setString(2 , getFirst_name());
-			prepared.setString(3 , getAddress());
-			prepared.setInt   (4 , getPostal_Code());
-			prepared.setString(5 , getWilaya());
-			prepared.setString(6 , getCity());
-			prepared.setString(7 , getMobile_Number());
-			prepared.setString(8 , getTelphone());
-			prepared.setString(9, getFax());
-			prepared.setString(10, getNRC());
-			prepared.setString(11, getNART());
-			prepared.setString(12, getNIF());
-			prepared.setString(13, getNIS());
-			prepared.setString(14, getRIB());
-			prepared.setString(15, getBank_Account());
-			prepared.setString(16, getEmail());
-			prepared.setString(17, getWebsite());
-			prepared.setDouble(18, getInitial_Credit());
-			prepared.setInt(19, getId());
-			prepared.executeUpdate();			
+			prepareStatement("DELETE FROM providers WHERE id=?");
+			prepared.setInt(1, getId());
+			prepared.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * @param id
+	 * @return
+	 * void delete Client
+	 */
 
-
+	public static void delete(int id){
+		
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+			prepareStatement("DELETE FROM providers WHERE id=?");
+			prepared.setInt(1,id);
+			prepared.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	/**
+	 * Update Client information
+	 */
+	public boolean update()
+	{
+		boolean b = false;
+		
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+					        prepareStatement("UPDATE providers SET firstname=?,lastname=?,address=?,"
+					        		+ "family=?,zip=?,wilaya=?,city=?,mobile=?,phone=?,fax=?,mail=?,"
+					        		+ "website=?,mode=?,bank_account=?,credit=?,NRC=?,"
+					        		+ "NART=?,NIF=?,NIS=?,RIB=? WHERE id=?;");
+			
+			prepared.setString(1 , getFirstname());
+			prepared.setString(2 , getLastname());
+			prepared.setString(3 , getAddress());
+			prepared.setString(4 , getFamily());
+			prepared.setString(5 , getZip());
+			prepared.setInt(6 , getWilaya());
+			prepared.setInt(7 , getCity());
+			prepared.setString(8 , getMobile());
+			prepared.setString(9 , getPhone());
+			prepared.setString(10, getFax());
+			prepared.setString(11, getMail());
+			prepared.setString(12, getWebsite());
+			prepared.setInt   (13, getMode());
+			prepared.setString(14, getBank_account());
+			prepared.setDouble(15, getCredit());
+			prepared.setString(16, getNRC());
+			prepared.setString(17, getNART());
+			prepared.setString(18, getNIF());
+			prepared.setString(19, getNIS());
+			prepared.setString(20, getRIB());
+			prepared.setInt   (21, getId());
+			if (prepared.executeUpdate()>0)
+				b = true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return b;
+	}
 }
