@@ -62,7 +62,7 @@ public class AddProviderForm extends JFrame {
 	private JComboBox<Object>  cbcity;
 	private JButton    btnOk;
 	private JLabel 	  id_label;
-	private JTextField textField;
+	private JTextField tfcredit;
 
 	/**
 	 * Create the frame.
@@ -116,7 +116,7 @@ public class AddProviderForm extends JFrame {
 		panel.add(lblPrenom);
 		
 		tflastname = new JTextField();
-		tflastname.setForeground(new Color(30, 144, 255));
+		tflastname.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tflastname, Filter.UPPERCASE);
 		tflastname.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -135,7 +135,7 @@ public class AddProviderForm extends JFrame {
 		tflastname.setColumns(10);
 		
 		tffirstname = new JTextField();
-		tffirstname.setForeground(new Color(30, 144, 255));
+		tffirstname.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tffirstname, Filter.FIRSTUPPERCASE);
 		tffirstname.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -164,7 +164,7 @@ public class AddProviderForm extends JFrame {
 		panel.add(lblFamille);
 		
 		tfaddress = new JTextField();
-		tfaddress.setForeground(new Color(30, 144, 255));
+		tfaddress.setForeground(new Color(0, 0, 255));
 		tfaddress.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -181,7 +181,7 @@ public class AddProviderForm extends JFrame {
 		panel.add(tfaddress);
 		
 		tffamily = new JTextField();
-		tffamily.setForeground(new Color(30, 144, 255));
+		tffamily.setForeground(new Color(0, 0, 255));
 		tffamily.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -208,7 +208,7 @@ public class AddProviderForm extends JFrame {
 		panel.add(lblPostal);
 		
 		tfzip = new JTextField();
-		tfzip.setForeground(new Color(30, 144, 255));
+		tfzip.setForeground(new Color(0, 0, 255));
 		tfzip.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -231,7 +231,7 @@ public class AddProviderForm extends JFrame {
 		panel.add(lblWilaya);
 		
 		cbcity = new JComboBox<Object>();
-		cbcity.setForeground(new Color(30, 144, 255));
+		cbcity.setForeground(new Color(0, 0, 255));
 		cbcity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				provider.setCity(cbcity.getSelectedIndex());
@@ -244,7 +244,7 @@ public class AddProviderForm extends JFrame {
 		panel.add(cbcity);
 		
 		cbwilaya = new JComboBox<Object>();
-		cbwilaya.setForeground(new Color(30, 144, 255));
+		cbwilaya.setForeground(new Color(0, 0, 255));
 		cbwilaya.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex()+1)));
@@ -281,7 +281,7 @@ public class AddProviderForm extends JFrame {
 		panel.add(lblFax);
 		
 		tfmobile = new JTextField();
-		tfmobile.setForeground(new Color(30, 144, 255));
+		tfmobile.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tfmobile, Filter.PHONE);
 		tfmobile.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -299,7 +299,7 @@ public class AddProviderForm extends JFrame {
 		panel.add(tfmobile);
 		
 		tfphone = new JTextField();
-		tfphone.setForeground(new Color(30, 144, 255));
+		tfphone.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tfphone, Filter.PHONE);
 		tfphone.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -317,7 +317,7 @@ public class AddProviderForm extends JFrame {
 		panel.add(tfphone);
 		
 		tffax = new JTextField();
-		tffax.setForeground(new Color(30, 144, 255));
+		tffax.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tffax, Filter.PHONE);
 		tffax.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -382,7 +382,7 @@ public class AddProviderForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnrc.setForeground(new Color(30, 144, 255));
+		tfnrc.setForeground(new Color(0, 0, 255));
 		tfnrc.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnrc.setBounds(103, 24, 237, 30);
 		panel_1.add(tfnrc);
@@ -399,7 +399,7 @@ public class AddProviderForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnif.setForeground(new Color(30, 144, 255));
+		tfnif.setForeground(new Color(0, 0, 255));
 		tfnif.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnif.setColumns(10);
 		tfnif.setBounds(103, 84, 237, 30);
@@ -416,7 +416,7 @@ public class AddProviderForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfbank_account.setForeground(new Color(30, 144, 255));
+		tfbank_account.setForeground(new Color(0, 0, 255));
 		tfbank_account.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfbank_account.setColumns(10);
 		tfbank_account.setBounds(103, 136, 237, 30);
@@ -433,7 +433,7 @@ public class AddProviderForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfmail.setForeground(new Color(30, 144, 255));
+		tfmail.setForeground(new Color(0, 0, 255));
 		tfmail.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfmail.setColumns(10);
 		tfmail.setBounds(103, 193, 237, 30);
@@ -471,7 +471,7 @@ public class AddProviderForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnart.setForeground(new Color(30, 144, 255));
+		tfnart.setForeground(new Color(0, 0, 255));
 		tfnart.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnart.setColumns(10);
 		tfnart.setBounds(431, 22, 237, 30);
@@ -488,7 +488,7 @@ public class AddProviderForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnis.setForeground(new Color(30, 144, 255));
+		tfnis.setForeground(new Color(0, 0, 255));
 		tfnis.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnis.setColumns(10);
 		tfnis.setBounds(431, 82, 237, 30);
@@ -505,7 +505,7 @@ public class AddProviderForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfrib.setForeground(new Color(30, 144, 255));
+		tfrib.setForeground(new Color(0, 0, 255));
 		tfrib.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfrib.setColumns(10);
 		tfrib.setBounds(431, 134, 237, 30);
@@ -522,7 +522,7 @@ public class AddProviderForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfwebsite.setForeground(new Color(30, 144, 255));
+		tfwebsite.setForeground(new Color(0, 0, 255));
 		tfwebsite.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfwebsite.setColumns(10);
 		tfwebsite.setBounds(431, 191, 237, 30);
@@ -538,14 +538,26 @@ public class AddProviderForm extends JFrame {
 		lblSolde.setBounds(188, 234, 78, 34);
 		panel_1.add(lblSolde);
 		
-		textField = new JTextField();
-		textField.setForeground(new Color(30, 144, 255));
-		textField.setText("0");
-		textField.setHorizontalAlignment(SwingConstants.LEFT);
-		textField.setFont(new Font("Tahoma", Font.BOLD, 14));
-		textField.setColumns(10);
-		textField.setBounds(276, 238, 256, 30);
-		panel_1.add(textField);
+		tfcredit = new JTextField();
+		Filter.TextField(tfcredit, Filter.CURRENCY);
+		tfcredit.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				if (!tfcredit.getText().isEmpty())
+					provider.setCredit(Double.parseDouble(tfcredit.getText()));
+			}
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			
+		});
+		tfcredit.setForeground(new Color(0, 0, 255));
+		tfcredit.setText("0");
+		tfcredit.setHorizontalAlignment(SwingConstants.LEFT);
+		tfcredit.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfcredit.setColumns(10);
+		tfcredit.setBounds(276, 238, 256, 30);
+		panel_1.add(tfcredit);
 		
 		btnOk = new JButton("ok");
 		btnOk.addActionListener(new ActionListener() {
@@ -553,8 +565,8 @@ public class AddProviderForm extends JFrame {
 				if (provider.add())
 					dispose();
 				else
-					JOptionPane.showMessageDialog(null, "pardon, l'insertion de client pas réussi.");
-				Session.showForm(Session.CLIENTS);
+					JOptionPane.showMessageDialog(null, "pardon, l'insertion de fournisseur pas réussi.");
+				Session.showForm(Session.PROVIDERS);
 			}
 		});
 		btnOk.setForeground(new Color(0, 255, 102));

@@ -118,7 +118,7 @@ public class AddClientForm extends JFrame {
 		panel.add(lblPrenom);
 		
 		tflastname = new JTextField();
-		tflastname.setForeground(new Color(30, 144, 255));
+		tflastname.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tflastname, Filter.UPPERCASE);
 		tflastname.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -137,7 +137,7 @@ public class AddClientForm extends JFrame {
 		tflastname.setColumns(10);
 		
 		tffirstname = new JTextField();
-		tffirstname.setForeground(new Color(30, 144, 255));
+		tffirstname.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tffirstname, Filter.FIRSTUPPERCASE);
 		tffirstname.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -166,7 +166,7 @@ public class AddClientForm extends JFrame {
 		panel.add(lblFamille);
 		
 		tfaddress = new JTextField();
-		tfaddress.setForeground(new Color(30, 144, 255));
+		tfaddress.setForeground(new Color(0, 0, 255));
 		tfaddress.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -183,7 +183,7 @@ public class AddClientForm extends JFrame {
 		panel.add(tfaddress);
 		
 		tffamily = new JTextField();
-		tffamily.setForeground(new Color(30, 144, 255));
+		tffamily.setForeground(new Color(0, 0, 255));
 		tffamily.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -210,7 +210,7 @@ public class AddClientForm extends JFrame {
 		panel.add(lblPostal);
 		
 		tfzip = new JTextField();
-		tfzip.setForeground(new Color(30, 144, 255));
+		tfzip.setForeground(new Color(0, 0, 255));
 		tfzip.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -233,7 +233,7 @@ public class AddClientForm extends JFrame {
 		panel.add(lblWilaya);
 		
 		cbcity = new JComboBox<Object>();
-		cbcity.setForeground(new Color(30, 144, 255));
+		cbcity.setForeground(new Color(0, 0, 255));
 		cbcity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				client.setCity(cbcity.getSelectedIndex());
@@ -246,7 +246,7 @@ public class AddClientForm extends JFrame {
 		panel.add(cbcity);
 		
 		cbwilaya = new JComboBox<Object>();
-		cbwilaya.setForeground(new Color(30, 144, 255));
+		cbwilaya.setForeground(new Color(0, 0, 255));
 		cbwilaya.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex()+1)));
@@ -283,7 +283,7 @@ public class AddClientForm extends JFrame {
 		panel.add(lblFax);
 		
 		tfmobile = new JTextField();
-		tfmobile.setForeground(new Color(30, 144, 255));
+		tfmobile.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tfmobile, Filter.PHONE);
 		tfmobile.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -301,7 +301,7 @@ public class AddClientForm extends JFrame {
 		panel.add(tfmobile);
 		
 		tfphone = new JTextField();
-		tfphone.setForeground(new Color(30, 144, 255));
+		tfphone.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tfphone, Filter.PHONE);
 		tfphone.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -319,7 +319,7 @@ public class AddClientForm extends JFrame {
 		panel.add(tfphone);
 		
 		tffax = new JTextField();
-		tffax.setForeground(new Color(30, 144, 255));
+		tffax.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tffax, Filter.PHONE);
 		tffax.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -384,7 +384,7 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnrc.setForeground(new Color(30, 144, 255));
+		tfnrc.setForeground(new Color(0, 0, 255));
 		tfnrc.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnrc.setBounds(103, 24, 237, 30);
 		panel_1.add(tfnrc);
@@ -401,7 +401,7 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnif.setForeground(new Color(30, 144, 255));
+		tfnif.setForeground(new Color(0, 0, 255));
 		tfnif.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnif.setColumns(10);
 		tfnif.setBounds(103, 84, 237, 30);
@@ -418,7 +418,7 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfbank_account.setForeground(new Color(30, 144, 255));
+		tfbank_account.setForeground(new Color(0, 0, 255));
 		tfbank_account.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfbank_account.setColumns(10);
 		tfbank_account.setBounds(103, 136, 237, 30);
@@ -435,7 +435,7 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfmail.setForeground(new Color(30, 144, 255));
+		tfmail.setForeground(new Color(0, 0, 255));
 		tfmail.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfmail.setColumns(10);
 		tfmail.setBounds(103, 193, 237, 30);
@@ -473,7 +473,7 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnart.setForeground(new Color(30, 144, 255));
+		tfnart.setForeground(new Color(0, 0, 255));
 		tfnart.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnart.setColumns(10);
 		tfnart.setBounds(431, 22, 237, 30);
@@ -490,7 +490,7 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnis.setForeground(new Color(30, 144, 255));
+		tfnis.setForeground(new Color(0, 0, 255));
 		tfnis.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnis.setColumns(10);
 		tfnis.setBounds(431, 82, 237, 30);
@@ -507,7 +507,7 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfrib.setForeground(new Color(30, 144, 255));
+		tfrib.setForeground(new Color(0, 0, 255));
 		tfrib.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfrib.setColumns(10);
 		tfrib.setBounds(431, 134, 237, 30);
@@ -524,7 +524,7 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfwebsite.setForeground(new Color(30, 144, 255));
+		tfwebsite.setForeground(new Color(0, 0, 255));
 		tfwebsite.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfwebsite.setColumns(10);
 		tfwebsite.setBounds(431, 191, 237, 30);
@@ -545,7 +545,7 @@ public class AddClientForm extends JFrame {
 		panel_2.add(lblModeDeTarif);
 		
 		cbmode = new JComboBox<Object>();
-		cbmode.setForeground(new Color(30, 144, 255));
+		cbmode.setForeground(new Color(0, 0, 255));
 		cbmode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				client.setMode(cbmode.getSelectedIndex());
@@ -564,7 +564,7 @@ public class AddClientForm extends JFrame {
 		panel_2.add(lblNewLabel_2);
 		
 		tfcredit_limit = new JTextField();
-		tfcredit_limit.setForeground(new Color(30, 144, 255));
+		tfcredit_limit.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tfcredit_limit, Filter.CURRENCY);
 		tfcredit_limit.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -595,7 +595,7 @@ public class AddClientForm extends JFrame {
 		panel_2.add(lblsoldeinitial);
 		
 		tfcredit = new JTextField();
-		tfcredit.setForeground(new Color(30, 144, 255));
+		tfcredit.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tfcredit, Filter.CURRENCY);
 		tfcredit.getDocument().addDocumentListener(new DocumentListener() {
 			
