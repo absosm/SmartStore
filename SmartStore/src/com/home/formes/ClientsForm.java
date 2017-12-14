@@ -50,7 +50,7 @@ public class ClientsForm extends JFrame {
 	private JTextField tffind;
 	private JComboBox<Object> comboBox;
 	private JButton btndelete;
-	private JButton btnEdit;
+	private JButton btnedit;
 
 	/**
 	 * Create the frame.
@@ -175,9 +175,9 @@ public class ClientsForm extends JFrame {
 			}
 		});
 		
-		btnEdit = new JButton("Modifier");
-		btnEdit.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/if_user_profile_edit_103781.png")));
-		btnEdit.addActionListener(new ActionListener() {
+		btnedit = new JButton("Modifier");
+		btnedit.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/if_user_profile_edit_103781.png")));
+		btnedit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				if (table.getSelectedRow()>=0) {
@@ -193,9 +193,9 @@ public class ClientsForm extends JFrame {
 				}
 			}
 		});
-		btnEdit.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnEdit.setEnabled(false);
-		toolBar.add(btnEdit);
+		btnedit.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnedit.setEnabled(false);
+		toolBar.add(btnedit);
 		btndelete.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Delete_48.png")));
 		btndelete.setFont(new Font("Tahoma", Font.BOLD, 14));
 		toolBar.add(btndelete);
@@ -217,10 +217,10 @@ public class ClientsForm extends JFrame {
 					ClientsModel model = (ClientsModel)table.getModel();
 					Client c = model.getClient(table.getSelectedRow());
 					if (c != null) {
-						btnEdit.setEnabled(true);
+						btnedit.setEnabled(true);
 						btndelete.setEnabled(true);
 					} else {
-						btnEdit.setEnabled(false);
+						btnedit.setEnabled(false);
 						btndelete.setEnabled(false);
 					}
 				}

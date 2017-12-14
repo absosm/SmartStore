@@ -104,7 +104,7 @@ public class ProvidersModel extends AbstractTableModel {
     	
     	Provider p = (Provider)data.get(row).get(TAG);
     	int confirm = JOptionPane.showConfirmDialog(null, String.format(
-    			"Voulez vous supprimer cette client \"%s %s\"", p.getLastname(), p.getFirstname()), 
+    			"Voulez vous supprimer cette fournisseur \"%s %s\"", p.getLastname(), p.getFirstname()), 
     			"Confirmation", JOptionPane.YES_NO_OPTION);
     	
 		if (confirm == JOptionPane.YES_OPTION) {

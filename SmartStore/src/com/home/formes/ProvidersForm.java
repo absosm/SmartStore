@@ -16,12 +16,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import java.awt.Font;
+
 
 import com.home.DataBase;
 import com.home.Provider;
@@ -58,6 +55,8 @@ public class ProvidersForm extends JFrame {
 	private static JTable table;
 	private JTextField textField;
 	private JComboBox<Object> comboBox;
+	private JButton btnedit;
+	private JButton btndelete;
 
 	/**
 	 * Create the frame.
@@ -132,34 +131,27 @@ public class ProvidersForm extends JFrame {
 		btnAjouter.setIcon(new ImageIcon(ProvidersForm.class.getResource("/images/fournisseur - Copie.png")));
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
-		JButton button = new JButton("Modifier");
-		button.setIcon(new ImageIcon(ProvidersForm.class.getResource("/images/fournisseur.png")));
-		button.setFont(new Font("Tahoma", Font.BOLD, 14));
-		toolBar.add(button);
+		btnedit = new JButton("Modifier");
+		btnedit.setEnabled(false);
+		btnedit.setIcon(new ImageIcon(ProvidersForm.class.getResource("/images/fournisseur.png")));
+		btnedit.setFont(new Font("Tahoma", Font.BOLD, 14));
+		toolBar.add(btnedit);
 		
-		JButton btnSupprimer = new JButton("Supprimer");
-		toolBar.add(btnSupprimer);
-		btnSupprimer.addActionListener(new ActionListener() {
+		btndelete = new JButton("Supprimer");
+		btndelete.setEnabled(false);
+		toolBar.add(btndelete);
+		btndelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					
-					List<String> list = new ArrayList<String>();
-					DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-					int a=table.getSelectedRow();
-					list.add(tableModel.getValueAt(a, 0).toString()); // passer les informations de Fournisseur
-					list.add(tableModel.getValueAt(a, 1).toString());
-					list.add(tableModel.getValueAt(a, 2).toString());
-					list.add(tableModel.getValueAt(a, 7).toString());
-					//new Sup_Fournisseur_Form(list);                             // lancer une fenêtre pour valider la suppression
-					
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(new JFrame(),e1.getMessage()+"\n Sélectionnez l'élément pour supprimer ","ERREUR",JOptionPane.ERROR_MESSAGE);
-					
+				if (table.getSelectedRow() >= 0) {
+					ProvidersModel model = (ProvidersModel)table.getModel();
+					model.delete(table.getSelectedRow());
+				}else {
+					JOptionPane.showMessageDialog(null, "Selectionez un fournisseur puis click \"Supprimer\".");
 				}
 			}
 		});
-		btnSupprimer.setIcon(new ImageIcon(ProvidersForm.class.getResource("/images/Delete_48.png")));
-		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btndelete.setIcon(new ImageIcon(ProvidersForm.class.getResource("/images/Delete_48.png")));
+		btndelete.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JPanel panel_1 = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -189,13 +181,17 @@ public class ProvidersForm extends JFrame {
 		table.addMouseListener(new MouseAdapter() {
 			
 			public void mouseClicked(MouseEvent event) {
-				if(event.getClickCount()>=2)
-				{
-					DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-					int a=table.getSelectedRow();
-					Object num = tableModel.getValueAt(a, 0);
-					if(num!=null){
-					new UpdateProviderForm(Integer.valueOf(num.toString()));
+				
+				if (table.getSelectedRow()>=0) {
+					
+					ProvidersModel model = (ProvidersModel)table.getModel();
+					Provider c = model.getProvider(table.getSelectedRow());
+					if (c != null) {
+						btnedit.setEnabled(true);
+						btndelete.setEnabled(true);
+					} else {
+						btnedit.setEnabled(false);
+						btndelete.setEnabled(false);
 					}
 				}
 			}
