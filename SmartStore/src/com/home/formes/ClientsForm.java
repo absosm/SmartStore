@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -66,7 +68,6 @@ public class ClientsForm extends JFrame {
 	private JComboBox comboBox;
 	private JButton btndelete;
 	private JButton btnEdit;
-	private JButton btnfind;
 
 	/**
 	 * Create the frame.
@@ -76,9 +77,8 @@ public class ClientsForm extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent arg0) {
+				comboBox.setSelectedIndex(1);
 				Load();
-				tffind.selectAll();
-				tffind.grabFocus();
 			}
 		});
 		
@@ -107,6 +107,74 @@ public class ClientsForm extends JFrame {
 					Session.setForm(Session.ADDCLIENT, new AddClientForm());
 			}
 		});
+		
+		JPanel panel = new JPanel();
+		toolBar.add(panel);
+		
+		JLabel lblRecherchePar = new JLabel("Recherche par:");
+		lblRecherchePar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+		comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent arg0) {
+				
+				tffind.selectAll();
+				tffind.grabFocus();
+				
+				switch (comboBox.getSelectedIndex()) {
+				case 0:
+					Filter.TextField(tffind, Filter.NUMBER);
+					break;
+				case 1:
+					Filter.TextField(tffind, Filter.UPPERCASE);
+					break;
+				case 2:
+					Filter.TextField(tffind, Filter.FIRSTUPPERCASE);
+					break;
+				}
+			}
+		});
+		comboBox.setFont(new Font("Tahoma", Font.BOLD, 14));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Code", "Nom", "Prenom"}));
+		
+		tffind = new JTextField();
+		tffind.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				FindBy(comboBox.getSelectedIndex(), tffind.getText());
+			}
+
+			public void changedUpdate(DocumentEvent arg0)  {warn();}
+			public void insertUpdate(DocumentEvent arg0)  {warn();}
+			public void removeUpdate(DocumentEvent arg0) {warn();}
+			
+		});
+		tffind.setFont(new Font("Tahoma", Font.BOLD, 14));
+		Filter.TextField(tffind, Filter.NUMBER);
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblRecherchePar)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(tffind, GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblRecherchePar))
+						.addComponent(tffind, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		panel.setLayout(gl_panel);
+		
+				toolBar.addSeparator(new Dimension(15, 48));
 		btnNewButton_1.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/employeeIcon.png")));
 		toolBar.add(btnNewButton_1);
 		
@@ -147,77 +215,6 @@ public class ClientsForm extends JFrame {
 		btndelete.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Delete_48.png")));
 		btndelete.setFont(new Font("Tahoma", Font.BOLD, 14));
 		toolBar.add(btndelete);
-
-		toolBar.addSeparator(new Dimension(15, 48));
-		
-		JPanel panel = new JPanel();
-		toolBar.add(panel);
-		
-		JLabel lblRecherchePar = new JLabel("Recherche par:");
-		lblRecherchePar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
-		comboBox = new JComboBox();
-		comboBox.addActionListener(new ActionListener() {			
-			public void actionPerformed(ActionEvent arg0) {
-				
-				tffind.selectAll();
-				tffind.grabFocus();
-				
-				switch (comboBox.getSelectedIndex()) {
-				case 0:
-					Filter.TextField(tffind, Filter.NUMBER);
-					break;
-				case 1:
-					Filter.TextField(tffind, Filter.UPPERCASE);
-					break;
-				case 2:
-					Filter.TextField(tffind, Filter.FIRSTUPPERCASE);
-					break;
-				}
-			}
-		});
-		comboBox.setFont(new Font("Tahoma", Font.BOLD, 14));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Code", "Nom", "Prenom"}));
-		
-		tffind = new JTextField();
-		tffind.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent evt) {
-				
-				if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-					btnfind.doClick();
-				}
-			}
-		});
-		tffind.setFont(new Font("Tahoma", Font.BOLD, 14));
-		Filter.TextField(tffind, Filter.NUMBER);
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblRecherchePar)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(tffind, GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblRecherchePar))
-						.addComponent(tffind, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		panel.setLayout(gl_panel);
-		
-		btnfind = new JButton("");
-		toolBar.add(btnfind);
-		btnfind.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnfind.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Search-icon.png")));
 		
 		JPanel panel_1 = new JPanel();
 		
@@ -281,11 +278,6 @@ public class ClientsForm extends JFrame {
 					.addGap(1))
 		);
 		contentPane.setLayout(gl_contentPane);
-		btnfind.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				FindBy(comboBox.getSelectedIndex(), tffind.getText());
-			}
-		});
 	}
 	/************************************************************************************************/
 	
@@ -297,7 +289,7 @@ public class ClientsForm extends JFrame {
 	private void FindBy(int FindType, String value) 
 	{
 		DataBase database= Session.getDatabase();
-		String sql_format = "SELECT * FROM clients WHERE %s=?";
+		String sql_format = "SELECT * FROM clients WHERE %s like ?";
 		String field_name = null, SQL = null;
 		
 		switch (FindType) {
@@ -316,7 +308,7 @@ public class ClientsForm extends JFrame {
 		
 		try {
 			PreparedStatement ps = database.getConnection().prepareStatement(SQL);
-			ps.setString(1, value);
+			ps.setString(1, value+"%");
 			ResultSet result = ps.executeQuery();
 
 			ClientsModel model = new ClientsModel();

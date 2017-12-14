@@ -552,6 +552,11 @@ public class UpdateClientForm extends JFrame {
 		panel_2.add(lblModeDeTarif);
 		
 		cbmode = new JComboBox();
+		cbmode.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				client.setMode(cbmode.getSelectedIndex());
+			}
+		});
 		cbmode.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbmode.setModel(new DefaultComboBoxModel(new String[] {"<Aucun Tarif>", "Tarif 1", "Tarif 2", "Tarif 3", "Tarif 4", "Tarif 5"}));
 		cbmode.setSelectedIndex(client.getMode());

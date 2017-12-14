@@ -238,7 +238,7 @@ public class ProvidersForm extends JFrame {
 					list.add(tableModel.getValueAt(a, 1).toString());
 					list.add(tableModel.getValueAt(a, 2).toString());
 					list.add(tableModel.getValueAt(a, 7).toString());
-					new Sup_Fournisseur_Form(list);                             // lancer une fenêtre pour valider la suppression
+					//new Sup_Fournisseur_Form(list);                             // lancer une fenêtre pour valider la suppression
 					
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(new JFrame(),e1.getMessage()+"\n Sélectionnez l'élément pour supprimer ","ERREUR",JOptionPane.ERROR_MESSAGE);
