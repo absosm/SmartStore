@@ -120,6 +120,7 @@ public class UpdateClientForm extends JFrame {
 		panel.add(lblPrenom);
 		
 		tflastname = new JTextField(client.getLastname());
+		tflastname.setForeground(new Color(30, 144, 255));
 		Filter.TextField(tflastname, Filter.UPPERCASE);
 		tflastname.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -131,12 +132,13 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tflastname.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tflastname.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tflastname.setBounds(69, 8, 242, 30);
 		panel.add(tflastname);
 		tflastname.setColumns(10);
 		
 		tffirstname = new JTextField(client.getFirstname());
+		tffirstname.setForeground(new Color(30, 144, 255));
 		Filter.TextField(tffirstname, Filter.FIRSTUPPERCASE);
 		tffirstname.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -148,7 +150,7 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tffirstname.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tffirstname.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tffirstname.setColumns(10);
 		tffirstname.setBounds(399, 8, 232, 30);
 		panel.add(tffirstname);
@@ -165,6 +167,7 @@ public class UpdateClientForm extends JFrame {
 		panel.add(lblFamille);
 		
 		tfaddress = new JTextField(client.getAddress());
+		tfaddress.setForeground(new Color(30, 144, 255));
 		tfaddress.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -175,12 +178,13 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfaddress.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfaddress.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfaddress.setColumns(10);
 		tfaddress.setBounds(69, 52, 326, 30);
 		panel.add(tfaddress);
 		
 		tffamily = new JTextField(client.getFamily());
+		tffamily.setForeground(new Color(30, 144, 255));
 		tffamily.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -191,7 +195,7 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tffamily.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tffamily.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tffamily.setColumns(10);
 		tffamily.setBounds(466, 52, 165, 30);
 		panel.add(tffamily);
@@ -207,6 +211,7 @@ public class UpdateClientForm extends JFrame {
 		panel.add(lblPostal);
 		
 		tfzip = new JTextField(client.getZip());
+		tfzip.setForeground(new Color(30, 144, 255));
 		Filter.TextField(tfzip, Filter.ZIP);
 		tfzip.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -218,7 +223,7 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfzip.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfzip.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfzip.setBounds(69, 93, 63, 30);
 		panel.add(tfzip);
 		tfzip.setColumns(10);
@@ -229,7 +234,8 @@ public class UpdateClientForm extends JFrame {
 		panel.add(lblCommune);
 		
 		cbcity = new JComboBox<Object>();
-		cbcity.setFont(new Font("Tahoma", Font.BOLD, 12));
+		cbcity.setForeground(new Color(30, 144, 255));
+		cbcity.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cbcity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				client.setCity(cbcity.getSelectedIndex());
@@ -244,13 +250,14 @@ public class UpdateClientForm extends JFrame {
 		panel.add(lblWilaya);
 		
 		cbwilaya = new JComboBox<Object>(new DefaultComboBoxModel<Object>(Cities.LoadWilaya()));
+		cbwilaya.setForeground(new Color(30, 144, 255));
 		cbwilaya.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex()+1)));
 				client.setWilaya(cbwilaya.getSelectedIndex());
 			}
 		});
-		cbwilaya.setFont(new Font("Tahoma", Font.BOLD, 12));
+		cbwilaya.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cbwilaya.setSelectedIndex(client.getWilaya());
 		cbcity.setSelectedIndex(client.getCity());
 		cbwilaya.setBounds(191, 92, 178, 29);
@@ -277,6 +284,7 @@ public class UpdateClientForm extends JFrame {
 		panel.add(lblFax);
 		
 		tfmobile = new JTextField(client.getMobile());
+		tfmobile.setForeground(new Color(30, 144, 255));
 		Filter.TextField(tfmobile, Filter.PHONE);
 		tfmobile.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -288,12 +296,13 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfmobile.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfmobile.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfmobile.setColumns(10);
 		tfmobile.setBounds(69, 138, 326, 30);
 		panel.add(tfmobile);
 		
 		tfphone = new JTextField(client.getPhone());
+		tfphone.setForeground(new Color(30, 144, 255));
 		Filter.TextField(tfphone, Filter.PHONE);
 		tfphone.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -305,12 +314,13 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfphone.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfphone.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfphone.setColumns(10);
 		tfphone.setBounds(69, 185, 326, 30);
 		panel.add(tfphone);
 		
 		tffax = new JTextField(client.getFax());
+		tffax.setForeground(new Color(30, 144, 255));
 		Filter.TextField(tffax, Filter.PHONE);
 		tffax.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -322,7 +332,7 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tffax.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tffax.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tffax.setColumns(10);
 		tffax.setBounds(69, 227, 326, 30);
 		panel.add(tffax);
@@ -337,7 +347,7 @@ public class UpdateClientForm extends JFrame {
 		tfId.setEditable(false);
 		tfId.setHorizontalAlignment(SwingConstants.CENTER);
 		tfId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		tfId.setForeground(new Color(51, 102, 204));
+		tfId.setForeground(new Color(30, 144, 255));
 		tfId.setBounds(526, 186, 104, 30);
 		panel.add(tfId);
 		tfId.setColumns(10);
@@ -384,7 +394,7 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnrc.setForeground(new Color(0, 102, 204));
+		tfnrc.setForeground(new Color(30, 144, 255));
 		tfnrc.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnrc.setBounds(103, 24, 237, 30);
 		panel_1.add(tfnrc);
@@ -401,7 +411,7 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnif.setForeground(new Color(0, 102, 204));
+		tfnif.setForeground(new Color(30, 144, 255));
 		tfnif.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnif.setColumns(10);
 		tfnif.setBounds(103, 84, 237, 30);
@@ -418,7 +428,7 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfbank_account.setForeground(new Color(0, 102, 204));
+		tfbank_account.setForeground(new Color(30, 144, 255));
 		tfbank_account.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfbank_account.setColumns(10);
 		tfbank_account.setBounds(103, 136, 237, 30);
@@ -435,7 +445,7 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfmail.setForeground(new Color(0, 102, 204));
+		tfmail.setForeground(new Color(30, 144, 255));
 		tfmail.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfmail.setColumns(10);
 		tfmail.setBounds(103, 193, 237, 30);
@@ -473,7 +483,7 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnart.setForeground(new Color(0, 102, 204));
+		tfnart.setForeground(new Color(30, 144, 255));
 		tfnart.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnart.setColumns(10);
 		tfnart.setBounds(431, 22, 237, 30);
@@ -490,7 +500,7 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnis.setForeground(new Color(0, 102, 204));
+		tfnis.setForeground(new Color(30, 144, 255));
 		tfnis.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnis.setColumns(10);
 		tfnis.setBounds(431, 82, 237, 30);
@@ -507,7 +517,7 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfrib.setForeground(new Color(0, 102, 204));
+		tfrib.setForeground(new Color(30, 144, 255));
 		tfrib.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfrib.setColumns(10);
 		tfrib.setBounds(431, 134, 237, 30);
@@ -524,7 +534,7 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfwebsite.setForeground(new Color(0, 102, 204));
+		tfwebsite.setForeground(new Color(30, 144, 255));
 		tfwebsite.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfwebsite.setColumns(10);
 		tfwebsite.setBounds(431, 191, 237, 30);
@@ -545,12 +555,13 @@ public class UpdateClientForm extends JFrame {
 		panel_2.add(lblModeDeTarif);
 		
 		cbmode = new JComboBox<Object>();
+		cbmode.setForeground(new Color(30, 144, 255));
 		cbmode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				client.setMode(cbmode.getSelectedIndex());
 			}
 		});
-		cbmode.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cbmode.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cbmode.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Aucun Tarif>", "Tarif 1", "Tarif 2", "Tarif 3", "Tarif 4", "Tarif 5"}));
 		cbmode.setSelectedIndex(client.getMode());
 		cbmode.setEditable(true);
@@ -563,6 +574,7 @@ public class UpdateClientForm extends JFrame {
 		panel_2.add(lblNewLabel_2);
 		
 		tfcredit_limit = new JTextField(""+client.getCredit_limit());
+		tfcredit_limit.setForeground(new Color(30, 144, 255));
 		Filter.TextField(tfcredit_limit, Filter.CURRENCY);
 		tfcredit_limit.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -576,7 +588,7 @@ public class UpdateClientForm extends JFrame {
 			
 		});
 		tfcredit_limit.setHorizontalAlignment(SwingConstants.LEFT);
-		tfcredit_limit.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfcredit_limit.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfcredit_limit.setBounds(119, 71, 256, 30);
 		panel_2.add(tfcredit_limit);
 		
@@ -591,6 +603,7 @@ public class UpdateClientForm extends JFrame {
 		panel_2.add(lblsoldeinitial);
 		
 		tfcredit = new JTextField(""+client.getCredit());
+		tfcredit.setForeground(new Color(30, 144, 255));
 		Filter.TextField(tfcredit, Filter.CURRENCY);
 		tfcredit.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -604,7 +617,7 @@ public class UpdateClientForm extends JFrame {
 			
 		});
 		tfcredit.setHorizontalAlignment(SwingConstants.LEFT);
-		tfcredit.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfcredit.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfcredit.setColumns(10);
 		tfcredit.setBounds(119, 131, 256, 30);
 		panel_2.add(tfcredit);

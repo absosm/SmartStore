@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import java.awt.Font;
 
-
 import com.home.DataBase;
 import com.home.Provider;
 import com.home.Session;
@@ -132,6 +131,22 @@ public class ProvidersForm extends JFrame {
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		btnedit = new JButton("Modifier");
+		btnedit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if (table.getSelectedRow()>=0) {
+					
+					ProvidersModel model = (ProvidersModel)table.getModel();
+					Provider provider = model.getProvider(table.getSelectedRow());
+					
+					if (!Session.isSetForm(Session.UPDATEPROVIDER))
+						Session.setForm(Session.UPDATEPROVIDER, new UpdateProviderForm(provider));
+					Session.showForm(Session.UPDATEPROVIDER);
+				}else {
+					JOptionPane.showMessageDialog(null, "Selectionez un fournisseur puis click \"Modifier\".");
+				}
+			}
+		});
 		btnedit.setEnabled(false);
 		btnedit.setIcon(new ImageIcon(ProvidersForm.class.getResource("/images/fournisseur.png")));
 		btnedit.setFont(new Font("Tahoma", Font.BOLD, 14));
