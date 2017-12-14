@@ -70,7 +70,7 @@ public class ClientsForm extends JFrame {
 			Runtime.getRuntime().exit(0);
 		}
 		
-		setTitle("Recherche");
+		setTitle("Liste des client");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ClientsForm.class.getResource("/images/Search-People-icon.png")));
 		setBounds(100, 100, 1008, 599);
 		contentPane = new JPanel();
