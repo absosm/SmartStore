@@ -2,10 +2,10 @@
 -- version 4.0.4
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Dec 13, 2017 at 03:30 PM
--- Server version: 5.6.12-log
--- PHP Version: 5.4.12
+-- Client: localhost
+-- Généré le: Jeu 14 Décembre 2017 à 18:48
+-- Version du serveur: 5.6.12-log
+-- Version de PHP: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `smart_store`
+-- Base de données: `smart_store`
 --
 CREATE DATABASE IF NOT EXISTS `smart_store` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 USE `smart_store`;
@@ -25,7 +25,7 @@ USE `smart_store`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clients`
+-- Structure de la table `clients`
 --
 
 CREATE TABLE IF NOT EXISTS `clients` (
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `clients`
+-- Contenu de la table `clients`
 --
 
 INSERT INTO `clients` (`id`, `firstname`, `lastname`, `address`, `family`, `zip`, `wilaya`, `city`, `mobile`, `phone`, `fax`, `mail`, `website`, `mode`, `bank_account`, `credit`, `credit_limit`, `NRC`, `NART`, `NIF`, `NIS`, `RIB`) VALUES
@@ -64,7 +64,7 @@ INSERT INTO `clients` (`id`, `firstname`, `lastname`, `address`, `family`, `zip`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `families`
+-- Structure de la table `families`
 --
 
 CREATE TABLE IF NOT EXISTS `families` (
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `families` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `families`
+-- Contenu de la table `families`
 --
 
 INSERT INTO `families` (`id`, `designation`, `note`, `count`) VALUES
@@ -87,45 +87,7 @@ INSERT INTO `families` (`id`, `designation`, `note`, `count`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fournisseurs`
---
-
-CREATE TABLE IF NOT EXISTS `fournisseurs` (
-  `id` int(11) NOT NULL,
-  `Nom` varchar(255) COLLATE utf8_bin NOT NULL,
-  `Prenom` varchar(255) COLLATE utf8_bin NOT NULL,
-  `Adresse` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `CodePostal` int(8) DEFAULT '0',
-  `wilaya` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `Commune` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `TelPortable` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `TeleFix` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `Fax` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `NRC` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `NART` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `NIF` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `NIS` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `RIB` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `ComptBancaire` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `Email` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `SiteWeb` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `Solde` double DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Des information sur les fourniseure';
-
---
--- Dumping data for table `fournisseurs`
---
-
-INSERT INTO `fournisseurs` (`id`, `Nom`, `Prenom`, `Adresse`, `CodePostal`, `wilaya`, `Commune`, `TelPortable`, `TeleFix`, `Fax`, `NRC`, `NART`, `NIF`, `NIS`, `RIB`, `ComptBancaire`, `Email`, `SiteWeb`, `Solde`) VALUES
-(1, 'nounou', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', 0),
-(2, 'تبري', 'عبدالنور', 'حي ميموني الطاهر الوطاية بسكرة', 0, 'BISKRA	', 'الوطاية', '0696286671', '033623938', '033623938', '', '', '', '', '', '', '', '', 0),
-(3, 'fff', 'ggg', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `produits`
+-- Structure de la table `produits`
 --
 
 CREATE TABLE IF NOT EXISTS `produits` (
@@ -154,7 +116,45 @@ CREATE TABLE IF NOT EXISTS `produits` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Structure de la table `providers`
+--
+
+CREATE TABLE IF NOT EXISTS `providers` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(50) COLLATE utf8_bin NOT NULL,
+  `lastname` varchar(50) COLLATE utf8_bin NOT NULL,
+  `address` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `family` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `zip` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+  `wilaya` tinyint(4) DEFAULT NULL,
+  `city` tinyint(4) DEFAULT NULL,
+  `mobile` varchar(15) COLLATE utf8_bin DEFAULT NULL,
+  `phone` varchar(15) COLLATE utf8_bin DEFAULT NULL,
+  `fax` varchar(15) COLLATE utf8_bin DEFAULT NULL,
+  `mail` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `website` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `mode` int(10) DEFAULT '0',
+  `bank_account` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `credit` double NOT NULL DEFAULT '0',
+  `NRC` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `NART` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `NIF` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `NIS` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `RIB` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `providers`
+--
+
+INSERT INTO `providers` (`id`, `firstname`, `lastname`, `address`, `family`, `zip`, `wilaya`, `city`, `mobile`, `phone`, `fax`, `mail`, `website`, `mode`, `bank_account`, `credit`, `NRC`, `NART`, `NIF`, `NIS`, `RIB`) VALUES
+(1, 'Oussama', 'ABBAS', 'HAI KHOBZI', '', '0', 6, 0, '0550200150', '', '', '', '', 0, '', 0, '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -170,11 +170,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `users`
+-- Contenu de la table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `firstname`, `lastname`, `telephone`, `privilege`, `last_login`) VALUES
-(1, 'admin', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'ABBAS', 'Oussama', '0550200150', 1, '2017-12-13 16:02:36');
+(1, 'admin', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'ABBAS', 'Oussama', '0550200150', 1, '2017-12-14 19:05:04');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
