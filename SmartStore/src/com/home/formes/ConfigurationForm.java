@@ -26,7 +26,6 @@ import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JToolBar;
 import javax.swing.JComboBox;
@@ -34,6 +33,11 @@ import java.awt.Font;
 
 public class ConfigurationForm extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -54,22 +58,6 @@ public class ConfigurationForm extends JFrame {
 	private JTextField textField_16;
 	private JTextField textField_17;
 	private JTextField textField_18;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ConfigurationForm frame = new ConfigurationForm();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -219,12 +207,12 @@ public class ConfigurationForm extends JFrame {
 		JLabel lblNewLabel_9 = new JLabel("New label");
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<Object> comboBox = new JComboBox<Object>();
 		
 		JLabel lblNewLabel_10 = new JLabel("New label");
 		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JComboBox comboBox_1 = new JComboBox();
+		JComboBox<Object> comboBox_1 = new JComboBox<Object>();
 		
 		JLabel lblNewLabel_11 = new JLabel("New label");
 		lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 14));

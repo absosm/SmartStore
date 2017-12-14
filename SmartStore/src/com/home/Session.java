@@ -1,9 +1,6 @@
 package com.home;
 
-import java.util.List;
-
 import javax.swing.JFrame;
-
 import com.home.formes.MainForm;
 
 public class Session {

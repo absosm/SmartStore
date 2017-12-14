@@ -7,21 +7,21 @@ import javax.swing.table.AbstractTableModel;
 import com.home.Cities;
 import com.home.Client;
 
-import javafx.scene.control.ComboBox;
-
 public class ClientsModel extends AbstractTableModel {
 
-    private Vector<Vector> data;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Vector<Vector<Object>> data;
     private String columnNames[] = {"N\u00B0Client", "Nom", "Prenom", "Mobile", 
     								"Adresse", "Wilaya", "Commune", "Solde"};
-	private Class[] columnTypes = new Class[] {
-		Object.class, Object.class, Object.class, Object.class, Object.class, Object.class , Object.class, Object.class
-	};
     
     public static final int TAG = 8;
     
     public ClientsModel() {
-        data = new Vector<Vector>();
+        data = new Vector<Vector<Object>>();
     }
   
     public int getRowCount() {
@@ -95,10 +95,6 @@ public class ClientsModel extends AbstractTableModel {
     	return data.get(row).get(column);
     }
     
-    public Class getColumnClass(int columnIndex) {
-		return columnTypes[columnIndex];
-	}
-    
     public Client getClient(int row) {
     	return (Client)data.get(row).get(TAG);
     }
@@ -116,7 +112,7 @@ public class ClientsModel extends AbstractTableModel {
             throw new IllegalArgumentException("rowData cannot be null");
         }
         
-        Vector v = new Vector();
+        Vector<Object> v = new Vector<Object>();
         v.add(client.getId());
         v.add(client.getLastname());
         v.add(client.getFirstname());

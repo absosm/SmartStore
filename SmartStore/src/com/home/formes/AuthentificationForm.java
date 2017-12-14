@@ -19,15 +19,11 @@ import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.net.URL;
 import java.util.Base64;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.input.SAXBuilder;
 
 import com.home.Configuration;
 import com.home.DataBase;
@@ -46,7 +42,7 @@ public class AuthentificationForm {
 	private JTextField tf_dbname;
 	private JTextField tf_username;
 	private JPasswordField tf_password;
-	private JComboBox cb_driver;
+	private JComboBox<Object> cb_driver;
 	private JCheckBox chk_remember;
 
 	/**
@@ -180,7 +176,7 @@ public class AuthentificationForm {
 				database.setHost(tf_host.getText());
 				database.setName(tf_dbname.getText());
 				database.setUsername(tf_username.getText());
-				database.setPassword(tf_password.getText());
+				database.setPassword(new String(tf_password.getPassword()));
 				
 				if (database.Connect()) {
 					Session.setDatabase(database);
@@ -189,7 +185,7 @@ public class AuthentificationForm {
 					return;
 				}
 				
-				if (User.exist(tf_login.getText(), Encode.sha256(tf_loginpassword.getText()))) {
+				if (User.exist(tf_login.getText(), Encode.sha256(new String(tf_loginpassword.getPassword())))) {
 					
 					Session.setUser(User.get(tf_login.getText()));
 					Session.start();
@@ -198,7 +194,7 @@ public class AuthentificationForm {
 					if (chk_remember.isSelected()) {
 						Configuration.authentification.username = tf_login.getText();
 						Configuration.authentification.password = new String( 
-								Base64.getEncoder().encode(tf_loginpassword.getText().getBytes()) );
+								Base64.getEncoder().encode(new String(tf_loginpassword.getPassword()).getBytes()) );
 					}else {
 						Configuration.authentification.username = "";
 						Configuration.authentification.password = "";
@@ -214,8 +210,8 @@ public class AuthentificationForm {
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap(28, Short.MAX_VALUE)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+					.addContainerGap(30, Short.MAX_VALUE)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblUtilisateur)
@@ -225,7 +221,7 @@ public class AuthentificationForm {
 								.addComponent(tf_login)
 								.addComponent(tf_loginpassword, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
 								.addComponent(chk_remember)))
-						.addComponent(btnConnexion, Alignment.TRAILING))
+						.addComponent(btnConnexion))
 					.addContainerGap())
 		);
 		gl_panel_1.setVerticalGroup(
@@ -252,8 +248,8 @@ public class AuthentificationForm {
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Option", null, panel_3, null);
 		
-		cb_driver = new JComboBox();
-		cb_driver.setModel(new DefaultComboBoxModel(new String[] {"MySQL"}));
+		cb_driver = new JComboBox<Object>();
+		cb_driver.setModel(new DefaultComboBoxModel<Object>(new String[] {"MySQL"}));
 		cb_driver.setSelectedIndex(Configuration.database.driver);
 		
 		JLabel lblNewLabel = new JLabel("Moteur de base:");
@@ -289,7 +285,7 @@ public class AuthentificationForm {
 				Configuration.database.name = tf_dbname.getText();
 				Configuration.database.username = tf_username.getText();
 				Configuration.database.password = new String( 
-						Base64.getEncoder().encode(tf_password.getText().getBytes()) );
+						Base64.getEncoder().encode(new String(tf_password.getPassword()).getBytes()) );
 				Configuration.save();
 			}
 		});
@@ -349,38 +345,16 @@ public class AuthentificationForm {
 		panel_3.setLayout(gl_panel_3);
 		frmAuthentification.getContentPane().setLayout(groupLayout);
 	}
-	
-	private void LoadConfiguration() {
-		
-		SAXBuilder saxBuilder = new SAXBuilder();
-		Element config_db=null, config_auth=null;
-        Document document = null;
-        try {
-            document = saxBuilder.build(new File("./config/main.xml"));
-            config_db = document.getRootElement().getChild("database");
-            config_auth = document.getRootElement().getChild("authentification");
-            
-            cb_driver.setSelectedIndex(Integer.parseInt(config_db.getChild("driver").getText()));
-            tf_host.setText(config_db.getChild("host").getText());
-            tf_dbname.setText(config_db.getChild("name").getText());
-            tf_username.setText(config_db.getChild("username").getText());
-            tf_password.setText(config_db.getChild("password").getText());
-            
-            boolean remember = Boolean.parseBoolean(config_auth.getChild("remember").getText());
-            if (remember) {
-            	tf_login.setText(config_auth.getChild("username").getText());
-            	tf_loginpassword.setText( new String(Base64.getDecoder().decode(config_auth.getChild("username").getText().getBytes())) );
-            }
-            
-        } catch (Exception ex) {
-        	ex.printStackTrace();
-        }
-	}
 }
 
 class ImagePanel extends JPanel {
 
-	  private Image img;
+	  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Image img;
 
 	  public ImagePanel(String img) {
 	    this(new ImageIcon(img).getImage());

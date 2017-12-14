@@ -8,9 +8,9 @@ import java.util.Vector;
 
 public class Cities {
 	
-	public static Vector LoadWilaya() {
+	public static Vector<Object> LoadWilaya() {
 		
-		Vector vector = new Vector();
+		Vector<Object> vector = new Vector<Object>();
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -28,9 +28,9 @@ public class Cities {
 		return vector;
 	}
 	
-	public static Vector LoadCities(int code_wilaya) {
+	public static Vector<Object> LoadCities(int code_wilaya) {
 		
-		Vector vector = new Vector();
+		Vector<Object> vector = new Vector<Object>();
 		
 		try {
 			Class.forName("org.sqlite.JDBC");

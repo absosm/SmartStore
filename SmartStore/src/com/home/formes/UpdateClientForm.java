@@ -4,25 +4,15 @@
  */
 package com.home.formes;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.DocumentFilter;
 
 import com.home.Cities;
 import com.home.Client;
 import com.home.Session;
-import com.home.docfilter.CurrencyDocumentFilter;
 import com.home.docfilter.Filter;
-import com.home.docfilter.FirstNameDocumentFilter;
-import com.home.docfilter.PhoneDocumentFilter;
-import com.home.docfilter.UppercaseDocumentFilter;
-import com.home.docfilter.ZIPDocumentFilter;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
@@ -37,14 +27,17 @@ import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class UpdateClientForm extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Client client;
 	
 	private JPanel contentPane;
@@ -65,11 +58,11 @@ public class UpdateClientForm extends JFrame {
 	private JTextField tfwebsite;
 	private JTextField tfcredit_limit;
 	private JTextField tfcredit;
-	private JComboBox  cbwilaya;
-	private JComboBox  cbcity;
-	private JComboBox  cbmode;
-	private JButton 	  btnModifier;
-	private JLabel 	  id_label;
+	private JComboBox<Object>  cbwilaya;
+	private JComboBox<Object>  cbcity;
+	private JComboBox<Object>  cbmode;
+	private JButton btnModifier;
+	private JLabel id_label;
 	private JTextField tfId;
 	private JTextField tflastname;
 
@@ -235,7 +228,7 @@ public class UpdateClientForm extends JFrame {
 		lblCommune.setBounds(383, 98, 71, 21);
 		panel.add(lblCommune);
 		
-		cbcity = new JComboBox();
+		cbcity = new JComboBox<Object>();
 		cbcity.setFont(new Font("Tahoma", Font.BOLD, 12));
 		cbcity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -250,10 +243,10 @@ public class UpdateClientForm extends JFrame {
 		lblWilaya.setBounds(142, 93, 46, 22);
 		panel.add(lblWilaya);
 		
-		cbwilaya = new JComboBox(new DefaultComboBoxModel(Cities.LoadWilaya()));
+		cbwilaya = new JComboBox<Object>(new DefaultComboBoxModel<Object>(Cities.LoadWilaya()));
 		cbwilaya.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cbcity.setModel(new DefaultComboBoxModel(Cities.LoadCities(cbwilaya.getSelectedIndex()+1)));
+				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex()+1)));
 				client.setWilaya(cbwilaya.getSelectedIndex());
 			}
 		});
@@ -551,14 +544,14 @@ public class UpdateClientForm extends JFrame {
 		lblModeDeTarif.setBounds(10, 26, 94, 17);
 		panel_2.add(lblModeDeTarif);
 		
-		cbmode = new JComboBox();
+		cbmode = new JComboBox<Object>();
 		cbmode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				client.setMode(cbmode.getSelectedIndex());
 			}
 		});
 		cbmode.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cbmode.setModel(new DefaultComboBoxModel(new String[] {"<Aucun Tarif>", "Tarif 1", "Tarif 2", "Tarif 3", "Tarif 4", "Tarif 5"}));
+		cbmode.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Aucun Tarif>", "Tarif 1", "Tarif 2", "Tarif 3", "Tarif 4", "Tarif 5"}));
 		cbmode.setSelectedIndex(client.getMode());
 		cbmode.setEditable(true);
 		cbmode.setBounds(119, 21, 256, 30);

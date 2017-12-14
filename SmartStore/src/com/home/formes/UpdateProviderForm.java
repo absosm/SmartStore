@@ -1,10 +1,7 @@
 package com.home.formes;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 
@@ -34,6 +31,11 @@ import java.awt.Toolkit;
 
 public class UpdateProviderForm extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private static JPanel contentPane;
 	private static JTextField tfnom;
 	private static JTextField tfprenom;
@@ -51,26 +53,9 @@ public class UpdateProviderForm extends JFrame {
 	private static JTextField tfrib;
 	private static JTextField tfsiteweb;
 	private static JTextField tfsolde;
-	private static JComboBox tfwilaya;
-	private static JComboBox tfcommune;
+	private static JComboBox<Object> tfwilaya;
+	private static JComboBox<Object> tfcommune;
 	private static JTextField tfId;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					//Modifier_Fournisseur_Form frame = new Modifier_Fournisseur_Form();
-					//frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -172,9 +157,9 @@ public class UpdateProviderForm extends JFrame {
 		lblWilaya.setBounds(142, 93, 46, 22);
 		panel.add(lblWilaya);
 		
-		tfwilaya = new JComboBox();
+		tfwilaya = new JComboBox<Object>();
 		tfwilaya.setFont(new Font("Tahoma", Font.BOLD, 12));
-		tfwilaya.setModel(new DefaultComboBoxModel(new String[] {"", "ADRAR\t", "AIN DEFLA\t", "AIN TEMOUCHENT\t", "AL TARF\t", "ALGER\t", "ANNABA\t", "B.B.ARRERIDJ\t", "BATNA\t", "BECHAR\t", "BEJAIA\t", "BISKRA\t", "BLIDA\t", "BOUIRA\t", "BOUMERDES\t", "CHLEF\t", "CONSTANTINE\t", "DJELFA\t", "EL BAYADH\t", "EL OUED\t", "GHARDAIA\t", "GUELMA\t", "ILLIZI\t", "JIJEL\t", "KHENCHELA\t", "LAGHOUAT\t", "MASCARA\t", "MEDEA\t", "MILA\t", "MOSTAGANEM\t", "M’SILA\t", "NAAMA\t", "ORAN\t", "OUARGLA\t", "OUM ELBOUAGHI\t", "RELIZANE\t", "SAIDA\t", "SETIF\t", "SIDI BEL ABBES\t", "SKIKDA\t", "SOUKAHRAS\t", "TAMANGHASSET\t", "TEBESSA\t", "TIARET\t", "TINDOUF\t", "TIPAZA\t", "TISSEMSILT\t", "TIZI.OUZOU\t", "TLEMCEN"}));
+		tfwilaya.setModel(new DefaultComboBoxModel<Object>(new String[] {"", "ADRAR\t", "AIN DEFLA\t", "AIN TEMOUCHENT\t", "AL TARF\t", "ALGER\t", "ANNABA\t", "B.B.ARRERIDJ\t", "BATNA\t", "BECHAR\t", "BEJAIA\t", "BISKRA\t", "BLIDA\t", "BOUIRA\t", "BOUMERDES\t", "CHLEF\t", "CONSTANTINE\t", "DJELFA\t", "EL BAYADH\t", "EL OUED\t", "GHARDAIA\t", "GUELMA\t", "ILLIZI\t", "JIJEL\t", "KHENCHELA\t", "LAGHOUAT\t", "MASCARA\t", "MEDEA\t", "MILA\t", "MOSTAGANEM\t", "M’SILA\t", "NAAMA\t", "ORAN\t", "OUARGLA\t", "OUM ELBOUAGHI\t", "RELIZANE\t", "SAIDA\t", "SETIF\t", "SIDI BEL ABBES\t", "SKIKDA\t", "SOUKAHRAS\t", "TAMANGHASSET\t", "TEBESSA\t", "TIARET\t", "TINDOUF\t", "TIPAZA\t", "TISSEMSILT\t", "TIZI.OUZOU\t", "TLEMCEN"}));
 		tfwilaya.setSelectedIndex(0);
 		tfwilaya.setBounds(191, 92, 178, 29);
 		panel.add(tfwilaya);
@@ -184,8 +169,8 @@ public class UpdateProviderForm extends JFrame {
 		lblCommune.setBounds(383, 98, 71, 21);
 		panel.add(lblCommune);
 		
-		tfcommune = new JComboBox();
-		tfcommune.setModel(new DefaultComboBoxModel(new String[] {""}));
+		tfcommune = new JComboBox<Object>();
+		tfcommune.setModel(new DefaultComboBoxModel<Object>(new String[] {""}));
 		tfcommune.setSelectedIndex(0);
 		tfcommune.setEditable(true);
 		tfcommune.setBounds(465, 92, 165, 29);

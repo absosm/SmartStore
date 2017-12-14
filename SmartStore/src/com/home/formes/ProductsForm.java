@@ -1,7 +1,6 @@
 package com.home.formes;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -27,25 +26,14 @@ import java.awt.event.ActionEvent;
 
 public class ProductsForm extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField textField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ProductsForm frame = new ProductsForm();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -140,7 +128,7 @@ public class ProductsForm extends JFrame {
 		toolBar_1.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		JComboBox<Object> comboBox_1 = new JComboBox<Object>();
 		comboBox_1.setBounds(465, 0, 270, 22);
 		panel_2.add(comboBox_1);
 		
@@ -148,7 +136,7 @@ public class ProductsForm extends JFrame {
 		lblNewLabel_1.setBounds(409, 3, 46, 14);
 		panel_2.add(lblNewLabel_1);
 		
-		JComboBox comboBox_2 = new JComboBox();
+		JComboBox<Object> comboBox_2 = new JComboBox<Object>();
 		comboBox_2.setBounds(66, 0, 333, 22);
 		panel_2.add(comboBox_2);
 		
@@ -200,7 +188,7 @@ public class ProductsForm extends JFrame {
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBounds(477, 4, 46, 14);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<Object> comboBox = new JComboBox<Object>();
 		comboBox.setBounds(533, 0, 225, 22);
 		panel_3.setLayout(null);
 		panel_3.add(lblNewLabel);

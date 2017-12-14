@@ -7,12 +7,17 @@ import com.home.Family;
 
 public class FamiliesModel extends AbstractTableModel {
 
-    private Vector<Vector> data;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Vector<Vector<Object>> data;
     private String columnNames[] = {"Désignation", "Remarque", "Nombre"};
     public static final int TAG = 3;
     
     public FamiliesModel() {
-        data = new Vector<Vector>();
+        data = new Vector<Vector<Object>>();
     }
   
     public int getRowCount() {
@@ -79,7 +84,7 @@ public class FamiliesModel extends AbstractTableModel {
             throw new IllegalArgumentException("rowData cannot be null");
         }
         
-        Vector v = new Vector();
+        Vector<Object> v = new Vector<Object>();
         v.add(famille.getDesignation());
         v.add(famille.getNote());
         v.add(famille.getCount());

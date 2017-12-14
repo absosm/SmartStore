@@ -1,6 +1,6 @@
 package com.home.formes;
+
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +13,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,20 +21,15 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.home.DataBase;
 import com.home.Product;
 import com.home.Session;
 import com.home.Use_Files;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
@@ -48,7 +42,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
-import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -58,6 +51,10 @@ import javax.swing.border.LineBorder;
 
 public class AddProductForm extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * declaration des attributs (SmartStore)
 	 */
@@ -72,31 +69,13 @@ public class AddProductForm extends JFrame {
 	private JTextField tf_actual;
 	private static  JTextField tf_cost;
 	private static JLabel Labe_Image ;
-	private static JComboBox cb_family;
+	private static JComboBox<String> cb_family;
 	private static JLabel lb_path_Image;
 	private static JPanel Image_panel;
 	private JTextField min;
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTable table;
-	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					AddProductForm frame = new AddProductForm();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -240,7 +219,7 @@ public class AddProductForm extends JFrame {
 		tf_designation.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_designation.setColumns(10);
 		
-		cb_family = new JComboBox();
+		cb_family = new JComboBox<String>();
 		cb_family.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -505,9 +484,9 @@ public class AddProductForm extends JFrame {
 		lblnombreDesJours.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblnombreDesJours.setHorizontalAlignment(SwingConstants.LEFT);
 		
-		JComboBox comboBox_3 = new JComboBox();
+		JComboBox<Object> comboBox_3 = new JComboBox<Object>();
 		comboBox_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
+		comboBox_3.setModel(new DefaultComboBoxModel<Object>(new String[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
 				, "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
 		
 		min = new JTextField();
@@ -522,16 +501,16 @@ public class AddProductForm extends JFrame {
 		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_6.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<Object> comboBox = new JComboBox<Object>();
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JComboBox comboBox_4 = new JComboBox();
+		JComboBox<Object> comboBox_4 = new JComboBox<Object>();
 		comboBox_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JComboBox comboBox_5 = new JComboBox();
+		JComboBox<Object> comboBox_5 = new JComboBox<Object>();
 		comboBox_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JComboBox comboBox_6 = new JComboBox();
+		JComboBox<Object> comboBox_6 = new JComboBox<Object>();
 		comboBox_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lbldpotmagasin = new JLabel("D\u00E9pot Magasin");
@@ -764,7 +743,7 @@ public class AddProductForm extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	private static void Remplire_Combobox(String sql, JComboBox combobox)
+	private static void Remplire_Combobox(String sql, JComboBox<String> combobox)
 	{
 		ResultSet result = Session.getDatabase().getResult(sql);
 		

@@ -1,7 +1,5 @@
 package com.home.formes;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -29,25 +27,12 @@ import java.awt.event.WindowEvent;
 
 public class MainForm extends JFrame {
 
-	private JPanel contentPane;
-
 	/**
-	 * Launch the application.
+	 * 
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					MainForm frame = new MainForm();
-					//frame.setUndecorated(true);                    // annuller le rectangle
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private static final long serialVersionUID = 1L;
+	
+	private JPanel contentPane;
 
 	/**
 	 * Create the frame.

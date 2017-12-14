@@ -24,6 +24,11 @@ import java.awt.event.ActionEvent;
 
 public class ProfileForm extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	private JTextField tf_identificator1;
 	private JTextField tf_user1;
@@ -207,17 +212,21 @@ public class ProfileForm extends JFrame {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if (!User.exist(tf_user2.getText(), Encode.sha256(tf_oldpassword.getText()))) {
+				String old = new String(tf_oldpassword.getPassword());
+				String new_p = new String(tf_newpassword.getPassword());
+				String conf_p = new String(tf_confirmpassword.getPassword());
+				
+				if (!User.exist(tf_user2.getText(), Encode.sha256(old))) {
 					JOptionPane.showMessageDialog(null, "ancien mot de passe est incorrect");
 					return;
 				}
 				
-				if (!tf_newpassword.getText().equals(tf_confirmpassword.getText())) {
+				if (!new_p.equals(conf_p)) {
 					JOptionPane.showMessageDialog(null, "les deux mots passes pas identique.");
 					return;
 				}
 				
-				Session.getUser().setPassword(Encode.sha256(tf_newpassword.getText()));
+				Session.getUser().setPassword(Encode.sha256(new_p));
 				if (Session.getUser().update()) {
 					JOptionPane.showMessageDialog(null, "changement de mot passe est succès.");
 					Session.Disconnect();

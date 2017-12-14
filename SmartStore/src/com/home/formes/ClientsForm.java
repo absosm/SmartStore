@@ -1,13 +1,8 @@
 package com.home.formes;
 
-
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -16,41 +11,24 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.DocumentFilter;
 
 import com.home.Client;
 import com.home.DataBase;
-import com.home.Family;
 import com.home.Session;
 import com.home.custom.ClientsModel;
-import com.home.custom.FamiliesModel;
 import com.home.docfilter.Filter;
-import com.home.docfilter.NumberDocumentFilter;
-import com.home.formes.AddClientForm.*;
-
-import javafx.scene.input.KeyCode;
 
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
-import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -62,10 +40,15 @@ import java.awt.event.WindowEvent;
 
 public class ClientsForm extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private JPanel contentPane;
 	private static JTable table;
 	private JTextField tffind;
-	private JComboBox comboBox;
+	private JComboBox<Object> comboBox;
 	private JButton btndelete;
 	private JButton btnEdit;
 
@@ -114,7 +97,7 @@ public class ClientsForm extends JFrame {
 		JLabel lblRecherchePar = new JLabel("Recherche par:");
 		lblRecherchePar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
-		comboBox = new JComboBox();
+		comboBox = new JComboBox<Object>();
 		comboBox.addActionListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -135,7 +118,7 @@ public class ClientsForm extends JFrame {
 			}
 		});
 		comboBox.setFont(new Font("Tahoma", Font.BOLD, 14));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Code", "Nom", "Prenom"}));
+		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Code", "Nom", "Prenom"}));
 		
 		tffind = new JTextField();
 		tffind.getDocument().addDocumentListener(new DocumentListener() {

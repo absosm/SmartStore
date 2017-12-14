@@ -8,18 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.AbstractDocument;
 
 import com.home.Cities;
 import com.home.Client;
 import com.home.Session;
-import com.home.docfilter.CurrencyDocumentFilter;
 import com.home.docfilter.Filter;
-import com.home.docfilter.FirstNameDocumentFilter;
-import com.home.docfilter.PhoneDocumentFilter;
-import com.home.docfilter.UppercaseDocumentFilter;
-import com.home.docfilter.ZIPDocumentFilter;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
@@ -34,8 +27,6 @@ import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -43,6 +34,11 @@ import java.awt.event.WindowEvent;
 
 public class AddClientForm extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Client client;
 
 	private JPanel contentPane;
@@ -64,9 +60,9 @@ public class AddClientForm extends JFrame {
 	private JTextField tfwebsite;
 	private JTextField tfcredit_limit;
 	private JTextField tfcredit;
-	private JComboBox  cbwilaya;
-	private JComboBox  cbcity;
-	private JComboBox  cbmode;
+	private JComboBox<Object>  cbwilaya;
+	private JComboBox<Object>  cbcity;
+	private JComboBox<Object>  cbmode;
 	private JButton    btnOk;
 	private JLabel 	  id_label;
 
@@ -231,27 +227,27 @@ public class AddClientForm extends JFrame {
 		lblWilaya.setBounds(142, 93, 46, 22);
 		panel.add(lblWilaya);
 		
-		cbcity = new JComboBox();
+		cbcity = new JComboBox<Object>();
 		cbcity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				client.setCity(cbcity.getSelectedIndex());
 			}
 		});
 		cbcity.setFont(new Font("Tahoma", Font.BOLD, 12));
-		cbcity.setModel(new DefaultComboBoxModel(new String[] {""}));
+		cbcity.setModel(new DefaultComboBoxModel<Object>(new String[] {""}));
 		cbcity.setSelectedIndex(0);
 		cbcity.setBounds(465, 92, 165, 29);
 		panel.add(cbcity);
 		
-		cbwilaya = new JComboBox();
+		cbwilaya = new JComboBox<Object>();
 		cbwilaya.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cbcity.setModel(new DefaultComboBoxModel(Cities.LoadCities(cbwilaya.getSelectedIndex()+1)));
+				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex()+1)));
 				client.setWilaya(cbwilaya.getSelectedIndex());
 			}
 		});
 		cbwilaya.setFont(new Font("Tahoma", Font.BOLD, 12));
-		cbwilaya.setModel(new DefaultComboBoxModel(Cities.LoadWilaya()));
+		cbwilaya.setModel(new DefaultComboBoxModel<Object>(Cities.LoadWilaya()));
 		cbwilaya.setSelectedIndex(6);
 		cbwilaya.setBounds(191, 92, 178, 29);
 		panel.add(cbwilaya);
@@ -538,14 +534,14 @@ public class AddClientForm extends JFrame {
 		lblModeDeTarif.setBounds(10, 26, 94, 17);
 		panel_2.add(lblModeDeTarif);
 		
-		cbmode = new JComboBox();
+		cbmode = new JComboBox<Object>();
 		cbmode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				client.setMode(cbmode.getSelectedIndex());
 			}
 		});
 		cbmode.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cbmode.setModel(new DefaultComboBoxModel(new String[] {"<Aucun Tarif>", "Tarif 1", "Tarif 2", "Tarif 3", "Tarif 4", "Tarif 5"}));
+		cbmode.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Aucun Tarif>", "Tarif 1", "Tarif 2", "Tarif 3", "Tarif 4", "Tarif 5"}));
 		cbmode.setSelectedIndex(0);
 		cbmode.setEditable(true);
 		cbmode.setBounds(119, 21, 256, 30);
