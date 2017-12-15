@@ -2,6 +2,7 @@ package com.home;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Date;
 
 public class Bon_Achats {
@@ -143,6 +144,72 @@ public class Bon_Achats {
 	{
 		this.HT=HT;
 	}
+	public double getRemise()
+	{
+		return Remise;
+	}
+	public void setRemise(double Remise)
+	{
+		this.Remise=Remise;
+	}
+	public boolean add()
+	{
+		boolean b = false;
+		String selectSQL="INSERT INTO BonAchats(date,user,code_provider,montante,versement,nbr_produit,tva,"
+				+ "timbre,ttc,ht,remise) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+					prepareStatement(selectSQL,Statement.RETURN_GENERATED_KEYS);
+			java.sql.Date date = java.sql.Date.valueOf(getDate().toString());
+			prepared.setDate(1, date); //
+			prepared.setString(2 , getUser());
+			prepared.setInt(3 , getCode_provider());
+			prepared.setDouble(4 , getMontante());
+			prepared.setDouble(5 , getVersement());
+			prepared.setInt   (6 , getNbr_Produit());
+			prepared.setDouble(7 , getTVA());
+			prepared.setDouble(8 , getTimbre());
+			prepared.setDouble(9 , getTTC());
+			prepared.setDouble(10, getHT());
+			prepared.setDouble(11, getRemise());
+			
+			prepared.executeUpdate();
+			ResultSet result = prepared.getGeneratedKeys();
+			if (result.next()) {
+				this.setId(result.getInt(1));
+				b = true;
+			}
+			 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return b;
+	}
+	
+public void delete(){
+		
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+			prepareStatement("DELETE FROM BonAchats WHERE id=?");
+			prepared.setInt(1, getId());
+			prepared.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+public static void delete(int id){
+	
+	try {
+		PreparedStatement prepared = Session.getDatabase().getConnection().
+		prepareStatement("DELETE FROM BonAchats WHERE id=?");
+		prepared.setInt(1,id);
+		prepared.executeUpdate();
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
+}
 	
 
 }
