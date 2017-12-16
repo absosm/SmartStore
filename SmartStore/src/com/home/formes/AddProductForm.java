@@ -64,7 +64,7 @@ public class AddProductForm extends JFrame {
 	 */
 	private JPanel contentPane;
 	private JTextField tf_barcode;
-	private JTextField tf_designation;
+	private JTextField tf_name;
 	private JTextField tf_amount;
 	private JTextField tf_actual;
 	private static  JTextField tf_cost;
@@ -194,11 +194,11 @@ public class AddProductForm extends JFrame {
         });
 		tf_barcode.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_barcode.setColumns(10);
-		tf_designation = new JTextField();
-		tf_designation.getDocument().addDocumentListener(new DocumentListener() {
+		tf_name = new JTextField();
+		tf_name.getDocument().addDocumentListener(new DocumentListener() {
 			
 			protected void updateFieldState() {
-                product.setDesignation(tf_designation.getText());
+                product.setName(tf_name.getText());
             }
 
 			public void changedUpdate(DocumentEvent arg0) {
@@ -216,8 +216,8 @@ public class AddProductForm extends JFrame {
 				updateFieldState();
 			}
         });
-		tf_designation.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_designation.setColumns(10);
+		tf_name.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tf_name.setColumns(10);
 		
 		cb_family = new JComboBox<String>();
 		cb_family.addItemListener(new ItemListener() {
@@ -233,7 +233,7 @@ public class AddProductForm extends JFrame {
 		tf_amount.getDocument().addDocumentListener(new DocumentListener() {
 			
 			protected void updateFieldState() {
-                product.setAmount(Integer.parseInt(tf_amount.getText()));
+                product.setCount(Integer.parseInt(tf_amount.getText()));
                 tf_actual.setText(product.getActual()+"");
             }
 
@@ -313,7 +313,7 @@ public class AddProductForm extends JFrame {
 							.addComponent(tf_barcode, GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnNewButton_4))
-						.addComponent(tf_designation, GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
+						.addComponent(tf_name, GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
 						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
 							.addComponent(tf_actual, Alignment.LEADING)
 							.addComponent(tf_amount, Alignment.LEADING)))
@@ -329,7 +329,7 @@ public class AddProductForm extends JFrame {
 						.addComponent(btnNewButton_4, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tf_designation, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tf_name, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblDsignation))
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()

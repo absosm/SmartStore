@@ -72,7 +72,7 @@ public class ConfigurationForm extends JFrame {
 		setResizable(false);
 		setTitle("Configuration");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 771, 500);
+		setBounds(100, 100, 771, 515);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -84,18 +84,20 @@ public class ConfigurationForm extends JFrame {
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 753, Short.MAX_VALUE)
-				.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
+				.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 755, Short.MAX_VALUE)
+				.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 433, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		
 		JButton btnNewButton = new JButton("Quitter");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -105,8 +107,8 @@ public class ConfigurationForm extends JFrame {
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap(688, Short.MAX_VALUE)
-					.addComponent(btnNewButton))
+					.addContainerGap(667, Short.MAX_VALUE)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -120,7 +122,7 @@ public class ConfigurationForm extends JFrame {
 		tabbedPane.addTab("Configuration Bon de livraison", null, panel, null);
 		
 		JPanel panel_7 = new JPanel();
-		panel_7.setBorder(new TitledBorder(null, "Ent\u00EAte de page de bon de livraison", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_7.setBorder(new TitledBorder(null, "Ent\u00EAte de page de bon de livraison", TitledBorder.LEADING, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 14), null));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -365,26 +367,34 @@ public class ConfigurationForm extends JFrame {
 		tabbedPane.addTab("Configuration du facture", null, panel_2, null);
 		
 		JPanel panel_9 = new JPanel();
-		panel_9.setBorder(new TitledBorder(null, "Ent\u00EAte de page de bon de livraison", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_9.setBorder(new TitledBorder(null, "Ent\u00EAte de page de bon de livraison", TitledBorder.LEADING, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 14), null));
 		
 		JLabel label = new JLabel("Nom ou raison social:");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel label_1 = new JLabel("Info 1:");
+		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel label_2 = new JLabel("Info 2:");
+		label_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel label_3 = new JLabel("Info 3:");
+		label_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		textField_9 = new JTextField();
+		textField_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_9.setColumns(10);
 		
 		textField_10 = new JTextField();
+		textField_10.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_10.setColumns(10);
 		
 		textField_11 = new JTextField();
+		textField_11.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_11.setColumns(10);
 		
 		textField_12 = new JTextField();
+		textField_12.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_12.setColumns(10);
 		
 		JPanel panel_10 = new JPanel();
@@ -435,40 +445,51 @@ public class ConfigurationForm extends JFrame {
 		panel_10.setLayout(gl_panel_10);
 		
 		textField_13 = new JTextField();
+		textField_13.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_13.setColumns(10);
 		
 		textField_14 = new JTextField();
+		textField_14.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_14.setColumns(10);
 		
 		JLabel label_5 = new JLabel("New label");
+		label_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel label_6 = new JLabel("New label");
+		label_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel label_7 = new JLabel("New label");
+		label_7.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel label_8 = new JLabel("New label");
+		label_8.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		textField_15 = new JTextField();
+		textField_15.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_15.setColumns(10);
 		
 		textField_16 = new JTextField();
+		textField_16.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_16.setColumns(10);
 		
 		textField_17 = new JTextField();
+		textField_17.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_17.setColumns(10);
 		
 		JLabel label_9 = new JLabel("New label");
+		label_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JSeparator separator_1 = new JSeparator();
 		
 		textField_18 = new JTextField();
+		textField_18.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_18.setColumns(10);
 		
 		JLabel lblNewLabel_12 = new JLabel("New label");
+		lblNewLabel_12.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout gl_panel_9 = new GroupLayout(panel_9);
 		gl_panel_9.setHorizontalGroup(
 			gl_panel_9.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 571, Short.MAX_VALUE)
 				.addGroup(gl_panel_9.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
@@ -485,14 +506,14 @@ public class ConfigurationForm extends JFrame {
 							.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
 								.addComponent(label_7)
 								.addComponent(label_8)
-								.addComponent(textField_15, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-								.addComponent(textField_16, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)))
-						.addComponent(textField_17, GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+								.addComponent(textField_15, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+								.addComponent(textField_16, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
+						.addComponent(textField_17, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
 						.addComponent(label_9))
 					.addGap(18))
 				.addGroup(gl_panel_9.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+					.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
 					.addContainerGap())
 				.addGroup(gl_panel_9.createSequentialGroup()
 					.addGap(10)
@@ -509,10 +530,10 @@ public class ConfigurationForm extends JFrame {
 							.addContainerGap())
 						.addGroup(gl_panel_9.createSequentialGroup()
 							.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField_9, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
-								.addComponent(textField_10, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
-								.addComponent(textField_11, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
-								.addComponent(textField_12, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE))
+								.addComponent(textField_9, GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+								.addComponent(textField_11, GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+								.addComponent(textField_12, GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+								.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, 358, GroupLayout.PREFERRED_SIZE))
 							.addGap(10))))
 		);
 		gl_panel_9.setVerticalGroup(
@@ -571,15 +592,15 @@ public class ConfigurationForm extends JFrame {
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, 528, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(15, Short.MAX_VALUE))
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		panel_2.setLayout(gl_panel_2);
 		

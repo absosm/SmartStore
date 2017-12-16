@@ -92,7 +92,7 @@ public class ProvidersForm extends JFrame {
 		toolBar.add(panel);
 		
 		JLabel label = new JLabel("Recherche par:");
-		label.setFont(new Font("Tahoma", Font.BOLD, 14));
+		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		comboBox = new JComboBox<Object>();
 		comboBox.addActionListener(new ActionListener() {
@@ -113,7 +113,7 @@ public class ProvidersForm extends JFrame {
 				}
 			}
 		});
-		comboBox.setFont(new Font("Tahoma", Font.BOLD, 14));
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Code", "Nom", "Prenom"}));
 		
 		tffind = new JTextField();
@@ -129,7 +129,7 @@ public class ProvidersForm extends JFrame {
 			public void removeUpdate(DocumentEvent arg0) {warn();}
 			
 		});
-		tffind.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tffind.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -162,7 +162,7 @@ public class ProvidersForm extends JFrame {
 			}
 		});
 		btnAjouter.setIcon(new ImageIcon(ProvidersForm.class.getResource("/images/fournisseur - Copie.png")));
-		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnAjouter.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		btnedit = new JButton("Modifier");
 		btnedit.addActionListener(new ActionListener() {
@@ -183,7 +183,7 @@ public class ProvidersForm extends JFrame {
 		});
 		btnedit.setEnabled(false);
 		btnedit.setIcon(new ImageIcon(ProvidersForm.class.getResource("/images/fournisseur.png")));
-		btnedit.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnedit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		toolBar.add(btnedit);
 		
 		btndelete = new JButton("Supprimer");
@@ -200,7 +200,7 @@ public class ProvidersForm extends JFrame {
 			}
 		});
 		btndelete.setIcon(new ImageIcon(ProvidersForm.class.getResource("/images/Delete_48.png")));
-		btndelete.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btndelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JPanel panel_1 = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

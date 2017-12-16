@@ -80,7 +80,7 @@ public class ClientsForm extends JFrame {
 		JToolBar toolBar = new JToolBar();
 		
 		JButton btnNewButton_1 = new JButton("Ajouter");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -95,7 +95,7 @@ public class ClientsForm extends JFrame {
 		toolBar.add(panel);
 		
 		JLabel lblRecherchePar = new JLabel("Recherche par:");
-		lblRecherchePar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblRecherchePar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		comboBox = new JComboBox<Object>();
 		comboBox.addActionListener(new ActionListener() {			
@@ -117,7 +117,7 @@ public class ClientsForm extends JFrame {
 				}
 			}
 		});
-		comboBox.setFont(new Font("Tahoma", Font.BOLD, 14));
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Code", "Nom", "Prenom"}));
 		
 		tffind = new JTextField();
@@ -132,7 +132,7 @@ public class ClientsForm extends JFrame {
 			public void removeUpdate(DocumentEvent arg0) {warn();}
 			
 		});
-		tffind.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tffind.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Filter.TextField(tffind, Filter.NUMBER);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -193,11 +193,11 @@ public class ClientsForm extends JFrame {
 				}
 			}
 		});
-		btnedit.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnedit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnedit.setEnabled(false);
 		toolBar.add(btnedit);
 		btndelete.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/Delete_48.png")));
-		btndelete.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btndelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		toolBar.add(btndelete);
 		
 		JPanel panel_1 = new JPanel();

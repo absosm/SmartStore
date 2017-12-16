@@ -11,10 +11,10 @@ public class Product {
 	
 	private int id;
 	private String barcode;
-	private String designation;
+	private String name;
 	private String family;
-	private String mesure_unit;
-	private int amount;
+	private String unit;
+	private int count;
 	private int used;
 	private int min;
 	private double cost;
@@ -34,10 +34,10 @@ public class Product {
 	public Product () {
 		
 		setBarcode("");
-		setDesignation("");
+		setName("");
 		setFamily("");
-		setMesure_unit("");
-		setAmount(0);
+		setUnit("");
+		setCount(0);
 		setUsed(0);
 		setMin(0);
 		setCost(0);
@@ -62,10 +62,10 @@ public class Product {
 			ResultSet result = prepared.executeQuery();
 			if (result.next()) {
 				setBarcode(result.getString(1));
-				setDesignation(result.getString(2));
+				setName(result.getString(2));
 				setFamily(result.getString(3));
-				setMesure_unit(result.getString(4));
-				setAmount(result.getInt(5));
+				setUnit(result.getString(4));
+				setCount(result.getInt(5));
 				setUsed(result.getInt(6));
 				setMin(result.getInt(7));
 				setCost(result.getDouble(8));
@@ -93,11 +93,11 @@ public class Product {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getDesignation() {
-		return designation;
+	public String getName() {
+		return name;
 	}
-	public void setDesignation(String designation) {
-		this.designation = designation;
+	public void setName(String designation) {
+		this.name = designation;
 	}
 	public String getFamily() {
 		return family;
@@ -141,11 +141,11 @@ public class Product {
 	public void setSelling3(double selling3) {
 		this.selling3 = selling3;
 	}
-	public int getAmount() {
-		return amount;
+	public int getCount() {
+		return count;
 	}
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public void setCount(int count) {
+		this.count = count;
 	}
 	public int getUsed() {
 		return used;
@@ -165,11 +165,11 @@ public class Product {
 	public void setExpiration(Date expiration) {
 		this.expiration = expiration;
 	}
-	public String getMesure_unit() {
-		return mesure_unit;
+	public String getUnit() {
+		return unit;
 	}
-	public void setMesure_unit(String mesure_unit) {
-		this.mesure_unit = mesure_unit;
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 	public String getPath_image() {
 		return path_image;
@@ -208,7 +208,7 @@ public class Product {
 		this.shelf = shelf;
 	}
 	public int getActual() {
-		return (amount-used);
+		return (count-used);
 	}
 	
 	public void add() {
@@ -220,10 +220,10 @@ public class Product {
 							+ "expiration, packing, location, shelf, path_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, "
 							+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, getBarcode());
-			prepared.setString(2, getDesignation());
+			prepared.setString(2, getName());
 			prepared.setString(3, getFamily());
-			prepared.setString(4, getMesure_unit());
-			prepared.setInt(5, getAmount());
+			prepared.setString(4, getUnit());
+			prepared.setInt(5, getCount());
 			prepared.setInt(6, getUsed());
 			prepared.setInt(7, getMin());
 			prepared.setDouble(8, getCost());
@@ -258,10 +258,10 @@ public class Product {
 							+ "tva=?, store_date=?, expiration=?, packing=?, location=?, shelf=?, path_image=?"
 							+ " WHERE id=?");
 			prepared.setString(1, getBarcode());
-			prepared.setString(2, getDesignation());
+			prepared.setString(2, getName());
 			prepared.setString(3, getFamily());
-			prepared.setString(4, getMesure_unit());
-			prepared.setInt(5, getAmount());
+			prepared.setString(4, getUnit());
+			prepared.setInt(5, getCount());
 			prepared.setInt(6, getUsed());
 			prepared.setInt(7, getMin());
 			prepared.setDouble(8, getCost());

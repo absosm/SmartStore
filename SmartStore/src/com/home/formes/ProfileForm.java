@@ -21,6 +21,7 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class ProfileForm extends JFrame {
 
@@ -79,6 +80,7 @@ public class ProfileForm extends JFrame {
 		setIconImage(icon.getImage());
 		
 		JButton btnTerminer = new JButton("Fermer");
+		btnTerminer.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTerminer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
@@ -86,6 +88,7 @@ public class ProfileForm extends JFrame {
 		});
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -109,33 +112,44 @@ public class ProfileForm extends JFrame {
 		tabbedPane.addTab("Information personnels", null, panel, null);
 		
 		tf_identificator1 = new JTextField();
+		tf_identificator1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_identificator1.setEditable(false);
 		tf_identificator1.setColumns(10);
 		
 		tf_user1 = new JTextField();
+		tf_user1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_user1.setEditable(false);
 		tf_user1.setColumns(10);
 		
 		tf_firstname = new JTextField();
+		tf_firstname.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_firstname.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Identificateur:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel_1 = new JLabel("Utilisateur:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel_2 = new JLabel("Nom:");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel_3 = new JLabel("Pr\u00E9nom:");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_lastname = new JTextField();
+		tf_lastname.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_lastname.setColumns(10);
 		
 		tf_telephone = new JTextField();
+		tf_telephone.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_telephone.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Num\u00E9ro t\u00E9l\u00E9phone:");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btnApplerModification = new JButton("Appliquer Modification");
+		btnApplerModification.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnApplerModification.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UpdateProfile();
@@ -201,14 +215,17 @@ public class ProfileForm extends JFrame {
 		JLabel label_1 = new JLabel("Utilisateur:");
 		
 		tf_identificator2 = new JTextField();
+		tf_identificator2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_identificator2.setEditable(false);
 		tf_identificator2.setColumns(10);
 		
 		tf_user2 = new JTextField();
+		tf_user2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_user2.setEditable(false);
 		tf_user2.setColumns(10);
 		
 		JButton button = new JButton("Appler Modification");
+		button.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -237,24 +254,30 @@ public class ProfileForm extends JFrame {
 		});
 		
 		tf_oldpassword = new JPasswordField();
+		tf_oldpassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_newpassword = new JPasswordField();
+		tf_newpassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblMotDePasse = new JLabel("Ancien mot de passe:");
+		lblMotDePasse.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_confirmpassword = new JPasswordField();
+		tf_confirmpassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNouveauMotDe = new JLabel("Nouveau mot de passe:");
+		lblNouveauMotDe.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblConfirmezMotDe = new JLabel("Confirmez mot de passe:");
+		lblConfirmezMotDe.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(button, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
-						.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+						.addComponent(button)
+						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblNouveauMotDe)
 								.addComponent(lblMotDePasse)
@@ -265,17 +288,17 @@ public class ProfileForm extends JFrame {
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel_1.createSequentialGroup()
 									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(tf_identificator2, GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))
-								.addComponent(tf_user2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-								.addComponent(tf_confirmpassword, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-								.addComponent(tf_newpassword, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-								.addComponent(tf_oldpassword, GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))))
+									.addComponent(tf_identificator2, GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE))
+								.addComponent(tf_user2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+								.addComponent(tf_confirmpassword, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+								.addComponent(tf_newpassword, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+								.addComponent(tf_oldpassword, GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
-					.addContainerGap(41, Short.MAX_VALUE)
+			gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap(50, Short.MAX_VALUE)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(tf_identificator2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(label))

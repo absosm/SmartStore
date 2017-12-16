@@ -30,6 +30,10 @@ import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Component;
 
 public class UpdateClientForm extends JFrame {
 	
@@ -72,6 +76,7 @@ public class UpdateClientForm extends JFrame {
 	// constructeur avec un paramètre pour la recherche et la modification 
 	
 	public UpdateClientForm(Client c) {
+		setResizable(false);
 		
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
@@ -92,32 +97,29 @@ public class UpdateClientForm extends JFrame {
 		setTitle("Modifier Client [code: "+client.getId()+" ]");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 700, 450);
+		setBounds(100, 100, 719, 517);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setFont(new Font("Tahoma", Font.BOLD, 16));
+		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tabbedPane.setBackground(Color.LIGHT_GRAY);
-		tabbedPane.setBounds(0, 0, 674, 342);
+		tabbedPane.setBounds(10, 11, 692, 408);
 		contentPane.add(tabbedPane);
 		
 		JPanel panel = new JPanel();   
 		//panel.setBackground(Color.LIGHT_GRAY);
 		panel.setToolTipText("");
-		tabbedPane.addTab("Général", new ImageIcon(this.getClass().getResource("/images/Download-Folder-icon.png")), panel, "Des informations générales");
+		tabbedPane.addTab("G\u00E9n\u00E9ral   ", new ImageIcon(this.getClass().getResource("/images/Download-Folder-icon.png")), panel, "Des informations générales");
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Nom ");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(10, 11, 46, 14);
-		panel.add(lblNewLabel);
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(10, 30, 665, 286);
+		panel.add(panel_3);
 		
-		JLabel lblPrenom = new JLabel("Prénom ");
-		lblPrenom.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPrenom.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPrenom.setBounds(321, 11, 63, 14);
-		panel.add(lblPrenom);
+		JLabel lblNewLabel = new JLabel("Nom");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tflastname = new JTextField(client.getLastname());
 		tflastname.setForeground(new Color(0, 0, 255));
@@ -132,10 +134,12 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tflastname.setFont(new Font("Tahoma", Font.BOLD, 14));
-		tflastname.setBounds(69, 8, 242, 30);
-		panel.add(tflastname);
+		tflastname.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tflastname.setColumns(10);
+		
+		JLabel lblPrenom = new JLabel("Pr\u00E9nom");
+		lblPrenom.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPrenom.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tffirstname = new JTextField(client.getFirstname());
 		tffirstname.setForeground(new Color(0, 0, 255));
@@ -150,21 +154,12 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tffirstname.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tffirstname.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tffirstname.setColumns(10);
-		tffirstname.setBounds(399, 8, 232, 30);
-		panel.add(tffirstname);
 		
-		JLabel lblAdresse = new JLabel("Adresse ");
-		lblAdresse.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAdresse.setBounds(10, 58, 63, 14);
-		panel.add(lblAdresse);
-		
-		JLabel lblFamille = new JLabel("Famille ");
-		lblFamille.setHorizontalAlignment(SwingConstants.LEFT);
-		lblFamille.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblFamille.setBounds(409, 58, 56, 14);
-		panel.add(lblFamille);
+		JLabel lblAdresse = new JLabel("Adresse");
+		lblAdresse.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAdresse.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfaddress = new JTextField(client.getAddress());
 		tfaddress.setForeground(new Color(0, 0, 255));
@@ -178,10 +173,12 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfaddress.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfaddress.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfaddress.setColumns(10);
-		tfaddress.setBounds(69, 52, 326, 30);
-		panel.add(tfaddress);
+		
+		JLabel lblFamille = new JLabel("Famille");
+		lblFamille.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblFamille.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tffamily = new JTextField(client.getFamily());
 		tffamily.setForeground(new Color(0, 0, 255));
@@ -195,20 +192,12 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tffamily.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tffamily.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tffamily.setColumns(10);
-		tffamily.setBounds(466, 52, 165, 30);
-		panel.add(tffamily);
 		
-		JLabel lblCode = new JLabel("Code");
-		lblCode.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCode.setBounds(10, 93, 46, 14);
-		panel.add(lblCode);
-		
-		JLabel lblPostal = new JLabel("Postal");
-		lblPostal.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPostal.setBounds(10, 107, 46, 14);
-		panel.add(lblPostal);
+		JLabel lblCode = new JLabel("Code postale");
+		lblCode.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCode.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfzip = new JTextField(client.getZip());
 		tfzip.setForeground(new Color(0, 0, 255));
@@ -223,65 +212,42 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfzip.setFont(new Font("Tahoma", Font.BOLD, 14));
-		tfzip.setBounds(69, 93, 63, 30);
-		panel.add(tfzip);
+		tfzip.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfzip.setColumns(10);
 		
 		JLabel lblCommune = new JLabel("Commune");
-		lblCommune.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCommune.setBounds(383, 98, 71, 21);
-		panel.add(lblCommune);
+		lblCommune.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCommune.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		cbcity = new JComboBox<Object>();
 		cbcity.setForeground(new Color(0, 0, 255));
-		cbcity.setFont(new Font("Tahoma", Font.BOLD, 14));
+		cbcity.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbcity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				client.setCity(cbcity.getSelectedIndex());
 			}
 		});
-		cbcity.setBounds(465, 92, 165, 29);
-		panel.add(cbcity);
 		
 		JLabel lblWilaya = new JLabel("Wilaya");
-		lblWilaya.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblWilaya.setBounds(142, 93, 46, 22);
-		panel.add(lblWilaya);
+		lblWilaya.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblWilaya.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		cbwilaya = new JComboBox<Object>(new DefaultComboBoxModel<Object>(Cities.LoadWilaya()));
 		cbwilaya.setForeground(new Color(0, 0, 255));
 		cbwilaya.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex()+1)));
+				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex()+1)));				
 				client.setWilaya(cbwilaya.getSelectedIndex());
 			}
 		});
-		cbwilaya.setFont(new Font("Tahoma", Font.BOLD, 14));
+		cbwilaya.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbwilaya.setSelectedIndex(client.getWilaya());
 		cbcity.setSelectedIndex(client.getCity());
-		cbwilaya.setBounds(191, 92, 178, 29);
-		panel.add(cbwilaya);
 		
-
-		
-		JLabel lblTel = new JLabel("Tél");
+		JLabel lblTel = new JLabel("Mob");
+		lblTel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTel.setIcon(new ImageIcon(this.getClass().getResource("/images/Mobile-icon.png")));
-		lblTel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTel.setBounds(7, 132, 56, 32);
-		panel.add(lblTel);
-		
-		JLabel lblTl = new JLabel("Tél");
-		lblTl.setIcon(new ImageIcon(this.getClass().getResource("/images/phone-icon.png")));
-		lblTl.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTl.setBounds(8, 175, 56, 32);
-		panel.add(lblTl);
-		
-		JLabel lblFax = new JLabel("Fax");
-		lblFax.setIcon(new ImageIcon(this.getClass().getResource("/images/Fax-icon.png")));
-		lblFax.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblFax.setBounds(7, 222, 60, 32);
-		panel.add(lblFax);
+		lblTel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfmobile = new JTextField(client.getMobile());
 		tfmobile.setForeground(new Color(0, 0, 255));
@@ -296,10 +262,13 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfmobile.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfmobile.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfmobile.setColumns(10);
-		tfmobile.setBounds(69, 138, 326, 30);
-		panel.add(tfmobile);
+		
+		JLabel lblTl = new JLabel("TEL");
+		lblTl.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTl.setIcon(new ImageIcon(this.getClass().getResource("/images/phone-icon.png")));
+		lblTl.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfphone = new JTextField(client.getPhone());
 		tfphone.setForeground(new Color(0, 0, 255));
@@ -314,10 +283,13 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfphone.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfphone.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfphone.setColumns(10);
-		tfphone.setBounds(69, 185, 326, 30);
-		panel.add(tfphone);
+		
+		JLabel lblFax = new JLabel("FAX");
+		lblFax.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblFax.setIcon(new ImageIcon(this.getClass().getResource("/images/Fax-icon.png")));
+		lblFax.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tffax = new JTextField(client.getFax());
 		tffax.setForeground(new Color(0, 0, 255));
@@ -332,58 +304,164 @@ public class UpdateClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tffax.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tffax.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tffax.setColumns(10);
-		tffax.setBounds(69, 227, 326, 30);
-		panel.add(tffax);
 		
 		id_label = new JLabel("N\u00B0Client");
 		id_label.setHorizontalAlignment(SwingConstants.CENTER);
-		id_label.setFont(new Font("Tahoma", Font.BOLD, 14));
-		id_label.setBounds(526, 149, 86, 29);
-		panel.add(id_label);
+		id_label.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfId = new JTextField(String.format("%06d", client.getId()));
 		tfId.setEditable(false);
 		tfId.setHorizontalAlignment(SwingConstants.CENTER);
-		tfId.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfId.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfId.setForeground(new Color(0, 0, 255));
-		tfId.setBounds(526, 186, 104, 30);
-		panel.add(tfId);
 		tfId.setColumns(10);
+		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
+		gl_panel_3.setHorizontalGroup(
+			gl_panel_3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_3.createSequentialGroup()
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addGap(6)
+							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblTel, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTl, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel_3.createSequentialGroup()
+									.addGap(3)
+									.addComponent(lblFax, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)))
+							.addGap(10)
+							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+								.addComponent(tfmobile, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
+								.addComponent(tfphone, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
+								.addComponent(tffax, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE))
+							.addGap(170)
+							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+								.addComponent(id_label, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+								.addComponent(tfId, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addGap(13)
+							.addComponent(lblFamille, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addComponent(tffamily, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(gl_panel_3.createSequentialGroup()
+								.addGap(6)
+								.addComponent(lblAdresse, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+								.addGap(10)
+								.addComponent(tfaddress)
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(lblCode)
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(tfzip, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
+							.addGroup(Alignment.LEADING, gl_panel_3.createSequentialGroup()
+								.addGap(23)
+								.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_panel_3.createSequentialGroup()
+										.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+										.addGap(10)
+										.addComponent(tflastname, GroupLayout.PREFERRED_SIZE, 242, GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_panel_3.createSequentialGroup()
+										.addComponent(lblWilaya, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+										.addGap(10)
+										.addComponent(cbwilaya, GroupLayout.PREFERRED_SIZE, 242, GroupLayout.PREFERRED_SIZE)))
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+									.addComponent(lblPrenom, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblCommune, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+									.addComponent(tffirstname, GroupLayout.PREFERRED_SIZE, 232, GroupLayout.PREFERRED_SIZE)
+									.addComponent(cbcity, GroupLayout.PREFERRED_SIZE, 242, GroupLayout.PREFERRED_SIZE)))))
+					.addGap(38))
+		);
+		gl_panel_3.setVerticalGroup(
+			gl_panel_3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_3.createSequentialGroup()
+					.addGap(7)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblFamille, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tffamily, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+					.addGap(7)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+							.addComponent(tflastname, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblPrenom, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addComponent(tffirstname, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
+					.addGap(7)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblAdresse, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+							.addComponent(tfaddress, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addComponent(tfzip, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblCode, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
+					.addGap(7)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblWilaya, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+							.addComponent(cbwilaya, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblCommune, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addComponent(cbcity, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
+					.addGap(7)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addComponent(lblTel)
+							.addGap(7)
+							.addComponent(lblTl)
+							.addGap(7)
+							.addComponent(lblFax))
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addComponent(tfmobile, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addGap(7)
+							.addComponent(tfphone, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addGap(7)
+							.addComponent(tffax, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addGap(16)
+							.addComponent(id_label, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addGap(5)
+							.addComponent(tfId, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))))
+		);
+		gl_panel_3.linkSize(SwingConstants.HORIZONTAL, new Component[] {lblPrenom, lblCommune});
+		gl_panel_3.linkSize(SwingConstants.HORIZONTAL, new Component[] {tflastname, tffirstname});
+		panel_3.setLayout(gl_panel_3);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(240, 240, 240));
-		tabbedPane.addTab("Plus_Information", new ImageIcon(this.getClass().getResource("/images/Button-Info-icon.png")), panel_1, null);
-		panel_1.setLayout(null);
+		tabbedPane.addTab("Plus information   ", new ImageIcon(this.getClass().getResource("/images/Button-Info-icon.png")), panel_1, null);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setLayout(null);
 		
 		JLabel lblN = new JLabel("N° R C");
-		lblN.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblN.setBounds(10, 28, 46, 14);
-		panel_1.add(lblN);
+		lblN.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblN.setBounds(47, 16, 46, 32);
+		panel_4.add(lblN);
+		lblN.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNIF = new JLabel("N° I F");
-		lblNIF.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNIF.setBounds(10, 90, 46, 14);
-		panel_1.add(lblNIF);
+		lblNIF.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNIF.setBounds(47, 64, 46, 32);
+		panel_4.add(lblNIF);
+		lblNIF.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JLabel lblCompte = new JLabel("Compte");
-		lblCompte.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCompte.setBounds(38, 129, 55, 26);
-		panel_1.add(lblCompte);
+		JLabel lblCompte = new JLabel("Compte bank");
+		lblCompte.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCompte.setBounds(10, 112, 83, 32);
+		panel_4.add(lblCompte);
+		lblCompte.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEmail.setBounds(29, 160, 64, 32);
+		panel_4.add(lblEmail);
 		lblEmail.setIcon(new ImageIcon(this.getClass().getResource("/images/email-2-icon (1).png")));
-		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblEmail.setBounds(10, 195, 64, 24);
-		panel_1.add(lblEmail);
-		
-		JLabel lblBanq = new JLabel("Bancaire");
-		lblBanq.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblBanq.setBounds(38, 149, 59, 26);
-		panel_1.add(lblBanq);
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfnrc = new JTextField(client.getNRC());
+		tfnrc.setBounds(103, 17, 216, 30);
+		panel_4.add(tfnrc);
 		tfnrc.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -395,12 +473,12 @@ public class UpdateClientForm extends JFrame {
 			
 		});
 		tfnrc.setForeground(new Color(0, 0, 255));
-		tfnrc.setFont(new Font("Tahoma", Font.BOLD, 14));
-		tfnrc.setBounds(103, 24, 237, 30);
-		panel_1.add(tfnrc);
+		tfnrc.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfnrc.setColumns(10);
 		
 		tfnif = new JTextField(client.getNIF());
+		tfnif.setBounds(103, 65, 216, 30);
+		panel_4.add(tfnif);
 		tfnif.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -412,12 +490,12 @@ public class UpdateClientForm extends JFrame {
 			
 		});
 		tfnif.setForeground(new Color(0, 0, 255));
-		tfnif.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfnif.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfnif.setColumns(10);
-		tfnif.setBounds(103, 84, 237, 30);
-		panel_1.add(tfnif);
 		
 		tfbank_account = new JTextField(client.getBank_account());
+		tfbank_account.setBounds(103, 113, 216, 30);
+		panel_4.add(tfbank_account);
 		tfbank_account.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -429,12 +507,12 @@ public class UpdateClientForm extends JFrame {
 			
 		});
 		tfbank_account.setForeground(new Color(0, 0, 255));
-		tfbank_account.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfbank_account.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfbank_account.setColumns(10);
-		tfbank_account.setBounds(103, 136, 237, 30);
-		panel_1.add(tfbank_account);
 		
 		tfmail = new JTextField(client.getMail());
+		tfmail.setBounds(103, 161, 216, 30);
+		panel_4.add(tfmail);
 		tfmail.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -446,33 +524,37 @@ public class UpdateClientForm extends JFrame {
 			
 		});
 		tfmail.setForeground(new Color(0, 0, 255));
-		tfmail.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfmail.setColumns(10);
-		tfmail.setBounds(103, 193, 237, 30);
-		panel_1.add(tfmail);
 		
 		JLabel lblNArt = new JLabel("N° Art");
-		lblNArt.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNArt.setBounds(358, 25, 46, 14);
-		panel_1.add(lblNArt);
+		lblNArt.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNArt.setBounds(329, 16, 97, 32);
+		panel_4.add(lblNArt);
+		lblNArt.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNIS = new JLabel("N° I S");
-		lblNIS.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNIS.setBounds(358, 90, 46, 14);
-		panel_1.add(lblNIS);
+		lblNIS.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNIS.setBounds(329, 64, 97, 32);
+		panel_4.add(lblNIS);
+		lblNIS.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblRIP = new JLabel("R I B");
-		lblRIP.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblRIP.setBounds(358, 136, 55, 26);
-		panel_1.add(lblRIP);
+		lblRIP.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblRIP.setBounds(329, 112, 97, 32);
+		panel_4.add(lblRIP);
+		lblRIP.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblSiteWeb = new JLabel("Site Web");
+		lblSiteWeb.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSiteWeb.setBounds(329, 160, 97, 32);
+		panel_4.add(lblSiteWeb);
 		lblSiteWeb.setIcon(new ImageIcon(this.getClass().getResource("/images/HTTP-icon (1).png")));
-		lblSiteWeb.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblSiteWeb.setBounds(337, 191, 97, 32);
-		panel_1.add(lblSiteWeb);
+		lblSiteWeb.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfnart = new JTextField(client.getNART());
+		tfnart.setBounds(436, 17, 216, 30);
+		panel_4.add(tfnart);
 		tfnart.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -484,12 +566,12 @@ public class UpdateClientForm extends JFrame {
 			
 		});
 		tfnart.setForeground(new Color(0, 0, 255));
-		tfnart.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfnart.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfnart.setColumns(10);
-		tfnart.setBounds(431, 22, 237, 30);
-		panel_1.add(tfnart);
 		
 		tfnis = new JTextField(client.getNIS());
+		tfnis.setBounds(436, 65, 216, 30);
+		panel_4.add(tfnis);
 		tfnis.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -501,12 +583,12 @@ public class UpdateClientForm extends JFrame {
 			
 		});
 		tfnis.setForeground(new Color(0, 0, 255));
-		tfnis.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfnis.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfnis.setColumns(10);
-		tfnis.setBounds(431, 82, 237, 30);
-		panel_1.add(tfnis);
 		
 		tfrib = new JTextField(client.getRIB());
+		tfrib.setBounds(436, 113, 216, 30);
+		panel_4.add(tfrib);
 		tfrib.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -518,12 +600,12 @@ public class UpdateClientForm extends JFrame {
 			
 		});
 		tfrib.setForeground(new Color(0, 0, 255));
-		tfrib.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfrib.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfrib.setColumns(10);
-		tfrib.setBounds(431, 134, 237, 30);
-		panel_1.add(tfrib);
 		
 		tfwebsite = new JTextField(client.getWebsite());
+		tfwebsite.setBounds(436, 161, 216, 30);
+		panel_4.add(tfwebsite);
 		tfwebsite.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {
@@ -535,45 +617,53 @@ public class UpdateClientForm extends JFrame {
 			
 		});
 		tfwebsite.setForeground(new Color(0, 0, 255));
-		tfwebsite.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfwebsite.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfwebsite.setColumns(10);
-		tfwebsite.setBounds(431, 191, 237, 30);
-		panel_1.add(tfwebsite);
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(this.getClass().getResource("/images/Money-icon (1).png")));
-		lblNewLabel_1.setBounds(3, 135, 32, 32);
-		panel_1.add(lblNewLabel_1);
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 664, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(28, Short.MAX_VALUE))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(68)
+					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(68, Short.MAX_VALUE))
+		);
+		panel_1.setLayout(gl_panel_1);
 		
 		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Tarification", new ImageIcon(this.getClass().getResource("/images/Pricing-icon.png")), panel_2, null);
-		panel_2.setLayout(null);
+		tabbedPane.addTab("Tarification   ", new ImageIcon(this.getClass().getResource("/images/Pricing-icon.png")), panel_2, null);
+		
+		JPanel panel_5 = new JPanel();
+		panel_5.setLayout(null);
 		
 		JLabel lblModeDeTarif = new JLabel("Mode de Tarif");
-		lblModeDeTarif.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblModeDeTarif.setBounds(10, 26, 94, 17);
-		panel_2.add(lblModeDeTarif);
+		lblModeDeTarif.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblModeDeTarif.setBounds(48, 19, 94, 32);
+		panel_5.add(lblModeDeTarif);
+		lblModeDeTarif.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		cbmode = new JComboBox<Object>();
+		cbmode.setBounds(152, 20, 256, 30);
+		panel_5.add(cbmode);
 		cbmode.setForeground(new Color(0, 0, 255));
 		cbmode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				client.setMode(cbmode.getSelectedIndex());
 			}
 		});
-		cbmode.setFont(new Font("Tahoma", Font.BOLD, 14));
+		cbmode.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbmode.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Aucun Tarif>", "Tarif 1", "Tarif 2", "Tarif 3", "Tarif 4", "Tarif 5"}));
 		cbmode.setSelectedIndex(client.getMode());
-		cbmode.setEditable(true);
-		cbmode.setBounds(119, 21, 256, 30);
-		panel_2.add(cbmode);
-		
-		JLabel lblNewLabel_2 = new JLabel("Limitation");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_2.setBounds(10, 70, 68, 17);
-		panel_2.add(lblNewLabel_2);
 		
 		tfcredit_limit = new JTextField(""+client.getCredit_limit());
+		tfcredit_limit.setBounds(152, 71, 256, 30);
+		panel_5.add(tfcredit_limit);
 		tfcredit_limit.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tfcredit_limit, Filter.CURRENCY);
 		tfcredit_limit.getDocument().addDocumentListener(new DocumentListener() {
@@ -588,21 +678,17 @@ public class UpdateClientForm extends JFrame {
 			
 		});
 		tfcredit_limit.setHorizontalAlignment(SwingConstants.LEFT);
-		tfcredit_limit.setFont(new Font("Tahoma", Font.BOLD, 14));
-		tfcredit_limit.setBounds(119, 71, 256, 30);
-		panel_2.add(tfcredit_limit);
+		tfcredit_limit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JLabel lblDeCre = new JLabel("de crédit");
-		lblDeCre.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblDeCre.setBounds(10, 90, 60, 17);
-		panel_2.add(lblDeCre);
-		
-		JLabel lblsoldeinitial = new JLabel("<html>Solde<br>Initial</html>");
-		lblsoldeinitial.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblsoldeinitial.setBounds(31, 127, 39, 34);
-		panel_2.add(lblsoldeinitial);
+		JLabel lblNewLabel_2 = new JLabel("Limitation de credit");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_2.setBounds(10, 70, 132, 32);
+		panel_5.add(lblNewLabel_2);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfcredit = new JTextField(""+client.getCredit());
+		tfcredit.setBounds(152, 122, 256, 30);
+		panel_5.add(tfcredit);
 		tfcredit.setForeground(new Color(0, 0, 255));
 		Filter.TextField(tfcredit, Filter.CURRENCY);
 		tfcredit.getDocument().addDocumentListener(new DocumentListener() {
@@ -617,21 +703,39 @@ public class UpdateClientForm extends JFrame {
 			
 		});
 		tfcredit.setHorizontalAlignment(SwingConstants.LEFT);
-		tfcredit.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tfcredit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfcredit.setColumns(10);
-		tfcredit.setBounds(119, 131, 256, 30);
-		panel_2.add(tfcredit);
 		
-		JButton btnAnnuler = new JButton("annuler");
+		JLabel lblsoldeinitial = new JLabel("Solde initial");
+		lblsoldeinitial.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblsoldeinitial.setBounds(10, 121, 132, 32);
+		panel_5.add(lblsoldeinitial);
+		lblsoldeinitial.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
+		gl_panel_2.setHorizontalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGap(146)
+					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 419, GroupLayout.PREFERRED_SIZE))
+		);
+		gl_panel_2.setVerticalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGap(86)
+					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE))
+		);
+		panel_2.setLayout(gl_panel_2);
+		
+		JButton btnAnnuler = new JButton("Annuler");
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
 			}
 		});
 		btnAnnuler.setForeground(new Color(255, 51, 51));
-		btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnAnnuler.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnAnnuler.setIcon(new ImageIcon(this.getClass().getResource("/images/Misc-Delete-Database-icon.png")));
-		btnAnnuler.setBounds(507, 350, 113, 44);
+		btnAnnuler.setBounds(447, 430, 123, 44);
 		contentPane.add(btnAnnuler);
 		
 		btnModifier = new JButton("Modifier");
@@ -646,8 +750,8 @@ public class UpdateClientForm extends JFrame {
 		});
 		btnModifier.setIcon(new ImageIcon(UpdateClientForm.class.getResource("/images/if_user_profile_edit_103781.png")));
 		btnModifier.setForeground(Color.GREEN);
-		btnModifier.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnModifier.setBounds(50, 353, 123, 41);
+		btnModifier.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnModifier.setBounds(162, 433, 123, 41);
 		contentPane.add(btnModifier);
 		btnModifier.setVisible(true);
 	}

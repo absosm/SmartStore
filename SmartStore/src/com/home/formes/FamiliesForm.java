@@ -30,6 +30,7 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class FamiliesForm extends JFrame{
 
@@ -134,10 +135,12 @@ public class FamiliesForm extends JFrame{
 		
 		toolBar.addSeparator(new Dimension(15, 20));
 		
-		JLabel lblRecherche = new JLabel("recherche :");
+		JLabel lblRecherche = new JLabel("recherche :  ");
+		lblRecherche.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		toolBar.add(lblRecherche);
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField.getDocument().addDocumentListener(new DocumentListener() {
 			
 			public void warn() {

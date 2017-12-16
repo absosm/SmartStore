@@ -32,6 +32,7 @@ import com.home.Session;
 import com.home.User;
 
 import java.awt.Color;
+import java.awt.Font;
 
 public class AuthentificationForm {
 
@@ -83,7 +84,7 @@ public class AuthentificationForm {
 		frmAuthentification = new JFrame();
 		frmAuthentification.setResizable(false);
 		frmAuthentification.setTitle("Authentification");
-		frmAuthentification.setBounds(100, 100, 442, 345);
+		frmAuthentification.setBounds(100, 100, 442, 350);
 		frmAuthentification.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		/**
@@ -106,14 +107,15 @@ public class AuthentificationForm {
 		JPanel panel_2 = new JPanel();
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout groupLayout = new GroupLayout(frmAuthentification.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(tabbedPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+						.addComponent(panel_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+						.addComponent(tabbedPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
 						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
 					.addContainerGap())
 		);
@@ -125,11 +127,12 @@ public class AuthentificationForm {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(18, Short.MAX_VALUE))
 		);
 		
 		JButton btnTerminer = new JButton("Terminer");
+		btnTerminer.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTerminer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Runtime.getRuntime().exit(0);
@@ -139,8 +142,8 @@ public class AuthentificationForm {
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addContainerGap(339, Short.MAX_VALUE)
-					.addComponent(btnTerminer, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(310, Short.MAX_VALUE)
+					.addComponent(btnTerminer, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
@@ -154,20 +157,26 @@ public class AuthentificationForm {
 		tabbedPane.addTab("Connexion", null, panel_1, null);
 		
 		tf_login = new JTextField();
+		tf_login.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_login.setText(Configuration.authentification.username);
 		tf_login.setColumns(10);
 		
 		JLabel lblUtilisateur = new JLabel("Utilisateur:");
+		lblUtilisateur.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblMotDePasse = new JLabel("Mot de passe:");
+		lblMotDePasse.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_loginpassword = new JPasswordField();
+		tf_loginpassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_loginpassword.setText(Configuration.authentification.password);
 		
 		chk_remember = new JCheckBox("Souvenir le mot passe");
+		chk_remember.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chk_remember.setSelected(Configuration.authentification.remember);
 		
 		JButton btnConnexion = new JButton("Connexion");
+		btnConnexion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnConnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -210,8 +219,8 @@ public class AuthentificationForm {
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap(30, Short.MAX_VALUE)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+					.addContainerGap(13, Short.MAX_VALUE)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblUtilisateur)
@@ -221,7 +230,7 @@ public class AuthentificationForm {
 								.addComponent(tf_login)
 								.addComponent(tf_loginpassword, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
 								.addComponent(chk_remember)))
-						.addComponent(btnConnexion))
+						.addComponent(btnConnexion, Alignment.TRAILING))
 					.addContainerGap())
 		);
 		gl_panel_1.setVerticalGroup(
@@ -238,10 +247,13 @@ public class AuthentificationForm {
 							.addComponent(lblMotDePasse))
 						.addComponent(tf_loginpassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(chk_remember)
-					.addGap(12)
-					.addComponent(btnConnexion)
-					.addContainerGap())
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(chk_remember)
+							.addGap(35))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(btnConnexion)
+							.addContainerGap())))
 		);
 		panel_1.setLayout(gl_panel_1);
 		
@@ -249,35 +261,46 @@ public class AuthentificationForm {
 		tabbedPane.addTab("Option", null, panel_3, null);
 		
 		cb_driver = new JComboBox<Object>();
+		cb_driver.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cb_driver.setModel(new DefaultComboBoxModel<Object>(new String[] {"MySQL"}));
 		cb_driver.setSelectedIndex(Configuration.database.driver);
 		
 		JLabel lblNewLabel = new JLabel("Moteur de base:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_host = new JTextField();
+		tf_host.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_host.setText(Configuration.database.host);
 		tf_host.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Serveur:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_dbname = new JTextField();
+		tf_dbname.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_dbname.setText(Configuration.database.name);
 		tf_dbname.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Nom de base:");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_username = new JTextField();
+		tf_username.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_username.setText(Configuration.database.username);
 		tf_username.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Utilisateur:");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel_4 = new JLabel("Mot de passe");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_password = new JPasswordField();
+		tf_password.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_password.setText(Configuration.database.password);
 		
 		JButton btnNewButton = new JButton("Enregistrer");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Configuration.database.driver = cb_driver.getSelectedIndex();
@@ -293,54 +316,66 @@ public class AuthentificationForm {
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup()
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_3.createSequentialGroup()
-							.addGap(30)
-							.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblNewLabel)
-								.addComponent(lblNewLabel_1)
-								.addComponent(lblNewLabel_2)
-								.addComponent(lblNewLabel_3))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel_3.createSequentialGroup()
-									.addComponent(tf_username, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNewLabel_4)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(tf_password, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
-								.addComponent(tf_host, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
-								.addComponent(cb_driver, 0, 313, Short.MAX_VALUE)
-								.addComponent(tf_dbname, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)))
-						.addGroup(Alignment.TRAILING, gl_panel_3.createSequentialGroup()
-							.addContainerGap(310, Short.MAX_VALUE)
-							.addComponent(btnNewButton)))
-					.addContainerGap())
+					.addGap(10)
+					.addComponent(lblNewLabel)
+					.addGap(5)
+					.addComponent(cb_driver, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_panel_3.createSequentialGroup()
+					.addGap(56)
+					.addComponent(lblNewLabel_1)
+					.addGap(5)
+					.addComponent(tf_host, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_panel_3.createSequentialGroup()
+					.addGap(24)
+					.addComponent(lblNewLabel_2)
+					.addGap(5)
+					.addComponent(tf_dbname, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_panel_3.createSequentialGroup()
+					.addGap(46)
+					.addComponent(lblNewLabel_3)
+					.addGap(5)
+					.addComponent(tf_username, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
+					.addGap(4)
+					.addComponent(lblNewLabel_4)
+					.addGap(4)
+					.addComponent(tf_password, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_panel_3.createSequentialGroup()
+					.addGap(302)
+					.addComponent(btnNewButton))
 		);
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(cb_driver, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tf_host, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_1))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tf_dbname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_2))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGap(5)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel))
+						.addComponent(cb_driver, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(2)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_1))
+						.addComponent(tf_host, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(2)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_2))
+						.addComponent(tf_dbname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(2)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_3))
 						.addComponent(tf_username, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_3)
-						.addComponent(lblNewLabel_4)
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_4))
 						.addComponent(tf_password, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnNewButton)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(5)
+					.addComponent(btnNewButton))
 		);
 		panel_3.setLayout(gl_panel_3);
 		frmAuthentification.getContentPane().setLayout(groupLayout);

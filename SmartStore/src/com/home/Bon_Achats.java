@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.Date;
 
 public class Bon_Achats {
+	
 	private int id;
 	private Date date;
 	private String User;
@@ -18,7 +19,9 @@ public class Bon_Achats {
 	private double TTC;
 	private double HT;
 	private double Remise;
-	public Bon_Achats(){
+	
+	public Bon_Achats() {
+		
 		setDate(null);
 		setUser(null);
 		setCode_provider(0);
@@ -30,9 +33,11 @@ public class Bon_Achats {
 		setTTC(0.0);
 		setHT(0.0);	
 	}
-	public Bon_Achats(int id)
-	{
+	
+	public Bon_Achats(int id) {
+		
 		try {
+			
 			PreparedStatement prepared = Session.getDatabase().getConnection().
 					prepareStatement("SELECT * FROM BonAchats WHERE id=?");
 			prepared.setInt(1, id);
@@ -56,102 +61,123 @@ public class Bon_Achats {
 		}
 	}
 	
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
-	public void setId(int id)
-	{
+	
+	public void setId(int id) {
 		this.id=id;
 	}
-	public Date getDate()
-	{
+	
+	public Date getDate() {
 		return date;
 	}
+	
 	public void setDate(Date date)
 	{
 		this.date=date;
 	}
+	
 	public String getUser()
 	{
 		return User;
 	}
+	
 	public void setUser(String User)
 	{
 		this.User=User;
 	}
+	
 	public int getCode_provider()
 	{
 		return code_provider;
 	}
+	
 	public void setCode_provider(int code_provider)
 	{
 		this.code_provider=code_provider;
 	}
+	
 	public double getMontante()
 	{
 		return Montante;		
 	}
+	
 	public void setMontante(double Montante)
 	{
 		this.Montante=Montante;
 	}
+	
 	public double getVersement()
 	{
 		return versement;		
 	}
+	
 	public void setVersement(double versement)
 	{
 		this.versement=versement;
 	}
+	
 	public int getNbr_Produit()
 	{
 		return Nbr_Produit;		
 	}
+	
 	public void setNbr_Produit(int Nbr_Produit)
 	{
 		this.Nbr_Produit=Nbr_Produit;
 	}
+	
 	public double getTVA()
 	{
 		return TVA;		
 	}
+	
 	public void setTVA(double TVA)
 	{
 		this.TVA=TVA;
 	}
+	
 	public double getTimbre()
 	{
 		return TIMBRE;		
 	}
+	
 	public void setTIMBRE(double TIMBRE)
 	{
 		this.TIMBRE=TIMBRE;
 	}
+	
 	public double getTTC()
 	{
 		return TTC;		
 	}
+	
 	public void setTTC(double TTC)
 	{
 		this.TTC=TTC;
 	}
+	
 	public double getHT()
 	{
 		return HT;		
 	}
+	
 	public void setHT(double HT)
 	{
 		this.HT=HT;
 	}
+	
 	public double getRemise()
 	{
 		return Remise;
 	}
+	
 	public void setRemise(double Remise)
 	{
 		this.Remise=Remise;
 	}
+	
 	public boolean add()
 	{
 		boolean b = false;
@@ -187,7 +213,7 @@ public class Bon_Achats {
 		return b;
 	}
 	
-public void delete(){
+	public void delete(){
 		
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
@@ -199,17 +225,16 @@ public void delete(){
 			e.printStackTrace();
 		}
 	}
-public static void delete(int id){
-	
-	try {
-		PreparedStatement prepared = Session.getDatabase().getConnection().
-		prepareStatement("DELETE FROM BonAchats WHERE id=?");
-		prepared.setInt(1,id);
-		prepared.executeUpdate();
-	} catch (Exception e) {
-		// TODO: handle exception
-	}
-}
-	
 
+	public static void delete(int id){
+	
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+			prepareStatement("DELETE FROM BonAchats WHERE id=?");
+			prepared.setInt(1,id);
+			prepared.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 }
