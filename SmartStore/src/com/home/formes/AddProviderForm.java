@@ -229,6 +229,19 @@ public class AddProviderForm extends JFrame {
 		panel_2.add(lblWilaya);
 		lblWilaya.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
+		cbcity = new JComboBox<Object>();
+		cbcity.setBounds(418, 130, 232, 29);
+		panel_2.add(cbcity);
+		cbcity.setForeground(new Color(0, 0, 255));
+		cbcity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				provider.setCity(cbcity.getSelectedIndex());
+			}
+		});
+		cbcity.setFont(new Font("Tahoma", Font.BOLD, 14));
+		cbcity.setModel(new DefaultComboBoxModel<Object>(new String[] {""}));
+		cbcity.setSelectedIndex(0);
+		
 		cbwilaya = new JComboBox<Object>();
 		cbwilaya.setBounds(91, 130, 242, 29);
 		panel_2.add(cbwilaya);
@@ -247,19 +260,6 @@ public class AddProviderForm extends JFrame {
 		lblCommune.setBounds(340, 128, 71, 32);
 		panel_2.add(lblCommune);
 		lblCommune.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		cbcity = new JComboBox<Object>();
-		cbcity.setBounds(418, 130, 232, 29);
-		panel_2.add(cbcity);
-		cbcity.setForeground(new Color(0, 0, 255));
-		cbcity.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				provider.setCity(cbcity.getSelectedIndex());
-			}
-		});
-		cbcity.setFont(new Font("Tahoma", Font.BOLD, 14));
-		cbcity.setModel(new DefaultComboBoxModel<Object>(new String[] {""}));
-		cbcity.setSelectedIndex(0);
 		
 		JLabel lblTel = new JLabel("Mob");
 		lblTel.setHorizontalAlignment(SwingConstants.RIGHT);

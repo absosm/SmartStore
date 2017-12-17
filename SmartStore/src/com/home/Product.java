@@ -1,34 +1,43 @@
 package com.home;
 
-import java.sql.Date;
+import java.io.StringReader;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
+import javax.json.JsonValue;
 
 public class Product {
 	
-	private int id;
-	private String barcode;
-	private String name;
-	private String family;
-	private String unit;
-	private int count;
-	private int used;
-	private int min;
-	private double cost;
-	private double selling1;
-	private double selling2;
-	private double selling3;
-	private double selling_limit;
-	private double tva;
-	private Date store_date;
-	private Date expiration;
-	private int packing;
-	private String location;
-	private String shelf;
-	private String path_image;
+	private int id;							// 1
+	private String barcode;					// 2
+	private String name;					// 3
+	private String family;					// 4
+	private String unit;					// 5
+	private int count;						// 6
+	private int used;						// 7
+	private int min;						// 8
+	private double cost;					// 9
+	private Map<Integer, Selling> selling;	// 10
+	private double selling_limit;			// 11
+	private double tva;						// 12
+	private java.util.Date store_date;		// 13
+	private boolean expire;					// 14
+	private java.util.Date expiration;		// 15
+	private int dely_exp;					// 16
+	private int packing;					// 17
+	private String location;				// 18
+	private String shelf;					// 19
+	private String path_image;				// 20
 	
 	
 	public Product () {
@@ -41,13 +50,13 @@ public class Product {
 		setUsed(0);
 		setMin(0);
 		setCost(0);
-		setSelling1(0);
-		setSelling2(0);
-		setSelling3(0);
+		selling = new HashMap<Integer, Selling>();
 		setSelling_limit(0);
 		setTva(0);
-		setStore_date(Date.valueOf(LocalDate.now()));
-		setExpiration(Date.valueOf(LocalDate.now()));
+		setStore_date(new Date());
+		setExpirate(false);
+		setExpiration(new Date());
+		setDely_exp(0);
 		setPacking(0);
 		setLocation("");
 		setShelf("");
@@ -55,6 +64,9 @@ public class Product {
 	}
 
 	public Product(int id) {
+		
+		selling = new HashMap<Integer, Selling>();
+
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
 					prepareStatement("SELECT * FROM products WHERE id=?");
@@ -69,13 +81,21 @@ public class Product {
 				setUsed(result.getInt(6));
 				setMin(result.getInt(7));
 				setCost(result.getDouble(8));
-				setSelling1(result.getDouble(9));
-				setSelling2(result.getDouble(10));
-				setSelling3(result.getDouble(11));
-				setSelling_limit(result.getDouble(12));
-				setTva(result.getDouble(13));
-				setStore_date(result.getDate(14));
-				setExpiration(result.getDate(15));
+				String json_selling = result.getString(9);
+				JsonReader reader = Json.createReader(new StringReader(json_selling));
+				JsonObject obj = reader.readObject();
+				for (Entry<String, JsonValue> entry: obj.entrySet()) {
+					Selling s = new Selling(this);
+					s.setCategory(entry.getKey());
+					s.setPrice(Double.parseDouble(entry.getValue().toString()));
+					setSelling(s.getId(), s);
+				}
+				setSelling_limit(result.getDouble(10));
+				setTva(result.getDouble(11));
+				setStore_date(result.getDate(12));
+				setExpirate(result.getBoolean(13));
+				setExpiration(result.getDate(14));
+				setDely_exp(result.getInt(15));
 				setPacking(result.getInt(16));
 				setLocation(result.getString(17));
 				setShelf(result.getString(18));
@@ -117,29 +137,20 @@ public class Product {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
-	public Date getStore_date() {
+	public java.util.Date getStore_date() {
 		return store_date;
 	}
-	public void setStore_date(Date store_date) {
+	public void setStore_date(java.util.Date store_date) {
 		this.store_date = store_date;
 	}
-	public double getSelling1() {
-		return selling1;
+	public Selling getSelling(String selling_key) {
+		return selling.get(selling_key);
 	}
-	public void setSelling1(double selling1) {
-		this.selling1 = selling1;
+	public void setSelling(int id, Selling s) {
+		this.selling.put(id, s);
 	}
-	public double getSelling2() {
-		return selling2;
-	}
-	public void setSelling2(double selling2) {
-		this.selling2 = selling2;
-	}
-	public double getSelling3() {
-		return selling3;
-	}
-	public void setSelling3(double selling3) {
-		this.selling3 = selling3;
+	public void deleteSelling(int id) {
+		this.selling.remove(id);
 	}
 	public int getCount() {
 		return count;
@@ -159,11 +170,24 @@ public class Product {
 	public void setMin(int min) {
 		this.min = min;
 	}
-	public Date getExpiration() {
+	public boolean isExpire() {
+		return expire;
+	}
+
+	public void setExpirate(boolean expire) {
+		this.expire = expire;
+	}
+	public java.util.Date getExpiration() {
 		return expiration;
 	}
-	public void setExpiration(Date expiration) {
+	public void setExpiration(java.util.Date expiration) {
 		this.expiration = expiration;
+	}
+	public int getDely_exp() {
+		return dely_exp;
+	}
+	public void setDely_exp(int dely_exp) {
+		this.dely_exp = dely_exp;
 	}
 	public String getUnit() {
 		return unit;
@@ -211,14 +235,16 @@ public class Product {
 		return (count-used);
 	}
 	
-	public void add() {
-				
+	public boolean add() {
+		
+		boolean b = false;
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement("INSERT INTO products(barcode, designation, family, mesure_unit, amount, "
-							+ "used, min, cost, selling1, selling2, selling3, selling_limit, tva, store_date, "
-							+ "expiration, packing, location, shelf, path_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, "
-							+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+					prepareStatement("INSERT INTO products(barcode, name, family, unit, count, "
+							+ "used, min, cost, selling, selling_limit, tva, store_date, "
+							+ "expire, expiration, delay_exp, packing, location, shelf, path_image) "
+							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+							Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, getBarcode());
 			prepared.setString(2, getName());
 			prepared.setString(3, getFamily());
@@ -227,13 +253,19 @@ public class Product {
 			prepared.setInt(6, getUsed());
 			prepared.setInt(7, getMin());
 			prepared.setDouble(8, getCost());
-			prepared.setDouble(9, getSelling1());
-			prepared.setDouble(10, getSelling2());
-			prepared.setDouble(11, getSelling3());
-			prepared.setDouble(12, getSelling_limit());
-			prepared.setDouble(13, getTva());
-			prepared.setDate(14, getStore_date());
-			prepared.setDate(15, getExpiration());
+			JsonObjectBuilder sellingObject = Json.createObjectBuilder();
+			for (Entry<Integer, Selling> entry: selling.entrySet()) {
+				Selling s = entry.getValue();
+				sellingObject.add(s.getCategory(), s.getPrice());
+			}
+			JsonObject obj = sellingObject.build();
+			prepared.setString(9, obj.toString());
+			prepared.setDouble(10, getSelling_limit());
+			prepared.setDouble(11, getTva());
+			prepared.setDate(12, new java.sql.Date(getStore_date().getTime()));
+			prepared.setBoolean(13, isExpire());
+			prepared.setDate(14, new java.sql.Date(getExpiration().getTime()));
+			prepared.setInt(15, getDely_exp());
 			prepared.setInt(16, getPacking());
 			prepared.setString(17, getLocation());
 			prepared.setString(18, getShelf());
@@ -243,20 +275,23 @@ public class Product {
 				ResultSet result = prepared.getGeneratedKeys();
 				result.next();
 				setId(result.getInt(1));
+				b = true;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return b;
 	}
 
 	public void update() {
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
-					prepareStatement("UPDATE products SET barcode=?, designation=?, family=?, mesure_unit=?, "
-							+ "amount=?, used=?, min=?, cost=?, selling1=?, selling2=?, selling3=?, selling_limit=?,"
-							+ "tva=?, store_date=?, expiration=?, packing=?, location=?, shelf=?, path_image=?"
-							+ " WHERE id=?");
+					prepareStatement("UPDATE products SET barcode=?, name=?, family=?, unit=?, "
+							+ "count=?, used=?, min=?, cost=?, selling=?, selling_limit=?,"
+							+ "tva=?, store_date=?, expire=?, expiration=?, delay_exp=?, packing=?, "
+							+ "location=?, shelf=?, path_image=? WHERE id=?");
 			prepared.setString(1, getBarcode());
 			prepared.setString(2, getName());
 			prepared.setString(3, getFamily());
@@ -265,13 +300,19 @@ public class Product {
 			prepared.setInt(6, getUsed());
 			prepared.setInt(7, getMin());
 			prepared.setDouble(8, getCost());
-			prepared.setDouble(9, getSelling1());
-			prepared.setDouble(10, getSelling2());
-			prepared.setDouble(11, getSelling3());
-			prepared.setDouble(12, getSelling_limit());
-			prepared.setDouble(13, getTva());
-			prepared.setDate(14, getStore_date());
-			prepared.setDate(15, getExpiration());
+			JsonObjectBuilder sellingObject = Json.createObjectBuilder();
+			for (Entry<Integer, Selling> entry: selling.entrySet()) {
+				Selling s = entry.getValue();
+				sellingObject.add(s.getCategory(), s.getPrice());
+			}
+			JsonObject obj = sellingObject.build();
+			prepared.setString(9, obj.toString());
+			prepared.setDouble(10, getSelling_limit());
+			prepared.setDouble(11, getTva());
+			prepared.setDate(12, new java.sql.Date(getStore_date().getTime()));
+			prepared.setBoolean(13, isExpire());
+			prepared.setDate(14, new java.sql.Date(getExpiration().getTime()));
+			prepared.setInt(15, getDely_exp());
 			prepared.setInt(16, getPacking());
 			prepared.setString(17, getLocation());
 			prepared.setString(18, getShelf());
