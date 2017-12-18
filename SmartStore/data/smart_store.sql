@@ -2,10 +2,10 @@
 -- version 4.0.4
 -- http://www.phpmyadmin.net
 --
--- Client: localhost
--- Généré le: Jeu 14 Décembre 2017 à 18:48
--- Version du serveur: 5.6.12-log
--- Version de PHP: 5.4.12
+-- Host: localhost
+-- Generation Time: Dec 18, 2017 at 08:12 AM
+-- Server version: 5.6.12-log
+-- PHP Version: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `smart_store`
+-- Database: `smart_store`
 --
 CREATE DATABASE IF NOT EXISTS `smart_store` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 USE `smart_store`;
@@ -25,7 +25,7 @@ USE `smart_store`;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `clients`
+-- Table structure for table `clients`
 --
 
 CREATE TABLE IF NOT EXISTS `clients` (
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
 --
--- Contenu de la table `clients`
+-- Dumping data for table `clients`
 --
 
 INSERT INTO `clients` (`id`, `firstname`, `lastname`, `address`, `family`, `zip`, `wilaya`, `city`, `mobile`, `phone`, `fax`, `mail`, `website`, `mode`, `bank_account`, `credit`, `credit_limit`, `NRC`, `NART`, `NIF`, `NIS`, `RIB`) VALUES
@@ -64,7 +64,7 @@ INSERT INTO `clients` (`id`, `firstname`, `lastname`, `address`, `family`, `zip`
 -- --------------------------------------------------------
 
 --
--- Structure de la table `families`
+-- Table structure for table `families`
 --
 
 CREATE TABLE IF NOT EXISTS `families` (
@@ -76,47 +76,47 @@ CREATE TABLE IF NOT EXISTS `families` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
 --
--- Contenu de la table `families`
+-- Dumping data for table `families`
 --
 
 INSERT INTO `families` (`id`, `designation`, `note`, `count`) VALUES
 (1, 'alé;lsmdkfdmsl', '(vide)', 0),
-(4, 'sdfsdf', 'sdfsdfsdfsdf', 0),
-(3, 'ghfgfggh', '(vide)', 0);
+(4, 'sdfsdf', 'sdfsdfsdfsdf', 0);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `produits`
+-- Table structure for table `products`
 --
 
-CREATE TABLE IF NOT EXISTS `produits` (
-  `Id_produit` int(11) NOT NULL,
-  `Code_produit` int(20) NOT NULL,
-  `Famille` varchar(50) COLLATE utf8_bin NOT NULL,
-  `Prix_vent1` double NOT NULL,
-  `Prix_vent2` double NOT NULL,
-  `Prix_vent3` double NOT NULL,
-  `Prix_vent4` double NOT NULL,
-  `Prix_vent5` double NOT NULL,
-  `Prix_vent6` double NOT NULL,
-  `Stock_actuel` double NOT NULL,
-  `Date_premption` date NOT NULL,
-  `Nbr_jours_Alerte` int(10) NOT NULL,
-  `Stock_min` double NOT NULL,
-  `Unite_mesure` varchar(25) COLLATE utf8_bin NOT NULL,
-  `Depot/magasin` varchar(50) COLLATE utf8_bin NOT NULL,
-  `colissage` double NOT NULL,
-  `TVA` double NOT NULL,
-  `localisation_Rayonnage` varchar(50) COLLATE utf8_bin NOT NULL,
-  `Limite_prix_vente` double NOT NULL,
-  PRIMARY KEY (`Id_produit`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+CREATE TABLE IF NOT EXISTS `products` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `barcode` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `family` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `unit` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `count` int(10) DEFAULT NULL,
+  `used` int(10) DEFAULT NULL,
+  `min` int(10) DEFAULT NULL,
+  `cost` double DEFAULT NULL,
+  `selling` varchar(1024) COLLATE utf8_bin DEFAULT NULL,
+  `selling_limit` double DEFAULT NULL,
+  `tva` double DEFAULT NULL,
+  `store_date` date DEFAULT NULL,
+  `expire` tinyint(1) NOT NULL,
+  `expiration` date DEFAULT NULL,
+  `delay_exp` int(10) DEFAULT NULL,
+  `packing` int(10) DEFAULT NULL,
+  `location` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `shelf` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `path_image` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `providers`
+-- Table structure for table `providers`
 --
 
 CREATE TABLE IF NOT EXISTS `providers` (
@@ -142,19 +142,19 @@ CREATE TABLE IF NOT EXISTS `providers` (
   `NIS` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `RIB` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
 
 --
--- Contenu de la table `providers`
+-- Dumping data for table `providers`
 --
 
 INSERT INTO `providers` (`id`, `firstname`, `lastname`, `address`, `family`, `zip`, `wilaya`, `city`, `mobile`, `phone`, `fax`, `mail`, `website`, `mode`, `bank_account`, `credit`, `NRC`, `NART`, `NIF`, `NIS`, `RIB`) VALUES
-(1, 'Oussama', 'ABBAS', 'HAI KHOBZI', '', '0', 6, 0, '0550200150', '', '', '', '', 0, '', 0, '', '', '', '', '');
+(2, 'Oussama', 'ABBAS', 'HAI KHOBZI', '', '07000', 6, 0, '0550200150', '', '', '', '', 0, '', 15000, '', '', '', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -170,11 +170,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
 --
--- Contenu de la table `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `firstname`, `lastname`, `telephone`, `privilege`, `last_login`) VALUES
-(1, 'admin', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'ABBAS', 'Oussama', '0550200150', 1, '2017-12-14 19:05:04');
+(1, 'admin', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'ABBAS', 'Oussama', '0550200150', 1, '2017-12-18 00:39:14');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
