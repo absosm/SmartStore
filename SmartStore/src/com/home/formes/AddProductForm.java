@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.Random;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -26,6 +27,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import com.home.Family;
 import com.home.Product;
 import com.home.Selling;
 import com.home.Session;
@@ -42,6 +44,8 @@ import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AddProductForm extends JFrame {
 	
@@ -78,6 +82,12 @@ public class AddProductForm extends JFrame {
 	 * Create the frame.
 	 */
 	public AddProductForm() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				cb_family.setModel(new DefaultComboBoxModel<String>(Family.load()));
+			}
+		});
 		
 		
 		if (!Session.isRegister()) {
@@ -170,7 +180,7 @@ public class AddProductForm extends JFrame {
 		tf_name.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_name.setColumns(10);
 		
-		cb_family = new JComboBox<String>();
+		cb_family = new JComboBox<String>(Family.load());
 		cb_family.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {

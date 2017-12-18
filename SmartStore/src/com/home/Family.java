@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 public class Family {
 	
@@ -145,5 +146,23 @@ public class Family {
 			e.printStackTrace();
 		}
 		return famille;
+	}
+	
+	public static Vector<String> load() {
+		
+		Vector<String> vector = new Vector<String>();
+		
+		try {
+			PreparedStatement prepared = Session.getDatabase().getConnection().
+					prepareStatement("SELECT * FROM families");
+			ResultSet result = prepared.executeQuery();
+			while (result.next()) {
+				vector.add(result.getString("designation"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return vector;
 	}
 }
