@@ -325,7 +325,6 @@ public class AddProductForm extends JFrame {
 			public void insertUpdate(DocumentEvent arg0) {warn();}
 			public void removeUpdate(DocumentEvent arg0) {warn();}
         });
-		tfcost.setText("0");
 		tfcost.setColumns(10);
 		
 		JPanel panel_4 = new JPanel();
