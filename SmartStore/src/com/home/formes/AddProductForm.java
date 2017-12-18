@@ -72,7 +72,7 @@ public class AddProductForm extends JFrame {
 	private static JPanel Image_panel;
 	private JTextField tfmin;
 	private JTextField textField_5;
-	private JTextField textField_6;
+	private JTextField tfselling_limit;
 	private JTable table;
 	private JTextField tfdelay_exp;
 	private JDateChooser expiration;
@@ -328,6 +328,7 @@ public class AddProductForm extends JFrame {
 					product.setCost(Double.parseDouble((tfcost.getText())));
 					SellingModel model = (SellingModel)table.getModel();
 					model.update();
+					tfselling_limit.setText(tfcost.getText());
 				}
             }
 
@@ -484,10 +485,10 @@ public class AddProductForm extends JFrame {
 		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_5.setColumns(10);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(12, 263, 178, 25);
-		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_6.setColumns(10);
+		tfselling_limit = new JTextField();
+		tfselling_limit.setBounds(12, 263, 178, 25);
+		tfselling_limit.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfselling_limit.setColumns(10);
 		
 		JComboBox<Object> comboBox = new JComboBox<Object>();
 		comboBox.setBounds(95, 132, 140, 28);
@@ -571,7 +572,7 @@ public class AddProductForm extends JFrame {
 		panel_4.add(comboBox_4);
 		panel_4.add(lbldpotmagasin);
 		panel_4.add(lblLimiteDePrix);
-		panel_4.add(textField_6);
+		panel_4.add(tfselling_limit);
 		
 		tfdelay_exp = new JTextField();
 		tfdelay_exp.getDocument().addDocumentListener(new DocumentListener() {

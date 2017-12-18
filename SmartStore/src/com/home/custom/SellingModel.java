@@ -15,7 +15,7 @@ public class SellingModel extends AbstractTableModel {
 	
 	private Vector<Vector<Object>> data;
     private String columnNames[] = {"Cat\u00E9gorie", "Prix", "Boni"};
-    private Class<?> columnTypes[] = {String.class, Double.class, Double.class};
+    private Class<?> columnTypes[] = {String.class, Double.class, String.class};
 
 	public static final int TAG = 3;
     
@@ -58,15 +58,18 @@ public class SellingModel extends AbstractTableModel {
 		switch (col) {
 		case 0:
 			s.setCategory((String)value);
+			data.get(row).set(col, value);
 			break;
 		case 1:
 			s.setPrice((Double)value);
-			data.get(row).set(2, s.getFees());
+			data.get(row).set(2, String.format("%.2f%%", s.getFees()*100));
+			data.get(row).set(col, value);
 			fireTableCellUpdated(row, 2);
 			break;
+		case 2:
+			data.get(row).set(2, String.format("%.2f%%", (Double.parseDouble((String)value)*100)));
+			break;
 		}
-    	
-        data.get(row).set(col, value);
         fireTableCellUpdated(row, col);
       }
 
@@ -105,7 +108,7 @@ public class SellingModel extends AbstractTableModel {
         Vector<Object> v = new Vector<Object>();
         v.add(selling.getCategory());
         v.add(selling.getPrice());
-        v.add(selling.getFees());
+        v.add(String.format("%.2f%%", selling.getFees()*100));
         v.add(selling);
         data.add(v);
         fireTableDataChanged();
