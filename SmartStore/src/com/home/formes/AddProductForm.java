@@ -61,13 +61,13 @@ public class AddProductForm extends JFrame {
 	 * déclaration des attributs (GUI)
 	 */
 	private JPanel contentPane;
-	private JTextField tf_barcode;
-	private JTextField tf_name;
+	private JTextField tfbarcode;
+	private JTextField tfname;
 	private JTextField tfcount;
 	private JTextField tf_actual;
 	private static  JTextField tfcost;
 	private static JLabel Labe_Image ;
-	private static JComboBox<String> cb_family;
+	private static JComboBox<String> cbfamily;
 	private static JLabel lb_path_Image;
 	private static JPanel Image_panel;
 	private JTextField tfmin;
@@ -85,7 +85,7 @@ public class AddProductForm extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent arg0) {
-				cb_family.setModel(new DefaultComboBoxModel<String>(Family.load()));
+				cbfamily.setModel(new DefaultComboBoxModel<String>(Family.load()));
 			}
 		});
 		
@@ -151,44 +151,44 @@ public class AddProductForm extends JFrame {
 		JLabel lblDateDuStock = new JLabel("Date du stock initial");
 		lblDateDuStock.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		tf_barcode = new JTextField();
-		tf_barcode.setEditable(false);
-		tf_barcode.getDocument().addDocumentListener(new DocumentListener() {
+		tfbarcode = new JTextField();
+		tfbarcode.setEditable(false);
+		tfbarcode.getDocument().addDocumentListener(new DocumentListener() {
 			
 			protected void warn() {
-                product.setBarcode(tf_barcode.getText());
+                product.setBarcode(tfbarcode.getText());
             }
 			public void changedUpdate(DocumentEvent arg0) {warn();}
 			public void insertUpdate(DocumentEvent arg0) {warn();}
 			public void removeUpdate(DocumentEvent arg0) {warn();}
         });
-		tf_barcode.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_barcode.setColumns(10);
-		tf_barcode.setText(generateCode());
+		tfbarcode.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfbarcode.setColumns(10);
+		tfbarcode.setText(generateCode());
 		
-		tf_name = new JTextField();
-		tf_name.getDocument().addDocumentListener(new DocumentListener() {
+		tfname = new JTextField();
+		tfname.getDocument().addDocumentListener(new DocumentListener() {
 			
 			protected void warn() {
-                product.setName(tf_name.getText());
+                product.setName(tfname.getText());
             }
 
 			public void changedUpdate(DocumentEvent arg0) {warn();}
 			public void insertUpdate(DocumentEvent arg0) {warn();}
 			public void removeUpdate(DocumentEvent arg0) {warn();}
         });
-		tf_name.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_name.setColumns(10);
+		tfname.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfname.setColumns(10);
 		
-		cb_family = new JComboBox<String>(Family.load());
-		cb_family.addItemListener(new ItemListener() {
+		cbfamily = new JComboBox<String>(Family.load());
+		cbfamily.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					product.setFamily(e.getItem().toString());
 				}
 			}
 		});
-		cb_family.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cbfamily.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfcount = new JTextField();
 		Filter.TextField(tfcount, Filter.NUMBER);
@@ -222,24 +222,24 @@ public class AddProductForm extends JFrame {
 		});
 		btnNewButton_1.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/add.png")));
 		
-		JDateChooser tf_store_date = new JDateChooser();
-		tf_store_date.setDateFormatString("dd/MM/yyyy");
-		tf_store_date.getDateEditor().addPropertyChangeListener( new PropertyChangeListener() {
+		JDateChooser tfstore_date = new JDateChooser();
+		tfstore_date.setDateFormatString("dd/MM/yyyy");
+		tfstore_date.getDateEditor().addPropertyChangeListener( new PropertyChangeListener() {
 	        public void propertyChange(PropertyChangeEvent e) {
 	            if ("date".equals(e.getPropertyName())) {
 	            	
-	                product.setStore_date(new java.sql.Date(((java.util.Date)e.getNewValue()).getTime()));
+	                product.setStore_date(((java.util.Date)e.getNewValue()));
 	            }
 	        }
 		});
-		tf_store_date.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_store_date.setDate(new Date());
-		tf_store_date.getCalendarButton().setIcon(new ImageIcon(AddProductForm.class.getResource("/images/calendar.png")));
+		tfstore_date.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfstore_date.setDate(new Date());
+		tfstore_date.getCalendarButton().setIcon(new ImageIcon(AddProductForm.class.getResource("/images/calendar.png")));
 		
 		JButton btnNewButton_4 = new JButton("G\u00E9n\u00E9rer");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tf_barcode.setText(generateCode());
+				tfbarcode.setText(generateCode());
 			}
 		});
 		btnNewButton_4.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/refresh.png")));
@@ -260,15 +260,15 @@ public class AddProductForm extends JFrame {
 					.addGap(18)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(cb_family, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+							.addComponent(cbfamily, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-						.addComponent(tf_store_date, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tfstore_date, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE)
 						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addComponent(tf_barcode, GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+							.addComponent(tfbarcode, GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnNewButton_4))
-						.addComponent(tf_name, GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
+						.addComponent(tfname, GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
 						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
 							.addComponent(tf_actual, Alignment.LEADING)
 							.addComponent(tfcount, Alignment.LEADING)))
@@ -279,12 +279,12 @@ public class AddProductForm extends JFrame {
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(45)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tf_barcode, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tfbarcode, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel)
 						.addComponent(btnNewButton_4, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tf_name, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tfname, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblDsignation))
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
@@ -295,10 +295,10 @@ public class AddProductForm extends JFrame {
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(6)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(cb_family, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(cbfamily, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tf_store_date, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(tfstore_date, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_1)
