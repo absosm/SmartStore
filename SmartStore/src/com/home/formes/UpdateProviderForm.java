@@ -256,8 +256,7 @@ public class UpdateProviderForm extends JFrame {
 		cbwilaya.setForeground(new Color(0, 0, 255));
 		cbwilaya.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex()+1)));
-				
+				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex())));
 				provider.setWilaya(cbwilaya.getSelectedIndex());
 			}
 		});

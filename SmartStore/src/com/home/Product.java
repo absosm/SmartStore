@@ -34,10 +34,11 @@ public class Product {
 	private boolean expire;					// 14
 	private java.util.Date expiration;		// 15
 	private int dely_exp;					// 16
-	private int packing;					// 17
-	private String location;				// 18
-	private String shelf;					// 19
-	private String path_image;				// 20
+	private boolean packing;				// 17
+	private int packing_amount;				// 18
+	private String location;				// 19
+	private String shelf;					// 20
+	private String path_image;				// 21
 	
 	
 	public Product () {
@@ -57,7 +58,8 @@ public class Product {
 		setExpirate(false);
 		setExpiration(new Date());
 		setDely_exp(0);
-		setPacking(0);
+		setPacking(false);
+		setPackingAmount(0);
 		setLocation("");
 		setShelf("");
 		setPath_image("");
@@ -96,10 +98,11 @@ public class Product {
 				setExpirate(result.getBoolean(13));
 				setExpiration(result.getDate(14));
 				setDely_exp(result.getInt(15));
-				setPacking(result.getInt(16));
-				setLocation(result.getString(17));
-				setShelf(result.getString(18));
-				setPath_image(result.getString(19));
+				setPacking(result.getBoolean(16));
+				setPackingAmount(result.getInt(17));
+				setLocation(result.getString(18));
+				setShelf(result.getString(19));
+				setPath_image(result.getString(20));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -173,7 +176,6 @@ public class Product {
 	public boolean isExpire() {
 		return expire;
 	}
-
 	public void setExpirate(boolean expire) {
 		this.expire = expire;
 	}
@@ -213,11 +215,17 @@ public class Product {
 	public void setTva(double tva) {
 		this.tva = tva;
 	}
-	public int getPacking() {
+	public boolean isPacking() {
 		return packing;
 	}
-	public void setPacking(int packing) {
+	public void setPacking(boolean packing) {
 		this.packing = packing;
+	}
+	public int getPackingAmount() {
+		return packing_amount;
+	}
+	public void setPackingAmount(int packing_amount) {
+		this.packing_amount = packing_amount;
 	}
 	public String getLocation() {
 		return location;
@@ -242,8 +250,8 @@ public class Product {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
 					prepareStatement("INSERT INTO products(barcode, name, family, unit, count, "
 							+ "used, min, cost, selling, selling_limit, tva, store_date, "
-							+ "expire, expiration, delay_exp, packing, location, shelf, path_image) "
-							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+							+ "expire, expiration, delay_exp, packing, packing_amount, location, shelf, path_image) "
+							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
 							Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, getBarcode());
 			prepared.setString(2, getName());
@@ -266,10 +274,11 @@ public class Product {
 			prepared.setBoolean(13, isExpire());
 			prepared.setDate(14, new java.sql.Date(getExpiration().getTime()));
 			prepared.setInt(15, getDely_exp());
-			prepared.setInt(16, getPacking());
-			prepared.setString(17, getLocation());
-			prepared.setString(18, getShelf());
-			prepared.setString(19, getPath_image());
+			prepared.setBoolean(16, isPacking());
+			prepared.setInt(17, getPackingAmount());
+			prepared.setString(18, getLocation());
+			prepared.setString(19, getShelf());
+			prepared.setString(20, getPath_image());
 			
 			if (prepared.executeUpdate() > 0) {
 				ResultSet result = prepared.getGeneratedKeys();
@@ -290,7 +299,7 @@ public class Product {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
 					prepareStatement("UPDATE products SET barcode=?, name=?, family=?, unit=?, "
 							+ "count=?, used=?, min=?, cost=?, selling=?, selling_limit=?,"
-							+ "tva=?, store_date=?, expire=?, expiration=?, delay_exp=?, packing=?, "
+							+ "tva=?, store_date=?, expire=?, expiration=?, delay_exp=?, packing=?, packing_amount=?, "
 							+ "location=?, shelf=?, path_image=? WHERE id=?");
 			prepared.setString(1, getBarcode());
 			prepared.setString(2, getName());
@@ -313,11 +322,12 @@ public class Product {
 			prepared.setBoolean(13, isExpire());
 			prepared.setDate(14, new java.sql.Date(getExpiration().getTime()));
 			prepared.setInt(15, getDely_exp());
-			prepared.setInt(16, getPacking());
-			prepared.setString(17, getLocation());
-			prepared.setString(18, getShelf());
-			prepared.setString(19, getPath_image());
-			prepared.setInt(20, getId());
+			prepared.setBoolean(16, isPacking());
+			prepared.setInt(17, getPackingAmount());
+			prepared.setString(18, getLocation());
+			prepared.setString(19, getShelf());
+			prepared.setString(20, getPath_image());
+			prepared.setInt(21, getId());
 			prepared.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -13,25 +13,26 @@ public class Client {
 	private String address;			// 4
 	private String family;			// 5
 	private String zip;				// 6
+	
 	private int wilaya;				// 7
-	private int city;				// 8
-	 
-	private String mobile;			// 9
-	private String phone;			// 10
-	private String fax;				// 11
-	private String mail;			// 12
-	private String website;			// 13
+	private int city;
 	
-	private int mode;				// 14
+	private String mobile;			// 8
+	private String phone;			// 9
+	private String fax;				// 10
+	private String mail;			// 11
+	private String website;			// 12
 	
-	private String bank_account;	// 15
-	private double credit;			// 16
-	private double credit_limit ;	// 17
+	private int mode;				// 13
 	
-	private String NRC;				// 18
-	private String NART;			// 19
-	private String NIF;				// 20
-	private String NIS;				// 21
+	private String bank_account;	// 14
+	private double credit;			// 15
+	private double credit_limit ;	// 16
+	
+	private String NRC;				// 17
+	private String NART;			// 18
+	private String NIF;				// 19
+	private String NIS;				// 20
 	private String RIB;				// 22
 	
 	/**
@@ -77,24 +78,26 @@ public class Client {
 				setAddress(result.getString(4));
 				setFamily(result.getString(5));
 				setZip(result.getString(6));
-				setWilaya(result.getInt(7));
-				setCity(result.getInt(8));
-				setMobile(result.getString(9));
-				setPhone(result.getString(10));
-				setFax(result.getString(11));
 				
-				setMail(result.getString(12));
-				setWebsite(result.getString(13));
-				setMode(result.getInt(14));
-				setBank_account(result.getString(15));
-				setCredit(result.getDouble(16));
-				setCredit_limit(result.getDouble(17));
+				String city_code = result.getString(7);
+				setWilaya(Integer.parseInt(city_code.substring(0, 2)));
+				setCity(Integer.parseInt(city_code.substring(2, 4)));
 				
-				setNRC(result.getString(18));
-				setNART(result.getString(19));
-				setNIF(result.getString(20));
-				setNIS(result.getString(21));
-				setRIB(result.getString(22));
+				setMobile(result.getString(8));
+				setPhone(result.getString(9));
+				setFax(result.getString(10));
+				setMail(result.getString(11));
+				setWebsite(result.getString(12));
+				setMode(result.getInt(13));
+				setBank_account(result.getString(14));
+				setCredit(result.getDouble(15));
+				setCredit_limit(result.getDouble(16));
+				
+				setNRC(result.getString(17));
+				setNART(result.getString(18));
+				setNIF(result.getString(19));
+				setNIS(result.getString(20));
+				setRIB(result.getString(21));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -427,9 +430,9 @@ public class Client {
 	public boolean add()
 	{
 		boolean b = false;
-		String selectSQL="INSERT INTO clients(firstname,lastname,address,family,zip,wilaya,city,"
+		String selectSQL="INSERT INTO clients(firstname,lastname,address,family,zip,city,"
 				+ "mobile,phone,fax,mail,website,mode,bank_account,credit,credit_limit,NRC,NART,"
-				+ "NIF,NIS,RIB) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+				+ "NIF,NIS,RIB) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
 					prepareStatement(selectSQL,Statement.RETURN_GENERATED_KEYS);
@@ -438,22 +441,23 @@ public class Client {
 			prepared.setString(3 , getAddress());
 			prepared.setString(4 , getFamily());
 			prepared.setString(5 , getZip());
-			prepared.setInt   (6 , getWilaya());
-			prepared.setInt   (7 , getCity());
-			prepared.setString(8 , getMobile());
-			prepared.setString(9 , getPhone());
-			prepared.setString(10, getFax());
-			prepared.setString(11, getMail());
-			prepared.setString(12, getWebsite());
-			prepared.setInt   (13, getMode());
-			prepared.setString(14, getBank_account());
-			prepared.setDouble(15, getCredit());
-			prepared.setDouble(16, getCredit_limit());
-			prepared.setString(17, getNRC());
-			prepared.setString(18, getNART());
-			prepared.setString(19, getNIF());
-			prepared.setString(20, getNIS());
-			prepared.setString(21, getRIB());
+			
+			prepared.setString   (6 , String.format("%02d%02d", getWilaya(), getCity()));
+			
+			prepared.setString(7 , getMobile());
+			prepared.setString(8 , getPhone());
+			prepared.setString(9, getFax());
+			prepared.setString(10, getMail());
+			prepared.setString(11, getWebsite());
+			prepared.setInt   (12, getMode());
+			prepared.setString(13, getBank_account());
+			prepared.setDouble(14, getCredit());
+			prepared.setDouble(15, getCredit_limit());
+			prepared.setString(16, getNRC());
+			prepared.setString(17, getNART());
+			prepared.setString(18, getNIF());
+			prepared.setString(19, getNIS());
+			prepared.setString(20, getRIB());
 			
 			prepared.executeUpdate();
 			ResultSet result = prepared.getGeneratedKeys();
@@ -512,7 +516,7 @@ public class Client {
 		try {
 			PreparedStatement prepared = Session.getDatabase().getConnection().
 					        prepareStatement("UPDATE clients SET firstname=?,lastname=?,address=?,"
-					        		+ "family=?,zip=?,wilaya=?,city=?,mobile=?,phone=?,fax=?,mail=?,"
+					        		+ "family=?,zip=?,city=?,mobile=?,phone=?,fax=?,mail=?,"
 					        		+ "website=?,mode=?,bank_account=?,credit=?,credit_limit=?,NRC=?,"
 					        		+ "NART=?,NIF=?,NIS=?,RIB=? WHERE id=?;");
 			
@@ -521,23 +525,22 @@ public class Client {
 			prepared.setString(3 , getAddress());
 			prepared.setString(4 , getFamily());
 			prepared.setString(5 , getZip());
-			prepared.setInt(6 , getWilaya());
-			prepared.setInt(7 , getCity());
-			prepared.setString(8 , getMobile());
-			prepared.setString(9 , getPhone());
-			prepared.setString(10, getFax());
-			prepared.setString(11, getMail());
-			prepared.setString(12, getWebsite());
-			prepared.setInt   (13, getMode());
-			prepared.setString(14, getBank_account());
-			prepared.setDouble(15, getCredit());
-			prepared.setDouble(16, getCredit_limit());
-			prepared.setString(17, getNRC());
-			prepared.setString(18, getNART());
-			prepared.setString(19, getNIF());
-			prepared.setString(20, getNIS());
-			prepared.setString(21, getRIB());
-			prepared.setInt   (22, getId());
+			prepared.setString(6 , String.format("%02d%02d", getWilaya(), getCity()));
+			prepared.setString(7 , getMobile());
+			prepared.setString(8 , getPhone());
+			prepared.setString(9, getFax());
+			prepared.setString(10, getMail());
+			prepared.setString(11, getWebsite());
+			prepared.setInt   (12, getMode());
+			prepared.setString(13, getBank_account());
+			prepared.setDouble(14, getCredit());
+			prepared.setDouble(15, getCredit_limit());
+			prepared.setString(16, getNRC());
+			prepared.setString(17, getNART());
+			prepared.setString(18, getNIF());
+			prepared.setString(19, getNIS());
+			prepared.setString(20, getRIB());
+			prepared.setInt   (21, getId());
 			if (prepared.executeUpdate()>0)
 				b = true;
 		} catch (Exception e) {

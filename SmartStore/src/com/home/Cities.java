@@ -18,6 +18,7 @@ public class Cities {
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT name_fr FROM cities WHERE codeseq like '%01' ORDER BY codeseq ASC;");
 			int i=0;
+			vector.addElement("<Aucun>");
 			while(rs.next()) {
 				i++;
 				vector.addElement(String.format("%02d", i)+" - "+rs.getString("name_fr"));
@@ -40,6 +41,7 @@ public class Cities {
 					+ "codewilaya='%02d' ORDER BY codeseq ASC", code_wilaya));
 			
 			int i=0;
+			vector.addElement("<Aucun>");
 			while(rs.next()) {
 				i++;
 				vector.addElement(String.format("%02d", i)+" - "+rs.getString("name_fr"));
@@ -52,7 +54,7 @@ public class Cities {
 	
 	public static String getWilaya(int codewilaya) {
 		
-		String s = null;
+		String s = "<Aucun>";
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -71,7 +73,7 @@ public class Cities {
 	
 	public static String getCity(int codewilaya, int codeCity) {
 		
-		String s = null;
+		String s = "<Aucun>";
 		
 		try {
 			Class.forName("org.sqlite.JDBC");

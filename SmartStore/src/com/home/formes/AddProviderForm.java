@@ -239,8 +239,6 @@ public class AddProviderForm extends JFrame {
 			}
 		});
 		cbcity.setFont(new Font("Tahoma", Font.BOLD, 14));
-		cbcity.setModel(new DefaultComboBoxModel<Object>(new String[] {""}));
-		cbcity.setSelectedIndex(0);
 		
 		cbwilaya = new JComboBox<Object>();
 		cbwilaya.setBounds(91, 130, 242, 29);
@@ -248,13 +246,13 @@ public class AddProviderForm extends JFrame {
 		cbwilaya.setForeground(new Color(0, 0, 255));
 		cbwilaya.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex()+1)));
+				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex())));
 				provider.setWilaya(cbwilaya.getSelectedIndex());
 			}
 		});
 		cbwilaya.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cbwilaya.setModel(new DefaultComboBoxModel<Object>(Cities.LoadWilaya()));
-		cbwilaya.setSelectedIndex(6);
+		cbwilaya.setSelectedIndex(7);
 		
 		JLabel lblCommune = new JLabel("Commune");
 		lblCommune.setBounds(340, 128, 71, 32);

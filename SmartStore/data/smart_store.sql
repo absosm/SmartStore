@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 18, 2017 at 08:12 AM
+-- Generation Time: Dec 19, 2017 at 11:39 AM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.12
 
@@ -35,8 +35,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `address` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `family` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `zip` varchar(10) COLLATE utf8_bin DEFAULT NULL,
-  `wilaya` tinyint(4) DEFAULT NULL,
-  `city` tinyint(4) DEFAULT NULL,
+  `city` varchar(4) COLLATE utf8_bin DEFAULT NULL,
   `mobile` varchar(15) COLLATE utf8_bin DEFAULT NULL,
   `phone` varchar(15) COLLATE utf8_bin DEFAULT NULL,
   `fax` varchar(15) COLLATE utf8_bin DEFAULT NULL,
@@ -52,14 +51,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `NIS` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `RIB` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `clients`
---
-
-INSERT INTO `clients` (`id`, `firstname`, `lastname`, `address`, `family`, `zip`, `wilaya`, `city`, `mobile`, `phone`, `fax`, `mail`, `website`, `mode`, `bank_account`, `credit`, `credit_limit`, `NRC`, `NART`, `NIF`, `NIS`, `RIB`) VALUES
-(4, 'Oussama', 'ABBAS', 'HAI KHOBZI BISKRA', 'Cosmitique', '07000', 6, 7, '0550200150', '033679511', '033679509', 'absosm@gmail.com', 'www.absosm.com', 4, '3772888011234', 15000, 10000, '349017728', '321672882', '897639201124', '1235623', '22391032738');
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -73,15 +65,7 @@ CREATE TABLE IF NOT EXISTS `families` (
   `note` varchar(200) COLLATE utf8_bin NOT NULL,
   `count` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `families`
---
-
-INSERT INTO `families` (`id`, `designation`, `note`, `count`) VALUES
-(1, 'alé;lsmdkfdmsl', '(vide)', 0),
-(4, 'sdfsdf', 'sdfsdfsdfsdf', 0);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -106,7 +90,8 @@ CREATE TABLE IF NOT EXISTS `products` (
   `expire` tinyint(1) NOT NULL,
   `expiration` date DEFAULT NULL,
   `delay_exp` int(10) DEFAULT NULL,
-  `packing` int(10) DEFAULT NULL,
+  `packing` tinyint(1) NOT NULL,
+  `packing_amount` int(10) DEFAULT NULL,
   `location` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `shelf` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `path_image` varchar(50) COLLATE utf8_bin DEFAULT NULL,
@@ -126,8 +111,7 @@ CREATE TABLE IF NOT EXISTS `providers` (
   `address` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `family` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `zip` varchar(10) COLLATE utf8_bin DEFAULT NULL,
-  `wilaya` tinyint(4) DEFAULT NULL,
-  `city` tinyint(4) DEFAULT NULL,
+  `city` varchar(4) COLLATE utf8_bin DEFAULT NULL,
   `mobile` varchar(15) COLLATE utf8_bin DEFAULT NULL,
   `phone` varchar(15) COLLATE utf8_bin DEFAULT NULL,
   `fax` varchar(15) COLLATE utf8_bin DEFAULT NULL,
@@ -142,14 +126,25 @@ CREATE TABLE IF NOT EXISTS `providers` (
   `NIS` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `RIB` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `providers`
+-- Table structure for table `stores`
 --
 
-INSERT INTO `providers` (`id`, `firstname`, `lastname`, `address`, `family`, `zip`, `wilaya`, `city`, `mobile`, `phone`, `fax`, `mail`, `website`, `mode`, `bank_account`, `credit`, `NRC`, `NART`, `NIF`, `NIS`, `RIB`) VALUES
-(2, 'Oussama', 'ABBAS', 'HAI KHOBZI', '', '07000', 6, 0, '0550200150', '', '', '', '', 0, '', 15000, '', '', '', '', '');
+CREATE TABLE IF NOT EXISTS `stores` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_bin NOT NULL,
+  `address` varchar(255) COLLATE utf8_bin NOT NULL,
+  `zip` varchar(5) COLLATE utf8_bin NOT NULL,
+  `city` varchar(4) COLLATE utf8_bin NOT NULL,
+  `mobile` varchar(15) COLLATE utf8_bin NOT NULL,
+  `phone` varchar(15) COLLATE utf8_bin NOT NULL,
+  `fax` varchar(15) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -174,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `firstname`, `lastname`, `telephone`, `privilege`, `last_login`) VALUES
-(1, 'admin', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'ABBAS', 'Oussama', '0550200150', 1, '2017-12-18 00:39:14');
+(1, 'admin', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'ABBAS', 'Oussama', '0550200150', 1, '2017-12-19 12:36:00');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

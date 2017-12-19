@@ -64,19 +64,24 @@ public class AddProductForm extends JFrame {
 	private JTextField tfbarcode;
 	private JTextField tfname;
 	private JTextField tfcount;
-	private JTextField tf_actual;
+	private JTextField tfactual;
 	private static  JTextField tfcost;
 	private static JLabel Labe_Image ;
 	private static JComboBox<String> cbfamily;
 	private static JLabel lb_path_Image;
 	private static JPanel Image_panel;
 	private JTextField tfmin;
-	private JTextField textField_5;
 	private JTextField tfselling_limit;
 	private JTable table;
 	private JTextField tfdelay_exp;
 	private JDateChooser expiration;
 	private JCheckBox expirate;
+	private JComboBox<Object> cbunit;
+	private JComboBox<Object> comboBox;
+	private JTextField tfpacking_amount;
+	private JTextField tftva;
+	private JComboBox<Object> comboBox_2;
+	private JCheckBox packing;
 
 	/**
 	 * Create the frame.
@@ -195,8 +200,11 @@ public class AddProductForm extends JFrame {
 		tfcount.getDocument().addDocumentListener(new DocumentListener() {
 			
 			protected void warn() {
-                product.setCount(Integer.parseInt(tfcount.getText()));
-                tf_actual.setText(product.getActual()+"");
+				if (!tfcount.getText().isEmpty()) {
+					product.setCount(Integer.parseInt(tfcount.getText()));
+					tfactual.setText(product.getActual()+"");
+				}
+                
             }
 			public void changedUpdate(DocumentEvent arg0) {warn();}
 			public void insertUpdate(DocumentEvent arg0) {warn();}
@@ -206,10 +214,10 @@ public class AddProductForm extends JFrame {
 		tfcount.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfcount.setColumns(10);
 		
-		tf_actual = new JTextField();
-		tf_actual.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tf_actual.setEditable(false);
-		tf_actual.setColumns(10);
+		tfactual = new JTextField();
+		tfactual.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfactual.setEditable(false);
+		tfactual.setColumns(10);
 		
 		JButton btnNewButton_1 = new JButton("");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -270,7 +278,7 @@ public class AddProductForm extends JFrame {
 							.addComponent(btnNewButton_4))
 						.addComponent(tfname, GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
 						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-							.addComponent(tf_actual, Alignment.LEADING)
+							.addComponent(tfactual, Alignment.LEADING)
 							.addComponent(tfcount, Alignment.LEADING)))
 					.addContainerGap())
 		);
@@ -305,7 +313,7 @@ public class AddProductForm extends JFrame {
 						.addComponent(tfcount, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tf_actual, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tfactual, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_2))
 					.addContainerGap(51, Short.MAX_VALUE))
 		);
@@ -314,7 +322,7 @@ public class AddProductForm extends JFrame {
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Plus d'info", new ImageIcon(AddProductForm.class.getResource("/images/Button-Info-icon.png")), panel_1, null);
 		
-		JLabel lblNewLabel_3 = new JLabel("Prix d'achat");
+		JLabel lblNewLabel_3 = new JLabel("Co\u00FBt(DA)");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfcost = new JTextField();
@@ -346,35 +354,45 @@ public class AddProductForm extends JFrame {
 		((javax.swing.border.TitledBorder) panel_3.getBorder()).setTitleFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_3.repaint();
 		
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(tfcost, GroupLayout.PREFERRED_SIZE, 222, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 314, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 365, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(20, Short.MAX_VALUE))
-		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(16)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 301, Short.MAX_VALUE)
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_3)
-								.addComponent(tfcost, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 259, GroupLayout.PREFERRED_SIZE)))
-					.addGap(235))
-		);
+		JLabel lblLimiteDePrix = new JLabel("<html>Prix de vente(limit)</html>");
+		lblLimiteDePrix.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		tfselling_limit = new JTextField();
+		Filter.TextField(tfselling_limit, Filter.CURRENCY);
+		tfselling_limit.getDocument().addDocumentListener(new DocumentListener() {
+			
+			protected void warn() {
+				if(!tfselling_limit.getText().isEmpty())
+					product.setSelling_limit(Double.parseDouble(tfselling_limit.getText()));
+			}
+
+			public void changedUpdate(DocumentEvent arg0) {warn();}
+			public void insertUpdate(DocumentEvent arg0) {warn();}
+			public void removeUpdate(DocumentEvent arg0) {warn();}
+        });
+		tfselling_limit.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfselling_limit.setColumns(10);
+		
+		JLabel lblTva = new JLabel("TVA (%)");
+		lblTva.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		tftva = new JTextField();
+		tftva.getDocument().addDocumentListener(new DocumentListener() {
+			
+			protected void warn() {
+				if (!tftva.getText().isEmpty()) {
+					double perc = (Double.parseDouble(tftva.getText()))/100;
+					product.setTva(perc);
+				}
+			}
+
+			public void changedUpdate(DocumentEvent arg0) {warn();}
+			public void insertUpdate(DocumentEvent arg0) {warn();}
+			public void removeUpdate(DocumentEvent arg0) {warn();}
+        });
+		Filter.TextField(tftva, Filter.PERCENTAGE);
+		tftva.setText("19");
+		tftva.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JToolBar toolBar = new JToolBar();
 		
@@ -446,20 +464,16 @@ public class AddProductForm extends JFrame {
 		});
 		expirate.setSelected(false);
 		expirate.setHorizontalAlignment(SwingConstants.CENTER);
-		expirate.setBounds(12, 54, 77, 28);
 		
 		JLabel lblDateDePremption = new JLabel("<html>Expir\u00E9 <br>(OUI/NO)</br></html>");
 		lblDateDePremption.setHorizontalAlignment(SwingConstants.LEFT);
-		lblDateDePremption.setBounds(12, 13, 77, 30);
 		lblDateDePremption.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblExpireLe = new JLabel("Date d'expiration");
-		lblExpireLe.setBounds(95, 14, 136, 28);
 		lblExpireLe.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblExpireLe.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		JLabel lblnombreDesJours = new JLabel("<html>Nombre des <br> jours d'alerte</br></html>");
-		lblnombreDesJours.setBounds(241, 9, 110, 30);
 		lblnombreDesJours.setIcon(new ImageIcon("C:\\Users\\DocteurTnou\\Desktop\\event.png"));
 		lblnombreDesJours.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblnombreDesJours.setHorizontalAlignment(SwingConstants.LEFT);
@@ -468,7 +482,8 @@ public class AddProductForm extends JFrame {
 		tfmin.getDocument().addDocumentListener(new DocumentListener() {
 			
 			protected void warn() {
-				product.setMin(Integer.parseInt(tfmin.getText()));
+				if (!tfmin.getText().isEmpty())
+					product.setMin(Integer.parseInt(tfmin.getText()));
             }
 			public void changedUpdate(DocumentEvent arg0) {warn();}
 			public void insertUpdate(DocumentEvent arg0) {warn();}
@@ -476,67 +491,62 @@ public class AddProductForm extends JFrame {
         });
 		Filter.TextField(tfmin, Filter.NUMBER);
 		tfmin.setText("15");
-		tfmin.setBounds(12, 132, 77, 28);
 		tfmin.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfmin.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(12, 200, 77, 28);
-		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_5.setColumns(10);
+		tfpacking_amount = new JTextField();
+		Filter.TextField(tfpacking_amount, Filter.NUMBER);
+		tfpacking_amount.getDocument().addDocumentListener(new DocumentListener() {
+			
+			protected void warn() {
+				if (!tfpacking_amount.getText().isEmpty())
+					product.setPackingAmount(Integer.parseInt(tfpacking_amount.getText()));
+            }
+			public void changedUpdate(DocumentEvent arg0) {warn();}
+			public void insertUpdate(DocumentEvent arg0) {warn();}
+			public void removeUpdate(DocumentEvent arg0) {warn();}
+        });
+		tfpacking_amount.setEnabled(false);
+		tfpacking_amount.setText("12");
+		tfpacking_amount.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfpacking_amount.setColumns(10);
 		
-		tfselling_limit = new JTextField();
-		tfselling_limit.setBounds(12, 263, 178, 25);
-		tfselling_limit.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tfselling_limit.setColumns(10);
+		cbunit = new JComboBox<Object>();
+		cbunit.setModel(new DefaultComboBoxModel<Object>(new String[] {"Metre", "Kg", "g", "Litre"}));
+		cbunit.setSelectedIndex(1);
+		cbunit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				product.setUnit((String)cbunit.getSelectedItem());
+			}
+		});
+		cbunit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JComboBox<Object> comboBox = new JComboBox<Object>();
-		comboBox.setBounds(95, 132, 140, 28);
+		comboBox = new JComboBox<Object>();
+		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Aucun>"}));
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JComboBox<Object> comboBox_4 = new JComboBox<Object>();
-		comboBox_4.setBounds(241, 132, 110, 28);
-		comboBox_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		comboBox_2 = new JComboBox<Object>();
+		comboBox_2.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Aucun>"}));
+		comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JComboBox<Object> comboBox_5 = new JComboBox<Object>();
-		comboBox_5.setBounds(95, 200, 140, 28);
-		comboBox_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JComboBox<Object> comboBox_6 = new JComboBox<Object>();
-		comboBox_6.setBounds(241, 200, 108, 28);
-		comboBox_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JLabel lbldpotmagasin = new JLabel("D\u00E9pot Magasin");
-		lbldpotmagasin.setBounds(241, 96, 110, 30);
+		JLabel lbldpotmagasin = new JLabel("D\u00E9pot /Magasin");
 		lbldpotmagasin.setHorizontalAlignment(SwingConstants.LEFT);
 		lbldpotmagasin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblunitDemesure = new JLabel("<html>Unit\u00E9 de<br>Mesure</br></html>");
-		lblunitDemesure.setBounds(95, 96, 140, 30);
 		lblunitDemesure.setHorizontalAlignment(SwingConstants.LEFT);
 		lblunitDemesure.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblstockmin = new JLabel("Stock Min");
-		lblstockmin.setBounds(12, 96, 77, 30);
 		lblstockmin.setHorizontalAlignment(SwingConstants.LEFT);
 		lblstockmin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JLabel lblColissage = new JLabel("Colissage");
-		lblColissage.setBounds(12, 163, 77, 30);
+		JLabel lblColissage = new JLabel("Colisage(Qtt)");
 		lblColissage.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JLabel lblTva = new JLabel("TVA %");
-		lblTva.setBounds(95, 163, 140, 30);
-		lblTva.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		JLabel lbllocalisationrayonnage = new JLabel("<html>Localisation/<br>Rayonnage</br></html>");
-		lbllocalisationrayonnage.setBounds(241, 163, 110, 30);
+		JLabel lbllocalisationrayonnage = new JLabel("<html>Localisation/<br/>Rayonnage</html>");
 		lbllocalisationrayonnage.setHorizontalAlignment(SwingConstants.LEFT);
 		lbllocalisationrayonnage.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		JLabel lblLimiteDePrix = new JLabel("Limite de prix de vente");
-		lblLimiteDePrix.setBounds(12, 239, 127, 21);
-		lblLimiteDePrix.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		expiration = new JDateChooser();
 		expiration.addPropertyChangeListener(
@@ -547,38 +557,18 @@ public class AddProductForm extends JFrame {
 		        		product.setExpiration(expiration.getDate());
 		        }
 	    });
-		expiration.setBounds(95, 54, 140, 28);
 		expiration.setDateFormatString("dd/MM/yyyy");
 		expiration.setFont(new Font("Tahoma", Font.BOLD, 14));
 		expiration.setDate(new Date());
 		expiration.setEnabled(false);
 		expiration.getCalendarButton().setIcon(new ImageIcon(AddProductForm.class.getResource("/images/calendar.png")));
-		panel_4.setLayout(null);
-		panel_4.add(lblColissage);
-		panel_4.add(expirate);
-		panel_4.add(lblDateDePremption);
-		panel_4.add(tfmin);
-		panel_4.add(lblstockmin);
-		panel_4.add(textField_5);
-		panel_4.add(lblunitDemesure);
-		panel_4.add(expiration);
-		panel_4.add(comboBox_5);
-		panel_4.add(comboBox);
-		panel_4.add(lblTva);
-		panel_4.add(lblExpireLe);
-		panel_4.add(lblnombreDesJours);
-		panel_4.add(comboBox_6);
-		panel_4.add(lbllocalisationrayonnage);
-		panel_4.add(comboBox_4);
-		panel_4.add(lbldpotmagasin);
-		panel_4.add(lblLimiteDePrix);
-		panel_4.add(tfselling_limit);
 		
 		tfdelay_exp = new JTextField();
 		tfdelay_exp.getDocument().addDocumentListener(new DocumentListener() {
 			
 			protected void warn() {
-				product.setCount(Integer.parseInt(tfdelay_exp.getText()));
+				if (!tfdelay_exp.getText().isEmpty())
+					product.setDely_exp(Integer.parseInt(tfdelay_exp.getText()));
             }
 			public void changedUpdate(DocumentEvent arg0) {warn();}
 			public void insertUpdate(DocumentEvent arg0) {warn();}
@@ -589,8 +579,154 @@ public class AddProductForm extends JFrame {
 		Filter.TextField(tfdelay_exp, Filter.NUMBER);
 		tfdelay_exp.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfdelay_exp.setColumns(10);
-		tfdelay_exp.setBounds(241, 54, 110, 28);
-		panel_4.add(tfdelay_exp);
+		
+		packing = new JCheckBox("");
+		packing.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if (packing.isSelected())
+					tfpacking_amount.setEnabled(true);
+				else
+					tfpacking_amount.setEnabled(false);
+				
+				product.setPacking(packing.isSelected());
+			}
+		});
+		packing.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JLabel lblColisage = new JLabel("Colisage");
+		lblColisage.setHorizontalAlignment(SwingConstants.LEFT);
+		lblColisage.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(10)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(tfcost, GroupLayout.PREFERRED_SIZE, 222, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblLimiteDePrix, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTva))
+							.addGap(4)
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+								.addComponent(tfselling_limit, GroupLayout.PREFERRED_SIZE, 222, GroupLayout.PREFERRED_SIZE)
+								.addComponent(tftva, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 314, GroupLayout.PREFERRED_SIZE))
+					.addGap(10)
+					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 365, GroupLayout.PREFERRED_SIZE))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(16)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_1.createSequentialGroup()
+									.addGap(4)
+									.addComponent(lblNewLabel_3))
+								.addComponent(tfcost, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+							.addGap(4)
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblLimiteDePrix, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel_1.createSequentialGroup()
+									.addGap(34)
+									.addComponent(lblTva, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel_1.createSequentialGroup()
+									.addGap(5)
+									.addComponent(tfselling_limit, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+									.addGap(5)
+									.addComponent(tftva, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)))
+							.addGap(2)
+							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE)))
+		);
+		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
+		gl_panel_4.setHorizontalGroup(
+			gl_panel_4.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_4.createSequentialGroup()
+					.addGap(10)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addComponent(lblDateDePremption, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(lblExpireLe, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addComponent(lblnombreDesJours, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addComponent(expirate, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(expiration, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(tfdelay_exp, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addComponent(lblstockmin, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(lblunitDemesure, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(lbldpotmagasin, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addComponent(tfmin, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(cbunit, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addComponent(lblColisage, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(lblColissage, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(lbllocalisationrayonnage, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addComponent(packing, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(tfpacking_amount, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE))))
+		);
+		gl_panel_4.setVerticalGroup(
+			gl_panel_4.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_4.createSequentialGroup()
+					.addGap(7)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblDateDePremption))
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addGap(5)
+							.addComponent(lblExpireLe, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblnombreDesJours))
+					.addGap(11)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addComponent(expirate, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+						.addComponent(expiration, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tfdelay_exp, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+					.addGap(46)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblstockmin, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblunitDemesure)
+						.addComponent(lbldpotmagasin, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+					.addGap(6)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addComponent(tfmin, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+						.addComponent(cbunit, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+					.addGap(3)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblColisage, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblColissage, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lbllocalisationrayonnage))
+					.addGap(7)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addComponent(packing, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tfpacking_amount, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)))
+		);
+		panel_4.setLayout(gl_panel_4);
 		panel_1.setLayout(gl_panel_1);
 		
 		JPanel panel_2 = new JPanel();

@@ -225,6 +225,12 @@ public class AddClientForm extends JFrame {
 		Filter.TextField(tfzip, Filter.ZIP);
 		tfzip.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
+		JLabel lblCommune = new JLabel("Commune");
+		lblCommune.setBounds(320, 139, 71, 32);
+		panel_3.add(lblCommune);
+		lblCommune.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCommune.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
 		cbcity = new JComboBox<Object>();
 		cbcity.setBounds(399, 139, 242, 32);
 		panel_3.add(cbcity);
@@ -235,14 +241,6 @@ public class AddClientForm extends JFrame {
 			}
 		});
 		cbcity.setFont(new Font("Tahoma", Font.BOLD, 14));
-		cbcity.setModel(new DefaultComboBoxModel<Object>(new String[] {""}));
-		cbcity.setSelectedIndex(0);
-		
-		JLabel lblCommune = new JLabel("Commune");
-		lblCommune.setBounds(320, 139, 71, 32);
-		panel_3.add(lblCommune);
-		lblCommune.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCommune.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		cbwilaya = new JComboBox<Object>();
 		cbwilaya.setBounds(76, 139, 242, 32);
@@ -250,13 +248,13 @@ public class AddClientForm extends JFrame {
 		cbwilaya.setForeground(new Color(0, 0, 255));
 		cbwilaya.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex()+1)));
+				cbcity.setModel(new DefaultComboBoxModel<Object>(Cities.LoadCities(cbwilaya.getSelectedIndex())));
 				client.setWilaya(cbwilaya.getSelectedIndex());
 			}
 		});
 		cbwilaya.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cbwilaya.setModel(new DefaultComboBoxModel<Object>(Cities.LoadWilaya()));
-		cbwilaya.setSelectedIndex(6);
+		cbwilaya.setSelectedIndex(7);
 		
 		JLabel lblWilaya = new JLabel("Wilaya");
 		lblWilaya.setBounds(20, 140, 46, 30);

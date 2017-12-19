@@ -39,7 +39,7 @@ public class ProvidersModel extends AbstractTableModel {
     }
     
     public boolean isCellEditable(int row, int col) { 
-    	if (col == 0 || col == 5 || col == 6)
+    	if (col == 0 || col >= 5)
     		return false;
     	else
     		return true; 
@@ -84,13 +84,13 @@ public class ProvidersModel extends AbstractTableModel {
     	
     	if (column == 5) {
     		int codew = (Integer) data.get(row).get(5);
-    		return Cities.getWilaya(codew+1);
+    		return Cities.getWilaya(codew);
     	}
     	
     	if (column == 6) {
     		int codew = (Integer) data.get(row).get(5);
     		int codec = (Integer) data.get(row).get(6);
-    		return Cities.getCity(codew+1, codec+1);
+    		return Cities.getCity(codew, codec);
     	}
     		
     	return data.get(row).get(column);
