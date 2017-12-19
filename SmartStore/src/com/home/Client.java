@@ -103,8 +103,6 @@ public class Client {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		
-				
 	}
 	/**
 	 * @param id
