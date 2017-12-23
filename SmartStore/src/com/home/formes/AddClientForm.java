@@ -32,6 +32,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.border.LineBorder;
+import java.awt.Component;
 
 
 public class AddClientForm extends JFrame {
@@ -94,26 +96,31 @@ public class AddClientForm extends JFrame {
 		
 		setBounds(100, 100, 718, 515);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		setContentPane(contentPane);
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tabbedPane.setBackground(Color.LIGHT_GRAY);
+		tabbedPane.setBackground(Color.WHITE);
 		
 		JPanel panel = new JPanel();   
+		panel.setBackground(Color.WHITE);
 		//panel.setBackground(Color.LIGHT_GRAY);
 		panel.setToolTipText("");
 		tabbedPane.addTab("G\u00E9n\u00E9ral   ", new ImageIcon(this.getClass().getResource("/images/Download-Folder-icon.png")), panel, "Des informations générales");
 		
 		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(Color.WHITE);
 		panel_3.setLayout(null);
 		
 		JLabel lblFamille = new JLabel("Famille");
+		lblFamille.setForeground(Color.BLUE);
 		lblFamille.setBounds(10, 11, 56, 32);
 		panel_3.add(lblFamille);
 		lblFamille.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblFamille.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tffamily = new JTextField();
+		tffamily.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tffamily.setBounds(76, 12, 165, 32);
 		panel_3.add(tffamily);
 		tffamily.setForeground(new Color(0, 0, 255));
@@ -131,12 +138,14 @@ public class AddClientForm extends JFrame {
 		tffamily.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nom");
+		lblNewLabel.setForeground(Color.BLUE);
 		lblNewLabel.setBounds(6, 54, 60, 32);
 		panel_3.add(lblNewLabel);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tflastname = new JTextField();
+		tflastname.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tflastname.setBounds(76, 54, 242, 32);
 		panel_3.add(tflastname);
 		tflastname.setForeground(new Color(0, 0, 255));
@@ -156,12 +165,14 @@ public class AddClientForm extends JFrame {
 		tflastname.setColumns(10);
 		
 		JLabel lblPrenom = new JLabel("Pr\u00E9nom");
+		lblPrenom.setForeground(Color.BLUE);
 		lblPrenom.setBounds(328, 54, 63, 32);
 		panel_3.add(lblPrenom);
 		lblPrenom.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPrenom.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tffirstname = new JTextField();
+		tffirstname.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tffirstname.setBounds(399, 54, 242, 32);
 		panel_3.add(tffirstname);
 		tffirstname.setForeground(new Color(0, 0, 255));
@@ -180,12 +191,14 @@ public class AddClientForm extends JFrame {
 		tffirstname.setColumns(10);
 		
 		JLabel lblAdresse = new JLabel("Adresse");
+		lblAdresse.setForeground(Color.BLUE);
 		lblAdresse.setBounds(6, 97, 60, 32);
 		panel_3.add(lblAdresse);
 		lblAdresse.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblAdresse.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfaddress = new JTextField();
+		tfaddress.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfaddress.setBounds(76, 97, 441, 32);
 		panel_3.add(tfaddress);
 		tfaddress.setForeground(new Color(0, 0, 255));
@@ -203,12 +216,14 @@ public class AddClientForm extends JFrame {
 		tfaddress.setColumns(10);
 		
 		JLabel lblCode = new JLabel("Code");
+		lblCode.setForeground(Color.BLUE);
 		lblCode.setBounds(522, 97, 46, 32);
 		panel_3.add(lblCode);
 		lblCode.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCode.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfzip = new JTextField();
+		tfzip.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfzip.setBounds(578, 98, 63, 32);
 		panel_3.add(tfzip);
 		tfzip.setForeground(new Color(0, 0, 255));
@@ -226,12 +241,14 @@ public class AddClientForm extends JFrame {
 		tfzip.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JLabel lblCommune = new JLabel("Commune");
+		lblCommune.setForeground(Color.BLUE);
 		lblCommune.setBounds(320, 139, 71, 32);
 		panel_3.add(lblCommune);
 		lblCommune.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCommune.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		cbcity = new JComboBox<Object>();
+		cbcity.setBorder(new LineBorder(new Color(30, 144, 255)));
 		cbcity.setBounds(399, 139, 242, 32);
 		panel_3.add(cbcity);
 		cbcity.setForeground(new Color(0, 0, 255));
@@ -243,6 +260,7 @@ public class AddClientForm extends JFrame {
 		cbcity.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		cbwilaya = new JComboBox<Object>();
+		cbwilaya.setBorder(new LineBorder(new Color(30, 144, 255)));
 		cbwilaya.setBounds(76, 139, 242, 32);
 		panel_3.add(cbwilaya);
 		cbwilaya.setForeground(new Color(0, 0, 255));
@@ -257,12 +275,14 @@ public class AddClientForm extends JFrame {
 		cbwilaya.setSelectedIndex(7);
 		
 		JLabel lblWilaya = new JLabel("Wilaya");
+		lblWilaya.setForeground(Color.BLUE);
 		lblWilaya.setBounds(20, 140, 46, 30);
 		panel_3.add(lblWilaya);
 		lblWilaya.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblWilaya.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblTel = new JLabel("Mob");
+		lblTel.setForeground(Color.BLUE);
 		lblTel.setBounds(0, 181, 66, 32);
 		panel_3.add(lblTel);
 		lblTel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -270,6 +290,7 @@ public class AddClientForm extends JFrame {
 		lblTel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfmobile = new JTextField();
+		tfmobile.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfmobile.setBounds(76, 181, 165, 32);
 		panel_3.add(tfmobile);
 		tfmobile.setForeground(new Color(0, 0, 255));
@@ -288,6 +309,7 @@ public class AddClientForm extends JFrame {
 		tfmobile.setColumns(10);
 		
 		JLabel lblTl = new JLabel("TEL");
+		lblTl.setForeground(Color.BLUE);
 		lblTl.setBounds(0, 224, 66, 32);
 		panel_3.add(lblTl);
 		lblTl.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -295,6 +317,7 @@ public class AddClientForm extends JFrame {
 		lblTl.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfphone = new JTextField();
+		tfphone.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfphone.setBounds(76, 224, 165, 32);
 		panel_3.add(tfphone);
 		tfphone.setForeground(new Color(0, 0, 255));
@@ -313,6 +336,7 @@ public class AddClientForm extends JFrame {
 		tfphone.setColumns(10);
 		
 		JLabel lblFax = new JLabel("FAX");
+		lblFax.setForeground(Color.BLUE);
 		lblFax.setBounds(0, 267, 66, 32);
 		panel_3.add(lblFax);
 		lblFax.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -320,6 +344,7 @@ public class AddClientForm extends JFrame {
 		lblFax.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tffax = new JTextField();
+		tffax.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tffax.setBounds(76, 267, 165, 32);
 		panel_3.add(tffax);
 		tffax.setForeground(new Color(0, 0, 255));
@@ -354,19 +379,22 @@ public class AddClientForm extends JFrame {
 		panel.setLayout(gl_panel);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(240, 240, 240));
+		panel_1.setBackground(Color.WHITE);
 		tabbedPane.addTab("Plus information   ", new ImageIcon(this.getClass().getResource("/images/Button-Info-icon.png")), panel_1, null);
 		
 		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(Color.WHITE);
 		panel_4.setLayout(null);
 		
 		JLabel lblN = new JLabel("N° R C");
+		lblN.setForeground(Color.BLUE);
 		lblN.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblN.setBounds(47, 17, 46, 32);
 		panel_4.add(lblN);
 		lblN.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfnrc = new JTextField();
+		tfnrc.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfnrc.setBounds(103, 17, 213, 32);
 		panel_4.add(tfnrc);
 		tfnrc.getDocument().addDocumentListener(new DocumentListener() {
@@ -379,17 +407,19 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnrc.setForeground(new Color(0, 0, 255));
+		tfnrc.setForeground(Color.BLUE);
 		tfnrc.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnrc.setColumns(10);
 		
 		JLabel lblNArt = new JLabel("N° Art");
+		lblNArt.setForeground(Color.BLUE);
 		lblNArt.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNArt.setBounds(388, 17, 46, 32);
 		panel_4.add(lblNArt);
 		lblNArt.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfnart = new JTextField();
+		tfnart.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfnart.setBounds(444, 17, 213, 32);
 		panel_4.add(tfnart);
 		tfnart.getDocument().addDocumentListener(new DocumentListener() {
@@ -402,17 +432,19 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnart.setForeground(new Color(0, 0, 255));
+		tfnart.setForeground(Color.BLUE);
 		tfnart.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnart.setColumns(10);
 		
 		JLabel lblNIF = new JLabel("N° I F");
+		lblNIF.setForeground(Color.BLUE);
 		lblNIF.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNIF.setBounds(47, 66, 46, 32);
 		panel_4.add(lblNIF);
 		lblNIF.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfnif = new JTextField();
+		tfnif.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfnif.setBounds(103, 66, 213, 32);
 		panel_4.add(tfnif);
 		tfnif.getDocument().addDocumentListener(new DocumentListener() {
@@ -425,17 +457,19 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnif.setForeground(new Color(0, 0, 255));
+		tfnif.setForeground(Color.BLUE);
 		tfnif.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnif.setColumns(10);
 		
 		JLabel lblNIS = new JLabel("N° I S");
+		lblNIS.setForeground(Color.BLUE);
 		lblNIS.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNIS.setBounds(388, 66, 46, 32);
 		panel_4.add(lblNIS);
 		lblNIS.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfnis = new JTextField();
+		tfnis.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfnis.setBounds(444, 66, 213, 32);
 		panel_4.add(tfnis);
 		tfnis.getDocument().addDocumentListener(new DocumentListener() {
@@ -448,17 +482,19 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfnis.setForeground(new Color(0, 0, 255));
+		tfnis.setForeground(Color.BLUE);
 		tfnis.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfnis.setColumns(10);
 		
 		JLabel lblCompte = new JLabel("Compte bank");
+		lblCompte.setForeground(Color.BLUE);
 		lblCompte.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCompte.setBounds(10, 115, 83, 32);
 		panel_4.add(lblCompte);
 		lblCompte.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfbank_account = new JTextField();
+		tfbank_account.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfbank_account.setBounds(103, 115, 213, 32);
 		panel_4.add(tfbank_account);
 		tfbank_account.getDocument().addDocumentListener(new DocumentListener() {
@@ -471,17 +507,19 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfbank_account.setForeground(new Color(0, 0, 255));
+		tfbank_account.setForeground(Color.BLUE);
 		tfbank_account.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfbank_account.setColumns(10);
 		
 		JLabel lblRIP = new JLabel("R I B");
+		lblRIP.setForeground(Color.BLUE);
 		lblRIP.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblRIP.setBounds(379, 115, 55, 32);
 		panel_4.add(lblRIP);
 		lblRIP.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfrib = new JTextField();
+		tfrib.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfrib.setBounds(444, 115, 213, 32);
 		panel_4.add(tfrib);
 		tfrib.getDocument().addDocumentListener(new DocumentListener() {
@@ -494,11 +532,12 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfrib.setForeground(new Color(0, 0, 255));
+		tfrib.setForeground(Color.BLUE);
 		tfrib.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfrib.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setForeground(Color.BLUE);
 		lblEmail.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblEmail.setBounds(29, 164, 64, 32);
 		panel_4.add(lblEmail);
@@ -506,6 +545,7 @@ public class AddClientForm extends JFrame {
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfmail = new JTextField();
+		tfmail.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfmail.setBounds(103, 164, 213, 32);
 		panel_4.add(tfmail);
 		tfmail.getDocument().addDocumentListener(new DocumentListener() {
@@ -518,11 +558,12 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfmail.setForeground(new Color(0, 0, 255));
+		tfmail.setForeground(Color.BLUE);
 		tfmail.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfmail.setColumns(10);
 		
 		JLabel lblSiteWeb = new JLabel("Site Web");
+		lblSiteWeb.setForeground(Color.BLUE);
 		lblSiteWeb.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSiteWeb.setBounds(337, 164, 97, 32);
 		panel_4.add(lblSiteWeb);
@@ -530,6 +571,7 @@ public class AddClientForm extends JFrame {
 		lblSiteWeb.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfwebsite = new JTextField();
+		tfwebsite.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfwebsite.setBounds(444, 164, 213, 32);
 		panel_4.add(tfwebsite);
 		tfwebsite.getDocument().addDocumentListener(new DocumentListener() {
@@ -542,7 +584,7 @@ public class AddClientForm extends JFrame {
 			public void removeUpdate(DocumentEvent e) {warn();}
 			
 		});
-		tfwebsite.setForeground(new Color(0, 0, 255));
+		tfwebsite.setForeground(Color.BLUE);
 		tfwebsite.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfwebsite.setColumns(10);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
@@ -563,18 +605,22 @@ public class AddClientForm extends JFrame {
 		panel_1.setLayout(gl_panel_1);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.WHITE);
 		tabbedPane.addTab("Tarification   ", new ImageIcon(this.getClass().getResource("/images/Pricing-icon.png")), panel_2, null);
 		
 		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(Color.WHITE);
 		panel_5.setLayout(null);
 		
 		JLabel lblModeDeTarif = new JLabel("Mode de Tarif");
+		lblModeDeTarif.setForeground(Color.BLUE);
 		lblModeDeTarif.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblModeDeTarif.setBounds(15, 21, 94, 17);
 		panel_5.add(lblModeDeTarif);
 		lblModeDeTarif.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		cbmode = new JComboBox<Object>();
+		cbmode.setBorder(new LineBorder(new Color(30, 144, 255)));
 		cbmode.setBounds(119, 13, 256, 32);
 		panel_5.add(cbmode);
 		cbmode.setForeground(new Color(0, 0, 255));
@@ -588,12 +634,14 @@ public class AddClientForm extends JFrame {
 		cbmode.setSelectedIndex(0);
 		
 		JLabel lblNewLabel_2 = new JLabel("Limitation");
+		lblNewLabel_2.setForeground(Color.BLUE);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_2.setBounds(41, 66, 68, 17);
 		panel_5.add(lblNewLabel_2);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfcredit_limit = new JTextField();
+		tfcredit_limit.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfcredit_limit.setBounds(119, 58, 256, 32);
 		panel_5.add(tfcredit_limit);
 		tfcredit_limit.setForeground(new Color(0, 0, 255));
@@ -615,12 +663,14 @@ public class AddClientForm extends JFrame {
 		tfcredit_limit.setColumns(10);
 		
 		JLabel lblsoldeinitial = new JLabel("Solde initial");
+		lblsoldeinitial.setForeground(Color.BLUE);
 		lblsoldeinitial.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblsoldeinitial.setBounds(32, 102, 77, 34);
 		panel_5.add(lblsoldeinitial);
 		lblsoldeinitial.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfcredit = new JTextField();
+		tfcredit.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfcredit.setBounds(119, 103, 256, 32);
 		panel_5.add(tfcredit);
 		tfcredit.setForeground(new Color(0, 0, 255));
@@ -657,7 +707,8 @@ public class AddClientForm extends JFrame {
 		);
 		panel_2.setLayout(gl_panel_2);
 		
-		btnOk = new JButton("Ok");
+		btnOk = new JButton("Ajouter");
+		btnOk.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (client.add())
@@ -672,6 +723,7 @@ public class AddClientForm extends JFrame {
 		btnOk.setIcon(new ImageIcon(this.getClass().getResource("/images/database-accept-icon.png")));
 		
 		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();					
@@ -702,6 +754,7 @@ public class AddClientForm extends JFrame {
 						.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnAnnuler, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)))
 		);
+		gl_contentPane.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnOk, btnAnnuler});
 		contentPane.setLayout(gl_contentPane);
 		
 		setVisible(true);

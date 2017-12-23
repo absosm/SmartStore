@@ -87,6 +87,7 @@ public class AddProductForm extends JFrame {
 	 * Create the frame.
 	 */
 	public AddProductForm() {
+		setBackground(Color.WHITE);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent arg0) {
@@ -109,14 +110,17 @@ public class AddProductForm extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 750, 500);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		setResizable(false);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBackground(Color.WHITE);
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btnNewButton_2 = new JButton("Annuler");
+		btnNewButton_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -126,6 +130,7 @@ public class AddProductForm extends JFrame {
 		btnNewButton_2.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/1490388962_DeleteRed.png")));
 		
 		JButton btnOk = new JButton("OK");
+		btnOk.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				product.add();
@@ -136,6 +141,7 @@ public class AddProductForm extends JFrame {
 		
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
 		tabbedPane.addTab("G\u00E9n\u00E9ral", new ImageIcon(AddProductForm.class.getResource("/images/Download-Folder-icon.png")), panel, null);
 		
 		JLabel lblNewLabel = new JLabel("Code produit");
@@ -157,6 +163,8 @@ public class AddProductForm extends JFrame {
 		lblDateDuStock.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfbarcode = new JTextField();
+		tfbarcode.setBorder(new LineBorder(new Color(30, 144, 255)));
+		tfbarcode.setForeground(Color.BLUE);
 		tfbarcode.setEditable(false);
 		tfbarcode.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -172,6 +180,8 @@ public class AddProductForm extends JFrame {
 		tfbarcode.setText(generateCode());
 		
 		tfname = new JTextField();
+		tfname.setBorder(new LineBorder(new Color(30, 144, 255)));
+		tfname.setForeground(Color.BLUE);
 		tfname.getDocument().addDocumentListener(new DocumentListener() {
 			
 			protected void warn() {
@@ -186,6 +196,8 @@ public class AddProductForm extends JFrame {
 		tfname.setColumns(10);
 		
 		cbfamily = new JComboBox<String>(Family.load());
+		cbfamily.setBorder(new LineBorder(new Color(30, 144, 255)));
+		cbfamily.setForeground(Color.BLUE);
 		cbfamily.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -196,6 +208,8 @@ public class AddProductForm extends JFrame {
 		cbfamily.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfcount = new JTextField();
+		tfcount.setForeground(Color.BLUE);
+		tfcount.setBorder(new LineBorder(new Color(30, 144, 255)));
 		Filter.TextField(tfcount, Filter.NUMBER);
 		tfcount.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -215,6 +229,8 @@ public class AddProductForm extends JFrame {
 		tfcount.setColumns(10);
 		
 		tfactual = new JTextField();
+		tfactual.setBorder(new LineBorder(new Color(30, 144, 255)));
+		tfactual.setForeground(Color.BLUE);
 		tfactual.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfactual.setEditable(false);
 		tfactual.setColumns(10);
@@ -231,6 +247,8 @@ public class AddProductForm extends JFrame {
 		btnNewButton_1.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/add.png")));
 		
 		JDateChooser tfstore_date = new JDateChooser();
+		tfstore_date.setBorder(new LineBorder(new Color(30, 144, 255)));
+		tfstore_date.setForeground(Color.BLUE);
 		tfstore_date.setDateFormatString("dd/MM/yyyy");
 		tfstore_date.getDateEditor().addPropertyChangeListener( new PropertyChangeListener() {
 	        public void propertyChange(PropertyChangeEvent e) {
@@ -245,6 +263,7 @@ public class AddProductForm extends JFrame {
 		tfstore_date.getCalendarButton().setIcon(new ImageIcon(AddProductForm.class.getResource("/images/calendar.png")));
 		
 		JButton btnNewButton_4 = new JButton("G\u00E9n\u00E9rer");
+		btnNewButton_4.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tfbarcode.setText(generateCode());
@@ -252,80 +271,102 @@ public class AddProductForm extends JFrame {
 		});
 		btnNewButton_4.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/refresh.png")));
 		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(97)
+					.addComponent(lblNewLabel)
+					.addGap(18)
+					.addComponent(tfbarcode, GroupLayout.PREFERRED_SIZE, 407, GroupLayout.PREFERRED_SIZE)
+					.addGap(6)
+					.addComponent(btnNewButton_4, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(58)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblDsignation)
-						.addComponent(lblNewLabel)
-						.addComponent(lblFamille)
-						.addComponent(lblDateDuStock)
-						.addComponent(lblNewLabel_1)
-						.addComponent(lblNewLabel_2))
+					.addComponent(lblDsignation)
 					.addGap(18)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(cbfamily, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-						.addComponent(tfstore_date, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE)
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addComponent(tfbarcode, GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnNewButton_4))
-						.addComponent(tfname, GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
-						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-							.addComponent(tfactual, Alignment.LEADING)
-							.addComponent(tfcount, Alignment.LEADING)))
-					.addContainerGap())
+					.addComponent(tfname, GroupLayout.PREFERRED_SIZE, 514, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(138)
+					.addComponent(lblFamille)
+					.addGap(18)
+					.addComponent(cbfamily, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+					.addGap(6)
+					.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(59)
+					.addComponent(lblDateDuStock)
+					.addGap(18)
+					.addComponent(tfstore_date, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(108)
+					.addComponent(lblNewLabel_1)
+					.addGap(18)
+					.addComponent(tfcount, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(102)
+					.addComponent(lblNewLabel_2)
+					.addGap(18)
+					.addComponent(tfactual, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(45)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tfbarcode, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel)
-						.addComponent(btnNewButton_4, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tfname, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDsignation))
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(18)
-							.addComponent(lblFamille)
-							.addGap(18)
-							.addComponent(lblDateDuStock))
+							.addGap(8)
+							.addComponent(lblNewLabel))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(6)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(cbfamily, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tfstore_date, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_1)
+							.addGap(1)
+							.addComponent(tfbarcode, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnNewButton_4, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+					.addGap(6)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(7)
+							.addComponent(lblDsignation))
+						.addComponent(tfname, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+					.addGap(6)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(12)
+							.addComponent(lblFamille))
+						.addComponent(cbfamily, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+					.addGap(6)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(9)
+							.addComponent(lblDateDuStock))
+						.addComponent(tfstore_date, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+					.addGap(6)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(7)
+							.addComponent(lblNewLabel_1))
 						.addComponent(tfcount, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tfactual, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_2))
-					.addContainerGap(51, Short.MAX_VALUE))
+					.addGap(6)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(7)
+							.addComponent(lblNewLabel_2))
+						.addComponent(tfactual, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
 		);
 		panel.setLayout(gl_panel);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setForeground(Color.BLUE);
+		panel_1.setBackground(Color.WHITE);
 		tabbedPane.addTab("Plus d'info", new ImageIcon(AddProductForm.class.getResource("/images/Button-Info-icon.png")), panel_1, null);
 		
 		JLabel lblNewLabel_3 = new JLabel("Co\u00FBt(DA)");
+		lblNewLabel_3.setForeground(Color.BLUE);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfcost = new JTextField();
+		tfcost.setForeground(Color.BLUE);
+		tfcost.setBorder(new LineBorder(new Color(30, 144, 255)));
 		Filter.TextField(tfcost, Filter.CURRENCY);
 		tfcost.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfcost.getDocument().addDocumentListener(new DocumentListener() {
@@ -347,17 +388,22 @@ public class AddProductForm extends JFrame {
 		tfcost.setColumns(10);
 		
 		JPanel panel_4 = new JPanel();
-		panel_4.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel_4.setBackground(Color.WHITE);
+		panel_4.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
 		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(Color.WHITE);
 		panel_3.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Prix de vente", TitledBorder.CENTER, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 14), new Color(0, 0, 0)));
 		((javax.swing.border.TitledBorder) panel_3.getBorder()).setTitleFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_3.repaint();
 		
 		JLabel lblLimiteDePrix = new JLabel("<html>Prix de vente(limit)</html>");
+		lblLimiteDePrix.setForeground(Color.BLUE);
 		lblLimiteDePrix.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfselling_limit = new JTextField();
+		tfselling_limit.setForeground(Color.BLUE);
+		tfselling_limit.setBorder(new LineBorder(new Color(30, 144, 255)));
 		Filter.TextField(tfselling_limit, Filter.CURRENCY);
 		tfselling_limit.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -374,9 +420,12 @@ public class AddProductForm extends JFrame {
 		tfselling_limit.setColumns(10);
 		
 		JLabel lblTva = new JLabel("TVA (%)");
+		lblTva.setForeground(Color.BLUE);
 		lblTva.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		tftva = new JTextField();
+		tftva.setForeground(Color.BLUE);
+		tftva.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tftva.getDocument().addDocumentListener(new DocumentListener() {
 			
 			protected void warn() {
@@ -395,6 +444,7 @@ public class AddProductForm extends JFrame {
 		tftva.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JToolBar toolBar = new JToolBar();
+		toolBar.setBackground(Color.WHITE);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
@@ -419,6 +469,7 @@ public class AddProductForm extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		JButton button = new JButton("");
+		button.setBackground(Color.WHITE);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SellingModel model = (SellingModel)table.getModel();
@@ -433,6 +484,7 @@ public class AddProductForm extends JFrame {
 		toolBar.add(button);
 		
 		JButton button_1 = new JButton("");
+		button_1.setBackground(Color.WHITE);
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() >= 0) {
@@ -446,6 +498,8 @@ public class AddProductForm extends JFrame {
 		panel_3.setLayout(gl_panel_3);
 		
 		expirate = new JCheckBox("");
+		expirate.setBorder(new LineBorder(new Color(30, 144, 255)));
+		expirate.setBackground(Color.WHITE);
 		expirate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -466,19 +520,24 @@ public class AddProductForm extends JFrame {
 		expirate.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel lblDateDePremption = new JLabel("<html>Expir\u00E9 <br>(OUI/NO)</br></html>");
+		lblDateDePremption.setForeground(Color.BLUE);
 		lblDateDePremption.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDateDePremption.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblExpireLe = new JLabel("Date d'expiration");
+		lblExpireLe.setForeground(Color.BLUE);
 		lblExpireLe.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblExpireLe.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		JLabel lblnombreDesJours = new JLabel("<html>Nombre des <br> jours d'alerte</br></html>");
+		lblnombreDesJours.setForeground(Color.BLUE);
 		lblnombreDesJours.setIcon(new ImageIcon("C:\\Users\\DocteurTnou\\Desktop\\event.png"));
 		lblnombreDesJours.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblnombreDesJours.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		tfmin = new JTextField();
+		tfmin.setForeground(Color.BLUE);
+		tfmin.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tfmin.getDocument().addDocumentListener(new DocumentListener() {
 			
 			protected void warn() {
@@ -495,6 +554,8 @@ public class AddProductForm extends JFrame {
 		tfmin.setColumns(10);
 		
 		tfpacking_amount = new JTextField();
+		tfpacking_amount.setForeground(Color.BLUE);
+		tfpacking_amount.setBorder(new LineBorder(new Color(30, 144, 255)));
 		Filter.TextField(tfpacking_amount, Filter.NUMBER);
 		tfpacking_amount.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -512,6 +573,8 @@ public class AddProductForm extends JFrame {
 		tfpacking_amount.setColumns(10);
 		
 		cbunit = new JComboBox<Object>();
+		cbunit.setForeground(Color.BLUE);
+		cbunit.setBorder(new LineBorder(new Color(30, 144, 255)));
 		cbunit.setModel(new DefaultComboBoxModel<Object>(new String[] {"Metre", "Kg", "g", "Litre"}));
 		cbunit.setSelectedIndex(1);
 		cbunit.addActionListener(new ActionListener() {
@@ -522,33 +585,44 @@ public class AddProductForm extends JFrame {
 		cbunit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		comboBox = new JComboBox<Object>();
+		comboBox.setForeground(Color.BLUE);
+		comboBox.setBorder(new LineBorder(new Color(30, 144, 255)));
 		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Aucun>"}));
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		comboBox_2 = new JComboBox<Object>();
+		comboBox_2.setForeground(Color.BLUE);
+		comboBox_2.setBorder(new LineBorder(new Color(30, 144, 255)));
 		comboBox_2.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Aucun>"}));
 		comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lbldpotmagasin = new JLabel("D\u00E9pot /Magasin");
+		lbldpotmagasin.setForeground(Color.BLUE);
 		lbldpotmagasin.setHorizontalAlignment(SwingConstants.LEFT);
 		lbldpotmagasin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblunitDemesure = new JLabel("<html>Unit\u00E9 de<br>Mesure</br></html>");
+		lblunitDemesure.setForeground(Color.BLUE);
 		lblunitDemesure.setHorizontalAlignment(SwingConstants.LEFT);
 		lblunitDemesure.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblstockmin = new JLabel("Stock Min");
+		lblstockmin.setForeground(Color.BLUE);
 		lblstockmin.setHorizontalAlignment(SwingConstants.LEFT);
 		lblstockmin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblColissage = new JLabel("Colisage(Qtt)");
+		lblColissage.setForeground(Color.BLUE);
 		lblColissage.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lbllocalisationrayonnage = new JLabel("<html>Localisation/<br/>Rayonnage</html>");
+		lbllocalisationrayonnage.setForeground(Color.BLUE);
 		lbllocalisationrayonnage.setHorizontalAlignment(SwingConstants.LEFT);
 		lbllocalisationrayonnage.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		expiration = new JDateChooser();
+		expiration.setBorder(new LineBorder(new Color(30, 144, 255)));
+		expiration.setBackground(Color.WHITE);
 		expiration.addPropertyChangeListener(
 		    new PropertyChangeListener() {
 		    	
@@ -564,6 +638,9 @@ public class AddProductForm extends JFrame {
 		expiration.getCalendarButton().setIcon(new ImageIcon(AddProductForm.class.getResource("/images/calendar.png")));
 		
 		tfdelay_exp = new JTextField();
+		tfdelay_exp.setForeground(Color.BLUE);
+		tfdelay_exp.setBorder(new LineBorder(new Color(30, 144, 255)));
+		tfdelay_exp.setBackground(Color.WHITE);
 		tfdelay_exp.getDocument().addDocumentListener(new DocumentListener() {
 			
 			protected void warn() {
@@ -581,6 +658,9 @@ public class AddProductForm extends JFrame {
 		tfdelay_exp.setColumns(10);
 		
 		packing = new JCheckBox("");
+		packing.setForeground(Color.BLUE);
+		packing.setBackground(Color.WHITE);
+		packing.setBorder(new LineBorder(new Color(30, 144, 255)));
 		packing.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -595,6 +675,7 @@ public class AddProductForm extends JFrame {
 		packing.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel lblColisage = new JLabel("Colisage");
+		lblColisage.setForeground(Color.BLUE);
 		lblColisage.setHorizontalAlignment(SwingConstants.LEFT);
 		lblColisage.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
@@ -617,13 +698,17 @@ public class AddProductForm extends JFrame {
 								.addComponent(tftva, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)))
 						.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 314, GroupLayout.PREFERRED_SIZE))
 					.addGap(10)
-					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 365, GroupLayout.PREFERRED_SIZE))
+					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 365, GroupLayout.PREFERRED_SIZE)
+					.addGap(20))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGap(16)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addContainerGap())
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel_1.createSequentialGroup()
@@ -642,8 +727,8 @@ public class AddProductForm extends JFrame {
 									.addGap(5)
 									.addComponent(tftva, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)))
 							.addGap(2)
-							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
+							.addGap(11))))
 		);
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
@@ -730,12 +815,14 @@ public class AddProductForm extends JFrame {
 		panel_1.setLayout(gl_panel_1);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.WHITE);
 		tabbedPane.addTab("Photo Produit", new ImageIcon(AddProductForm.class.getResource("/images/photo-camera-x32.png")), panel_2, null);
 		
 		Image_panel = new JPanel();
 		Image_panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JButton btnNewButton = new JButton("Ajout\u00E9 une Photo");
+		btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -751,6 +838,7 @@ public class AddProductForm extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btnAnnulerLaPhoto = new JButton("Annuler la Photo");
+		btnAnnulerLaPhoto.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnAnnulerLaPhoto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Labe_Image.setIcon(null);
@@ -763,6 +851,7 @@ public class AddProductForm extends JFrame {
 		lb_path_Image = new JLabel("");
 		
 		JButton btnNewButton_3 = new JButton("");
+		btnNewButton_3.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String ImagePath=lb_path_Image.getText();
@@ -841,13 +930,13 @@ public class AddProductForm extends JFrame {
 					.addGap(171)
 					.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
 					.addGap(160)
-					.addComponent(btnNewButton_2))
+					.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(23)
-					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 379, GroupLayout.PREFERRED_SIZE)
+					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(11)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
