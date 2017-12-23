@@ -1,4 +1,4 @@
-package com.home;
+package com.home.formes;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
