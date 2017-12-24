@@ -116,10 +116,12 @@ public class AddProductForm extends JFrame {
 		setResizable(false);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setForeground(Color.BLUE);
 		tabbedPane.setBackground(Color.WHITE);
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btnNewButton_2 = new JButton("Annuler");
+		btnNewButton_2.setForeground(Color.RED);
 		btnNewButton_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_2.addActionListener(new ActionListener() {
@@ -129,7 +131,8 @@ public class AddProductForm extends JFrame {
 		});
 		btnNewButton_2.setIcon(new ImageIcon(AddProductForm.class.getResource("/images/1490388962_DeleteRed.png")));
 		
-		JButton btnOk = new JButton("OK");
+		JButton btnOk = new JButton("Ajouter");
+		btnOk.setForeground(Color.GREEN);
 		btnOk.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -145,21 +148,27 @@ public class AddProductForm extends JFrame {
 		tabbedPane.addTab("G\u00E9n\u00E9ral", new ImageIcon(AddProductForm.class.getResource("/images/Download-Folder-icon.png")), panel, null);
 		
 		JLabel lblNewLabel = new JLabel("Code produit");
+		lblNewLabel.setForeground(Color.BLUE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblDsignation = new JLabel("D\u00E9signation Produit");
+		lblDsignation.setForeground(Color.BLUE);
 		lblDsignation.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblFamille = new JLabel("Famille");
+		lblFamille.setForeground(Color.BLUE);
 		lblFamille.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel_1 = new JLabel("Stock Initial");
+		lblNewLabel_1.setForeground(Color.BLUE);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel_2 = new JLabel("Stock actuel");
+		lblNewLabel_2.setForeground(Color.BLUE);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblDateDuStock = new JLabel("Date du stock initial");
+		lblDateDuStock.setForeground(Color.BLUE);
 		lblDateDuStock.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tfbarcode = new JTextField();

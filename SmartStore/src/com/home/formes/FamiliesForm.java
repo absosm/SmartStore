@@ -31,6 +31,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
 
 public class FamiliesForm extends JFrame{
 
@@ -58,10 +60,13 @@ public class FamiliesForm extends JFrame{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 520, 374);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JButton btnNewButton = new JButton("Quitter");
+		btnNewButton.setForeground(Color.RED);
+		btnNewButton.setIcon(new ImageIcon(FamiliesForm.class.getResource("/images/1490388962_DeleteRed.png")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
@@ -69,47 +74,50 @@ public class FamiliesForm extends JFrame{
 		});
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Famille de produit", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setOpaque(false);
+		panel.setBorder(new TitledBorder(new LineBorder(new Color(30, 144, 255)), "Famille de produit", TitledBorder.LEADING, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 14), Color.BLUE));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnNewButton))
+						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnNewButton)
-					.addContainerGap())
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
 		);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setForeground(Color.BLUE);
+		scrollPane.setBorder(new LineBorder(new Color(30, 144, 255)));
 		
 		JToolBar toolBar = new JToolBar();
+		toolBar.setOpaque(false);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(toolBar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
-						.addComponent(scrollPane, Alignment.LEADING))
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(toolBar, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(12)
+					.addContainerGap()
 					.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+					.addGap(7)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		
@@ -136,10 +144,13 @@ public class FamiliesForm extends JFrame{
 		toolBar.addSeparator(new Dimension(15, 20));
 		
 		JLabel lblRecherche = new JLabel("recherche :  ");
+		lblRecherche.setForeground(Color.BLUE);
 		lblRecherche.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		toolBar.add(lblRecherche);
 		
 		textField = new JTextField();
+		textField.setBorder(new LineBorder(new Color(30, 144, 255)));
+		textField.setForeground(Color.BLUE);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -182,6 +193,7 @@ public class FamiliesForm extends JFrame{
 		
 		
 		table = new JTable();
+		table.setForeground(Color.BLUE);
 		scrollPane.setViewportView(table);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);

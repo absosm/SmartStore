@@ -37,6 +37,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Color;
 
 public class ClientsForm extends JFrame {
 
@@ -74,12 +75,15 @@ public class ClientsForm extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ClientsForm.class.getResource("/images/Search-People-icon.png")));
 		setBounds(100, 100, 1008, 599);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JToolBar toolBar = new JToolBar();
+		toolBar.setBackground(Color.WHITE);
 		
 		JButton btnNewButton_1 = new JButton("Ajouter");
+		btnNewButton_1.setBackground(Color.WHITE);
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -92,6 +96,7 @@ public class ClientsForm extends JFrame {
 		});
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
 		toolBar.add(panel);
 		
 		JLabel lblRecherchePar = new JLabel("Recherche par:");
@@ -162,6 +167,7 @@ public class ClientsForm extends JFrame {
 		toolBar.add(btnNewButton_1);
 		
 		btndelete = new JButton("Supprimer");
+		btndelete.setBackground(Color.WHITE);
 		btndelete.setEnabled(false);
 		btndelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -176,6 +182,7 @@ public class ClientsForm extends JFrame {
 		});
 		
 		btnedit = new JButton("Modifier");
+		btnedit.setBackground(Color.WHITE);
 		btnedit.setIcon(new ImageIcon(ClientsForm.class.getResource("/images/if_user_profile_edit_103781.png")));
 		btnedit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -201,6 +208,7 @@ public class ClientsForm extends JFrame {
 		toolBar.add(btndelete);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.WHITE);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -248,10 +256,8 @@ public class ClientsForm extends JFrame {
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(toolBar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(10)
-					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 974, Short.MAX_VALUE))
+				.addComponent(toolBar, GroupLayout.DEFAULT_SIZE, 982, Short.MAX_VALUE)
+				.addComponent(panel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 982, Short.MAX_VALUE)
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

@@ -46,6 +46,8 @@ import javax.swing.JToolBar;
 import javax.swing.JComboBox;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
 
 public class ProvidersForm extends JFrame {
 
@@ -83,18 +85,24 @@ public class ProvidersForm extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1004, 599);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JToolBar toolBar = new JToolBar();
+		toolBar.setOpaque(false);
 		
 		JPanel panel = new JPanel();
+		panel.setOpaque(false);
 		toolBar.add(panel);
 		
 		JLabel label = new JLabel("Recherche par:");
+		label.setForeground(Color.BLUE);
 		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		comboBox = new JComboBox<Object>();
+		comboBox.setBorder(new LineBorder(new Color(30, 144, 255)));
+		comboBox.setForeground(Color.BLUE);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tffind.selectAll();
@@ -117,6 +125,8 @@ public class ProvidersForm extends JFrame {
 		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Code", "Nom", "Prenom"}));
 		
 		tffind = new JTextField();
+		tffind.setBorder(new LineBorder(new Color(30, 144, 255)));
+		tffind.setForeground(Color.BLUE);
 		Filter.TextField(tffind, Filter.NUMBER);
 		tffind.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -203,6 +213,8 @@ public class ProvidersForm extends JFrame {
 		btndelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(new Color(30, 144, 255)));
+		panel_1.setOpaque(false);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

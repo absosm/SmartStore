@@ -33,6 +33,7 @@ import com.home.User;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Window.Type;
 
 public class AuthentificationForm {
 
@@ -82,9 +83,11 @@ public class AuthentificationForm {
 	private void initialize() {
 		
 		frmAuthentification = new JFrame();
+		frmAuthentification.setType(Type.UTILITY);
+		frmAuthentification.getContentPane().setBackground(Color.WHITE);
 		frmAuthentification.setResizable(false);
 		frmAuthentification.setTitle("Authentification");
-		frmAuthentification.setBounds(100, 100, 442, 350);
+		frmAuthentification.setBounds(100, 100, 442, 317);
 		frmAuthentification.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		/**
@@ -104,20 +107,20 @@ public class AuthentificationForm {
 		ImagePanel panel = new ImagePanel(new ImageIcon("images/banner.png").getImage());
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
-		JPanel panel_2 = new JPanel();
-		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setForeground(Color.BLUE);
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout groupLayout = new GroupLayout(frmAuthentification.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-						.addComponent(tabbedPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
+					.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
 					.addContainerGap())
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGap(10)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+					.addContainerGap(10, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -126,56 +129,50 @@ public class AuthentificationForm {
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(18, Short.MAX_VALUE))
+					.addContainerGap(55, Short.MAX_VALUE))
 		);
-		
-		JButton btnTerminer = new JButton("Terminer");
-		btnTerminer.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTerminer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Runtime.getRuntime().exit(0);
-			}
-		});
-		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addContainerGap(310, Short.MAX_VALUE)
-					.addComponent(btnTerminer, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
-		);
-		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addComponent(btnTerminer)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		panel_2.setLayout(gl_panel_2);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.WHITE);
 		tabbedPane.addTab("Connexion", null, panel_1, null);
 		
 		tf_login = new JTextField();
+		tf_login.setForeground(new Color(0, 0, 255));
+		tf_login.setBounds(102, 14, 299, 30);
+		tf_login.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tf_login.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_login.setText(Configuration.authentification.username);
 		tf_login.setColumns(10);
 		
 		JLabel lblUtilisateur = new JLabel("Utilisateur:");
+		lblUtilisateur.setBounds(35, 21, 63, 17);
+		lblUtilisateur.setForeground(Color.BLUE);
 		lblUtilisateur.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblMotDePasse = new JLabel("Mot de passe:");
+		lblMotDePasse.setBounds(13, 59, 85, 17);
+		lblMotDePasse.setForeground(Color.BLUE);
 		lblMotDePasse.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_loginpassword = new JPasswordField();
+		tf_loginpassword.setForeground(new Color(0, 0, 255));
+		tf_loginpassword.setBounds(102, 52, 299, 30);
+		tf_loginpassword.setBorder(new LineBorder(new Color(30, 144, 255)));
 		tf_loginpassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_loginpassword.setText(Configuration.authentification.password);
 		
 		chk_remember = new JCheckBox("Souvenir le mot passe");
+		chk_remember.setBounds(102, 97, 159, 25);
+		chk_remember.setForeground(Color.BLUE);
+		chk_remember.setBackground(Color.WHITE);
 		chk_remember.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chk_remember.setSelected(Configuration.authentification.remember);
 		
 		JButton btnConnexion = new JButton("Connexion");
+		btnConnexion.setIcon(new ImageIcon(AuthentificationForm.class.getResource("/images/refresh.png")));
+		btnConnexion.setForeground(Color.BLUE);
+		btnConnexion.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnConnexion.setBounds(283, 107, 118, 30);
 		btnConnexion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnConnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -215,91 +212,75 @@ public class AuthentificationForm {
 				}
 			}
 		});
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap(13, Short.MAX_VALUE)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblUtilisateur)
-								.addComponent(lblMotDePasse))
-							.addGap(4)
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(tf_login)
-								.addComponent(tf_loginpassword, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-								.addComponent(chk_remember)))
-						.addComponent(btnConnexion, Alignment.TRAILING))
-					.addContainerGap())
-		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(32)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tf_login, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblUtilisateur))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblMotDePasse))
-						.addComponent(tf_loginpassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(chk_remember)
-							.addGap(35))
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(btnConnexion)
-							.addContainerGap())))
-		);
-		panel_1.setLayout(gl_panel_1);
+		panel_1.setLayout(null);
+		panel_1.add(lblUtilisateur);
+		panel_1.add(lblMotDePasse);
+		panel_1.add(tf_login);
+		panel_1.add(tf_loginpassword);
+		panel_1.add(chk_remember);
+		panel_1.add(btnConnexion);
 		
 		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(Color.WHITE);
 		tabbedPane.addTab("Option", null, panel_3, null);
 		
 		cb_driver = new JComboBox<Object>();
+		cb_driver.setBorder(new LineBorder(new Color(30, 144, 255)));
+		cb_driver.setForeground(Color.BLUE);
 		cb_driver.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cb_driver.setModel(new DefaultComboBoxModel<Object>(new String[] {"MySQL"}));
 		cb_driver.setSelectedIndex(Configuration.database.driver);
 		
 		JLabel lblNewLabel = new JLabel("Moteur de base:");
+		lblNewLabel.setForeground(Color.BLUE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_host = new JTextField();
+		tf_host.setBorder(new LineBorder(new Color(30, 144, 255)));
+		tf_host.setForeground(Color.BLUE);
 		tf_host.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_host.setText(Configuration.database.host);
 		tf_host.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Serveur:");
+		lblNewLabel_1.setForeground(Color.BLUE);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_dbname = new JTextField();
+		tf_dbname.setBorder(new LineBorder(new Color(30, 144, 255)));
+		tf_dbname.setForeground(Color.BLUE);
 		tf_dbname.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_dbname.setText(Configuration.database.name);
 		tf_dbname.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Nom de base:");
+		lblNewLabel_2.setForeground(Color.BLUE);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_username = new JTextField();
+		tf_username.setBorder(new LineBorder(new Color(30, 144, 255)));
+		tf_username.setForeground(Color.BLUE);
 		tf_username.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_username.setText(Configuration.database.username);
 		tf_username.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Utilisateur:");
+		lblNewLabel_3.setForeground(Color.BLUE);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel_4 = new JLabel("Mot de passe");
+		lblNewLabel_4.setForeground(Color.BLUE);
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		tf_password = new JPasswordField();
+		tf_password.setBorder(new LineBorder(new Color(30, 144, 255)));
+		tf_password.setForeground(Color.BLUE);
 		tf_password.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tf_password.setText(Configuration.database.password);
 		
 		JButton btnNewButton = new JButton("Enregistrer");
+		btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnNewButton.setForeground(Color.BLUE);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -319,63 +300,62 @@ public class AuthentificationForm {
 					.addGap(10)
 					.addComponent(lblNewLabel)
 					.addGap(5)
-					.addComponent(cb_driver, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_panel_3.createSequentialGroup()
-					.addGap(56)
+					.addComponent(cb_driver, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+					.addGap(10)
 					.addComponent(lblNewLabel_1)
-					.addGap(5)
-					.addComponent(tf_host, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE))
+					.addGap(10)
+					.addComponent(tf_host, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
 				.addGroup(gl_panel_3.createSequentialGroup()
 					.addGap(24)
 					.addComponent(lblNewLabel_2)
 					.addGap(5)
 					.addComponent(tf_dbname, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_panel_3.createSequentialGroup()
-					.addGap(46)
-					.addComponent(lblNewLabel_3)
-					.addGap(5)
-					.addComponent(tf_username, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
-					.addGap(4)
-					.addComponent(lblNewLabel_4)
-					.addGap(4)
-					.addComponent(tf_password, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_panel_3.createSequentialGroup()
-					.addGap(302)
-					.addComponent(btnNewButton))
+				.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING, false)
+					.addGroup(Alignment.LEADING, gl_panel_3.createSequentialGroup()
+						.addGap(302)
+						.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGroup(Alignment.LEADING, gl_panel_3.createSequentialGroup()
+						.addGap(46)
+						.addComponent(lblNewLabel_3)
+						.addGap(5)
+						.addComponent(tf_username, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
+						.addGap(4)
+						.addComponent(lblNewLabel_4)
+						.addGap(4)
+						.addComponent(tf_password, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)))
 		);
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup()
-					.addGap(5)
+					.addGap(8)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_3.createSequentialGroup()
-							.addGap(3)
+							.addGap(6)
 							.addComponent(lblNewLabel))
-						.addComponent(cb_driver, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(2)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addComponent(cb_driver, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel_3.createSequentialGroup()
-							.addGap(3)
+							.addGap(6)
 							.addComponent(lblNewLabel_1))
-						.addComponent(tf_host, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(2)
+						.addComponent(tf_host, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+					.addGap(3)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_3.createSequentialGroup()
-							.addGap(3)
+							.addGap(6)
 							.addComponent(lblNewLabel_2))
-						.addComponent(tf_dbname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(2)
+						.addComponent(tf_dbname, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+					.addGap(3)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_3.createSequentialGroup()
-							.addGap(3)
+							.addGap(6)
 							.addComponent(lblNewLabel_3))
-						.addComponent(tf_username, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tf_username, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel_3.createSequentialGroup()
-							.addGap(3)
+							.addGap(6)
 							.addComponent(lblNewLabel_4))
-						.addComponent(tf_password, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(5)
-					.addComponent(btnNewButton))
+						.addComponent(tf_password, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+					.addGap(9)
+					.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		panel_3.setLayout(gl_panel_3);
 		frmAuthentification.getContentPane().setLayout(groupLayout);

@@ -23,6 +23,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class ProductsForm extends JFrame {
 
@@ -50,12 +51,15 @@ public class ProductsForm extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 872, 555);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
+		panel.setOpaque(false);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setOpaque(false);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -93,10 +97,13 @@ public class ProductsForm extends JFrame {
 		panel_1.setLayout(gl_panel_1);
 		
 		JToolBar toolBar = new JToolBar();
+		toolBar.setOpaque(false);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setOpaque(false);
 		
 		JToolBar toolBar_1 = new JToolBar();
+		toolBar_1.setOpaque(false);
 		toolBar_1.setRollover(true);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -118,12 +125,14 @@ public class ProductsForm extends JFrame {
 		);
 		
 		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setOpaque(false);
 		btnNewButton.setIcon(new ImageIcon(ProductsForm.class.getResource("/images/print.png")));
 		toolBar_1.add(btnNewButton);
 		
 		toolBar_1.addSeparator(new Dimension(15, 20));
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setOpaque(false);
 		panel_2.setSize(new Dimension(50, 20));
 		toolBar_1.add(panel_2);
 		panel_2.setLayout(null);
@@ -145,6 +154,7 @@ public class ProductsForm extends JFrame {
 		panel_2.add(lblNewLabel_2);
 		
 		table = new JTable();
+		table.setOpaque(false);
 		table.setModel(new DefaultTableModel(
 			new Object[][] { 
 				{null, null, null, null, null, null, null, null},
@@ -161,6 +171,7 @@ public class ProductsForm extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		JButton button = new JButton("");
+		button.setOpaque(false);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -173,16 +184,19 @@ public class ProductsForm extends JFrame {
 		toolBar.add(button);
 		
 		JButton button_1 = new JButton("");
+		button_1.setOpaque(false);
 		button_1.setIcon(new ImageIcon(ProductsForm.class.getResource("/images/edit.png")));
 		toolBar.add(button_1);
 		
 		JButton button_2 = new JButton("");
+		button_2.setOpaque(false);
 		button_2.setIcon(new ImageIcon(ProductsForm.class.getResource("/images/remove.png")));
 		toolBar.add(button_2);
 		
 		toolBar.addSeparator(new Dimension(15, 20));
 		
 		JPanel panel_3 = new JPanel();
+		panel_3.setOpaque(false);
 		toolBar.add(panel_3);
 		
 		JLabel lblNewLabel = new JLabel("New label");

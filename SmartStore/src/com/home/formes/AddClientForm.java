@@ -99,6 +99,7 @@ public class AddClientForm extends JFrame {
 		contentPane.setBackground(Color.WHITE);
 		setContentPane(contentPane);
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setForeground(Color.BLUE);
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tabbedPane.setBackground(Color.WHITE);
 		

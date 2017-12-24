@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Color;
 
 public class MainForm extends JFrame {
 
@@ -141,13 +142,16 @@ public class MainForm extends JFrame {
 		
 		//this.pack();
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JToolBar toolBar = new JToolBar();
+		toolBar.setOpaque(false);
 		toolBar.setRollover(true);
 		
 		JPanel panel = new JPanel();
+		panel.setOpaque(false);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -167,6 +171,7 @@ public class MainForm extends JFrame {
 		);
 		
 		JButton btnNewButton = new JButton("Clients");
+		btnNewButton.setOpaque(false);
 		btnNewButton.setSize(getMaximumSize());
 		toolBar.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
@@ -180,6 +185,7 @@ public class MainForm extends JFrame {
 		btnNewButton.setIcon(new ImageIcon(MainForm.class.getResource("/images/Client.png")));
 		
 		JButton btnFournisseur = new JButton("Fournisseurs");
+		btnFournisseur.setOpaque(false);
 		btnFournisseur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!Session.isSetForm(Session.PROVIDERS))
@@ -192,6 +198,7 @@ public class MainForm extends JFrame {
 		btnFournisseur.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JButton btnProduis = new JButton("Produits");
+		btnProduis.setOpaque(false);
 		btnProduis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!Session.isSetForm(Session.PRODUCTS))
@@ -204,6 +211,7 @@ public class MainForm extends JFrame {
 		btnProduis.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JButton btnBonDachat = new JButton("Achats");
+		btnBonDachat.setOpaque(false);
 		btnBonDachat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -214,6 +222,7 @@ public class MainForm extends JFrame {
 		btnBonDachat.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JButton btnVents = new JButton("Vents");
+		btnVents.setOpaque(false);
 		btnVents.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
