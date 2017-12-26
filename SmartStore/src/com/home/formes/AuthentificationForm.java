@@ -34,6 +34,8 @@ import com.home.User;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Window.Type;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class AuthentificationForm {
 
@@ -137,6 +139,12 @@ public class AuthentificationForm {
 		tabbedPane.addTab("Connexion", null, panel_1, null);
 		
 		tf_login = new JTextField();
+		tf_login.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				
+			}
+		});
 		tf_login.setForeground(new Color(0, 0, 255));
 		tf_login.setBounds(102, 14, 299, 30);
 		tf_login.setBorder(new LineBorder(new Color(30, 144, 255)));
