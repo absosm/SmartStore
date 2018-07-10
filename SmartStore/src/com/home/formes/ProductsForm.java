@@ -173,7 +173,7 @@ public class ProductsForm extends JFrame {
 		JButton button = new JButton("");
 		button.setOpaque(false);
 		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				
 				if (!Session.isSetForm(Session.ADDPRODUCT))
 					Session.setForm(Session.ADDPRODUCT, new AddProductForm());

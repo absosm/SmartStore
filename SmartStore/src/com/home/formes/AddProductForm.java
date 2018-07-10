@@ -35,15 +35,18 @@ import com.home.Use_Files;
 import com.home.custom.SellingModel;
 import com.home.docfilter.Filter;
 import com.toedter.calendar.JDateChooser;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -105,6 +108,13 @@ public class AddProductForm extends JFrame {
 		 */
 		product = new Product();
 		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				Session.removeForm(Session.ADDPRODUCT);
+			}
+		});
+		
 		setTitle("Ajouter Produit");
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -135,8 +145,12 @@ public class AddProductForm extends JFrame {
 		btnOk.setForeground(Color.GREEN);
 		btnOk.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				product.add();
+			public void actionPerformed(ActionEvent e) {
+				if(product.add())
+					dispose();
+				else 
+					JOptionPane.showMessageDialog(null, "pardon, l'insertion de l'objet pas réussi.");
+				Session.showForm(Session.PRODUCTS);
 			}
 		});
 		btnOk.setFont(new Font("Tahoma", Font.PLAIN, 14));
