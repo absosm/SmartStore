@@ -46,7 +46,7 @@ public class ProductsModel extends AbstractTableModel {
     }
     
     public void setValueAt(Object value, int row, int col) {
-    	
+ 
     	Product c = (Product) data.get(row).get(TAG);
     	
     	if (c == null) {
