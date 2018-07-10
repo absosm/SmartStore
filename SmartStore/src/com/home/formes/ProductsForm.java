@@ -1,6 +1,7 @@
 package com.home.formes;
 
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,14 +16,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.home.Client;
+import com.home.Product;
 import com.home.Session;
+import com.home.custom.ClientsModel;
+import com.home.custom.ProductsModel;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.Color;
 
 public class ProductsForm extends JFrame {
@@ -154,20 +162,28 @@ public class ProductsForm extends JFrame {
 		panel_2.add(lblNewLabel_2);
 		
 		table = new JTable();
-		table.setOpaque(false);
-		table.setModel(new DefaultTableModel(
-			new Object[][] { 
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
+		table.setFillsViewportHeight(true);
+		table.setRowHeight(32);
+		table.addMouseListener(new MouseAdapter() {
+			
+			public void mouseClicked(MouseEvent event) {
+				
+				if (table.getSelectedRow()>=0) {
+					
+					ProductsModel model = (ProductsModel)table.getModel();
+					Product c = model.getProduct(table.getSelectedRow());
+					if (c != null) {
+						//btnedit.setEnabled(true);
+					//	btndelete.setEnabled(true);
+					} else {
+					//	btnedit.setEnabled(false);
+						//btndelete.setEnabled(false);
+					}
+				}
+				
 			}
-		));
+		});
+		table.setFont(new Font("Tahoma", Font.BOLD, 14));
 		scrollPane.setViewportView(table);
 		
 		JButton button = new JButton("");
