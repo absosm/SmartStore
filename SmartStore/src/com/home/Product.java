@@ -75,15 +75,15 @@ public class Product {
 			prepared.setInt(1, id);
 			ResultSet result = prepared.executeQuery();
 			if (result.next()) {
-				setBarcode(result.getString(1));
-				setName(result.getString(2));
-				setFamily(result.getString(3));
-				setUnit(result.getString(4));
-				setCount(result.getInt(5));
-				setUsed(result.getInt(6));
-				setMin(result.getInt(7));
-				setCost(result.getDouble(8));
-				String json_selling = result.getString(9);
+				setBarcode(result.getString(2));
+				setName(result.getString(3));
+				setFamily(result.getString(4));
+				setUnit(result.getString(5));
+				setCount(result.getInt(6));
+				setUsed(result.getInt(7));
+				setMin(result.getInt(8));
+				setCost(result.getDouble(9));
+				String json_selling = result.getString(10);
 				JsonReader reader = Json.createReader(new StringReader(json_selling));
 				JsonObject obj = reader.readObject();
 				for (Entry<String, JsonValue> entry: obj.entrySet()) {
@@ -92,17 +92,17 @@ public class Product {
 					s.setPrice(Double.parseDouble(entry.getValue().toString()));
 					setSelling(s.getId(), s);
 				}
-				setSelling_limit(result.getDouble(10));
-				setTva(result.getDouble(11));
-				setStore_date(result.getDate(12));
-				setExpirate(result.getBoolean(13));
-				setExpiration(result.getDate(14));
-				setDely_exp(result.getInt(15));
-				setPacking(result.getBoolean(16));
-				setPackingAmount(result.getInt(17));
-				setLocation(result.getString(18));
-				setShelf(result.getString(19));
-				setPath_image(result.getString(20));
+				setSelling_limit(result.getDouble(11));
+				setTva(result.getDouble(12));
+				setStore_date(result.getDate(13));
+				setExpirate(result.getBoolean(14));
+				setExpiration(result.getDate(15));
+				setDely_exp(result.getInt(16));
+				setPacking(result.getBoolean(17));
+				setPackingAmount(result.getInt(18));
+				setLocation(result.getString(19));
+				setShelf(result.getString(20));
+				setPath_image(result.getString(21));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

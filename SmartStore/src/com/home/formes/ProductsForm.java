@@ -6,6 +6,8 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -14,12 +16,10 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
-import com.home.Client;
+import com.home.DataBase;
 import com.home.Product;
 import com.home.Session;
-import com.home.custom.ClientsModel;
 import com.home.custom.ProductsModel;
 
 import javax.swing.JLabel;
@@ -31,7 +31,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Color;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.swing.DefaultComboBoxModel;
 
 public class ProductsForm extends JFrame {
 
@@ -43,12 +49,19 @@ public class ProductsForm extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField textField;
+	private JComboBox<Object> comboBox_2;
 
 	/**
 	 * Create the frame.
 	 */
 	public ProductsForm() {
-		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				comboBox_2.setSelectedIndex(1);
+				Load();
+			}
+		});
 		if (!Session.isRegister()) {
 			JOptionPane.showMessageDialog(null, "la session est déconnecté.");
 			Runtime.getRuntime().exit(0);
@@ -153,7 +166,8 @@ public class ProductsForm extends JFrame {
 		lblNewLabel_1.setBounds(409, 3, 46, 14);
 		panel_2.add(lblNewLabel_1);
 		
-		JComboBox<Object> comboBox_2 = new JComboBox<Object>();
+		comboBox_2 = new JComboBox<Object>();
+		comboBox_2.setModel(new DefaultComboBoxModel<Object>(new String[] {"id", "family", "name"}));
 		comboBox_2.setBounds(66, 0, 333, 22);
 		panel_2.add(comboBox_2);
 		
@@ -229,6 +243,17 @@ public class ProductsForm extends JFrame {
 		panel_3.add(lblNewLabel_3);
 		
 		textField = new JTextField();
+		textField.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void warn() {
+				FindBy(comboBox_2.getSelectedIndex(),textField.getText());
+			}
+
+			public void changedUpdate(DocumentEvent arg0)  {warn();}
+			public void insertUpdate(DocumentEvent arg0)  {warn();}
+			public void removeUpdate(DocumentEvent arg0) {warn();}
+			
+		});
 		textField.setBounds(64, 1, 403, 20);
 		panel_3.add(textField);
 		textField.setColumns(10);
@@ -236,5 +261,61 @@ public class ProductsForm extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 		
 		setLocationRelativeTo(null);
+	}
+	/**
+	 * @param result
+	 * methode pour l'affichage des resultates des recherche client
+	 */
+	private void FindBy(int FindType, String value) 
+	{
+		DataBase database= Session.getDatabase();
+		String sql_format = "SELECT * FROM products WHERE %s like ?";
+		String field_name = null, SQL = null;
+		switch (FindType) {
+		case 0:
+			field_name = "id";
+			break;
+		case 1:
+			field_name = "family";
+			break;
+		case 2:
+			field_name = "name";
+			break;
+		}
+		
+		SQL = String.format(sql_format, field_name);
+		
+		try {
+			PreparedStatement ps = database.getConnection().prepareStatement(SQL);
+			ps.setString(1, value+"%");
+			ResultSet result = ps.executeQuery();
+			ProductsModel model = new ProductsModel();
+			while (result.next()) {
+				Product product = new Product(result.getInt("id"));
+				
+				model.addRow(product);
+			}
+			table.setModel(model);
+			
+		} catch (Exception e) {    
+			e.printStackTrace();
+		}
+	}
+	public void Load() {
+		
+		DataBase database = Session.getDatabase();
+		try {
+			ResultSet result = database.getConnection().prepareStatement("SELECT id FROM products").executeQuery();
+		ProductsModel model = new ProductsModel();
+			while (result.next()) {
+				Product product = new Product(result.getInt("id"));
+			
+				model.addRow(product);
+			}
+			table.setModel(model);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

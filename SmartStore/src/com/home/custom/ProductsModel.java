@@ -82,7 +82,7 @@ public class ProductsModel extends AbstractTableModel {
 
     public Object getValueAt(int row, int column) {
     	
-    	if (column == 5) {
+    	/*if (column == 5) {
     		int codew = (Integer) data.get(row).get(5);
     		return Cities.getWilaya(codew);
     	}
@@ -91,7 +91,7 @@ public class ProductsModel extends AbstractTableModel {
     		int codew = (Integer) data.get(row).get(5);
     		int codec = (Integer) data.get(row).get(6);
     		return Cities.getCity(codew, codec);
-    	}
+    	}*/
     		
     	return data.get(row).get(column);
     }
